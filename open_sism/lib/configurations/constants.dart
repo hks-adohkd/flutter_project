@@ -21,3 +21,10 @@ const kAppBarTextStyle = TextStyle(
 const kYoutubeCardColor = Colors.black45;
 const kWatchVideoCardColor = Color(0xFF90AF17);
 const kQuestionnaireCardColor = Color(0xFF2DBBD8);
+
+enum ScreenType {
+  task,
+  prize,
+}
+
+const kGooglePlayCardColor = Color(0xFF2DBBD8);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/size_config.dart';
-import 'package:open_sism/configurations/RecipeBundel.dart';
+import 'package:open_sism/configurations/prizeBundel.dart';
 import 'package:open_sism/components/card_component.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/components/appBar.dart';
@@ -55,7 +55,7 @@ class _RewardScreenState extends State<RewardScreen> {
                     padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.defaultSize * 2),
                     child: GridView.builder(
-                      itemCount: recipeBundles.length,
+                      itemCount: prizeBundles.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount:
                             SizeConfig.orientation == Orientation.landscape
@@ -69,7 +69,8 @@ class _RewardScreenState extends State<RewardScreen> {
                         childAspectRatio: 1.65,
                       ),
                       itemBuilder: (context, index) => RecipeBundelCard(
-                        recipeBundle: recipeBundles[index],
+                        selectedGender: ScreenType.prize,
+                        recipeBundle: prizeBundles[index],
                         press: () {},
                       ),
                     ),

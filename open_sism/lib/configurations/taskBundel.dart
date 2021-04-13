@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/constants.dart';
 
-class RecipeBundle {
+class TaskBundle {
   final int id, person, hours, points;
   final String title, description, imageSrc;
   final Color color;
 
-  RecipeBundle(
+  TaskBundle(
       {this.id,
       this.person,
       this.hours,
@@ -18,8 +18,8 @@ class RecipeBundle {
 }
 
 // Demo list
-List<RecipeBundle> recipeBundles = [
-  RecipeBundle(
+List<TaskBundle> recipeBundles = [
+  TaskBundle(
     id: 1,
     person: 16,
     hours: 95,
@@ -29,7 +29,7 @@ List<RecipeBundle> recipeBundles = [
     imageSrc: "assets/images/youtubeTask.png",
     color: kYoutubeCardColor, //Color(0xFFD82D40),
   ),
-  RecipeBundle(
+  TaskBundle(
     id: 2,
     person: 1000,
     hours: 48,
@@ -39,7 +39,7 @@ List<RecipeBundle> recipeBundles = [
     imageSrc: "assets/images/watchVideo2.png",
     color: kWatchVideoCardColor,
   ),
-  RecipeBundle(
+  TaskBundle(
     id: 3,
     person: 5000,
     hours: 43,
@@ -49,7 +49,7 @@ List<RecipeBundle> recipeBundles = [
     imageSrc: "assets/images/question.png",
     color: kQuestionnaireCardColor,
   ),
-  RecipeBundle(
+  TaskBundle(
     id: 4,
     person: 1000,
     hours: 48,

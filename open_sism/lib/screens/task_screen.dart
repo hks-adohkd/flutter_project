@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/size_config.dart';
-import 'package:open_sism/configurations/RecipeBundel.dart';
+import 'package:open_sism/configurations/taskBundel.dart';
 import 'package:open_sism/components/card_component.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/components/appBar.dart';
@@ -69,6 +69,7 @@ class _TaskScreenState extends State<TaskScreen> {
                         childAspectRatio: 1.65,
                       ),
                       itemBuilder: (context, index) => RecipeBundelCard(
+                        selectedGender: ScreenType.task,
                         recipeBundle: recipeBundles[index],
                         press: () {},
                       ),
