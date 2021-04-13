@@ -4,8 +4,8 @@ import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/configurations/prizeBundel.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'package:open_sism/components/card_component.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:open_sism/components/alert_widget.dart';
+import 'package:commons/commons.dart';
 
 class RedeemScreen extends StatefulWidget {
   final PrizeBundle prizeBundle;
@@ -23,10 +23,21 @@ bool scrollBarShown() {
 
 class _RedeemScreenState extends State<RedeemScreen> {
   bool scrollShown;
-
+  var result;
   AlertWidget redeemAlert = AlertWidget();
 
-  void redeemResult() {}
+  redeemResult(bool result) {
+    if (result) {
+      return successDialog(
+        context,
+        "Success message",
+        // negativeText: "Try Again",
+        // negativeAction: () {},
+        // positiveText: "Details",
+        // positiveAction: () {},
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,12 +120,13 @@ class _RedeemScreenState extends State<RedeemScreen> {
                               SizedBox(height: 20),
                               ElevatedButton(
                                 onPressed: () async {
-                                  var result =
+                                  result =
                                       await redeemAlert.onAlertButtonsPressed(
                                     context,
                                     "Redeem ALERT",
                                     "Are you sure to redeem this Reward",
                                   );
+                                  redeemResult(result);
                                   print(result);
                                 },
                                 child: Text('Redeem Reward'),
