@@ -4,6 +4,8 @@ import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/configurations/prizeBundel.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'package:open_sism/components/card_component.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:open_sism/components/alert_widget.dart';
 
 class RedeemScreen extends StatefulWidget {
   final PrizeBundle prizeBundle;
@@ -21,6 +23,11 @@ bool scrollBarShown() {
 
 class _RedeemScreenState extends State<RedeemScreen> {
   bool scrollShown;
+
+  AlertWidget redeemAlert = AlertWidget();
+
+  void redeemResult() {}
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -101,7 +108,15 @@ class _RedeemScreenState extends State<RedeemScreen> {
                                   'this is a gift card for google play this is a gift card for google play'),
                               SizedBox(height: 20),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  var result =
+                                      await redeemAlert.onAlertButtonsPressed(
+                                    context,
+                                    "Redeem ALERT",
+                                    "Are you sure to redeem this Reward",
+                                  );
+                                  print(result);
+                                },
                                 child: Text('Redeem Reward'),
                               ),
                             ],
