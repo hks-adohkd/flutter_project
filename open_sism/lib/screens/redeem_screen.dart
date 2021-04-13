@@ -1,31 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/configurations/size_config.dart';
-import 'package:open_sism/configurations/prizeBundel.dart';
-import 'package:open_sism/components/card_component.dart';
-import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/components/appBar.dart';
-import 'redeem_screen.dart';
+import 'package:open_sism/configurations/constants.dart';
+import 'package:open_sism/configurations/prizeBundel.dart';
+import 'package:open_sism/configurations/size_config.dart';
+import 'package:open_sism/components/card_component.dart';
 
-class RewardScreen extends StatefulWidget {
+class RedeemScreen extends StatefulWidget {
+  final PrizeBundle prizeBundle;
+  RedeemScreen({@required this.prizeBundle});
   @override
-  _RewardScreenState createState() => _RewardScreenState();
+  _RedeemScreenState createState() => _RedeemScreenState();
 }
 
-class _RewardScreenState extends State<RewardScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
+class _RedeemScreenState extends State<RedeemScreen> {
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context); // to get the screen size
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: kAppBarHeight,
         child: ReusableAppBar(
-          appBarTitle: 'Rewards',
+          appBarTitle: 'Redeem',
+          leadingIcon: Icons.arrow_back_ios,
         ),
       ),
       body: SafeArea(
@@ -43,7 +38,7 @@ class _RewardScreenState extends State<RewardScreen> {
             ),
             border: Border.all(style: BorderStyle.solid, color: Colors.black),
           ),
-          constraints: BoxConstraints.expand(),
+          //constraints: BoxConstraints.expand(),
           child: SafeArea(
             child: Column(
               children: <Widget>[
@@ -56,39 +51,31 @@ class _RewardScreenState extends State<RewardScreen> {
                     padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.defaultSize * 2),
                     child: GridView.builder(
-                      itemCount: prizeBundles.length,
+                      itemCount: 1,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount:
                             SizeConfig.orientation == Orientation.landscape
-                                ? 2
+                                ? 1
                                 : 1,
                         mainAxisSpacing: 20,
                         crossAxisSpacing:
                             SizeConfig.orientation == Orientation.landscape
-                                ? SizeConfig.defaultSize * 2
+                                ? SizeConfig.defaultSize * 1
                                 : 0,
                         childAspectRatio: 1.65,
                       ),
                       itemBuilder: (context, index) => RecipeBundelCard(
                         selectedGender: ScreenType.prize,
-                        recipeBundle: prizeBundles[index],
-                        press: () {
-                          setState(() {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return RedeemScreen(
-                                      prizeBundle: prizeBundles[index]);
-                                },
-                              ),
-                            );
-                          });
-                        },
+                        recipeBundle: widget.prizeBundle,
+                        press: () {},
                       ),
                     ),
                   ),
                 ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('hello'),
+                )
               ],
             ),
           ),

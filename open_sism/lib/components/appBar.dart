@@ -3,11 +3,14 @@ import 'package:open_sism/configurations/constants.dart';
 
 class ReusableAppBar extends StatelessWidget {
   final String appBarTitle;
-  ReusableAppBar({@required this.appBarTitle});
+  final IconData leadingIcon;
+  ReusableAppBar({@required this.appBarTitle, this.leadingIcon = Icons.home});
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: LeadingAppBarIcon(),
+      leading: LeadingAppBarIcon(
+        leadingIcon: leadingIcon,
+      ),
       elevation: 5.0,
       backgroundColor: kAppBarBackgroundColor,
       centerTitle: true,
@@ -25,16 +28,18 @@ class ReusableAppBar extends StatelessWidget {
 }
 
 class LeadingAppBarIcon extends StatelessWidget {
+  final IconData leadingIcon;
+  LeadingAppBarIcon({this.leadingIcon});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/');
+        Navigator.pop(context);
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 10.0, top: 8.0),
         child: Icon(
-          Icons.home,
+          leadingIcon,
           color: kAppBarLeadingIconColor,
           size: kAppBarLeadingIconSize, // add custom icons also
         ),
