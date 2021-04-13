@@ -17,3 +17,5 @@ const kAppBarTextStyle = TextStyle(
   fontFamily: 'Pacifico',
   fontWeight: FontWeight.bold,
 );
+
+const kYoutubeCardColor = Colors.black45;

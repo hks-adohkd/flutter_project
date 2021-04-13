@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/models/constants.dart';
 
 class RecipeBundle {
   final int id, person, hours, points;
@@ -25,8 +26,8 @@ List<RecipeBundle> recipeBundles = [
     points: 100,
     title: "Youtube",
     description: "Subscribe to youtube channel",
-    imageSrc: "assets/images/cook_new@2x.png",
-    color: Color(0xFFD82D40),
+    imageSrc: "assets/images/youtubeTask.png",
+    color: kYoutubeCardColor, //Color(0xFFD82D40),
   ),
   RecipeBundle(
     id: 2,
@@ -35,7 +36,7 @@ List<RecipeBundle> recipeBundles = [
     points: 200,
     title: "Watch Video",
     description: "watch full video to get reward",
-    imageSrc: "assets/images/best_2020@2x.png",
+    imageSrc: "assets/images/watchVideo2.png",
     color: Color(0xFF90AF17),
   ),
   RecipeBundle(
@@ -45,7 +46,7 @@ List<RecipeBundle> recipeBundles = [
     points: 1000,
     title: "Questionnaire",
     description: "respond to questions to get reward",
-    imageSrc: "assets/images/food_court@2x.png",
+    imageSrc: "assets/images/question.png",
     color: Color(0xFF2DBBD8),
   ),
 ];
