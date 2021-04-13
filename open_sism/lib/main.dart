@@ -86,7 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextButton(
+            ElevatedButton(
+              child: Text('Task Screen'),
               onPressed: () {
                 Navigator.push(
                   context,
