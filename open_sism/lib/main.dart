@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/screens/rewards_screen.dart';
 import 'package:open_sism/screens/task_screen.dart';
 
 void main() {
@@ -99,6 +100,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(
                     builder: (context) {
                       return TaskScreen();
+                    },
+                  ),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: Text('Reward Screen'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return RewardScreen();
                     },
                   ),
                 );

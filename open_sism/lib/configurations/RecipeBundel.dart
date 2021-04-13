@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/models/constants.dart';
+import 'package:open_sism/configurations/constants.dart';
 
 class RecipeBundle {
   final int id, person, hours, points;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/models/constants.dart';
-
-const String appBarTitle = "Task";
+import 'package:open_sism/configurations/constants.dart';
 
 class ReusableAppBar extends StatelessWidget {
+  final String appBarTitle;
+  ReusableAppBar({@required this.appBarTitle});
   @override
   Widget build(BuildContext context) {
     return AppBar(

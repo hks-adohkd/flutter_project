@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/models/RecipeBundel.dart';
-import 'package:open_sism/models/size_config.dart';
+import 'package:open_sism/configurations/RecipeBundel.dart';
+import 'package:open_sism/configurations/size_config.dart';
 
 class RecipeBundelCard extends StatelessWidget {
   final RecipeBundle recipeBundle;

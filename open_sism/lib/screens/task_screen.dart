@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/models/size_config.dart';
-import 'package:open_sism/models/RecipeBundel.dart';
+import 'package:open_sism/configurations/size_config.dart';
+import 'package:open_sism/configurations/RecipeBundel.dart';
 import 'package:open_sism/components/card_component.dart';
-import 'package:open_sism/models/constants.dart';
+import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/components/appBar.dart';
 
 class TaskScreen extends StatefulWidget {
@@ -23,7 +23,9 @@ class _TaskScreenState extends State<TaskScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: kAppBarHeight,
-        child: ReusableAppBar(),
+        child: ReusableAppBar(
+          appBarTitle: "Task",
+        ),
       ),
       body: SafeArea(
         child: Container(
