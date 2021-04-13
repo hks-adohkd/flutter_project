@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/components/categories.dart';
 import 'package:open_sism/models/size_config.dart';
 import 'package:open_sism/models/RecipeBundel.dart';
 import 'package:open_sism/components/card_component.dart';
+import 'package:open_sism/models/constants.dart';
+import 'package:open_sism/components/appBar.dart';
 
 class TaskScreen extends StatefulWidget {
   @override
@@ -20,32 +21,9 @@ class _TaskScreenState extends State<TaskScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {/* Write listener code here */},
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10.0, top: 15.0),
-            child: Icon(
-              Icons.home,
-              color: Color(0xff002984),
-              size: 30, // add custom icons also
-            ),
-          ),
-        ),
-        elevation: 5.0,
-        backgroundColor: Color(0xff005cb2),
-        centerTitle: true,
-        shape: Cuvedshape(50),
-        title: Container(
-            margin: EdgeInsets.only(top: 25),
-            child: Text("Task",
-                textAlign: TextAlign.end,
-                style: TextStyle(
-                    letterSpacing: 2,
-                    fontSize: 30,
-                    color: Colors.white,
-                    // fontFamily: Constants.FONT_ROBOTO,
-                    fontWeight: FontWeight.bold))),
+      appBar: PreferredSize(
+        preferredSize: kAppBarHeight,
+        child: ReusableAppBar(),
       ),
       body: SafeArea(
         child: Container(
@@ -100,20 +78,4 @@ class _TaskScreenState extends State<TaskScreen> {
       ),
     );
   }
-}
-
-// double tempreature = decodeData['main']['temp'];
-// int condition = decodeData['weather'][0]['id'];
-// String cityName = decodeData['name'];
-class Cuvedshape extends ContinuousRectangleBorder {
-  const Cuvedshape(this.curveheights);
-  final double curveheights;
-
-  @override
-  Path getOuterPath(Rect rect, {TextDirection textDirection}) => Path()
-    ..lineTo(0, rect.size.height)
-    ..quadraticBezierTo(rect.size.width / 2,
-        rect.size.height + curveheights * 2, rect.size.width, rect.size.height)
-    ..lineTo(rect.size.width, 0)
-    ..close();
 }
