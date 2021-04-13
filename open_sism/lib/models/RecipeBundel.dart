@@ -37,7 +37,7 @@ List<RecipeBundle> recipeBundles = [
     title: "Watch Video",
     description: "watch full video to get reward",
     imageSrc: "assets/images/watchVideo2.png",
-    color: Color(0xFF90AF17),
+    color: kWatchVideoCardColor,
   ),
   RecipeBundle(
     id: 3,
@@ -47,6 +47,16 @@ List<RecipeBundle> recipeBundles = [
     title: "Questionnaire",
     description: "respond to questions to get reward",
     imageSrc: "assets/images/question.png",
-    color: Color(0xFF2DBBD8),
+    color: kQuestionnaireCardColor,
+  ),
+  RecipeBundle(
+    id: 4,
+    person: 1000,
+    hours: 48,
+    points: 200,
+    title: "Watch Video",
+    description: "watch full video to get reward",
+    imageSrc: "assets/images/watchVideo2.png",
+    color: kWatchVideoCardColor,
   ),
 ];

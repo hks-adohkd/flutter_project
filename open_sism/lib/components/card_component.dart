@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:open_sism/models/RecipeBundel.dart';
 import 'package:open_sism/models/size_config.dart';
 
@@ -25,48 +24,8 @@ class RecipeBundelCard extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(defaultSize * 2), //20
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Spacer(),
-                    Text(
-                      recipeBundle.title,
-                      style: TextStyle(
-                          fontSize: defaultSize * 2.5, //22
-                          color: Colors.white),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: defaultSize * 0.5), // 5
-                    Text(
-                      recipeBundle.description,
-                      style: TextStyle(color: Colors.white),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Spacer(),
-                    buildInfoRow(
-                      defaultSize,
-                      iconSrc: "assets/icons/pot.svg",
-                      iconData: Icons.alarm,
-                      text: "${recipeBundle.hours} hours",
-                    ),
-                    SizedBox(height: defaultSize * 0.5), //5
-                    buildInfoRow(
-                      defaultSize,
-                      iconData: Icons.face,
-                      iconSrc: "assets/icons/chef.svg",
-                      text: "${recipeBundle.person} Person",
-                    ),
-                    SizedBox(height: defaultSize * 0.5),
-                    buildInfoRow(
-                      defaultSize,
-                      iconData: Icons.star,
-                      iconSrc: "assets/icons/chef.svg",
-                      text: "${recipeBundle.points} Points",
-                    ),
-                  ],
-                ),
+                child: cardInfoDesign(
+                    defaultSize), // this method implemented in bottom
               ),
             ),
             SizedBox(width: defaultSize * 0.5), //5
@@ -81,6 +40,51 @@ class RecipeBundelCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Column cardInfoDesign(double defaultSize) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Spacer(),
+        Text(
+          recipeBundle.title,
+          style: TextStyle(
+              fontSize: defaultSize * 2.5, //22
+              color: Colors.white),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+        SizedBox(height: defaultSize * 0.5), // 5
+        Text(
+          recipeBundle.description,
+          style: TextStyle(color: Colors.white),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+        Spacer(),
+        buildInfoRow(
+          defaultSize,
+          iconSrc: "assets/icons/pot.svg",
+          iconData: Icons.alarm,
+          text: "${recipeBundle.hours} hours",
+        ),
+        SizedBox(height: defaultSize * 0.5), //5
+        buildInfoRow(
+          defaultSize,
+          iconData: Icons.face,
+          iconSrc: "assets/icons/chef.svg",
+          text: "${recipeBundle.person} Person",
+        ),
+        SizedBox(height: defaultSize * 0.5),
+        buildInfoRow(
+          defaultSize,
+          iconData: Icons.star,
+          iconSrc: "assets/icons/chef.svg",
+          text: "${recipeBundle.points} Points",
+        ),
+      ],
     );
   }
 

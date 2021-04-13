@@ -6,9 +6,9 @@ const kTextLigntColor = Color(0xFF7286A5);
 
 const kAppBarHeight = Size.fromHeight(50);
 const kAppBarLeadingIconSize = 40.0;
-const kAppBarBackgroundColor = Color(0xff005cb2);
+const kAppBarBackgroundColor = Color(0xff512DA8);
 const kAppBarLeadingIconColor = Colors.white; //Color(0xff002984);
-const kAppBarTitleColor = Colors.white60;
+const kAppBarTitleColor = Color(0xffD1C4E9);
 
 const kAppBarTextStyle = TextStyle(
   letterSpacing: 2,
@@ -19,3 +19,5 @@ const kAppBarTextStyle = TextStyle(
 );
 
 const kYoutubeCardColor = Colors.black45;
+const kWatchVideoCardColor = Color(0xFF90AF17);
+const kQuestionnaireCardColor = Color(0xFF2DBBD8);
