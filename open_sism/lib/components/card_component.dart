@@ -35,7 +35,7 @@ class RecipeBundelCard extends StatelessWidget {
                         defaultSize), // this method implemented in bottom
               ),
             ),
-            SizedBox(width: defaultSize * 0.5), //5
+            SizedBox(width: defaultSize * 0.1), //5
             AspectRatio(
               aspectRatio: 0.71,
               child: Image.asset(
@@ -50,90 +50,103 @@ class RecipeBundelCard extends StatelessWidget {
     );
   }
 
-  Column cardTaskDesign(double defaultSize) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Spacer(),
-        Text(
-          recipeBundle.title,
-          style: TextStyle(
-              fontSize: defaultSize * 2.5, //22
-              color: Colors.white),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
+  SingleChildScrollView cardTaskDesign(double defaultSize) {
+    return SingleChildScrollView(
+      child: Container(
+        //alignment: Alignment.centerLeft,
+        height: 200,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          //mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            //Spacer(),
+            Text(
+              recipeBundle.title,
+              style: TextStyle(
+                  fontSize: defaultSize * 2.0, //22
+                  color: Colors.white),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(height: defaultSize * 0.5), // 5
+            Text(
+              recipeBundle.description,
+              style: TextStyle(color: Colors.white),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(height: defaultSize * 0.5),
+            buildInfoRow(
+              defaultSize,
+              iconSrc: "assets/icons/pot.svg",
+              iconData: Icons.alarm,
+              text: "${recipeBundle.hours} hours",
+            ),
+            SizedBox(height: defaultSize * 0.5), //5
+            buildInfoRow(
+              defaultSize,
+              iconData: Icons.face,
+              iconSrc: "assets/icons/chef.svg",
+              text: "${recipeBundle.person} Person",
+            ),
+            SizedBox(height: defaultSize * 0.5),
+            buildInfoRow(
+              defaultSize,
+              iconData: Icons.star,
+              iconSrc: "assets/icons/chef.svg",
+              text: "${recipeBundle.points} Points",
+            ),
+          ],
         ),
-        SizedBox(height: defaultSize * 0.5), // 5
-        Text(
-          recipeBundle.description,
-          style: TextStyle(color: Colors.white),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-        Spacer(),
-        buildInfoRow(
-          defaultSize,
-          iconSrc: "assets/icons/pot.svg",
-          iconData: Icons.alarm,
-          text: "${recipeBundle.hours} hours",
-        ),
-        SizedBox(height: defaultSize * 0.5), //5
-        buildInfoRow(
-          defaultSize,
-          iconData: Icons.face,
-          iconSrc: "assets/icons/chef.svg",
-          text: "${recipeBundle.person} Person",
-        ),
-        SizedBox(height: defaultSize * 0.5),
-        buildInfoRow(
-          defaultSize,
-          iconData: Icons.star,
-          iconSrc: "assets/icons/chef.svg",
-          text: "${recipeBundle.points} Points",
-        ),
-      ],
+      ),
     );
   }
 
-  Column cardPrizeDesign(double defaultSize) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          recipeBundle.title,
-          style: TextStyle(
-              fontSize: defaultSize * 2.5, //22
-              color: Colors.white),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-        SizedBox(height: defaultSize * 2.5), // 5
-        Text(
-          recipeBundle.description,
-          style: TextStyle(color: Colors.white),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-        SizedBox(height: defaultSize * 2.5),
-        buildInfoRow(
-          defaultSize,
-          iconData: Icons.star,
-          text: "${recipeBundle.points} Points",
-        ),
-        SizedBox(height: defaultSize * 0.2), //5
-        Expanded(
-          child: Center(
-            child: Text(
-              recipeBundle.value,
+  SingleChildScrollView cardPrizeDesign(double defaultSize) {
+    return SingleChildScrollView(
+      child: Container(
+        height: 200,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          //mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              recipeBundle.title,
               style: TextStyle(
-                fontSize: defaultSize * 3, //22
-                color: Color(0xFF512DA8),
-                fontWeight: FontWeight.bold,
-              ),
+                  fontSize: defaultSize * 2.5, //22
+                  color: Colors.white),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
-          ),
-        )
-      ],
+            SizedBox(height: defaultSize * 1.5), // 5
+            Text(
+              recipeBundle.description,
+              style: TextStyle(color: Colors.white),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(height: defaultSize * 1.5),
+            buildInfoRow(
+              defaultSize,
+              iconData: Icons.star,
+              text: "${recipeBundle.points} Points",
+            ),
+            SizedBox(height: defaultSize * 1.2), //5
+            Center(
+              child: Text(
+                recipeBundle.value,
+                style: TextStyle(
+                  fontSize: defaultSize * 2.5, //22
+                  color: Color(0xFF512DA8),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
