@@ -32,8 +32,8 @@ List<PrizeBundle> prizeBundles = [
     points: 1000,
     title: "Syriatel Units",
     description: "100 Syriatel units will be delivered to your phone",
-    imageSrc: "assets/images/watchVideo2.png",
-    color: kWatchVideoCardColor,
+    imageSrc: "assets/images/mobileUnit.png",
+    color: kSyriatelCardColor,
   ),
   PrizeBundle(
     id: 3,
@@ -41,7 +41,7 @@ List<PrizeBundle> prizeBundles = [
     points: 1000,
     title: "MTN Units",
     description: "100 MTN units will be delivered to your phone",
-    imageSrc: "assets/images/watchVideo2.png",
-    color: kQuestionnaireCardColor,
+    imageSrc: "assets/images/mobileUnit.png",
+    color: kMtnCardColor,
   ),
 ];

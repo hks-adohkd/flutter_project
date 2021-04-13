@@ -126,8 +126,10 @@ class RecipeBundelCard extends StatelessWidget {
             child: Text(
               recipeBundle.value,
               style: TextStyle(
-                  fontSize: defaultSize * 3, //22
-                  color: Colors.red),
+                fontSize: defaultSize * 3, //22
+                color: Color(0xFF512DA8),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         )
@@ -141,14 +143,19 @@ class RecipeBundelCard extends StatelessWidget {
       children: <Widget>[
         Icon(
           iconData,
-          color: Colors.white,
+          color: selectedGender == ScreenType.task
+              ? Colors.white
+              : Color(0xFF212121),
         ),
         //SvgPicture.asset(iconSrc),
         SizedBox(width: defaultSize), // 10
         Text(
           text,
           style: TextStyle(
-            color: Colors.white,
+            color: selectedGender == ScreenType.task
+                ? Colors.white
+                : Color(0xFF212121),
+            fontWeight: FontWeight.bold,
           ),
         )
       ],
