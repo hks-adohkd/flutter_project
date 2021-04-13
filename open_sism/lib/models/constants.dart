@@ -12,6 +12,6 @@ const kAppBarTextStyle = TextStyle(
   letterSpacing: 2,
   fontSize: 30,
   color: kAppBarTitleColor,
-  //fontFamily: ,
+  fontFamily: 'Pacifico',
   fontWeight: FontWeight.bold,
 );
