@@ -4,6 +4,7 @@ import 'package:open_sism/configurations/taskBundel.dart';
 import 'package:open_sism/components/card_component.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/components/appBar.dart';
+import 'task_info_screen.dart';
 
 class TaskScreen extends StatefulWidget {
   @override
@@ -71,7 +72,19 @@ class _TaskScreenState extends State<TaskScreen> {
                       itemBuilder: (context, index) => RecipeBundelCard(
                         selectedGender: ScreenType.task,
                         recipeBundle: recipeBundles[index],
-                        press: () {},
+                        press: () {
+                          setState(() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return TaskInfoScreen(
+                                      taskBundle: recipeBundles[index]);
+                                },
+                              ),
+                            );
+                          });
+                        },
                       ),
                     ),
                   ),

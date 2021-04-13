@@ -73,17 +73,19 @@ class _RewardScreenState extends State<RewardScreen> {
                         selectedGender: ScreenType.prize,
                         recipeBundle: prizeBundles[index],
                         press: () {
-                          setState(() {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return RedeemScreen(
-                                      prizeBundle: prizeBundles[index]);
-                                },
-                              ),
-                            );
-                          });
+                          setState(
+                            () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return RedeemScreen(
+                                        prizeBundle: prizeBundles[index]);
+                                  },
+                                ),
+                              );
+                            },
+                          );
                         },
                       ),
                     ),
