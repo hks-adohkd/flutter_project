@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:open_sism/models/RecipeBundel.dart';
-
 import 'package:open_sism/models/size_config.dart';
 
 class RecipeBundelCard extends StatelessWidget {
@@ -33,7 +32,7 @@ class RecipeBundelCard extends StatelessWidget {
                     Text(
                       recipeBundle.title,
                       style: TextStyle(
-                          fontSize: defaultSize * 2.2, //22
+                          fontSize: defaultSize * 2.5, //22
                           color: Colors.white),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -41,7 +40,7 @@ class RecipeBundelCard extends StatelessWidget {
                     SizedBox(height: defaultSize * 0.5), // 5
                     Text(
                       recipeBundle.description,
-                      style: TextStyle(color: Colors.white54),
+                      style: TextStyle(color: Colors.white),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -49,15 +48,23 @@ class RecipeBundelCard extends StatelessWidget {
                     buildInfoRow(
                       defaultSize,
                       iconSrc: "assets/icons/pot.svg",
-                      text: "${recipeBundle.recipes} Recipes",
+                      iconData: Icons.alarm,
+                      text: "${recipeBundle.hours} hours",
                     ),
                     SizedBox(height: defaultSize * 0.5), //5
                     buildInfoRow(
                       defaultSize,
+                      iconData: Icons.face,
                       iconSrc: "assets/icons/chef.svg",
-                      text: "${recipeBundle.chefs} Chefs",
+                      text: "${recipeBundle.person} Person",
                     ),
-                    Spacer(),
+                    SizedBox(height: defaultSize * 0.5),
+                    buildInfoRow(
+                      defaultSize,
+                      iconData: Icons.star,
+                      iconSrc: "assets/icons/chef.svg",
+                      text: "${recipeBundle.points} Points",
+                    ),
                   ],
                 ),
               ),
@@ -77,10 +84,15 @@ class RecipeBundelCard extends StatelessWidget {
     );
   }
 
-  Row buildInfoRow(double defaultSize, {String iconSrc, text}) {
+  Row buildInfoRow(double defaultSize,
+      {String iconSrc, text, IconData iconData}) {
     return Row(
       children: <Widget>[
-        SvgPicture.asset(iconSrc),
+        Icon(
+          iconData,
+          color: Colors.white,
+        ),
+        //SvgPicture.asset(iconSrc),
         SizedBox(width: defaultSize), // 10
         Text(
           text,

@@ -19,7 +19,7 @@ class _TaskScreenState extends State<TaskScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    SizeConfig().init(context); // to get the screen size
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: kAppBarHeight,
@@ -28,16 +28,16 @@ class _TaskScreenState extends State<TaskScreen> {
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  Color(0xff002171),
-                  Color(0xff8bf6ff),
-                ],
-              ),
-              border:
-                  Border.all(style: BorderStyle.solid, color: Colors.black)),
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Color(0xff002171),
+                Color(0xff8bf6ff),
+              ],
+            ),
+            border: Border.all(style: BorderStyle.solid, color: Colors.black),
+          ),
           constraints: BoxConstraints.expand(),
           child: SafeArea(
             child: Column(
