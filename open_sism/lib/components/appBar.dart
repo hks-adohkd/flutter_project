@@ -7,17 +7,7 @@ class ReusableAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: GestureDetector(
-        onTap: () {/* Write listener code here */},
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10.0, top: 15.0),
-          child: Icon(
-            Icons.home,
-            color: kAppBarLeadingIconColor,
-            size: 30, // add custom icons also
-          ),
-        ),
-      ),
+      leading: LeadingAppBarIcon(),
       elevation: 5.0,
       backgroundColor: kAppBarBackgroundColor,
       centerTitle: true,
@@ -28,6 +18,25 @@ class ReusableAppBar extends StatelessWidget {
           appBarTitle,
           textAlign: TextAlign.end,
           style: kAppBarTextStyle,
+        ),
+      ),
+    );
+  }
+}
+
+class LeadingAppBarIcon extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/');
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0, top: 8.0),
+        child: Icon(
+          Icons.home,
+          color: kAppBarLeadingIconColor,
+          size: kAppBarLeadingIconSize, // add custom icons also
         ),
       ),
     );
