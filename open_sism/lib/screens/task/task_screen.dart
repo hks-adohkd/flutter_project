@@ -5,6 +5,7 @@ import 'package:open_sism/components/card_component.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/components/appBar.dart';
 import 'task_info_screen.dart';
+import 'detailedTask_screen.dart';
 
 class TaskScreen extends StatefulWidget {
   @override
@@ -34,12 +35,7 @@ class _TaskScreenState extends State<TaskScreen> {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [
-                // Color(0xff002171),
-                // Color(0xff8bf6ff),
-                Color(0xff512DA8),
-                Color(0xff536DFE),
-              ],
+              colors: kGradiantsPrimaryColor,
             ),
             border: Border.all(style: BorderStyle.solid, color: Colors.black),
           ),
@@ -78,8 +74,8 @@ class _TaskScreenState extends State<TaskScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return TaskInfoScreen(
-                                      taskBundle: recipeBundles[index]);
+                                  return DetailsScreen(
+                                      product: recipeBundles[index]);
                                 },
                               ),
                             );
