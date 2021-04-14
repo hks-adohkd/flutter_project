@@ -4,6 +4,11 @@ const kPrimaryColor = Color(0xFF84AB5C);
 const kTextColor = Color(0xFF202E2E);
 const kTextLigntColor = Color(0xFF7286A5);
 
+const kGradiantPrimaryColor = [
+  Color(0xff512DA8),
+  Color(0xff536DFE),
+];
+
 const kAppBarHeight = Size.fromHeight(50);
 const kAppBarLeadingIconSize = 40.0;
 const kAppBarBackgroundColor = Color(0xff512DA8);

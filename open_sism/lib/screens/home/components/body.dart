@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'categories.dart';
 import 'discount_banner.dart';
@@ -19,12 +20,7 @@ class Body extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
-            colors: [
-              // Color(0xff002171),
-              // Color(0xff8bf6ff),
-              Color(0xff512DA8),
-              Color(0xff536DFE),
-            ],
+            colors: kGradiantPrimaryColor,
           ),
           border: Border.all(style: BorderStyle.solid, color: Colors.black),
         ),
@@ -34,6 +30,7 @@ class Body extends StatelessWidget {
             children: [
               SizedBox(height: getProportionateScreenHeight(40)),
               SpecialOffers(),
+              SizedBox(height: getProportionateScreenHeight(20)),
               DiscountBanner(isShown: true),
               Categories(),
               SizedBox(height: getProportionateScreenWidth(30)),
