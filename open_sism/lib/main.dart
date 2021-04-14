@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/screens/rewards_screen.dart';
 import 'package:open_sism/screens/task_screen.dart';
 import 'package:open_sism/screens/home/home_screen.dart';
+import 'package:open_sism/screens/rewards_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
         '/taskScreen': (context) => TaskScreen(),
+        '/prizeScreen': (context) => RewardScreen(),
       },
     );
   }

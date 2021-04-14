@@ -15,6 +15,12 @@ class Categories extends StatelessWidget {
       {"icon": "assets/icons/more.svg", "text": "More"},
     ];
 
+    List<String> routeList = [
+      '/taskScreen',
+      '/gameScreen',
+      '/prizeScreen',
+    ];
+
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
       child: SingleChildScrollView(
@@ -31,7 +37,9 @@ class Categories extends StatelessWidget {
                   child: CategoryCard(
                     icon: categoriesFirst[index]["icon"],
                     text: categoriesFirst[index]["text"],
-                    press: () {},
+                    press: () {
+                      Navigator.pushNamed(context, routeList[index]);
+                    },
                   ),
                 ),
               ),
