@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/size_config.dart';
-
-//import 'categories.dart';
-//import 'discount_banner.dart';
+import 'categories.dart';
+import 'discount_banner.dart';
 //import 'home_header.dart';
 //import 'popular_product.dart';
 import 'special_offers.dart';
 
 class Body extends StatelessWidget {
+  bool discountBannerShow;
+
   @override
   Widget build(BuildContext context) {
+    discountBannerShow = true;
     SizeConfig().init(context);
     return SafeArea(
       child: Container(
@@ -32,6 +34,8 @@ class Body extends StatelessWidget {
             children: [
               SizedBox(height: getProportionateScreenHeight(40)),
               SpecialOffers(),
+              DiscountBanner(isShown: true),
+              Categories(),
               SizedBox(height: getProportionateScreenWidth(30)),
             ],
           ),
