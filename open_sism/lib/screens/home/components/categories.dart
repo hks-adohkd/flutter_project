@@ -7,7 +7,7 @@ class Categories extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categoriesFirst = [
       {"icon": "assets/icons/task.svg", "text": "Task"},
-      {"icon": "assets/icons/game.svg", "text": "Game"},
+      {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
       {"icon": "assets/icons/prize.svg", "text": "Reward"},
       {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
       {"icon": "assets/icons/activity.svg", "text": "activity"},
