@@ -26,6 +26,7 @@ enum ScreenType {
   task,
   prize,
 }
+enum MenuState { home, activity, game, profile, Task, rewards, more }
 
 const kGooglePlayCardColor = Color(0xFF2DBBD8);
 const kSyriatelCardColor = Color(0xFFD82D40);

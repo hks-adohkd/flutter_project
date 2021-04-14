@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/screens/rewards_screen.dart';
 import 'package:open_sism/screens/task_screen.dart';
+import 'package:open_sism/screens/home/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -113,6 +114,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(
                     builder: (context) {
                       return RewardScreen();
+                    },
+                  ),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: Text('Home Screen'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return HomeScreen();
                     },
                   ),
                 );

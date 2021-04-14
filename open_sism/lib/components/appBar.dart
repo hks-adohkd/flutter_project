@@ -16,7 +16,7 @@ class ReusableAppBar extends StatelessWidget {
       centerTitle: true,
       shape: Cuvedshape(20),
       title: Container(
-        margin: EdgeInsets.only(top: 25),
+        margin: EdgeInsets.only(top: 15),
         child: Text(
           appBarTitle,
           textAlign: TextAlign.end,
