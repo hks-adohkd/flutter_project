@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-//import 'package:shop_app/components/coustom_bottom_nav_bar.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/home/components/body.dart';
 import 'package:open_sism/components/appBar.dart';
-import 'package:open_sism/configurations/size_config.dart';
 
 class HomeScreen extends StatelessWidget {
   static String routeName = "/home";

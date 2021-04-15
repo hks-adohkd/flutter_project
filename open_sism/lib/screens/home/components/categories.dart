@@ -19,6 +19,10 @@ class Categories extends StatelessWidget {
       '/taskScreen',
       '/gameScreen',
       '/prizeScreen',
+      '/giftScreen',
+      '/activityScreen',
+      '/profileScreen',
+      '/moreScreen',
     ];
 
     return Padding(
