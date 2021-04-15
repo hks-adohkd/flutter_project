@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/components/appBar.dart';
 import 'package:open_sism/configurations/constants.dart';
-import 'file:///E:/AndroidApp/opensism/open_sism/lib/screens/task/components/taskBundel.dart';
+import 'package:open_sism/screens/task/components/taskBundel.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'package:open_sism/components/card_component.dart';
 import 'package:open_sism/components/alert_widget.dart';

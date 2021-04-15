@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'file:///E:/AndroidApp/opensism/open_sism/lib/screens/task/components/taskBundel.dart';
+import 'package:open_sism/screens/task/components/taskBundel.dart';
 import 'package:open_sism/components/alert_widget.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
