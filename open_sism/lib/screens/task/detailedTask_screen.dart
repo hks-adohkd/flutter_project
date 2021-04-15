@@ -4,8 +4,8 @@ import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/configurations/taskBundel.dart';
 import 'package:open_sism/screens/task/components/body.dart';
 import 'package:open_sism/components/appBar.dart';
-import 'package:open_sism/configurations/size_config.dart';
-import 'package:open_sism/screens/task/components/add_to_cart.dart';
+
+import 'package:open_sism/screens/task/components/start_task_with_alert.dart';
 
 class DetailsScreen extends StatelessWidget {
   final TaskBundle product;
@@ -23,10 +23,11 @@ class DetailsScreen extends StatelessWidget {
         ),
       ),
       body: Body(product: product),
-      bottomNavigationBar: AddToCart(product: product),
+      bottomNavigationBar: StartTaskAlertButton(product: product),
     );
   }
 
+  // not used in this version
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: product.color,
