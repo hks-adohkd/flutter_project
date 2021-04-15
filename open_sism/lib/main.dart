@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/screens/home/home_screen.dart';
+import 'package:open_sism/screens/login/login_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
 import 'package:open_sism/screens/task/task_screen.dart';
 import 'package:open_sism/screens/reward/rewards_screen.dart';
@@ -104,6 +105,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(
                     builder: (context) {
                       return HomeScreen();
+                    },
+                  ),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: Text('Sign in'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LoginScreen();
                     },
                   ),
                 );
