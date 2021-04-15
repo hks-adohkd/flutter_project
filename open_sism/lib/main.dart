@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/screens/rewards_screen.dart';
-import 'package:open_sism/screens/task_screen.dart';
+import 'package:open_sism/screens/home/home_screen.dart';
+import 'package:open_sism/screens/profile/profile_screen.dart';
+import 'package:open_sism/screens/task/task_screen.dart';
+import 'package:open_sism/screens/reward/rewards_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +23,8 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
         '/taskScreen': (context) => TaskScreen(),
+        '/prizeScreen': (context) => RewardScreen(),
+        '/profileScreen': (context) => ProfileScreen(),
       },
     );
   }
@@ -93,26 +97,13 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-              child: Text('Task Screen'),
+              child: Text('Home Screen'),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return TaskScreen();
-                    },
-                  ),
-                );
-              },
-            ),
-            ElevatedButton(
-              child: Text('Reward Screen'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return RewardScreen();
+                      return HomeScreen();
                     },
                   ),
                 );

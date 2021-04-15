@@ -16,7 +16,7 @@ class ReusableAppBar extends StatelessWidget {
       centerTitle: true,
       shape: Cuvedshape(20),
       title: Container(
-        margin: EdgeInsets.only(top: 25),
+        margin: EdgeInsets.only(top: 15),
         child: Text(
           appBarTitle,
           textAlign: TextAlign.end,
@@ -34,6 +34,7 @@ class LeadingAppBarIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        // we shoud define route class and use here
         Navigator.pop(context);
       },
       child: Padding(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const kPrimaryColor = Color(0xFF84AB5C);
 const kTextColor = Color(0xFF202E2E);
-const kTextLigntColor = Color(0xFF7286A5);
+const kTextLightColor = Color(0xFF7286A5);
 
 const kAppBarHeight = Size.fromHeight(50);
 const kAppBarLeadingIconSize = 40.0;
@@ -26,7 +26,15 @@ enum ScreenType {
   task,
   prize,
 }
+enum MenuState { home, activity, game, profile, Task, rewards, more }
 
 const kGooglePlayCardColor = Color(0xFF2DBBD8);
 const kSyriatelCardColor = Color(0xFFD82D40);
 const kMtnCardColor = Color(0xFFFFA000);
+
+const kDefaultPaddin = 20.0;
+
+const kGradiantsPrimaryColor = [
+  Color(0xff512DA8),
+  Color(0xff536DFE),
+];

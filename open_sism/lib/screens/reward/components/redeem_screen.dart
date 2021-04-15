@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/components/appBar.dart';
 import 'package:open_sism/configurations/constants.dart';
-import 'package:open_sism/configurations/taskBundel.dart';
+import 'file:///E:/AndroidApp/opensism/open_sism/lib/screens/reward/components/prizeBundel.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'package:open_sism/components/card_component.dart';
 import 'package:open_sism/components/alert_widget.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
-class TaskInfoScreen extends StatefulWidget {
-  final TaskBundle taskBundle;
-  TaskInfoScreen({@required this.taskBundle});
+class RedeemScreen extends StatefulWidget {
+  final PrizeBundle prizeBundle;
+  RedeemScreen({@required this.prizeBundle});
   @override
-  _TaskInfoScreenState createState() => _TaskInfoScreenState();
+  _RedeemScreenState createState() => _RedeemScreenState();
 }
 
 bool scrollBarShown() {
@@ -21,10 +21,10 @@ bool scrollBarShown() {
     return false;
 }
 
-class _TaskInfoScreenState extends State<TaskInfoScreen> {
+class _RedeemScreenState extends State<RedeemScreen> {
   bool scrollShown;
   var result;
-  AlertWidget startTaskAlert = AlertWidget();
+  AlertWidget redeemAlert = AlertWidget();
 
   // return success dialog after redeemption accepted
   startTaskResultAweasom(bool result) {
@@ -35,9 +35,9 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
               headerAnimationLoop: false,
               dialogType: DialogType.SUCCES,
               title: 'Succes',
-              desc: 'Task started put your code here ',
+              desc: 'you have requested Prize successfully',
               btnOkOnPress: () {
-                //  debugPrint('OnClcik');
+                // debugPrint('OnClcik');
               },
               btnOkIcon: Icons.check_circle,
               onDissmissCallback: () {
@@ -56,7 +56,7 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
       appBar: PreferredSize(
         preferredSize: kAppBarHeight,
         child: ReusableAppBar(
-          appBarTitle: 'Task Information',
+          appBarTitle: 'Redeem',
           leadingIcon: Icons.arrow_back_ios,
         ),
       ),
@@ -117,8 +117,8 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
                                 ),
                                 itemBuilder: (context, index) =>
                                     RecipeBundelCard(
-                                  selectedGender: ScreenType.task,
-                                  recipeBundle: widget.taskBundle,
+                                  selectedGender: ScreenType.prize,
+                                  recipeBundle: widget.prizeBundle,
                                   press: () {},
                                 ),
                               ),
@@ -128,15 +128,16 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
                               SizedBox(height: 20),
                               ElevatedButton(
                                 onPressed: () async {
-                                  result = await startTaskAlert
-                                      .onAlertButtonsPressed(
+                                  result =
+                                      await redeemAlert.onAlertButtonsPressed(
                                     context,
-                                    "Start Task ALERT",
-                                    "Are you sure to start this Task",
+                                    "Redeem ALERT",
+                                    "Are you sure to redeem this Reward",
                                   );
                                   startTaskResultAweasom(result);
+                                  print(result);
                                 },
-                                child: Text('Start Task'),
+                                child: Text('Redeem Reward'),
                               ),
                             ],
                           ),
