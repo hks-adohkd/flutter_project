@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/size_config.dart';
-import 'package:open_sism/configurations/prizeBundel.dart';
+import 'file:///E:/AndroidApp/opensism/open_sism/lib/screens/reward/components/prizeBundel.dart';
 import 'package:open_sism/components/card_component.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/components/appBar.dart';
-import 'redeem_screen.dart';
+import 'components/redeem_screen.dart';
 
 class RewardScreen extends StatefulWidget {
   @override

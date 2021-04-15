@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:open_sism/configurations/constants.dart';
-import 'package:open_sism/configurations/taskBundel.dart';
+import 'file:///E:/AndroidApp/opensism/open_sism/lib/screens/task/components/taskBundel.dart';
 import 'package:open_sism/screens/task/components/body.dart';
 import 'package:open_sism/components/appBar.dart';
 

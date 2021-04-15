@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/configurations/taskBundel.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'package:open_sism/configurations/constants.dart';
 

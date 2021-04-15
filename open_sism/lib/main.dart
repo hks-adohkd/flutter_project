@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/screens/rewards_screen.dart';
-import 'file:///C:/Users/Yazbek/AndroidStudioProjects/opensism/open_sism/lib/screens/task/task_screen.dart';
 import 'package:open_sism/screens/home/home_screen.dart';
-import 'package:open_sism/screens/rewards_screen.dart';
+import 'package:open_sism/screens/task/task_screen.dart';
+import 'package:open_sism/screens/reward/rewards_screen.dart';
 
 void main() {
   runApp(MyApp());

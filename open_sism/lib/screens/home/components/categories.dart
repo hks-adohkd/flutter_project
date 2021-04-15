@@ -10,7 +10,7 @@ class Categories extends StatelessWidget {
       {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
       {"icon": "assets/icons/prize.svg", "text": "Reward"},
       {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
-      {"icon": "assets/icons/activity.svg", "text": "activity"},
+      {"icon": "assets/icons/star1.svg", "text": "activity"},
       {"icon": "assets/icons/profile.svg", "text": "Profile"},
       {"icon": "assets/icons/more.svg", "text": "More"},
     ];

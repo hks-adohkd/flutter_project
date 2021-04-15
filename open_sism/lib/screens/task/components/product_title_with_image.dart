@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/constants.dart';
-import 'package:open_sism/configurations/taskBundel.dart';
+import 'file:///E:/AndroidApp/opensism/open_sism/lib/screens/task/components/taskBundel.dart';
 import 'package:open_sism/configurations/size_config.dart';
 
 class ProductTitleWithImage extends StatelessWidget {
