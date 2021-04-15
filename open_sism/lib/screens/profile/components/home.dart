@@ -4,11 +4,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:open_sism/screens/profile/components/profile_constants.dart';
 import 'package:open_sism/screens/profile/components/profile_list_item.dart';
+import 'package:open_sism/configurations/size_config.dart';
+import "package:open_sism/screens/home/home_screen.dart";
 
 class HomeProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
+    SizeConfig().init(context);
+    //ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
+    ScreenUtil.init(context,
+        height: SizeConfig.screenWidth,
+        width: SizeConfig.screenWidth,
+        allowFontScaling: true);
 
     var profileInfo = Expanded(
       child: Column(
@@ -35,10 +42,13 @@ class HomeProfileScreen extends StatelessWidget {
                     child: Center(
                       heightFactor: kSpacingUnit.w * 1.5,
                       widthFactor: kSpacingUnit.w * 1.5,
-                      child: Icon(
-                        LineAwesomeIcons.pen,
-                        color: kDarkPrimaryColor,
-                        size: ScreenUtil().setSp(kSpacingUnit.w * 1.5),
+                      child: GestureDetector(
+                        //onTap: ,
+                        child: Icon(
+                          LineAwesomeIcons.pen,
+                          color: kDarkPrimaryColor,
+                          size: ScreenUtil().setSp(kSpacingUnit.w * 1.5),
+                        ),
                       ),
                     ),
                   ),
@@ -51,7 +61,7 @@ class HomeProfileScreen extends StatelessWidget {
             'Nicolas Adams',
             style: kTitleTextStyle,
           ),
-          SizedBox(height: kSpacingUnit.w * 0.5),
+          SizedBox(height: kSpacingUnit.w * 1),
           Text(
             'nicolasadams@gmail.com',
             style: kCaptionTextStyle,
@@ -108,9 +118,21 @@ class HomeProfileScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(width: kSpacingUnit.w * 3),
-        Icon(
-          LineAwesomeIcons.arrow_left,
-          size: ScreenUtil().setSp(kSpacingUnit.w * 3),
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return HomeScreen();
+                },
+              ),
+            );
+          },
+          child: Icon(
+            LineAwesomeIcons.arrow_left,
+            size: ScreenUtil().setSp(kSpacingUnit.w * 3),
+          ),
         ),
         profileInfo,
         themeSwitcher,

@@ -3,6 +3,7 @@ import 'package:open_sism/screens/home/home_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
 import 'package:open_sism/screens/task/task_screen.dart';
 import 'package:open_sism/screens/reward/rewards_screen.dart';
+import 'package:open_sism/screens/task/detailedTask_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,9 +23,11 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
-        '/taskScreen': (context) => TaskScreen(),
-        '/prizeScreen': (context) => RewardScreen(),
-        '/profileScreen': (context) => ProfileScreen(),
+        '/home': (context) => HomeScreen(),
+        '/home/taskScreen': (context) => TaskScreen(),
+        '/home/prizeScreen': (context) => RewardScreen(),
+        '/home/profileScreen': (context) => ProfileScreen(),
+        '/home/taskScreen/detailScreen': (context) => DetailsScreen(),
       },
     );
   }
