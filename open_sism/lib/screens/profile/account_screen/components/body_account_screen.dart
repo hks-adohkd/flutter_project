@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/size_config.dart';
-import 'package:open_sism/screens/profile/account_screen.dart';
 import 'package:open_sism/screens/profile/components/profile_constants.dart';
-import 'package:open_sism/screens/profile/components/account_screen_form.dart';
+import 'package:open_sism/screens/profile/account_screen/components/account_screen_form.dart';
 
 class BodyAccount extends StatefulWidget {
   @override

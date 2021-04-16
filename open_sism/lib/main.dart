@@ -4,7 +4,8 @@ import 'package:open_sism/screens/profile/profile_screen.dart';
 import 'package:open_sism/screens/task/task_screen.dart';
 import 'package:open_sism/screens/reward/rewards_screen.dart';
 import 'package:open_sism/screens/task/detailedTask_screen.dart';
-import 'package:open_sism/screens/profile/account_screen.dart';
+import 'package:open_sism/screens/profile/account_screen/account_screen.dart';
+import 'package:open_sism/screens/profile/help_support/Help_support_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -121,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return ProfileScreen();
+                      return HelpSupportScreen();
                     },
                   ),
                 );

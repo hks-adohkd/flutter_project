@@ -8,7 +8,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:open_sism/screens/profile/components/profile_constants.dart';
 import 'package:open_sism/screens/profile/components/profile_list_item.dart';
 import 'package:open_sism/configurations/size_config.dart';
-import 'package:open_sism/screens/profile/account_screen.dart';
+import 'file:///C:/Users/Yazbek/AndroidStudioProjects/opensism/open_sism/lib/screens/profile/account_screen/account_screen.dart';
 
 /*
 * Main profile class */
