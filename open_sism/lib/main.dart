@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return AccountScreen();
+                      return HomeScreen();
                     },
                   ),
                 );
