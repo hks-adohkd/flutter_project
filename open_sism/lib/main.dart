@@ -6,6 +6,7 @@ import 'package:open_sism/screens/reward/rewards_screen.dart';
 import 'package:open_sism/screens/task/detailedTask_screen.dart';
 import 'package:open_sism/screens/profile/account_screen/account_screen.dart';
 import 'package:open_sism/screens/profile/help_support/Help_support_screen.dart';
+import 'package:open_sism/screens/activity/activity_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -102,36 +103,33 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
-              child: Text('Home Screen'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return HomeScreen();
-                    },
-                  ),
-                );
-              },
-            ),
-            ElevatedButton(
-              child: Text('profile Screen'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return HelpSupportScreen();
-                    },
-                  ),
-                );
-              },
-            ),
+            deafultButton('reward Screen', RewardScreen()),
+            deafultButton('task Screen', TaskScreen()),
+            deafultButton('profile', ProfileScreen()),
+            deafultButton('profile', ProfileScreen()),
+            deafultButton('home', HomeScreen()),
+            deafultButton('help & support', HelpSupportScreen()),
+            deafultButton('Activity', ActivityScreen()),
           ],
         ),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  deafultButton(String title, Widget wg) {
+    return ElevatedButton(
+      child: Text(title),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return wg;
+            },
+          ),
+        );
+      },
     );
   }
 }

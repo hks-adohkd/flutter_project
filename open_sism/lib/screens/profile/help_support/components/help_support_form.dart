@@ -45,7 +45,7 @@ class _SupportScreenFormState extends State<SupportScreenForm> {
           FormError(errors: errors),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           DefaultButton(
-            text: "Save",
+            text: "Send",
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
