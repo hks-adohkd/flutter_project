@@ -21,7 +21,7 @@ class Categories extends StatelessWidget {
       '/home/prizeScreen',
       '/giftScreen',
       '/activityScreen',
-      '/profileScreen',
+      '/home/profileScreen',
       '/moreScreen',
     ];
 
