@@ -4,6 +4,7 @@ import 'package:open_sism/screens/profile/profile_screen.dart';
 import 'package:open_sism/screens/task/task_screen.dart';
 import 'package:open_sism/screens/reward/rewards_screen.dart';
 import 'package:open_sism/screens/task/detailedTask_screen.dart';
+import 'package:open_sism/screens/profile/account_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/home/prizeScreen': (context) => RewardScreen(),
         '/home/profileScreen': (context) => ProfileScreen(),
         '/home/taskScreen/detailScreen': (context) => DetailsScreen(),
+        '/home/profileScreen/account': (context) => AccountScreen(),
       },
     );
   }
@@ -106,12 +108,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return HomeScreen();
+                      return AccountScreen();
                     },
                   ),
                 );
               },
-            )
+            ),
+            ElevatedButton(
+              child: Text('profile Screen'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ProfileScreen();
+                    },
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:open_sism/screens/profile/components/profile_constants.dart';
 import 'package:open_sism/screens/profile/components/profile_list_item.dart';
 import 'package:open_sism/configurations/size_config.dart';
+import 'package:open_sism/screens/profile/account_screen.dart';
 
 /*
 * Main profile class */
@@ -33,6 +34,10 @@ class HomeProfileScreen extends StatelessWidget {
                   child: ListView(
                     children: <Widget>[
                       ProfileListItem(
+                        press: () {
+                          Navigator.pushNamed(
+                              context, '/home/profileScreen/account');
+                        },
                         icon: LineAwesomeIcons.user_shield,
                         text: 'Account Settings',
                       ),
