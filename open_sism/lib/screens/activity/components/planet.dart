@@ -2,47 +2,28 @@ class Planet {
   final String id;
   final String name;
   final String location;
-  final String distance;
-  final String gravity;
-  final String description;
   final String image;
 
-  const Planet(
-      {this.id,
-      this.name,
-      this.location,
-      this.distance,
-      this.gravity,
-      this.description,
-      this.image});
+  const Planet({this.id, this.name, this.location, this.image});
 }
 
 List<Planet> planets = [
   const Planet(
     id: "1",
     name: "Message",
-    location: "Milkyway Galaxy",
-    distance: "54.6m Km",
-    gravity: "3.711 m/s ",
-    description: "Lorem ipsum...",
-    image: "assets/img/mars.png",
+    location: "your message here ",
+    image: "assets/images/message.png",
   ),
   const Planet(
     id: "2",
     name: "Order",
-    location: "Milkyway Galaxy",
-    distance: "54.6m Km",
-    gravity: "3.711 m/s ",
-    description: "Lorem ipsum...",
-    image: "assets/img/neptune.png",
+    location: "your prize order here ",
+    image: "assets/images/order.png",
   ),
   const Planet(
     id: "3",
     name: "Finished Task",
-    location: "Milkyway Galaxy",
-    distance: "54.6m Km",
-    gravity: "3.711 m/s ",
-    description: "Lorem ipsum...",
-    image: "assets/img/moon.png",
+    location: "your finished task here ",
+    image: "assets/images/task.png",
   ),
 ];

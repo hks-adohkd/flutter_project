@@ -31,7 +31,6 @@ class PlanetRow extends StatelessWidget {
       return new Row(children: <Widget>[
         new Image.asset(image, height: 12.0),
         new Container(width: 8.0),
-        new Text(planet.gravity, style: regularTextStyle),
       ]);
     }
 
@@ -50,18 +49,6 @@ class PlanetRow extends StatelessWidget {
               height: 2.0,
               width: 18.0,
               color: new Color(0xff00c6ff)),
-          new Row(
-            children: <Widget>[
-              new Expanded(
-                  child: _planetValue(
-                      value: planet.distance,
-                      image: 'assets/img/ic_distance.png')),
-              new Expanded(
-                  child: _planetValue(
-                      value: planet.gravity,
-                      image: 'assets/img/ic_gravity.png'))
-            ],
-          ),
         ],
       ),
     );
