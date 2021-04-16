@@ -39,14 +39,16 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
       child: Column(
         children: [
           buildDefaultField('Name', 'Enter your Name', true),
-          SizedBox(height: getProportionateScreenHeight(15)),
+          SizedBox(height: SizeConfig.screenHeight * 0.02),
+          buildEmailFormField(),
+          SizedBox(height: SizeConfig.screenHeight * 0.02),
           buildDefaultField('Address', 'Enter your Address', false),
-          SizedBox(height: getProportionateScreenHeight(15)),
+          SizedBox(height: SizeConfig.screenHeight * 0.02),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(15)),
-          buildDefaultField('Phone number', 'Enter your Phone number', true),
+          SizedBox(height: SizeConfig.screenHeight * 0.02),
+          buildDefaultField('Phone number', 'Enter your Phone number', false),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(height: SizeConfig.screenHeight * 0.02),
           DefaultButton(
             text: "Save",
             press: () {
@@ -120,6 +122,40 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildEmailFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      onSaved: (newValue) => email = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kEmailNullError);
+        }
+        if (emailValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidEmailError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kEmailNullError);
+          return "";
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidEmailError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Email",
+        hintText: "Enter your email",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
       ),
     );
   }
