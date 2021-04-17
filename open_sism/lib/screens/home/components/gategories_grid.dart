@@ -4,122 +4,93 @@ import 'package:open_sism/configurations/size_config.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CategoriesGrid extends StatelessWidget {
-  final List<Category> categories = [
-    Category(9, "General Knowledge", icon: FontAwesomeIcons.globeAsia),
-    Category(10, "Books", icon: FontAwesomeIcons.bookOpen),
-    Category(11, "Film", icon: FontAwesomeIcons.video),
-    Category(12, "Music", icon: FontAwesomeIcons.music),
-    Category(13, "Musicals & Theatres", icon: FontAwesomeIcons.theaterMasks),
-    Category(14, "Television", icon: FontAwesomeIcons.tv),
-    Category(15, "Video Games", icon: FontAwesomeIcons.gamepad),
-    Category(16, "Board Games", icon: FontAwesomeIcons.chessBoard),
-    Category(17, "Science & Nature", icon: FontAwesomeIcons.microscope),
-    Category(18, "Computer", icon: FontAwesomeIcons.laptopCode),
-    Category(19, "Maths", icon: FontAwesomeIcons.sortNumericDown),
-    Category(20, "Mythology"),
-    Category(21, "Sports", icon: FontAwesomeIcons.footballBall),
-    Category(22, "Geography", icon: FontAwesomeIcons.mountain),
-    Category(23, "History", icon: FontAwesomeIcons.monument),
-    Category(24, "Politics"),
-    Category(25, "Art", icon: FontAwesomeIcons.paintBrush),
-    Category(26, "Celebrities"),
-    Category(27, "Animals", icon: FontAwesomeIcons.dog),
-    Category(28, "Vehicles", icon: FontAwesomeIcons.carAlt),
-    Category(29, "Comics"),
-    Category(30, "Gadgets", icon: FontAwesomeIcons.mobileAlt),
-    Category(31, "Japanese Anime & Manga"),
-    Category(32, "Cartoon & Animation"),
-  ];
-
+  final String path = 'assets/icons/';
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context); // to get the screen size
-    return Expanded(
-      child: Column(
-        children: [
-          Container(
-            height: 400,
-            width: 400,
-            child: GridView.builder(
-              itemCount: categories.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount:
-                    SizeConfig.orientation == Orientation.landscape ? 2 : 1,
-                mainAxisSpacing: 20,
-                crossAxisSpacing:
-                    SizeConfig.orientation == Orientation.landscape
-                        ? SizeConfig.defaultSize * 2
-                        : 0,
-                childAspectRatio: 1.65,
-              ),
-              itemBuilder: (context, index) =>
-                  _buildCategoryItem(context, index),
-            ),
-          ),
-        ],
+    return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: 20.0,
       ),
-    );
-  }
-/*
-  /////
-  physics: BouncingScrollPhysics(),
-  slivers: <Widget>[
-  SliverPadding(
-  padding: const EdgeInsets.all(16.0),
-  sliver: SliverGrid(
-  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  crossAxisCount: 2,
-  childAspectRatio: 1.2,
-  crossAxisSpacing: 10.0,
-  mainAxisSpacing: 10.0),
-  delegate: SliverChildBuilderDelegate(
-  _buildCategoryItem,
-  childCount: categories.length,
-  )),
-  ),
-  ],
-  /////
-  */
-
-  Widget _buildCategoryItem(BuildContext context, int index) {
-    Category category = categories[index];
-    return MaterialButton(
-      elevation: 1.0,
-      highlightElevation: 1.0,
-      //onPressed: () => _categoryPressed(context,category),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(
+          width: 2.0,
+          color: Colors.lightBlueAccent,
+        ),
       ),
-      color: Colors.grey.shade800,
-      textColor: Colors.white70,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          if (category.icon != null) Icon(category.icon),
-          if (category.icon != null) SizedBox(height: 5.0),
-          Text(
-            category.name,
-            textAlign: TextAlign.center,
-            maxLines: 3,
+          SizedBox(
+            height: 10.0,
           ),
+          Container(
+            child: Image.asset('assets/images/brand_alternate.png'),
+          ),
+          SizedBox(
+            height: 15.0,
+          ),
+          Container(
+            height: SizeConfig.screenHeight < 700
+                ? SizeConfig.screenHeight * 0.19
+                : SizeConfig.screenHeight * 0.18,
+            child: GridView.count(
+              crossAxisCount: 4,
+              children: imageList
+                  .map((item) => Column(
+                        children: <Widget>[
+                          // Image.asset(
+                          //   '$path${item['name']}',
+                          //   height: 50.0,
+                          // ),
+                          Container(
+                              padding: EdgeInsets.all(
+                                  getProportionateScreenWidth(1)),
+                              height: getProportionateScreenWidth(30),
+                              width: getProportionateScreenWidth(30),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0xFF512DA8).withOpacity(0.05),
+                                //borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: SvgPicture.asset('$path${item['name']}')),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Text(
+                            item['title'],
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ))
+                  .toList(),
+            ),
+          )
         ],
       ),
     );
   }
 
-  // _categoryPressed(BuildContext context,Category category) {
-  //   showModalBottomSheet(
-  //     context: context,
-  //     builder: (sheetContext) => BottomSheet(
-  //       builder: (_) => QuizOptionsDialog(category: category,),
-  //       onClosing: (){},
-  //
-  //     ),
-  //
-  //   );
-  //
-  // }
+  List<Map<String, dynamic>> categoriesFirst = [
+    {"icon": "assets/icons/task.svg", "text": "Task"},
+    {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
+    {"icon": "assets/icons/prize.svg", "text": "Reward"},
+    {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
+    {"icon": "assets/icons/star1.svg", "text": "activity"},
+    {"icon": "assets/icons/profile.svg", "text": "Profile"},
+    {"icon": "assets/icons/more.svg", "text": "More"},
+  ];
 
+  final List imageList = [
+    {'name': 'task.svg', 'title': 'Task'},
+    {'name': 'Game Icon.svg', 'title': 'Game'},
+    {'name': 'prize.svg', 'title': 'Reward'},
+    {'name': 'Gift Icon.svg', 'title': 'Daily Gift'},
+    {'name': 'star1.svg', 'title': 'activity'},
+    {'name': 'profile.svg', 'title': 'Profile'},
+    {'name': 'more.svg', 'title': 'More'},
+  ];
 }
 
 class Category {

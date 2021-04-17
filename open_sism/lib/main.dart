@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
             deafultButton('reward Screen', RewardScreen()),
             deafultButton('task Screen', TaskScreen()),
             deafultButton('profile', ProfileScreen()),
-            deafultButton('profile', ProfileScreen()),
+            deafultButton('account ', AccountScreen()),
             deafultButton('home', HomeScreen()),
             deafultButton('help & support', HelpSupportScreen()),
             deafultButton('Activity', ActivityScreen()),
