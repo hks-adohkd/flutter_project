@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const String youtubeChannel = "https://youtube.com/c/UCRYieA2e9jaDIb-8mLPrzUA";
 const kPrimaryColor = Color(0xFF84AB5C);
 const kTextColor = Color(0xFF202E2E);
 const kTextLightColor = Color(0xFF7286A5);
@@ -26,6 +27,14 @@ enum ScreenType {
   task,
   prize,
 }
+
+enum TaskTypes {
+  youtube,
+  video,
+  quiz,
+  link,
+}
+
 enum MenuState { home, activity, game, profile, Task, rewards, more }
 
 const kGooglePlayCardColor = Color(0xFF2DBBD8);
