@@ -4,6 +4,7 @@ import 'package:open_sism/screens/login/login_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
 import 'package:open_sism/screens/task/task_screen.dart';
 import 'package:open_sism/screens/reward/rewards_screen.dart';
+import 'package:open_sism/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,10 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
+      theme: theme(),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{

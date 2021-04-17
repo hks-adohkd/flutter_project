@@ -16,6 +16,7 @@ class CustomSuffixIcon extends StatelessWidget {
       child: SvgPicture.asset(
         svgIcon,
         height: 18,
+        color: Colors.white
       ),
     );
   }

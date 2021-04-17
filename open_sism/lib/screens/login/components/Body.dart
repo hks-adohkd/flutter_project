@@ -2,11 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:open_sism/components/custom_suffix_svgIcon.dart';
+import 'package:open_sism/components/default_button.dart';
+import 'package:open_sism/components/form_error.dart';
+import 'package:open_sism/components/no_account_text.dart';
 import 'package:open_sism/configurations/constants.dart';
+import 'package:open_sism/configurations/size_config.dart';
+import 'package:open_sism/screens/login/components/sign_form.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return SafeArea(
       child: Container(
         decoration: BoxDecoration(
@@ -28,6 +34,7 @@ class Body extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.04,),
                   Text(
                     "Welcome Back",
                     style: TextStyle(
@@ -41,89 +48,14 @@ class Body extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white70),
                   ),
-                  SignForm()
+                  SizedBox(height: SizeConfig.screenHeight * 0.08),
+                  SignForm(),
+                  SizedBox(height: 20,),
+                  NoAccountText()
                 ],
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class SignForm extends StatefulWidget {
-  @override
-  _SignFormState createState() => _SignFormState();
-}
-
-class _SignFormState extends State<SignForm> {
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      child: Column(
-        children: [
-          buildPhoneFormField(),
-          SizedBox(
-            height: 20,
-          ),
-          buildPasswordFormField(),
-          SizedBox(
-            height: 20,
-          )
-        ],
-      ),
-    );
-  }
-
-  TextFormField buildPasswordFormField() {
-    return TextFormField(
-      obscureText: true,
-      keyboardType: TextInputType.phone,
-      decoration: InputDecoration(
-        hintText: "Enter your password",
-        labelText: "Password",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Lock.svg'),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 45,
-          vertical: 20,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide(color: Colors.white),
-          gapPadding: 10,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide(color: Colors.white),
-          gapPadding: 10,
-        ),
-      ),
-    );
-  }
-
-  TextFormField buildPhoneFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.phone,
-      decoration: InputDecoration(
-        hintText: "Enter your phone number",
-        labelText: "Email",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Phone.svg'),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 45,
-          vertical: 20,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide(color: Colors.white),
-          gapPadding: 10,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide(color: Colors.white),
-          gapPadding: 10,
         ),
       ),
     );
