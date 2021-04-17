@@ -49,37 +49,107 @@ class SpecialOffers extends StatelessWidget {
                 image: "assets/images/glap.png",
                 category: "Smartphone",
                 numOfBrands: 18,
-                press: () {},
+                press: () {
+                  _showImageDialog(context, "assets/images/glap.png", "glap");
+                },
               ),
               SpecialOfferCard(
                 image: "assets/images/tshirt.png",
                 category: "Fashion",
                 numOfBrands: 24,
-                press: () {},
+                press: () {
+                  _showImageDialog(
+                      context, "assets/images/tshirt.png", "Fashion");
+                },
               ),
               SpecialOfferCard(
                 image: "assets/images/ps4_console_blue_1.png",
                 category: "Smartphone",
                 numOfBrands: 18,
-                press: () {},
+                press: () {
+                  _showImageDialog(
+                      context,
+                      "assets/images/ps4_console_blue_1.png",
+                      "ps4_console_blue");
+                },
               ),
               SpecialOfferCard(
                 image: "assets/images/ps4_console_white_4.png",
                 category: "Smartphone",
                 numOfBrands: 18,
-                press: () {},
+                press: () {
+                  _showImageDialog(
+                      context,
+                      "assets/images/ps4_console_white_4.png",
+                      "ps4_console_white");
+                },
               ),
               SpecialOfferCard(
                 image: "assets/images/Image Popular Product 3.png",
                 category: "Smartphone",
                 numOfBrands: 18,
-                press: () {},
+                press: () {
+                  _showImageDialog(
+                      context,
+                      "assets/images/Image Popular Product 3.png",
+                      "Image Popular Product");
+                },
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  _showImageDialog(BuildContext context, String image, String description) {
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        elevation: 3,
+        backgroundColor: Colors.white70,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(image),
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              description,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+              //press: () {},
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(
+                  color: Colors.white,
+                  icon: Icon(Icons.close),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                const SizedBox(width: 10.0),
+                IconButton(
+                  color: Colors.white,
+                  icon: Icon(Icons.share),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

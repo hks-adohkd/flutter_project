@@ -27,14 +27,22 @@ class CategoriesGrid extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.all(getProportionateScreenWidth(1)),
-            height: getProportionateScreenWidth(70),
-            width: getProportionateScreenWidth(70),
+            //height: getProportionateScreenWidth(90),
+            // width: getProportionateScreenWidth(90),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Color(0xFF512DA8).withOpacity(0.05),
               //borderRadius: BorderRadius.circular(10),
             ),
-            child: Image.asset('assets/images/logo21.png'),
+            child: Text(
+              "Categories",
+              style: TextStyle(
+                color: Colors.white70,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+              //press: () {},
+            ), //Image.asset('assets/images/logo21.png'),
           ),
           SizedBox(
             height: 15.0,
