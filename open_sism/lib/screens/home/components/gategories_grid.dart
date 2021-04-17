@@ -26,7 +26,15 @@ class CategoriesGrid extends StatelessWidget {
             height: 10.0,
           ),
           Container(
-            child: Image.asset('assets/images/brand_alternate.png'),
+            padding: EdgeInsets.all(getProportionateScreenWidth(1)),
+            height: getProportionateScreenWidth(70),
+            width: getProportionateScreenWidth(70),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0xFF512DA8).withOpacity(0.05),
+              //borderRadius: BorderRadius.circular(10),
+            ),
+            child: Image.asset('assets/images/logo21.png'),
           ),
           SizedBox(
             height: 15.0,
