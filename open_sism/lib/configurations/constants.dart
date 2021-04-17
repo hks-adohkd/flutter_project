@@ -30,7 +30,7 @@ enum MenuState { home, activity, game, profile, Task, rewards, more }
 
 const kGooglePlayCardColor = Color(0xFF2DBBD8);
 const kSyriatelCardColor = Color(0xFFD82D40);
-const kMtnCardColor = Color(0xFFFFA000);
+const kMtnCardColor = Color(0xFFAFB42B);
 
 const kDefaultPaddin = 20.0;
 

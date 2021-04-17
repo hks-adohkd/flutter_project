@@ -88,6 +88,7 @@ class CategoriesGrid extends StatelessWidget {
     );
   }
 
+  //not used
   List<Map<String, dynamic>> categoriesFirst = [
     {"icon": "assets/icons/task.svg", "text": "Task"},
     {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
@@ -109,6 +110,7 @@ class CategoriesGrid extends StatelessWidget {
   ];
 }
 
+//not used
 class Category {
   final int id;
   final String name;
