@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/routes.dart';
 import 'package:open_sism/screens/home/home_screen.dart';
+import 'package:open_sism/screens/login/login_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
 import 'package:open_sism/screens/task/task_screen.dart';
 import 'package:open_sism/screens/reward/rewards_screen.dart';
@@ -7,6 +9,7 @@ import 'package:open_sism/screens/task/detailedTask_screen.dart';
 import 'package:open_sism/screens/profile/account_screen/account_screen.dart';
 import 'package:open_sism/screens/profile/help_support/Help_support_screen.dart';
 import 'package:open_sism/screens/activity/activity_screen.dart';
+import 'package:open_sism/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,21 +21,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
+      theme: theme(),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
       initialRoute: '/',
-      routes: <String, WidgetBuilder>{
-        '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
-        '/home': (context) => HomeScreen(),
-        '/home/taskScreen': (context) => TaskScreen(),
-        '/home/prizeScreen': (context) => RewardScreen(),
-        '/home/profileScreen': (context) => ProfileScreen(),
-        '/home/taskScreen/detailScreen': (context) => DetailsScreen(),
-        '/home/profileScreen/account': (context) => AccountScreen(),
-      },
+      routes: routes,
     );
   }
 }
@@ -103,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
             deafultButton('reward Screen', RewardScreen()),
             deafultButton('task Screen', TaskScreen()),
             deafultButton('profile', ProfileScreen()),
@@ -110,6 +103,34 @@ class _MyHomePageState extends State<MyHomePage> {
             deafultButton('home', HomeScreen()),
             deafultButton('help & support', HelpSupportScreen()),
             deafultButton('Activity', ActivityScreen()),
+
+            ElevatedButton(
+              child: Text('Home Screen'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return HomeScreen();
+                    },
+                  ),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: Text('Sign in'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LoginScreen();
+                    },
+                  ),
+                );
+              },
+            )
+
           ],
         ),
       ),

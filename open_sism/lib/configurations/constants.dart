@@ -47,3 +47,15 @@ const kGradiantsPrimaryColor = [
   Color(0xff512DA8),
   Color(0xff536DFE),
 ];
+
+// Form Error
+//final RegExp emailValidatorRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+final phoneRegExp = RegExp(r"^(?:[+0]9)?[0-9]{10}$");
+const String kPhoneNullError = "Please enter your phone number";
+const String kInvalidPhoneError = "Please enter Valid Phone Number";
+const String kPassNullError = "Please Enter your password";
+const String kShortPassError = "Password is too short";
+const String kMatchPassError = "Passwords don't match";
+const String kNameNullError = "Please Enter your name";
+const String kPhoneNumberNullError = "Please Enter your phone number";
+const String kAddressNullError = "Please Enter your address";

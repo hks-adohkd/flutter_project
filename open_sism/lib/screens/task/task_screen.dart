@@ -8,6 +8,9 @@ import 'task_info_screen.dart';
 import 'detailedTask_screen.dart';
 
 class TaskScreen extends StatefulWidget {
+
+  static String routeName = "/taskScreen";
+
   @override
   _TaskScreenState createState() => _TaskScreenState();
 }
