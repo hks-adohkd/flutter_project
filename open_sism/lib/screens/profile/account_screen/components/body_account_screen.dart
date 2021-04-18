@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/size_config.dart';
-import 'package:open_sism/screens/profile/components/profile_constants.dart';
 import 'package:open_sism/screens/profile/account_screen/components/account_screen_form.dart';
+import 'package:open_sism/configurations/constants.dart';
 
 class BodyAccount extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _BodyAccountState extends State<BodyAccount> {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
-                Text("Account Setting", style: headingStyle),
+                Text("Account Setting", style: kHeadingStyle),
                 Text(
                   "Complete your details ",
                   textAlign: TextAlign.center,

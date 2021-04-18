@@ -10,6 +10,7 @@ import 'package:open_sism/screens/profile/account_screen/account_screen.dart';
 import 'package:open_sism/screens/profile/help_support/Help_support_screen.dart';
 import 'package:open_sism/screens/activity/activity_screen.dart';
 import 'package:open_sism/theme.dart';
+import 'package:open_sism/screens/profile/ProfileScreenGradiant.dart';
 
 void main() {
   runApp(MyApp());
@@ -95,15 +96,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
-            deafultButton('reward Screen', RewardScreen()),
-            deafultButton('task Screen', TaskScreen()),
-            deafultButton('profile', ProfileScreen()),
-            deafultButton('account ', AccountScreen()),
-            deafultButton('home', HomeScreen()),
-            deafultButton('help & support', HelpSupportScreen()),
-            deafultButton('Activity', ActivityScreen()),
-
+            deafultButton('reward Screen', RewardScreen.routeName),
+            deafultButton('task Screen', TaskScreen.routeName),
+            deafultButton('profile', ProfileScreenGradient.routeName),
+            deafultButton('account ', AccountScreen.routeName),
+            deafultButton('home', HomeScreen.routeName),
+            deafultButton('help & support', HelpSupportScreen.routeName),
+            deafultButton('Activity', ActivityScreen.routeName),
             ElevatedButton(
               child: Text('Home Screen'),
               onPressed: () {
@@ -130,7 +129,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             )
-
           ],
         ),
       ),
@@ -138,18 +136,19 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  deafultButton(String title, Widget wg) {
+  deafultButton(String title, String route) {
     return ElevatedButton(
       child: Text(title),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return wg;
-            },
-          ),
-        );
+        Navigator.pushNamed(context, route);
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) {
+        //       return wg;
+        //     },
+        //   ),
+        // );
       },
     );
   }

@@ -6,6 +6,8 @@ import 'package:open_sism/screens/activity/components/planet.dart';
 import 'package:open_sism/screens/activity/components/planet_row.dart';
 
 class ActivityScreen extends StatefulWidget {
+  static String routeName = "/activity_screen";
+
   @override
   _ActivityScreenState createState() => _ActivityScreenState();
 }

@@ -57,6 +57,11 @@ const kGradiantsPrimaryColor = [
   Color(0xff536DFE),
 ];
 
+const kHeadingStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 28,
+  fontWeight: FontWeight.bold,
+);
 // Form Error
 //final RegExp emailValidatorRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 final phoneRegExp = RegExp(r"^(?:[+0]9)?[0-9]{10}$");

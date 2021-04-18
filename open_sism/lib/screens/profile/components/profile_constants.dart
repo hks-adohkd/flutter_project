@@ -25,7 +25,7 @@ final kCaptionTextStyle = TextStyle(
 final kButtonTextStyle = TextStyle(
   fontSize: ScreenUtil().setSp(kSpacingUnit.w * 1.5),
   fontWeight: FontWeight.w400,
-  color: kDarkPrimaryColor,
+  color: kAccentColor,
 );
 
 final kDarkTheme = ThemeData(
