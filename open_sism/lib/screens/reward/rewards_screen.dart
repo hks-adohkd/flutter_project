@@ -38,8 +38,6 @@ class _RewardScreenState extends State<RewardScreen> {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                // Color(0xff002171),
-                // Color(0xff8bf6ff),
                 Color(0xff512DA8),
                 Color(0xff536DFE),
               ],

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/task/components/taskBundel.dart';
 
-class ColorAndSize extends StatelessWidget {
-  const ColorAndSize({
+class TimeAndPerson extends StatelessWidget {
+  const TimeAndPerson({
     Key key,
     @required this.product,
   }) : super(key: key);

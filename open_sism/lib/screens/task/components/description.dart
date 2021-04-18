@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/task/components/taskBundel.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:open_sism/screens/task/components/customButton.dart';
+
+TaskTypes tasks;
 
 class Description extends StatelessWidget {
   const Description({
@@ -12,11 +17,15 @@ class Description extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin),
-      child: Text(
-        product.description,
-        style: TextStyle(height: 1.5),
+    return Expanded(
+      child: Column(
+        children: [
+          CustomButton(),
+          Text(
+            product.description,
+            style: TextStyle(height: 1.5),
+          ),
+        ],
       ),
     );
   }

@@ -157,7 +157,7 @@ class RecipeBundelCard extends StatelessWidget {
           iconData,
           color: selectedGender == ScreenType.task
               ? Colors.white
-              : Color(0xFF212121),
+              : Color(0xFFFFC107),
         ),
         //SvgPicture.asset(iconSrc),
         SizedBox(width: defaultSize), // 10
@@ -166,7 +166,7 @@ class RecipeBundelCard extends StatelessWidget {
           style: TextStyle(
             color: selectedGender == ScreenType.task
                 ? Colors.white
-                : Color(0xFF212121),
+                : Color(0xFFFFC107),
             fontWeight: FontWeight.bold,
           ),
         )

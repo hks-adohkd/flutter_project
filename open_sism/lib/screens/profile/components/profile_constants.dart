@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_sism/configurations/size_config.dart';
 
 const kSpacingUnit = 10;
-
+const kPrimaryColor = Color(0xFFFF7643);
 const kDarkPrimaryColor = Color(0xFF212121);
 const kDarkSecondaryColor = Color(0xFF373737);
 const kLightPrimaryColor = Color(0xFFFFFFFF);
@@ -10,7 +11,7 @@ const kLightSecondaryColor = Color(0xFFF3F7FB);
 const kAccentColor = Color(0xFFFFC107);
 //const kLightPrimaryColor = Color(0xFF512DA8);
 //const kLightSecondaryColor = Color(0xFF536DFE);
-
+const kTextColor = Color(0xFF757575);
 final kTitleTextStyle = TextStyle(
   fontSize: ScreenUtil().setSp(kSpacingUnit.w * 1.7),
   fontWeight: FontWeight.w600,
@@ -18,7 +19,7 @@ final kTitleTextStyle = TextStyle(
 
 final kCaptionTextStyle = TextStyle(
   fontSize: ScreenUtil().setSp(kSpacingUnit.w * 1.3),
-  fontWeight: FontWeight.w100,
+  fontWeight: FontWeight.w300,
 );
 
 final kButtonTextStyle = TextStyle(
@@ -60,3 +61,23 @@ final kLightTheme = ThemeData(
         displayColor: kDarkSecondaryColor,
       ),
 );
+
+final headingStyle = TextStyle(
+  fontSize: getProportionateScreenWidth(28),
+  fontWeight: FontWeight.bold,
+  color: Colors.black,
+  height: 1.5,
+);
+
+// Form Error
+final RegExp emailValidatorRegExp =
+    RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+const String kEmailNullError = "Please Enter your email";
+const String kInvalidEmailError = "Please Enter Valid Email";
+const String kPassNullError = "Please Enter your password";
+const String kShortPassError = "Password is too short";
+const String kMatchPassError = "Passwords don't match";
+const String kNamelNullError = "Please Enter your name";
+const String kPhoneNumberNullError = "Please Enter your phone number";
+const String kAddressNullError = "Please Enter your address";
+const String kNameNullError = "Please Enter your name";

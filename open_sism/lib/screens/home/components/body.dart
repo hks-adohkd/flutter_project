@@ -5,6 +5,7 @@ import 'discount_banner.dart';
 //import 'home_header.dart';
 //import 'popular_product.dart';
 import 'special_offers.dart';
+import 'package:open_sism/screens/home/components/gategories_grid.dart';
 
 class Body extends StatelessWidget {
   bool discountBannerShow;
@@ -37,6 +38,8 @@ class Body extends StatelessWidget {
               SizedBox(height: getProportionateScreenHeight(30)),
               DiscountBanner(isShown: true),
               Categories(),
+              SizedBox(height: getProportionateScreenHeight(30)),
+              CategoriesGrid(),
               SizedBox(height: getProportionateScreenWidth(30)),
             ],
           ),

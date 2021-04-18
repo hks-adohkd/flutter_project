@@ -16,12 +16,12 @@ class Categories extends StatelessWidget {
     ];
 
     List<String> routeList = [
-      '/taskScreen',
+      '/home/taskScreen',
       '/gameScreen',
-      '/prizeScreen',
+      '/home/prizeScreen',
       '/giftScreen',
       '/activityScreen',
-      '/profileScreen',
+      '/home/profileScreen',
       '/moreScreen',
     ];
 

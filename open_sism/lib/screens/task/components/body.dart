@@ -20,7 +20,7 @@ class Body extends StatelessWidget {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: SizeConfig.screenHeight,
+            height: SizeConfig.screenHeight * 1.5,
             child: Stack(
               children: <Widget>[
                 Container(
@@ -32,14 +32,6 @@ class Body extends StatelessWidget {
                   ),
                   // height: 500,
                   decoration: BoxDecoration(
-                    // gradient: LinearGradient(
-                    //   begin: Alignment.topRight,
-                    //   end: Alignment.bottomLeft,
-                    //   colors: [
-                    //     Color(0xFF7C4DFF),
-                    //     Colors.white70,
-                    //   ],
-                    // ),
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24),
@@ -49,7 +41,7 @@ class Body extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       SizedBox(height: 30),
-                      ColorAndSize(product: product),
+                      TimeAndPerson(product: product),
                       SizedBox(height: kDefaultPaddin / 2),
                       Description(product: product),
                       SizedBox(height: kDefaultPaddin / 2),

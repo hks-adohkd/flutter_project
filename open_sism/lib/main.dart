@@ -5,6 +5,10 @@ import 'package:open_sism/screens/login/login_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
 import 'package:open_sism/screens/task/task_screen.dart';
 import 'package:open_sism/screens/reward/rewards_screen.dart';
+import 'package:open_sism/screens/task/detailedTask_screen.dart';
+import 'package:open_sism/screens/profile/account_screen/account_screen.dart';
+import 'package:open_sism/screens/profile/help_support/Help_support_screen.dart';
+import 'package:open_sism/screens/activity/activity_screen.dart';
 import 'package:open_sism/theme.dart';
 
 void main() {
@@ -91,6 +95,15 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
+            deafultButton('reward Screen', RewardScreen()),
+            deafultButton('task Screen', TaskScreen()),
+            deafultButton('profile', ProfileScreen()),
+            deafultButton('account ', AccountScreen()),
+            deafultButton('home', HomeScreen()),
+            deafultButton('help & support', HelpSupportScreen()),
+            deafultButton('Activity', ActivityScreen()),
+
             ElevatedButton(
               child: Text('Home Screen'),
               onPressed: () {
@@ -117,10 +130,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             )
+
           ],
         ),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  deafultButton(String title, Widget wg) {
+    return ElevatedButton(
+      child: Text(title),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return wg;
+            },
+          ),
+        );
+      },
     );
   }
 }
