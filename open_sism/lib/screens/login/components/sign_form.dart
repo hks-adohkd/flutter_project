@@ -101,7 +101,7 @@ class _SignFormState extends State<SignForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.length >= 8) {
+        }  if (value.length >= 8) {
           removeError(error: kShortPassError);
         }
         return null;
@@ -110,7 +110,7 @@ class _SignFormState extends State<SignForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if (value.length < 8) {
+        } if (value.length < 8) {
           addError(error: kShortPassError);
           return "";
         }
@@ -133,7 +133,8 @@ class _SignFormState extends State<SignForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPhoneNullError);
-        } else if (phoneRegExp.hasMatch(value)) {
+        }
+        if (phoneRegExp.hasMatch(value)) {
           removeError(error: kInvalidPhoneError);
         }
         return null;
@@ -142,7 +143,8 @@ class _SignFormState extends State<SignForm> {
         if (value.isEmpty) {
           addError(error: kPhoneNullError);
           return "";
-        } else if (!phoneRegExp.hasMatch(value)) {
+        }
+        if (!phoneRegExp.hasMatch(value)) {
           addError(error: kInvalidPhoneError);
           return "";
         }

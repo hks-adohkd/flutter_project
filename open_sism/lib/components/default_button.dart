@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/constants.dart';
+import 'package:open_sism/screens/profile/components/profile_constants.dart';
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
@@ -17,7 +18,7 @@ class DefaultButton extends StatelessWidget {
       height: 56,
       child: TextButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+          backgroundColor: MaterialStateProperty.all<Color>(kAccentColor),
           shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder())
         ),
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

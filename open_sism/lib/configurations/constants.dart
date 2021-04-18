@@ -41,6 +41,15 @@ const kGooglePlayCardColor = Color(0xFF2DBBD8);
 const kSyriatelCardColor = Color(0xFFD82D40);
 const kMtnCardColor = Color(0xFFAFB42B);
 
+var kBoxDecoration = BoxDecoration(
+  gradient: LinearGradient(
+    begin: Alignment.topRight,
+    end: Alignment.bottomLeft,
+    colors: kGradiantsPrimaryColor,
+  ),
+  border: Border.all(style: BorderStyle.solid, color: Colors.black),
+);
+
 const kDefaultPaddin = 20.0;
 
 const kGradiantsPrimaryColor = [

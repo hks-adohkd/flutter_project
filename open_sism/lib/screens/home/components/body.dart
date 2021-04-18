@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'categories.dart';
 import 'discount_banner.dart';
@@ -16,19 +17,7 @@ class Body extends StatelessWidget {
     SizeConfig().init(context);
     return SafeArea(
       child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              // Color(0xff002171),
-              // Color(0xff8bf6ff),
-              Color(0xff512DA8),
-              Color(0xff536DFE),
-            ],
-          ),
-          border: Border.all(style: BorderStyle.solid, color: Colors.black),
-        ),
+        decoration: kBoxDecoration,
         constraints: BoxConstraints.expand(),
         child: SingleChildScrollView(
           child: Column(
@@ -39,8 +28,8 @@ class Body extends StatelessWidget {
               DiscountBanner(isShown: true),
               Categories(),
               SizedBox(height: getProportionateScreenHeight(30)),
-              CategoriesGrid(),
-              SizedBox(height: getProportionateScreenWidth(30)),
+             // CategoriesGrid(),
+             // SizedBox(height: getProportionateScreenWidth(30)),
             ],
           ),
         ),

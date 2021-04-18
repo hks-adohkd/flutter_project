@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'dart:async';
 
@@ -20,10 +21,7 @@ class DiscountBanner extends StatelessWidget {
           horizontal: getProportionateScreenWidth(20),
           vertical: getProportionateScreenWidth(15),
         ),
-        decoration: BoxDecoration(
-          color: Color(0xFF536DFE),
-          borderRadius: BorderRadius.circular(20),
-        ),
+        decoration: kBoxDecoration,
         child: Row(children: [
           Icon(
             Icons.star,

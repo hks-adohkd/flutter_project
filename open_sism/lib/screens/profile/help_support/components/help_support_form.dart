@@ -136,8 +136,6 @@ class _SupportScreenFormState extends State<SupportScreenForm> {
         decoration: InputDecoration(
           labelText: title,
           hintText: "Enter a message",
-          fillColor: Colors.grey[300],
-          filled: true,
           floatingLabelBehavior: FloatingLabelBehavior.always,
         ),
       ),

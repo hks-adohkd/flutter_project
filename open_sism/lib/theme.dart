@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/configurations/constants.dart';
 
 ThemeData theme(){
   return ThemeData(

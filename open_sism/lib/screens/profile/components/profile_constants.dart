@@ -4,7 +4,7 @@ import 'package:open_sism/configurations/size_config.dart';
 
 const kSpacingUnit = 10;
 const kPrimaryColor = Color(0xFFFF7643);
-const kDarkPrimaryColor = Color(0xFF212121);
+const kDarkPrimaryColor = Colors.blue;
 const kDarkSecondaryColor = Color(0xFF373737);
 const kLightPrimaryColor = Color(0xFFFFFFFF);
 const kLightSecondaryColor = Color(0xFFF3F7FB);
@@ -29,10 +29,10 @@ final kButtonTextStyle = TextStyle(
 );
 
 final kDarkTheme = ThemeData(
-  brightness: Brightness.dark,
+  //brightness: Brightness.dark,
   fontFamily: 'SFProText',
   primaryColor: kDarkPrimaryColor,
-  canvasColor: kDarkPrimaryColor,
+  //canvasColor: kDarkPrimaryColor,
   backgroundColor: kDarkSecondaryColor,
   accentColor: kAccentColor,
   iconTheme: ThemeData.dark().iconTheme.copyWith(

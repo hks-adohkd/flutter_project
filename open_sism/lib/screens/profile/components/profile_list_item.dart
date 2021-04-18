@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/profile/components/profile_constants.dart';
 
 class ProfileListItem extends StatelessWidget {
@@ -30,9 +31,8 @@ class ProfileListItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           horizontal: kSpacingUnit.w * 2,
         ),
-        decoration: BoxDecoration(
+        decoration: kBoxDecoration.copyWith(
           borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-          color: Theme.of(context).backgroundColor,
         ),
         child: Row(
           children: <Widget>[
