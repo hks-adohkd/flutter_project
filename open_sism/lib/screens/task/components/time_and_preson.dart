@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/task/components/taskBundel.dart';
 
-class TimeAndPerson extends StatelessWidget {
-  const TimeAndPerson({
-    Key key,
-    @required this.product,
-  }) : super(key: key);
-
+class TimeAndPerson extends StatefulWidget {
   final TaskBundle product;
+  TimeAndPerson({@required this.product});
+  @override
+  _TimeAndPersonState createState() => _TimeAndPersonState();
+}
 
+class _TimeAndPersonState extends State<TimeAndPerson> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,6 +23,7 @@ class TimeAndPerson extends StatelessWidget {
                 "Time",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
+                  color: Colors.black87,
                 ),
               ),
               Column(
@@ -33,7 +34,13 @@ class TimeAndPerson extends StatelessWidget {
                         color: Colors.lightGreen,
                         isSelected: true,
                       ),
-                      Text("beginTime"),
+                      Text(
+                        "beginTime",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
                     ],
                   ),
                   Row(
@@ -42,7 +49,13 @@ class TimeAndPerson extends StatelessWidget {
                         color: Colors.red,
                         isSelected: true,
                       ),
-                      Text("endTime"),
+                      Text(
+                        "endTime",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -62,7 +75,7 @@ class TimeAndPerson extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: product.person.toString(),
+                  text: widget.product.person.toString(),
                   style: Theme.of(context).textTheme.headline5.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF512DA8),
