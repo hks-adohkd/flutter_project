@@ -31,7 +31,7 @@ class ProfileHeader extends StatelessWidget {
         ),
         ProfileInfo(),
         //BarThemeSwitcher(),
-        SizedBox(width: kSpacingUnit.w * 3),
+        SizedBox(width: kSpacingUnit.w * 4),
       ],
     );
   }

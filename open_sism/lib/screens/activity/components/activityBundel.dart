@@ -1,26 +1,26 @@
-class Planet {
+class Activity {
   final String id;
   final String name;
   final String location;
   final String image;
 
-  const Planet({this.id, this.name, this.location, this.image});
+  const Activity({this.id, this.name, this.location, this.image});
 }
 
-List<Planet> planets = [
-  const Planet(
+List<Activity> activities = [
+  const Activity(
     id: "1",
     name: "Message",
     location: "your message here ",
     image: "assets/images/message.png",
   ),
-  const Planet(
+  const Activity(
     id: "2",
     name: "Order",
     location: "your prize order here ",
     image: "assets/images/order.png",
   ),
-  const Planet(
+  const Activity(
     id: "3",
     name: "Finished Task",
     location: "your finished task here ",

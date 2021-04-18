@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/components/appBar.dart';
-import 'package:open_sism/screens/activity/components/planet.dart';
-import 'package:open_sism/screens/activity/components/planet_row.dart';
+import 'package:open_sism/screens/activity/components/activityBundel.dart';
+import 'package:open_sism/screens/activity/components/activity_row.dart';
 
 class ActivityScreen extends StatefulWidget {
   static String routeName = "/activity_screen";
@@ -43,8 +43,11 @@ class _ActivityScreenState extends State<ActivityScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 24.0),
                   sliver: new SliverList(
                     delegate: new SliverChildBuilderDelegate(
-                      (context, index) => new PlanetRow(planets[index]),
-                      childCount: planets.length,
+                      (context, index) => new ActivityRow(
+                        activity: activities[index],
+                        type: activities[index].name,
+                      ),
+                      childCount: activities.length,
                     ),
                   ),
                 ),

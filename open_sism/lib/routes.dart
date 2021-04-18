@@ -9,7 +9,7 @@ import 'package:open_sism/screens/profile/profile_screen.dart';
 import 'package:open_sism/screens/profile/ProfileScreenGradiant.dart';
 import 'package:open_sism/screens/reward/rewards_screen.dart';
 import 'package:open_sism/screens/task/task_screen.dart';
-
+import 'package:open_sism/screens/activity/message/message_screen.dart';
 import 'main.dart';
 
 final Map<String, WidgetBuilder> routes = {
@@ -23,4 +23,5 @@ final Map<String, WidgetBuilder> routes = {
   AccountScreen.routeName: (context) => AccountScreen(),
   HelpSupportScreen.routeName: (context) => HelpSupportScreen(),
   ActivityScreen.routeName: (context) => ActivityScreen(),
+  Messages.routeName: (context) => Messages(),
 };
