@@ -4,6 +4,9 @@ import 'package:open_sism/screens/profile/components/profile_constants.dart';
 import 'package:open_sism/screens/profile/components/home.dart';
 
 class ProfileScreen extends StatelessWidget {
+
+  static String routeName = "/profile";
+
   @override
   Widget build(BuildContext context) {
     return ThemeProvider(

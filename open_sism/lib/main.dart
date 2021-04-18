@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/routes.dart';
 import 'package:open_sism/screens/home/home_screen.dart';
 import 'package:open_sism/screens/login/login_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
@@ -19,12 +20,7 @@ class MyApp extends StatelessWidget {
       theme: theme(),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
       initialRoute: '/',
-      routes: <String, WidgetBuilder>{
-        '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
-        '/taskScreen': (context) => TaskScreen(),
-        '/prizeScreen': (context) => RewardScreen(),
-        '/profileScreen': (context) => ProfileScreen(),
-      },
+      routes: routes,
     );
   }
 }

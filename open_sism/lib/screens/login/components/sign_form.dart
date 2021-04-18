@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:open_sism/components/custom_suffix_svgIcon.dart';
 import 'package:open_sism/components/default_button.dart';
 import 'package:open_sism/components/form_error.dart';
 import 'package:open_sism/configurations/constants.dart';
+import 'package:open_sism/screens/forgot_password/forgot_password_screen.dart';
+import 'package:open_sism/screens/login_success/login_success_screen.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -66,7 +69,7 @@ class _SignFormState extends State<SignForm> {
               ),
               Spacer(),
               GestureDetector(
-                onTap: () => Navigator.pushNamed(context, 'forgot_password/'),
+                onTap: () => Navigator.pushNamed(context, ForgotPasswordScreen.routeName),
                 child: Text(
                   "Forgot Password",
                   style: TextStyle(
@@ -83,6 +86,7 @@ class _SignFormState extends State<SignForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
+                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
           )
@@ -113,7 +117,7 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       obscureText: true,
-      keyboardType: TextInputType.phone,
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: "Password",
         hintText: "Enter your Password",

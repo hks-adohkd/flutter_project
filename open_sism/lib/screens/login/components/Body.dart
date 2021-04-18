@@ -29,30 +29,36 @@ class Body extends StatelessWidget {
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.04,),
-                  Text(
-                    "Welcome Back",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30,
                     ),
-                  ),
-                  Text(
-                    "Sign in with your phone number.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.08),
-                  SignForm(),
-                  SizedBox(height: 20,),
-                  NoAccountText()
-                ],
+                    SizedBox(
+                      height: SizeConfig.screenHeight * 0.04,
+                    ),
+                    Text(
+                      "Welcome Back",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "Sign in with your phone number.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                    SizedBox(height: SizeConfig.screenHeight * 0.08),
+                    SignForm(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NoAccountText()
+                  ],
+                ),
               ),
             ),
           ),

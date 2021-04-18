@@ -1,0 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:open_sism/screens/forgot_password/forgot_password_screen.dart';
+import 'package:open_sism/screens/login/login_screen.dart';
+import 'package:open_sism/screens/login_success/login_success_screen.dart';
+import 'package:open_sism/screens/profile/profile_screen.dart';
+import 'package:open_sism/screens/reward/rewards_screen.dart';
+import 'package:open_sism/screens/task/task_screen.dart';
+
+import 'main.dart';
+
+final Map<String, WidgetBuilder> routes = {
+  '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
+  LoginScreen.routeName: (context) => LoginScreen(),
+  ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
+  TaskScreen.routeName: (context) => TaskScreen(),
+  RewardScreen.routeName: (context) => RewardScreen(),
+  ProfileScreen.routeName: (context) => ProfileScreen(),
+  LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
+};
