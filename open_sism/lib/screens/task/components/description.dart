@@ -20,7 +20,7 @@ class _DescriptionState extends State<Description> {
     return Expanded(
       child: Column(
         children: [
-          CustomButton(),
+          CustomButton(product: widget.product),
           Text(
             widget.product.description,
             style: TextStyle(height: 1.5),
