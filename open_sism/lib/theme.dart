@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/constants.dart';
 
-ThemeData theme(){
+ThemeData theme() {
   return ThemeData(
     textTheme: textTheme(),
     primarySwatch: Colors.blue,
@@ -18,10 +18,10 @@ textTheme() {
 
 InputDecorationTheme inputDecorationTheme() {
   var outlineInputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(28),
-      borderSide: BorderSide(color: Colors.white),
-      gapPadding: 10,
-    );
+    borderRadius: BorderRadius.circular(28),
+    borderSide: BorderSide(color: Colors.white),
+    gapPadding: 10,
+  );
   return InputDecorationTheme(
     labelStyle: TextStyle(color: Colors.white),
     hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),

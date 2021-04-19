@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/theme.dart';
 import 'package:open_sism/configurations/size_config.dart';
@@ -12,63 +13,74 @@ class Order extends StatefulWidget {
 class _OrderState extends State<Order> {
   final primary = Color(0xff696b9e);
   final secondary = Color(0xfff29a94);
+  final pendingColor = Color(0xffD32F2F);
+  final verifiedColor = Color(0xff689F38);
 
   final List<Map> schoolLists = [
     {
-      "name": "Edgewick Scchol",
-      "location": "572 Statan NY, 12483",
-      "type": "Higher Secondary School",
+      "name": "Google Play Gift card",
+      "location": "5\$",
+      "status": "Pending",
+      "status": "Pending",
+      "type": "10000 Points",
       "logoText":
-          "https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_960_720.png"
+          "https://www.freepnglogos.com/uploads/gift-png/gift-png-past-events-dancegarden-grow-your-dance-offering-33.png"
     },
     {
       "name": "Xaviers International",
       "location": "234 Road Kathmandu, Nepal",
+      "status": "Pending",
       "type": "Higher Secondary School",
       "logoText":
-          "https://cdn.pixabay.com/photo/2017/01/31/13/14/animal-2023924_960_720.png"
+          "https://www.freepnglogos.com/uploads/gift-png/gift-png-past-events-dancegarden-grow-your-dance-offering-33.png"
     },
     {
       "name": "Kinder Garden",
       "location": "572 Statan NY, 12483",
+      "status": "Verified",
       "type": "Play Group School",
       "logoText":
-          "https://cdn.pixabay.com/photo/2016/06/09/18/36/logo-1446293_960_720.png"
+          "https://www.freepnglogos.com/uploads/gift-png/gift-png-past-events-dancegarden-grow-your-dance-offering-33.png"
     },
     {
       "name": "WilingTon Cambridge",
       "location": "Kasai Pantan NY, 12483",
       "type": "Lower Secondary School",
+      "status": "Pending",
       "logoText":
-          "https://cdn.pixabay.com/photo/2017/01/13/01/22/rocket-1976107_960_720.png"
+          "https://www.freepnglogos.com/uploads/gift-png/gift-png-past-events-dancegarden-grow-your-dance-offering-33.png"
     },
     {
       "name": "Fredik Panlon",
       "location": "572 Statan NY, 12483",
       "type": "Higher Secondary School",
+      "status": "Verified",
       "logoText":
-          "https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_960_720.png"
+          "https://www.freepnglogos.com/uploads/gift-png/gift-png-past-events-dancegarden-grow-your-dance-offering-33.png"
     },
     {
       "name": "Whitehouse International",
       "location": "234 Road Kathmandu, Nepal",
       "type": "Higher Secondary School",
+      "status": "Verified",
       "logoText":
-          "https://cdn.pixabay.com/photo/2017/01/31/13/14/animal-2023924_960_720.png"
+          "https://www.freepnglogos.com/uploads/gift-png/gift-png-past-events-dancegarden-grow-your-dance-offering-33.png"
     },
     {
       "name": "Haward Play",
       "location": "572 Statan NY, 12483",
       "type": "Play Group School",
+      "status": "Pending",
       "logoText":
-          "https://cdn.pixabay.com/photo/2016/06/09/18/36/logo-1446293_960_720.png"
+          "https://www.freepnglogos.com/uploads/gift-png/gift-png-past-events-dancegarden-grow-your-dance-offering-33.png"
     },
     {
       "name": "Campare Handeson",
       "location": "Kasai Pantan NY, 12483",
       "type": "Lower Secondary School",
+      "status": "Verified",
       "logoText":
-          "https://cdn.pixabay.com/photo/2017/01/13/01/22/rocket-1976107_960_720.png"
+          "https://www.freepnglogos.com/uploads/gift-png/gift-png-past-events-dancegarden-grow-your-dance-offering-33.png"
     },
   ];
 
@@ -111,7 +123,7 @@ class _OrderState extends State<Order> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Institutes",
+                        "Orders",
                         style: kHeadingStyle,
                       ),
                     ),
@@ -134,7 +146,7 @@ class _OrderState extends State<Order> {
         color: Colors.white,
       ),
       width: double.infinity,
-      height: 110,
+      height: 120,
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Row(
@@ -154,6 +166,7 @@ class _OrderState extends State<Order> {
           ),
           Expanded(
             child: Column(
+              textBaseline: TextBaseline.alphabetic,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
@@ -167,9 +180,10 @@ class _OrderState extends State<Order> {
                   height: 6,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Icon(
-                      Icons.location_on,
+                      FontAwesomeIcons.dollarSign,
                       color: secondary,
                       size: 20,
                     ),
@@ -185,18 +199,54 @@ class _OrderState extends State<Order> {
                   height: 6,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Icon(
-                      Icons.school,
+                      FontAwesomeIcons.star,
                       color: secondary,
                       size: 20,
                     ),
                     SizedBox(
                       width: 5,
                     ),
-                    Text(schoolLists[index]['type'],
-                        style: TextStyle(
-                            color: primary, fontSize: 13, letterSpacing: .3)),
+                    Text(
+                      schoolLists[index]['type'],
+                      style: TextStyle(
+                        color: primary,
+                        fontSize: 13,
+                        letterSpacing: .3,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Icon(
+                      schoolLists[index]['status'] == "Verified"
+                          ? FontAwesomeIcons.checkCircle
+                          : FontAwesomeIcons.hourglass,
+                      color: schoolLists[index]['status'] == "Verified"
+                          ? verifiedColor
+                          : pendingColor,
+                      size: 20,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      schoolLists[index]['status'],
+                      style: TextStyle(
+                        color: schoolLists[index]['status'] == "Verified"
+                            ? verifiedColor
+                            : pendingColor,
+                        fontSize: 13,
+                        letterSpacing: .3,
+                      ),
+                    ),
                   ],
                 ),
               ],

@@ -86,6 +86,7 @@ class _MessagesState extends State<Messages> {
   }
 
   Widget buildList(BuildContext context, int index, String id) {
+    final ScrollController _controllerOne = ScrollController();
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -103,53 +104,70 @@ class _MessagesState extends State<Messages> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    messageList[index]['title'],
-                    style: TextStyle(
-                        //color: primary,
-                        color: Colors.black,
-                        fontSize: 14),
-                  ),
-                  Container(
-                    child: InkWell(
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Icon(
-                              Icons.share,
-                              color: Colors.blue,
-                              size: 18,
+            child: Scrollbar(
+              controller: _controllerOne,
+              isAlwaysShown: true,
+              radius: Radius.circular(20),
+              thickness: 4,
+              child: SingleChildScrollView(
+                controller: _controllerOne,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      messageList[index]['title'],
+                      style: TextStyle(
+                          //color: primary,
+                          color: Colors.black,
+                          fontSize: 14),
+                    ),
+                    Container(
+                      child: InkWell(
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Icon(
+                                Icons.share,
+                                color: Colors.blue,
+                                size: 18,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Icon(
-                              Icons.replay,
-                              color: Colors.blue,
-                              size: 18,
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Icon(
+                                Icons.replay,
+                                color: Colors.blue,
+                                size: 18,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Icon(
-                              Icons.copy,
-                              color: Colors.blue,
-                              size: 18,
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Icon(
+                                Icons.copy,
+                                color: Colors.blue,
+                                size: 18,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                        ],
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Text(
+                                id,
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           )
