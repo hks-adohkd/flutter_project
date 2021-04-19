@@ -3,6 +3,7 @@
  * profile: https://github.com/cimplesid
  */
 import 'dart:ui' as ui;
+import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/profile/aboutus_screen/components/network_iamge.dart';
 import 'package:open_sism/screens/profile/aboutus_screen/components/assets.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,11 +19,11 @@ class AboutUs extends StatelessWidget {
   // final DEV dev;
 
   final DEV dev = DEV(
-    firstName: 'Cimple',
-    lastName: 'Sid',
-    avatar: devSid,
+    firstName: 'Open',
+    lastName: 'Simsm',
+    avatar: "assets/images/logoBodyCircle.png",
     backdropPhoto: backdrop,
-    location: 'Mahendranagar, Nepal',
+    location: 'Riyadh, saudi Arabia',
     biography: 'Siddhartha  Joshi is a Flutter dev  '
         'Lorem Ipsum is simply dummy text of the printing and typesetting industry.  '
         'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
@@ -63,11 +64,11 @@ class AboutUs extends StatelessWidget {
             ),
             onPressed: () => Navigator.pop(context),
           ),
-          PNetworkImage(dev.backdropPhoto, fit: BoxFit.cover),
+          //PNetworkImage(dev.backdropPhoto, fit: BoxFit.cover), //big image
           BackdropFilter(
             filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
             child: Container(
-              color: Colors.black.withOpacity(0.5),
+              decoration: kBoxDecoration,
               child: _buildContent(context),
             ),
           ),
@@ -84,7 +85,7 @@ class AboutUs extends StatelessWidget {
           _buildAvatar(),
           _buildInfo(),
           _buildVideoScroller(),
-          _buildbuton(context),
+          // _buildbuton(context),
         ],
       ),
     );
@@ -113,8 +114,8 @@ class AboutUs extends StatelessWidget {
 
   Widget _buildAvatar() {
     return Container(
-      width: 110.0,
-      height: 110.0,
+      width: 100.0,
+      height: 100.0,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white30),
@@ -122,7 +123,9 @@ class AboutUs extends StatelessWidget {
       margin: const EdgeInsets.only(top: 32.0, left: 16.0),
       padding: const EdgeInsets.all(3.0),
       child: ClipOval(
-        child: PNetworkImage(dev.avatar),
+        child: Image(
+          image: AssetImage(dev.avatar),
+        ),
       ),
     );
   }
@@ -134,7 +137,7 @@ class AboutUs extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            dev.firstName + dev.lastName,
+            dev.firstName + " " + dev.lastName,
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -171,7 +174,7 @@ class AboutUs extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: SizedBox.fromSize(
-        size: Size.fromHeight(245.0),
+        size: Size.fromHeight(220.0),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
