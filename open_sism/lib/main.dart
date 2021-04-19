@@ -12,6 +12,7 @@ import 'package:open_sism/screens/activity/activity_screen.dart';
 import 'package:open_sism/theme.dart';
 import 'package:open_sism/screens/profile/ProfileScreenGradiant.dart';
 import 'package:open_sism/screens/activity/message/message_screen.dart';
+import 'package:open_sism/screens/activity/order/order_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -105,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
             deafultButton('help & support', HelpSupportScreen.routeName),
             deafultButton('message', Messages.routeName),
             deafultButton('Activity', ActivityScreen.routeName),
+            deafultButton('Order', Order.routeName),
             ElevatedButton(
               child: Text('Home Screen'),
               onPressed: () {
