@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/theme.dart';
 import 'package:open_sism/configurations/size_config.dart';
@@ -124,6 +126,7 @@ class _MessagesState extends State<Messages> {
                     Container(
                       child: InkWell(
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.all(15.0),
@@ -151,6 +154,16 @@ class _MessagesState extends State<Messages> {
                             ),
                             SizedBox(
                               width: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Icon(
+                                id == "user"
+                                    ? FontAwesomeIcons.userCircle
+                                    : FontAwesomeIcons.userAlt,
+                                color: Colors.red,
+                                size: 18,
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(15.0),

@@ -14,7 +14,7 @@ class _OrderState extends State<Order> {
   final primary = Color(0xff696b9e);
   final secondary = Color(0xfff29a94);
 
-  final List<Map> schoolLists = [
+  final List<Map> orderLists = [
     {
       "name": "Google Play Gift card",
       "location": "5\$",
@@ -100,7 +100,7 @@ class _OrderState extends State<Order> {
                 width: double.infinity,
                 decoration: kBoxDecoration,
                 child: ListView.builder(
-                    itemCount: schoolLists.length,
+                    itemCount: orderLists.length,
                     itemBuilder: (BuildContext context, int index) {
                       return buildList(context, index);
                     }),
@@ -141,7 +141,7 @@ class _OrderState extends State<Order> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        color: Colors.white,
+        color: Color(0xFFBBDEFB),
       ),
       width: double.infinity,
       height: 120,
@@ -158,7 +158,7 @@ class _OrderState extends State<Order> {
               borderRadius: BorderRadius.circular(50),
               border: Border.all(width: 3, color: secondary),
               image: DecorationImage(
-                  image: NetworkImage(schoolLists[index]['logoText']),
+                  image: AssetImage("assets/images/giftOrder.png"),
                   fit: BoxFit.fill),
             ),
           ),
@@ -168,7 +168,7 @@ class _OrderState extends State<Order> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  schoolLists[index]['name'],
+                  orderLists[index]['name'],
                   style: TextStyle(
                       color: primary,
                       fontWeight: FontWeight.bold,
@@ -188,7 +188,7 @@ class _OrderState extends State<Order> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(schoolLists[index]['location'],
+                    Text(orderLists[index]['location'],
                         style: TextStyle(
                             color: primary, fontSize: 13, letterSpacing: .3)),
                   ],
@@ -208,7 +208,7 @@ class _OrderState extends State<Order> {
                       width: 5,
                     ),
                     Text(
-                      schoolLists[index]['type'],
+                      orderLists[index]['type'],
                       style: TextStyle(
                         color: primary,
                         fontSize: 13,
@@ -224,14 +224,14 @@ class _OrderState extends State<Order> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Icon(
-                      schoolLists[index]['status'] == "Verified"
+                      orderLists[index]['status'] == "Verified"
                           ? FontAwesomeIcons.checkCircle
-                          : schoolLists[index]['status'] == "Pending"
+                          : orderLists[index]['status'] == "Pending"
                               ? FontAwesomeIcons.hourglass
                               : FontAwesomeIcons.timesCircle,
-                      color: schoolLists[index]['status'] == "Verified"
+                      color: orderLists[index]['status'] == "Verified"
                           ? verifiedColor
-                          : schoolLists[index]['status'] == "Pending"
+                          : orderLists[index]['status'] == "Pending"
                               ? pendingColor
                               : rejectColor,
                       size: 20,
@@ -240,11 +240,11 @@ class _OrderState extends State<Order> {
                       width: 5,
                     ),
                     Text(
-                      schoolLists[index]['status'],
+                      orderLists[index]['status'],
                       style: TextStyle(
-                        color: schoolLists[index]['status'] == "Verified"
+                        color: orderLists[index]['status'] == "Verified"
                             ? verifiedColor
-                            : schoolLists[index]['status'] == "Pending"
+                            : orderLists[index]['status'] == "Pending"
                                 ? pendingColor
                                 : rejectColor,
                         fontSize: 13,
