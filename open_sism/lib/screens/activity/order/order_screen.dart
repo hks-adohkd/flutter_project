@@ -13,8 +13,6 @@ class Order extends StatefulWidget {
 class _OrderState extends State<Order> {
   final primary = Color(0xff696b9e);
   final secondary = Color(0xfff29a94);
-  final pendingColor = Color(0xffD32F2F);
-  final verifiedColor = Color(0xff689F38);
 
   final List<Map> schoolLists = [
     {
@@ -29,7 +27,7 @@ class _OrderState extends State<Order> {
     {
       "name": "Xaviers International",
       "location": "234 Road Kathmandu, Nepal",
-      "status": "Pending",
+      "status": "Reject",
       "type": "Higher Secondary School",
       "logoText":
           "https://www.freepnglogos.com/uploads/gift-png/gift-png-past-events-dancegarden-grow-your-dance-offering-33.png"
@@ -54,7 +52,7 @@ class _OrderState extends State<Order> {
       "name": "Fredik Panlon",
       "location": "572 Statan NY, 12483",
       "type": "Higher Secondary School",
-      "status": "Verified",
+      "status": "Reject",
       "logoText":
           "https://www.freepnglogos.com/uploads/gift-png/gift-png-past-events-dancegarden-grow-your-dance-offering-33.png"
     },
@@ -228,10 +226,14 @@ class _OrderState extends State<Order> {
                     Icon(
                       schoolLists[index]['status'] == "Verified"
                           ? FontAwesomeIcons.checkCircle
-                          : FontAwesomeIcons.hourglass,
+                          : schoolLists[index]['status'] == "Pending"
+                              ? FontAwesomeIcons.hourglass
+                              : FontAwesomeIcons.timesCircle,
                       color: schoolLists[index]['status'] == "Verified"
                           ? verifiedColor
-                          : pendingColor,
+                          : schoolLists[index]['status'] == "Pending"
+                              ? pendingColor
+                              : rejectColor,
                       size: 20,
                     ),
                     SizedBox(
@@ -242,7 +244,9 @@ class _OrderState extends State<Order> {
                       style: TextStyle(
                         color: schoolLists[index]['status'] == "Verified"
                             ? verifiedColor
-                            : pendingColor,
+                            : schoolLists[index]['status'] == "Pending"
+                                ? pendingColor
+                                : rejectColor,
                         fontSize: 13,
                         letterSpacing: .3,
                       ),

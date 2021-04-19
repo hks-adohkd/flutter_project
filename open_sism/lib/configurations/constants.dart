@@ -79,3 +79,7 @@ enum ActivityType {
   order,
   finished_task,
 }
+
+const pendingColor = Color(0xffE64A19);
+const verifiedColor = Color(0xff689F38);
+const rejectColor = Color(0xffD32F2F);
