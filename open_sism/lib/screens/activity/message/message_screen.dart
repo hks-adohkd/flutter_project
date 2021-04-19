@@ -54,33 +54,30 @@ class _MessagesState extends State<Messages> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return MaterialApp(
-      theme: theme(),
-      home: Scaffold(
-        body: Container(
-          height: double.infinity,
-          decoration: kBoxDecoration,
-          child: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: SizeConfig.screenHeight * 0.03), // 4%
-                  Text(
-                    "Messages",
-                    style: kHeadingStyle,
-                  ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.02),
-                  Container(
-                    height: SizeConfig.screenHeight * 0.8,
-                    child: ListView.builder(
-                        itemCount: messageList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return buildList(
-                              context, index, messageList[index]['id']);
-                        }),
-                  ),
-                ],
-              ),
+    return Scaffold(
+      body: Container(
+        height: double.infinity,
+        decoration: kBoxDecoration,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: SizeConfig.screenHeight * 0.03), // 4%
+                Text(
+                  "Messages",
+                  style: kHeadingStyle,
+                ),
+                SizedBox(height: SizeConfig.screenHeight * 0.02),
+                Container(
+                  height: SizeConfig.screenHeight * 0.8,
+                  child: ListView.builder(
+                      itemCount: messageList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return buildList(
+                            context, index, messageList[index]['id']);
+                      }),
+                ),
+              ],
             ),
           ),
         ),
@@ -92,7 +89,7 @@ class _MessagesState extends State<Messages> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white70,
+        color: id == "admin" ? Colors.white70 : Colors.white,
       ),
       width: SizeConfig.screenHeight,
       height: 100,

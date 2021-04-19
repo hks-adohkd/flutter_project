@@ -9,17 +9,14 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: theme(),
-      home: Scaffold(
-        // appBar: AppBar(
-        //   title: Center(child: Text('Account Settings')),
-        // ),
-        body: Container(
-          height: double.infinity,
-          decoration: kBoxDecoration,
-          child: BodyAccount(),
-        ),
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: Center(child: Text('Account Settings')),
+      // ),
+      body: Container(
+        height: double.infinity,
+        decoration: kBoxDecoration,
+        child: BodyAccount(),
       ),
     );
   }

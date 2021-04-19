@@ -12,15 +12,11 @@ class ProfileScreenGradient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: theme(),
-      home: Scaffold(
-        body: Container(
-          height: double.infinity,
-          decoration: kBoxDecoration,
-          child: HomeProfileScreenGrad(),
-        ),
+    return Scaffold(
+      body: Container(
+        height: double.infinity,
+        decoration: kBoxDecoration,
+        child: HomeProfileScreenGrad(),
       ),
     );
   }
