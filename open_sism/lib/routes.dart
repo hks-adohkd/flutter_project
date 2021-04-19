@@ -13,6 +13,7 @@ import 'package:open_sism/screens/activity/message/message_screen.dart';
 import 'package:open_sism/screens/activity/order/order_screen.dart';
 import 'main.dart';
 import 'package:open_sism/screens/activity/finished_task/finished_task_screen.dart';
+import 'package:open_sism/screens/profile/aboutus_screen/AboutUS_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
@@ -28,4 +29,5 @@ final Map<String, WidgetBuilder> routes = {
   Messages.routeName: (context) => Messages(),
   Order.routeName: (context) => Order(),
   FinishedTask.routeName: (context) => FinishedTask(),
+  AboutUs.routeName: (context) => AboutUs(),
 };

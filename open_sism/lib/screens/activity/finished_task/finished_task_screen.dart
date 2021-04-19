@@ -39,13 +39,7 @@ class _FinishedTaskState extends State<FinishedTask> {
               ),
               Container(
                 height: 100,
-                //decoration: kBoxDecoration,
                 width: double.infinity,
-                // decoration: BoxDecoration(
-                //     color: primary,
-                //     borderRadius: BorderRadius.only(
-                //         bottomLeft: Radius.circular(30),
-                //         bottomRight: Radius.circular(30))),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[

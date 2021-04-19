@@ -3,6 +3,7 @@ import 'package:open_sism/configurations/size_config.dart';
 import 'package:open_sism/screens/profile/components/profile_constants.dart';
 import 'package:open_sism/screens/profile/components/default_Button.dart';
 import 'package:open_sism/screens/profile/components/form_error.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SupportScreenForm extends StatefulWidget {
   @override
@@ -46,6 +47,7 @@ class _SupportScreenFormState extends State<SupportScreenForm> {
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           DefaultButton(
             text: "Send",
+            icon: Icons.send,
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();

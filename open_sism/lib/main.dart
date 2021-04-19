@@ -14,6 +14,7 @@ import 'package:open_sism/screens/profile/ProfileScreenGradiant.dart';
 import 'package:open_sism/screens/activity/message/message_screen.dart';
 import 'package:open_sism/screens/activity/order/order_screen.dart';
 import 'package:open_sism/screens/activity/finished_task/finished_task_screen.dart';
+import 'package:open_sism/screens/profile/aboutus_screen/AboutUS_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -104,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
             deafultButton('profile', ProfileScreenGradient.routeName),
             deafultButton('account ', AccountScreen.routeName),
             deafultButton('home', HomeScreen.routeName),
-            deafultButton('help & support', HelpSupportScreen.routeName),
+            deafultButton('About US', AboutUs.routeName),
             deafultButton('message', Messages.routeName),
             deafultButton('Activity', ActivityScreen.routeName),
             deafultButton('Order', Order.routeName),
