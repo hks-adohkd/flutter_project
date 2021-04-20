@@ -94,12 +94,12 @@ const String loginBack =
     'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Flogin-back.jpg?alt=media';
 
 const List<String> sidVideoThumbs = [
-  'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Fvideo1_thumb.png?alt=media',
-  'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Fvideo2_thumb.png?alt=media',
-  'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Fvideo3_thumb.png?alt=media',
-  'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Fvideo4_thumb.png?alt=media',
+  "assets/images/logoBody2.png",
+  "assets/images/logoBody2.png",
+  "assets/images/logoBody2.png",
+  "assets/images/logoBody2.png",
 ];
-
+//'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Fvideo4_thumb.png?alt=media',
 const String devDamodar =
     'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Fdev_damodar.jpg?alt=media&token=aaf47b41-3485-4bab-bcb6-2e472b9afee6';
 const String devSudip =
