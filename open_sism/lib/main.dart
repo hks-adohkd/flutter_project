@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: theme(),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
-      initialRoute: '/',
+      initialRoute: LoginScreen.routeName,
       routes: routes,
     );
   }
@@ -108,12 +108,12 @@ class _MyHomePageState extends State<MyHomePage> {
             deafultButton('account ', AccountScreen.routeName),
             deafultButton('home', HomeScreen.routeName),
             deafultButton('About US', AboutUs.routeName),
-            deafultButton('help & support', HelpSupportScreen()),
+            deafultButton('help & support', HelpSupportScreen.routeName),
             deafultButton('message', Messages.routeName),
             deafultButton('Activity', ActivityScreen.routeName),
             deafultButton('Order', Order.routeName),
             deafultButton('finished Task', FinishedTask.routeName),
-            deafultButton('Register', RegisterScreen()),
+            deafultButton('Register', RegisterScreen.routeName),
 
             ElevatedButton(
               child: Text('Home Screen'),

@@ -17,7 +17,6 @@ import 'package:open_sism/screens/activity/finished_task/finished_task_screen.da
 import 'package:open_sism/screens/profile/aboutus_screen/AboutUS_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
-  '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
   LoginScreen.routeName: (context) => LoginScreen(),
   ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
   TaskScreen.routeName: (context) => TaskScreen(),
