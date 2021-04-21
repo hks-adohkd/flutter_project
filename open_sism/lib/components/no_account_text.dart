@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/constants.dart';
+import 'package:open_sism/screens/register/register_screen.dart';
 
 class NoAccountText extends StatelessWidget {
   const NoAccountText({
@@ -14,7 +15,7 @@ class NoAccountText extends StatelessWidget {
         Text("Don't have an account? ",
             style: TextStyle(fontSize: 16, color: Colors.white)),
         GestureDetector(
-          onTap: () => Navigator.pushNamed(context ,'register/'),
+          onTap: () => Navigator.pushNamed(context , RegisterScreen.routeName),
           child: Text(
             "Sign up",
             style: TextStyle(fontSize: 16, color: kPrimaryColor),

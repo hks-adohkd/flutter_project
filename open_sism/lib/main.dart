@@ -3,6 +3,7 @@ import 'package:open_sism/routes.dart';
 import 'package:open_sism/screens/home/home_screen.dart';
 import 'package:open_sism/screens/login/login_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
+import 'package:open_sism/screens/register/register_screen.dart';
 import 'package:open_sism/screens/task/task_screen.dart';
 import 'package:open_sism/screens/reward/rewards_screen.dart';
 import 'package:open_sism/screens/task/detailedTask_screen.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: theme(),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -106,10 +108,13 @@ class _MyHomePageState extends State<MyHomePage> {
             deafultButton('account ', AccountScreen.routeName),
             deafultButton('home', HomeScreen.routeName),
             deafultButton('About US', AboutUs.routeName),
+            deafultButton('help & support', HelpSupportScreen()),
             deafultButton('message', Messages.routeName),
             deafultButton('Activity', ActivityScreen.routeName),
             deafultButton('Order', Order.routeName),
             deafultButton('finished Task', FinishedTask.routeName),
+            deafultButton('Register', RegisterScreen()),
+
             ElevatedButton(
               child: Text('Home Screen'),
               onPressed: () {

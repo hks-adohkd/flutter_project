@@ -63,7 +63,10 @@ const kHeadingStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 // Form Error
-//final RegExp emailValidatorRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+final RegExp emailValidatorRegExp =
+RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+const String kEmailNullError = "Please Enter your email";
+const String kInvalidEmailError = "Please Enter Valid Email";
 final phoneRegExp = RegExp(r"^(?:[+0]9)?[0-9]{10}$");
 const String kPhoneNullError = "Please enter your phone number";
 const String kInvalidPhoneError = "Please enter Valid Phone Number";
@@ -83,3 +86,10 @@ enum ActivityType {
 const pendingColor = Color(0xffE64A19);
 const verifiedColor = Color(0xff689F38);
 const rejectColor = Color(0xffD32F2F);
+
+const TextStyle headingStyle = TextStyle(
+  fontSize: 28,
+  fontWeight: FontWeight.bold,
+  height: 1.5,
+  color: Colors.white,
+);

@@ -7,6 +7,7 @@ import 'package:open_sism/screens/profile/account_screen/account_screen.dart';
 import 'package:open_sism/screens/profile/help_support/Help_support_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
 import 'package:open_sism/screens/profile/ProfileScreenGradiant.dart';
+import 'package:open_sism/screens/register/register_screen.dart';
 import 'package:open_sism/screens/reward/rewards_screen.dart';
 import 'package:open_sism/screens/task/task_screen.dart';
 import 'package:open_sism/screens/activity/message/message_screen.dart';
@@ -30,4 +31,5 @@ final Map<String, WidgetBuilder> routes = {
   Order.routeName: (context) => Order(),
   FinishedTask.routeName: (context) => FinishedTask(),
   AboutUs.routeName: (context) => AboutUs(),
+  RegisterScreen.routeName: (context) => RegisterScreen(),
 };
