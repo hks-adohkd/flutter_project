@@ -3,6 +3,7 @@ import 'package:open_sism/screens/forgot_password/forgot_password_screen.dart';
 import 'package:open_sism/screens/login/login_screen.dart';
 import 'package:open_sism/screens/login_success/login_success_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
+import 'package:open_sism/screens/register/register_screen.dart';
 import 'package:open_sism/screens/reward/rewards_screen.dart';
 import 'package:open_sism/screens/task/task_screen.dart';
 
@@ -16,4 +17,5 @@ final Map<String, WidgetBuilder> routes = {
   RewardScreen.routeName: (context) => RewardScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
   LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
+  RegisterScreen.routeName: (context) => RegisterScreen(),
 };
