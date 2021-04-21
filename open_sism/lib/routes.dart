@@ -4,6 +4,7 @@ import 'package:open_sism/screens/forgot_password/forgot_password_screen.dart';
 import 'package:open_sism/screens/home/home_screen.dart';
 import 'package:open_sism/screens/login/login_screen.dart';
 import 'package:open_sism/screens/login_success/login_success_screen.dart';
+import 'package:open_sism/screens/otp/otp_screen.dart';
 import 'package:open_sism/screens/profile/account_screen/account_screen.dart';
 import 'package:open_sism/screens/profile/help_support/Help_support_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
@@ -16,6 +17,7 @@ import 'package:open_sism/screens/activity/order/order_screen.dart';
 import 'main.dart';
 import 'package:open_sism/screens/activity/finished_task/finished_task_screen.dart';
 import 'package:open_sism/screens/profile/aboutus_screen/AboutUS_screen.dart';
+import 'package:open_sism/screens/otp/otp_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   LoginScreen.routeName: (context) => LoginScreen(),
@@ -33,4 +35,7 @@ final Map<String, WidgetBuilder> routes = {
   AboutUs.routeName: (context) => AboutUs(),
   RegisterScreen.routeName: (context) => RegisterScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
+  OtpScreen.routeName: (context) => OtpScreen(
+        isRegister: true,
+      ),
 };

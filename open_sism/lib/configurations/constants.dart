@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/configurations/size_config.dart';
 
 const String youtubeChannel = "https://youtube.com/c/UCRYieA2e9jaDIb-8mLPrzUA";
 const kPrimaryColor = Color(0xFF84AB5C);
@@ -64,7 +65,7 @@ const kHeadingStyle = TextStyle(
 );
 // Form Error
 final RegExp emailValidatorRegExp =
-RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 const String kEmailNullError = "Please Enter your email";
 const String kInvalidEmailError = "Please Enter Valid Email";
 final phoneRegExp = RegExp(r"^(?:[+0]9)?[0-9]{10}$");
@@ -93,3 +94,19 @@ const TextStyle headingStyle = TextStyle(
   height: 1.5,
   color: Colors.white,
 );
+
+//OTP
+final otpInputDecoration = InputDecoration(
+  contentPadding:
+      EdgeInsets.symmetric(vertical: getProportionateScreenWidth(5)),
+  border: outlineInputBorder(),
+  focusedBorder: outlineInputBorder(),
+  enabledBorder: outlineInputBorder(),
+);
+
+OutlineInputBorder outlineInputBorder() {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(getProportionateScreenWidth(5)),
+    borderSide: BorderSide(color: kTextColor),
+  );
+}
