@@ -19,6 +19,7 @@ import 'package:open_sism/screens/activity/finished_task/finished_task_screen.da
 import 'package:open_sism/screens/profile/aboutus_screen/AboutUS_screen.dart';
 import 'package:open_sism/screens/otp/otp_screen.dart';
 import 'package:open_sism/screens/game/game_screen.dart';
+import 'package:open_sism/screens/game/goldenSpin/goldspin_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: theme(),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
-      initialRoute: WhellFortune.routeName,
+      initialRoute: GoldWhellFortune.routeName,
       routes: routes,
     );
   }

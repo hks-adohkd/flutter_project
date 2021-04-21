@@ -5,18 +5,18 @@ import 'package:open_sism/screens/game/components/navigator.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'package:open_sism/configurations/constants.dart';
-import 'package:open_sism/screens/game/spin/components/board_view.dart';
-import 'package:open_sism/screens/game/spin/components/model.dart';
+import 'package:open_sism/screens/game/goldenSpin/components/gold_board_view.dart';
+import 'package:open_sism/screens/game/goldenSpin/components/goldmodel.dart';
 
-class WhellFortune extends StatefulWidget {
-  static String routeName = "/spin_screen";
+class GoldWhellFortune extends StatefulWidget {
+  static String routeName = "/gold_spin_screen";
   @override
   State<StatefulWidget> createState() {
-    return _WhellFortuneState();
+    return _GoldWhellFortuneState();
   }
 }
 
-class _WhellFortuneState extends State<WhellFortune>
+class _GoldWhellFortuneState extends State<GoldWhellFortune>
     with SingleTickerProviderStateMixin {
   double _angle = 0;
   double _current = 0;
@@ -48,7 +48,7 @@ class _WhellFortuneState extends State<WhellFortune>
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/wheel.jpg"),
+            image: AssetImage("assets/images/goldenwheel.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -73,7 +73,7 @@ class _WhellFortuneState extends State<WhellFortune>
                         "Spin To Win",
                         style: TextStyle(
                             fontSize: 24,
-                            color: Colors.white,
+                            color: Colors.black87,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -177,7 +177,7 @@ class _WhellFortuneState extends State<WhellFortune>
           children: <Widget>[
             Icon(
               Icons.star,
-              color: Colors.amber,
+              color: Colors.black87,
             ),
             SizedBox(
               width: 4,
@@ -186,7 +186,7 @@ class _WhellFortuneState extends State<WhellFortune>
               _items[_index].point,
               style: TextStyle(
                   fontSize: 22,
-                  color: Colors.amber,
+                  color: Colors.black87,
                   fontWeight: FontWeight.w600),
             ),
           ],

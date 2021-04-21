@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:open_sism/screens/game/components/arrow_view.dart';
-import 'model.dart';
+import 'goldmodel.dart';
 
 class BoardView extends StatefulWidget {
   final double angle;
