@@ -108,13 +108,10 @@ class _MyHomePageState extends State<MyHomePage> {
             deafultButton('account ', AccountScreen.routeName),
             deafultButton('home', HomeScreen.routeName),
             deafultButton('About US', AboutUs.routeName),
-            deafultButton('help & support', HelpSupportScreen()),
             deafultButton('message', Messages.routeName),
-            deafultButton('Activity', ActivityScreen.routeName),
             deafultButton('Order', Order.routeName),
             deafultButton('finished Task', FinishedTask.routeName),
-            deafultButton('Register', RegisterScreen()),
-
+            deafultButton('Register', RegisterScreen.routeName),
             ElevatedButton(
               child: Text('Home Screen'),
               onPressed: () {
