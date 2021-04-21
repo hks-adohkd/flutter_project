@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/screens/activity/activity_screen.dart';
 import 'package:open_sism/screens/forgot_password/forgot_password_screen.dart';
+import 'package:open_sism/screens/home/home_screen.dart';
 import 'package:open_sism/screens/login/login_screen.dart';
 import 'package:open_sism/screens/login_success/login_success_screen.dart';
 import 'package:open_sism/screens/profile/account_screen/account_screen.dart';
@@ -31,4 +32,5 @@ final Map<String, WidgetBuilder> routes = {
   FinishedTask.routeName: (context) => FinishedTask(),
   AboutUs.routeName: (context) => AboutUs(),
   RegisterScreen.routeName: (context) => RegisterScreen(),
+  HomeScreen.routeName: (context) => HomeScreen(),
 };
