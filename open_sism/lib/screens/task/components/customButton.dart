@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:open_sism/screens/task/components/taskBundel.dart';
 
-class CustomButton extends StatelessWidget {
-  String getTaskIcon(TaskType) {}
+class CustomButton extends StatefulWidget {
+  final TaskBundle product;
+  CustomButton({@required this.product});
+  @override
+  _CustomButtonState createState() => _CustomButtonState();
+}
 
+class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
@@ -21,12 +27,12 @@ class CustomButton extends StatelessWidget {
           Row(
             children: <Widget>[
               Icon(
-                FontAwesomeIcons.youtube,
+                widget.product.icon,
                 color: Colors.red,
               ),
               const SizedBox(width: 10.0),
               Text(
-                "Youtube",
+                widget.product.title,
                 style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 20.0,
@@ -35,8 +41,7 @@ class CustomButton extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10.0),
-          Text(
-              "Subscribe our youtube channel YazTech to see us build some of these UIs as well as other flutter tutorials and resources."),
+          Text(widget.product.description),
         ],
       ),
     );

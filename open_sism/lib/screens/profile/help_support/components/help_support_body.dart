@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/size_config.dart';
-import 'package:open_sism/screens/profile/components/profile_constants.dart';
 import 'package:open_sism/screens/profile/help_support/components/help_support_form.dart';
+import 'package:open_sism/configurations/constants.dart';
 
 class BodyHelpSupport extends StatefulWidget {
   @override
@@ -21,8 +21,11 @@ class _BodyHelpSupportState extends State<BodyHelpSupport> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
-                Text("Help & Support", style: headingStyle),
+                SizedBox(height: SizeConfig.screenHeight * 0.05), // 4%
+                Text(
+                  "Help & Support",
+                  style: kHeadingStyle,
+                ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SupportScreenForm(),
                 SizedBox(height: getProportionateScreenHeight(20)),

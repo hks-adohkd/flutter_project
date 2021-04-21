@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/constants.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TaskBundle {
   final int id, person, hours, points;
   final String title, description, imageSrc;
+  final IconData icon;
   final Color color;
 
   TaskBundle(
@@ -14,6 +16,7 @@ class TaskBundle {
       this.title,
       this.description,
       this.imageSrc,
+      this.icon,
       this.color});
 }
 
@@ -27,6 +30,7 @@ List<TaskBundle> recipeBundles = [
     title: "Youtube",
     description: "Subscribe to youtube channel",
     imageSrc: "assets/images/youtubeTask.png",
+    icon: FontAwesomeIcons.youtube,
     color: kYoutubeCardColor, //Color(0xFFD82D40),
   ),
   TaskBundle(
@@ -37,6 +41,7 @@ List<TaskBundle> recipeBundles = [
     title: "Watch Video",
     description: "watch full video to get reward",
     imageSrc: "assets/images/watchVideo2.png",
+    icon: FontAwesomeIcons.video,
     color: kWatchVideoCardColor,
   ),
   TaskBundle(
@@ -47,6 +52,7 @@ List<TaskBundle> recipeBundles = [
     title: "Questionnaire",
     description: "respond to questions to get reward",
     imageSrc: "assets/images/question.png",
+    icon: FontAwesomeIcons.question,
     color: kQuestionnaireCardColor,
   ),
   TaskBundle(
@@ -57,6 +63,7 @@ List<TaskBundle> recipeBundles = [
     title: "Watch Video",
     description: "watch full video to get reward",
     imageSrc: "assets/images/watchVideo2.png",
+    icon: FontAwesomeIcons.video,
     color: kWatchVideoCardColor,
   ),
 ];

@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/screens/activity/components/planet.dart';
+import 'package:open_sism/screens/activity/components/activityBundel.dart';
+import 'package:open_sism/configurations/constants.dart';
 
-class PlanetRow extends StatelessWidget {
-  final Planet planet;
+class ActivityRow extends StatelessWidget {
+  final Activity activity;
+  String type;
 
-  PlanetRow(this.planet);
+  ActivityRow({@required this.activity, this.type});
+
+  String getRouteName(String type) {
+    if (type == "Message") {
+      return "message";
+    } else if (type == "Order") {
+      return "order";
+    } else if (type == "Finished Task") {
+      return "finished_task";
+    } else
+      return "no route";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +25,7 @@ class PlanetRow extends StatelessWidget {
       margin: new EdgeInsets.symmetric(vertical: 16.0),
       alignment: FractionalOffset.centerLeft,
       child: new Image(
-        image: new AssetImage(planet.image),
+        image: new AssetImage(activity.image),
         height: 92.0,
         width: 92.0,
       ),
@@ -41,9 +54,9 @@ class PlanetRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           new Container(height: 4.0),
-          new Text(planet.name, style: headerTextStyle),
+          new Text(activity.name, style: headerTextStyle),
           new Container(height: 10.0),
-          new Text(planet.location, style: subHeaderTextStyle),
+          new Text(activity.location, style: subHeaderTextStyle),
           new Container(
               margin: new EdgeInsets.symmetric(vertical: 8.0),
               height: 2.0,
@@ -71,17 +84,21 @@ class PlanetRow extends StatelessWidget {
       ),
     );
 
-    return new Container(
-        height: 120.0,
-        margin: const EdgeInsets.symmetric(
-          vertical: 16.0,
-          horizontal: 24.0,
-        ),
-        child: new Stack(
-          children: <Widget>[
-            planetCard,
-            planetThumbnail,
-          ],
-        ));
+    return GestureDetector(
+      onTap: () => print(getRouteName(
+          type)), //Navigator.pushNamed(context, getRouteName(type)),
+      child: new Container(
+          height: 120.0,
+          margin: const EdgeInsets.symmetric(
+            vertical: 16.0,
+            horizontal: 24.0,
+          ),
+          child: new Stack(
+            children: <Widget>[
+              planetCard,
+              planetThumbnail,
+            ],
+          )),
+    );
   }
 }

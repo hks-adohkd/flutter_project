@@ -57,6 +57,11 @@ const kGradiantsPrimaryColor = [
   Color(0xff536DFE),
 ];
 
+const kHeadingStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 28,
+  fontWeight: FontWeight.bold,
+);
 // Form Error
 final RegExp emailValidatorRegExp =
 RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -71,6 +76,16 @@ const String kMatchPassError = "Passwords don't match";
 const String kNameNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
+
+enum ActivityType {
+  message,
+  order,
+  finished_task,
+}
+
+const pendingColor = Color(0xffE64A19);
+const verifiedColor = Color(0xff689F38);
+const rejectColor = Color(0xffD32F2F);
 
 const TextStyle headingStyle = TextStyle(
   fontSize: 28,

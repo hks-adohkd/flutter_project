@@ -7,6 +7,7 @@ import 'package:open_sism/components/card_component.dart';
 import 'package:open_sism/components/alert_widget.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
+// this class not used yet
 class TaskInfoScreen extends StatefulWidget {
   final TaskBundle taskBundle;
   TaskInfoScreen({@required this.taskBundle});

@@ -11,6 +11,11 @@ import 'package:open_sism/screens/profile/account_screen/account_screen.dart';
 import 'package:open_sism/screens/profile/help_support/Help_support_screen.dart';
 import 'package:open_sism/screens/activity/activity_screen.dart';
 import 'package:open_sism/theme.dart';
+import 'package:open_sism/screens/profile/ProfileScreenGradiant.dart';
+import 'package:open_sism/screens/activity/message/message_screen.dart';
+import 'package:open_sism/screens/activity/order/order_screen.dart';
+import 'package:open_sism/screens/activity/finished_task/finished_task_screen.dart';
+import 'package:open_sism/screens/profile/aboutus_screen/AboutUS_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -97,14 +102,17 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
-            deafultButton('reward Screen', RewardScreen()),
-            deafultButton('task Screen', TaskScreen()),
-            deafultButton('profile', ProfileScreen()),
-            deafultButton('account ', AccountScreen()),
-            deafultButton('home', HomeScreen()),
+            deafultButton('reward Screen', RewardScreen.routeName),
+            deafultButton('task Screen', TaskScreen.routeName),
+            deafultButton('profile', ProfileScreenGradient.routeName),
+            deafultButton('account ', AccountScreen.routeName),
+            deafultButton('home', HomeScreen.routeName),
+            deafultButton('About US', AboutUs.routeName),
             deafultButton('help & support', HelpSupportScreen()),
-            deafultButton('Activity', ActivityScreen()),
+            deafultButton('message', Messages.routeName),
+            deafultButton('Activity', ActivityScreen.routeName),
+            deafultButton('Order', Order.routeName),
+            deafultButton('finished Task', FinishedTask.routeName),
             deafultButton('Register', RegisterScreen()),
 
             ElevatedButton(
@@ -133,7 +141,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             )
-
           ],
         ),
       ),
@@ -141,18 +148,19 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  deafultButton(String title, Widget wg) {
+  deafultButton(String title, String route) {
     return ElevatedButton(
       child: Text(title),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return wg;
-            },
-          ),
-        );
+        Navigator.pushNamed(context, route);
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) {
+        //       return wg;
+        //     },
+        //   ),
+        // );
       },
     );
   }

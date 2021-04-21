@@ -51,6 +51,7 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           DefaultButton(
             text: "Save",
+            icon: Icons.save,
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();

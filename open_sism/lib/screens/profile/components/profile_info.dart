@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_sism/screens/profile/components/profile_constants.dart';
@@ -7,16 +8,20 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 /* class return the first container of profile
  (image name email ponts group)
  */
-class ProfileInfo extends StatelessWidget {
+
+class ProfileInfo extends StatefulWidget {
+  @override
+  _ProfileInfoState createState() => _ProfileInfoState();
+}
+
+class _ProfileInfoState extends State<ProfileInfo> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    //ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
     ScreenUtil.init(context,
         height: SizeConfig.screenWidth,
         width: SizeConfig.screenWidth,
         allowFontScaling: true);
-
     return Expanded(
       child: Column(
         children: <Widget>[
@@ -27,7 +32,7 @@ class ProfileInfo extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 CircleAvatar(
-                  radius: kSpacingUnit.w * 8,
+                  radius: kSpacingUnit.w * 9,
                   backgroundImage: AssetImage('assets/images/avatar.png'),
                 ),
                 Align(
@@ -35,8 +40,7 @@ class ProfileInfo extends StatelessWidget {
                   child: Container(
                     height: kSpacingUnit.w * 2.5,
                     width: kSpacingUnit.w * 2.5,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor,
+                    decoration: kBoxDecoration.copyWith(
                       shape: BoxShape.circle,
                     ),
                     child: Center(
@@ -56,7 +60,7 @@ class ProfileInfo extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: kSpacingUnit.w * 2),
+          SizedBox(height: kSpacingUnit.w * 1),
           Text(
             'Nicolas Adams',
             style: kTitleTextStyle,
@@ -73,9 +77,8 @@ class ProfileInfo extends StatelessWidget {
               Container(
                 height: kSpacingUnit.w * 3,
                 width: kSpacingUnit.w * 10,
-                decoration: BoxDecoration(
+                decoration: kBoxDecoration.copyWith(
                   borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-                  color: Theme.of(context).accentColor,
                 ),
                 child: Center(
                   child: FittedBox(
@@ -91,9 +94,8 @@ class ProfileInfo extends StatelessWidget {
               Container(
                 height: kSpacingUnit.w * 3,
                 width: kSpacingUnit.w * 10,
-                decoration: BoxDecoration(
+                decoration: kBoxDecoration.copyWith(
                   borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-                  color: Theme.of(context).accentColor,
                 ),
                 child: Center(
                   child: FittedBox(
@@ -105,6 +107,7 @@ class ProfileInfo extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: kSpacingUnit.w * 1),
             ],
           ),
         ],

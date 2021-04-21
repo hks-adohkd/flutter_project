@@ -7,22 +7,22 @@ import 'package:open_sism/screens/task/components/customButton.dart';
 
 TaskTypes tasks;
 
-class Description extends StatelessWidget {
-  const Description({
-    Key key,
-    @required this.product,
-  }) : super(key: key);
-
+class Description extends StatefulWidget {
   final TaskBundle product;
+  Description({@required this.product});
+  @override
+  _DescriptionState createState() => _DescriptionState();
+}
 
+class _DescriptionState extends State<Description> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
         children: [
-          CustomButton(),
+          CustomButton(product: widget.product),
           Text(
-            product.description,
+            widget.product.description,
             style: TextStyle(height: 1.5),
           ),
         ],

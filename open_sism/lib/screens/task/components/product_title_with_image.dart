@@ -4,14 +4,14 @@ import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/task/components/taskBundel.dart';
 import 'package:open_sism/configurations/size_config.dart';
 
-class ProductTitleWithImage extends StatelessWidget {
-  const ProductTitleWithImage({
-    Key key,
-    @required this.product,
-  }) : super(key: key);
-
+class ProductTitleWithImage extends StatefulWidget {
   final TaskBundle product;
+  ProductTitleWithImage({@required this.product});
+  @override
+  _ProductTitleWithImageState createState() => _ProductTitleWithImageState();
+}
 
+class _ProductTitleWithImageState extends State<ProductTitleWithImage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -24,7 +24,7 @@ class ProductTitleWithImage extends StatelessWidget {
             height: kDefaultPaddin,
           ),
           Text(
-            product.title,
+            widget.product.title,
             style: Theme.of(context)
                 .textTheme
                 .headline4
@@ -57,7 +57,7 @@ class ProductTitleWithImage extends StatelessWidget {
                             fontSize: 24),
                       ),
                       TextSpan(
-                        text: "${product.points}",
+                        text: "${widget.product.points}",
                         style: Theme.of(context).textTheme.headline4.copyWith(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -72,9 +72,9 @@ class ProductTitleWithImage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Hero(
-                    tag: "${product.id}",
+                    tag: "${widget.product.id}",
                     child: Image.asset(
-                      product.imageSrc,
+                      widget.product.imageSrc,
                       fit: BoxFit.scaleDown,
                     ),
                   ),
