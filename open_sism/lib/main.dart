@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/routes.dart';
+import 'package:open_sism/screens/game/spin/spin_screen.dart';
 import 'package:open_sism/screens/home/home_screen.dart';
 import 'package:open_sism/screens/login/login_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: theme(),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
-      initialRoute: GameScreen.routeName,
+      initialRoute: WhellFortune.routeName,
       routes: routes,
     );
   }

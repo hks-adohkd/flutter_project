@@ -19,6 +19,7 @@ import 'package:open_sism/screens/activity/finished_task/finished_task_screen.da
 import 'package:open_sism/screens/profile/aboutus_screen/AboutUS_screen.dart';
 import 'package:open_sism/screens/otp/otp_screen.dart';
 import 'package:open_sism/screens/game/game_screen.dart';
+import 'package:open_sism/screens/game/spin/spin_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   LoginScreen.routeName: (context) => LoginScreen(),
@@ -40,4 +41,5 @@ final Map<String, WidgetBuilder> routes = {
         isRegister: true,
       ),
   GameScreen.routeName: (context) => GameScreen(),
+  WhellFortune.routeName: (context) => WhellFortune(),
 };
