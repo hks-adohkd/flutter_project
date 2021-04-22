@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-
-import 'package:open_sism/screens/game/components/arrow_view.dart';
+import 'package:open_sism/screens/game/spin_games/components/arrow_view.dart';
 import 'model.dart';
 
 // this class to build the wheel with arrow and start button

@@ -1,19 +1,17 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/size_config.dart';
-import 'package:open_sism/screens/game/spin/components/board_view.dart';
-import 'package:open_sism/screens/game/spin/components/build.dart';
+import 'package:open_sism/screens/game/spin_games/components/board_view.dart';
+import 'package:open_sism/screens/game/spin_games/components/build.dart';
 
-class WhellFortune extends StatefulWidget {
-  static String routeName = "/spin_screen";
+class GoldWheelFortune extends StatefulWidget {
+  static String routeName = "/gold_spin_screen";
   @override
   State<StatefulWidget> createState() {
-    return _WhellFortuneState();
+    return _GoldWheelFortuneState();
   }
 }
 
-class _WhellFortuneState extends State<WhellFortune>
+class _GoldWheelFortuneState extends State<GoldWheelFortune>
     with SingleTickerProviderStateMixin {
   BuildMethod buildMethod = BuildMethod();
 
@@ -54,7 +52,7 @@ class _WhellFortuneState extends State<WhellFortune>
         height: SizeConfig.screenHeight,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/wheel.jpg"),
+            image: AssetImage("assets/images/goldenwheel.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -96,7 +94,7 @@ class _WhellFortuneState extends State<WhellFortune>
                   height: getProportionateScreenHeight(10),
                 ),
                 BoardView(
-                  items: buildMethod.items,
+                  items: buildMethod.goldItems,
                   current: buildMethod.current,
                   angle: _angle,
                   isStart: buildMethod.isStart,
@@ -132,7 +130,7 @@ class _WhellFortuneState extends State<WhellFortune>
         width: getProportionateScreenWidth(80),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.amber.withOpacity(0.6),
+          color: Colors.red.withOpacity(0.6),
 
           //borderRadius: BorderRadius.circular(10),
         ),

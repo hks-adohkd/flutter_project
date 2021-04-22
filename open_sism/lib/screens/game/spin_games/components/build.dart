@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/screens/game/spin/components/model.dart';
+import 'package:open_sism/screens/game/spin_games/components/model.dart';
 import 'dart:math';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -24,6 +24,18 @@ class BuildMethod {
     Luck("cheese", Color(0xFF1BD3AC), "500"),
     Luck("carrot", Color(0xFFa73737), "1000"),
   ];
+
+  List<Luck> goldItems = [
+    Luck("apple", Color(0xFF9F6083), "1k"),
+    Luck("raspberry", Color(0xFFFDB78B), "30k"),
+    Luck("grapes", Color(0xFF57CFE2), "4.5k"),
+    Luck("fruit", Color(0xFF606B7E), "7.5k"),
+    Luck("milk", Color(0xFF24ACE9), "150k"),
+    Luck("salad", Color(0xFFFB7C7A), "25k"),
+    Luck("cheese", Color(0xFF1BD3AC), "50k"),
+    Luck("carrot", Color(0xFFa73737), "100k"),
+  ];
+
   List<Luck> gift_items = [
     Luck("apple", Color(0xFF9F6083), "10"),
     Luck("raspberry", Color(0xFFFDB78B), "30"),
@@ -123,7 +135,7 @@ class BuildMethod {
             children: <Widget>[
               Icon(
                 Icons.star,
-                color: Colors.amber,
+                color: Colors.red,
               ),
               SizedBox(
                 width: 4,
@@ -134,7 +146,7 @@ class BuildMethod {
                     _index), // to get value from created items no all spin item
                 style: TextStyle(
                     fontSize: 22,
-                    color: Colors.amber,
+                    color: Colors.black,
                     fontWeight: FontWeight.w600),
               ),
             ],
