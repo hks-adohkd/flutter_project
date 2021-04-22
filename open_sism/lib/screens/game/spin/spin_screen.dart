@@ -23,9 +23,10 @@ class _WhellFortuneState extends State<WhellFortune>
   AnimationController _ctrl;
   Animation _ani;
   bool isStart = false;
-
+  bool isEnd = false;
   var prevIndex;
   String prevPoint;
+  String result;
   List<Luck> _items = [
     Luck("apple", Color(0xFF9F6083), "10"),
     Luck("raspberry", Color(0xFFFDB78B), "30"),
@@ -127,6 +128,41 @@ class _WhellFortuneState extends State<WhellFortune>
                         );
                       },
                     ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(10),
+                    ),
+                    Visibility(
+                      visible: isEnd,
+                      child: Container(
+                        padding: EdgeInsets.all(getProportionateScreenWidth(1)),
+                        alignment: Alignment.center,
+                        height: getProportionateScreenWidth(80),
+                        width: getProportionateScreenWidth(80),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.amber.withOpacity(0.6),
+
+                          //borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: result,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline4
+                                    .copyWith(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                     // _buildGo(),
                   ],
                 ),
@@ -143,6 +179,8 @@ class _WhellFortuneState extends State<WhellFortune>
       _ctrl.forward(from: 0.0).then((_) {
         _current = (_current + _random);
         _current = _current - _current ~/ 1;
+        isEnd = true;
+        init_State();
         _alert(context); //end whell
         _ctrl.reset();
       });
@@ -198,8 +236,14 @@ class _WhellFortuneState extends State<WhellFortune>
     } else {
       prevPoint = _gift_items[Random().nextInt(_gift_items.length - 1)].point;
       prevIndex = index;
+      result = prevPoint;
       return prevPoint;
     }
+  }
+
+  String getResult(_value) {
+    var _index = _calIndex(_value * _angle + _current);
+    return getGiftItem(_index);
   }
 
   _buildResult(_value) {
