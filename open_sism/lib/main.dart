@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: theme(),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
-      initialRoute: GoldWhellFortune.routeName,
+      initialRoute: WhellFortune.routeName,
       routes: routes,
     );
   }

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:open_sism/screens/game/components/navigator.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-
+import 'package:open_sism/configurations/size_config.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/game/spin/components/board_view.dart';
 import 'package:open_sism/screens/game/spin/components/model.dart';
@@ -22,6 +22,10 @@ class _WhellFortuneState extends State<WhellFortune>
   double _current = 0;
   AnimationController _ctrl;
   Animation _ani;
+  bool isStart = false;
+
+  var prevIndex;
+  String prevPoint;
   List<Luck> _items = [
     Luck("apple", Color(0xFF9F6083), "10"),
     Luck("raspberry", Color(0xFFFDB78B), "30"),
@@ -32,6 +36,22 @@ class _WhellFortuneState extends State<WhellFortune>
     Luck("cheese", Color(0xFF1BD3AC), "500"),
     Luck("carrot", Color(0xFFa73737), "1000"),
   ];
+  List<Luck> _gift_items = [
+    Luck("apple", Color(0xFF9F6083), "10"),
+    Luck("raspberry", Color(0xFFFDB78B), "30"),
+    Luck("grapes", Color(0xFF57CFE2), "45"),
+    Luck("fruit", Color(0xFF606B7E), "75"),
+    Luck("milk", Color(0xFF24ACE9), "150"),
+  ];
+
+  void init_State() {
+    setState(() {
+      _current = 0;
+      _angle = 0;
+      isStart = false;
+      prevPoint = _gift_items[0].point;
+    });
+  }
 
   @override
   void initState() {
@@ -43,70 +63,75 @@ class _WhellFortuneState extends State<WhellFortune>
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    setState(() {
+      isStart = false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context); // to get the screen size
     return Scaffold(
       body: Container(
+        height: SizeConfig.screenHeight,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/wheel.jpg"),
             fit: BoxFit.cover,
           ),
         ),
-//        decoration: BoxDecoration(
-//            gradient: LinearGradient(
-//                begin: Alignment.topCenter,
-//                end: Alignment.bottomCenter,
-//                colors: [Color(0xCCf857a6), Color(0xCCff5858)])),
         child: AnimatedBuilder(
             animation: _ani,
             builder: (context, child) {
               final _value = _ani.value;
               final _angle = _value * this._angle;
-              return Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 50.0),
-                      child: Text(
-                        "Spin To Win",
-                        style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+              return SingleChildScrollView(
+                child: Column(
+                  //alignment: Alignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 50.0),
+                        child: Text(
+                          "Spin To Win",
+                          style: TextStyle(
+                              fontSize: 24,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                  ),
-                  BoardView(items: _items, current: _current, angle: _angle),
-                  _buildGo(),
-                  _buildResult(_value),
-                ],
+                    SizedBox(
+                      height: getProportionateScreenHeight(10),
+                    ),
+                    _buildResult(_value),
+                    SizedBox(
+                      height: getProportionateScreenHeight(10),
+                    ),
+                    BoardView(
+                      items: _items,
+                      current: _current,
+                      angle: _angle,
+                      isStart: isStart,
+                      press: () {
+                        setState(
+                          () {
+                            isStart = true;
+                            _animation();
+                          },
+                        );
+                      },
+                    ),
+                    // _buildGo(),
+                  ],
+                ),
               );
             }),
-      ),
-    );
-  }
-
-  _buildGo() {
-    return Material(
-      color: Colors.white,
-      shape: CircleBorder(),
-      child: InkWell(
-        customBorder: CircleBorder(),
-        child: Container(
-          alignment: Alignment.center,
-          height: 84,
-          width: 84,
-          child: Text(
-            "START",
-            style: TextStyle(
-                color: Colors.black87,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-        onTap: _animation,
       ),
     );
   }
@@ -165,32 +190,50 @@ class _WhellFortuneState extends State<WhellFortune>
     return (((_base + value) % 1) * _items.length).floor();
   }
 
+  String getGiftItem(var index) {
+    print(index);
+    print(prevIndex);
+    if (index == prevIndex) {
+      return prevPoint;
+    } else {
+      prevPoint = _gift_items[Random().nextInt(_gift_items.length - 1)].point;
+      prevIndex = index;
+      return prevPoint;
+    }
+  }
+
   _buildResult(_value) {
     var _index = _calIndex(_value * _angle + _current);
 
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 48.0),
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(
-              Icons.star,
-              color: Colors.amber,
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Text(
-              _items[_index].point,
-              style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.amber,
-                  fontWeight: FontWeight.w600),
-            ),
-          ],
-        ), //gosterim
+    return Visibility(
+      visible: isStart,
+      child: Padding(
+        //padding: EdgeInsets.symmetric(vertical: 48.0),
+        padding: EdgeInsets.symmetric(vertical: 20.0),
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              Text(
+                // _items[_index].point,
+                getGiftItem(
+                    _index), // to get value from created items no all spin item
+                style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.amber,
+                    fontWeight: FontWeight.w600),
+              ),
+            ],
+          ), //gosterim
+        ),
       ),
     );
   }

@@ -9,8 +9,16 @@ class BoardView extends StatefulWidget {
   final double angle;
   final double current;
   final List<Luck> items;
+  final bool isStart;
+  final Function press;
 
-  const BoardView({Key key, this.angle, this.current, this.items})
+  const BoardView(
+      {Key key,
+      this.angle,
+      this.current,
+      this.items,
+      this.isStart = false,
+      this.press})
       : super(key: key);
 
   @override
@@ -20,8 +28,8 @@ class BoardView extends StatefulWidget {
 }
 
 class _BoardViewState extends State<BoardView> {
-  Size get size => Size(MediaQuery.of(context).size.width * 0.8,
-      MediaQuery.of(context).size.width * 0.8);
+  Size get size => Size(MediaQuery.of(context).size.width * 0.9,
+      MediaQuery.of(context).size.width * 0.9);
 
   double _rotote(int index) => (index / widget.items.length) * 2 * pi;
 
@@ -49,11 +57,49 @@ class _BoardViewState extends State<BoardView> {
           ),
         ),
         Container(
-          height: size.height,
-          width: size.width,
+          height: 140,
+          width: 140,
+          //alignment: Alignment.center,
           child: ArrowView(),
         ),
+        Container(
+          height: size.height,
+          width: size.width,
+          //alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // ArrowView(),
+              _buildGo(),
+            ],
+          ),
+        ),
       ],
+    );
+  }
+
+  _buildGo() {
+    return Material(
+      color: Colors.white,
+      shape: CircleBorder(),
+      child: InkWell(
+        customBorder: CircleBorder(),
+        child: Container(
+          alignment: Alignment.center,
+          height: 84,
+          width: 84,
+          child: Text(
+            "START",
+            style: TextStyle(
+                color: Colors.black87,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        onTap: () {
+          widget.press();
+        },
+      ),
     );
   }
 
@@ -99,12 +145,22 @@ class _BoardViewState extends State<BoardView> {
                 SizedBox(
                   height: 4,
                 ),
-                Text(
-                  luck.point.toString(),
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600),
+                Visibility(
+                  visible: !widget.isStart,
+                  child: Text(
+                    luck.point.toString(),
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                Visibility(
+                  visible: widget.isStart,
+                  child: Icon(
+                    Icons.card_giftcard_rounded,
+                    color: Colors.amberAccent,
+                  ),
                 ),
               ],
             ),
