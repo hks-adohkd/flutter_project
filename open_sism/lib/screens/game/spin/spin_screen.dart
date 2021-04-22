@@ -6,6 +6,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/game/spin/components/board_view.dart';
+
+import 'package:open_sism/screens/game/spin/components/build.dart';
 import 'package:open_sism/screens/game/spin/components/model.dart';
 
 class WhellFortune extends StatefulWidget {
@@ -18,6 +20,8 @@ class WhellFortune extends StatefulWidget {
 
 class _WhellFortuneState extends State<WhellFortune>
     with SingleTickerProviderStateMixin {
+  BuildMethod buildMethod = BuildMethod();
+
   double _angle = 0;
   double _current = 0;
   AnimationController _ctrl;
@@ -27,30 +31,13 @@ class _WhellFortuneState extends State<WhellFortune>
   var prevIndex;
   String prevPoint;
   String result;
-  List<Luck> _items = [
-    Luck("apple", Color(0xFF9F6083), "10"),
-    Luck("raspberry", Color(0xFFFDB78B), "30"),
-    Luck("grapes", Color(0xFF57CFE2), "45"),
-    Luck("fruit", Color(0xFF606B7E), "75"),
-    Luck("milk", Color(0xFF24ACE9), "150"),
-    Luck("salad", Color(0xFFFB7C7A), "250"),
-    Luck("cheese", Color(0xFF1BD3AC), "500"),
-    Luck("carrot", Color(0xFFa73737), "1000"),
-  ];
-  List<Luck> _gift_items = [
-    Luck("apple", Color(0xFF9F6083), "10"),
-    Luck("raspberry", Color(0xFFFDB78B), "30"),
-    Luck("grapes", Color(0xFF57CFE2), "45"),
-    Luck("fruit", Color(0xFF606B7E), "75"),
-    Luck("milk", Color(0xFF24ACE9), "150"),
-  ];
 
-  void init_State() {
+  void spinInitState() {
     setState(() {
       _current = 0;
       _angle = 0;
       isStart = false;
-      prevPoint = _gift_items[0].point;
+      prevPoint = buildMethod.gift_items[0].point;
     });
   }
 
@@ -69,6 +56,7 @@ class _WhellFortuneState extends State<WhellFortune>
     super.dispose();
     setState(() {
       isStart = false;
+      isEnd = false;
     });
   }
 
@@ -115,7 +103,7 @@ class _WhellFortuneState extends State<WhellFortune>
                       height: getProportionateScreenHeight(10),
                     ),
                     BoardView(
-                      items: _items,
+                      items: buildMethod.items,
                       current: _current,
                       angle: _angle,
                       isStart: isStart,
@@ -123,6 +111,7 @@ class _WhellFortuneState extends State<WhellFortune>
                         setState(
                           () {
                             isStart = true;
+                            isEnd = false;
                             _animation();
                           },
                         );
@@ -179,8 +168,9 @@ class _WhellFortuneState extends State<WhellFortune>
       _ctrl.forward(from: 0.0).then((_) {
         _current = (_current + _random);
         _current = _current - _current ~/ 1;
+        result = prevPoint;
         isEnd = true;
-        init_State();
+        spinInitState();
         _alert(context); //end whell
         _ctrl.reset();
       });
@@ -209,7 +199,7 @@ class _WhellFortuneState extends State<WhellFortune>
       style: alertStyle,
       type: AlertType.none,
       title: "Free Points",
-      desc: "You earned points. You can use it in your Rewards.",
+      desc: "You earned $result points. You can use it in your Rewards.",
       buttons: [
         DialogButton(
           child: Text(
@@ -224,26 +214,25 @@ class _WhellFortuneState extends State<WhellFortune>
   }
 
   int _calIndex(value) {
-    var _base = (2 * pi / _items.length / 2) / (2 * pi);
-    return (((_base + value) % 1) * _items.length).floor();
+    var _base = (2 * pi / buildMethod.items.length / 2) / (2 * pi);
+    return (((_base + value) % 1) * buildMethod.items.length).floor();
   }
 
   String getGiftItem(var index) {
-    print(index);
-    print(prevIndex);
     if (index == prevIndex) {
+      //result = prevPoint;
       return prevPoint;
     } else {
-      prevPoint = _gift_items[Random().nextInt(_gift_items.length - 1)].point;
+      prevPoint = buildMethod
+          .gift_items[Random().nextInt(buildMethod.gift_items.length - 1)]
+          .point;
       prevIndex = index;
-      result = prevPoint;
+
+      print(prevPoint);
+
+      //result = prevPoint;
       return prevPoint;
     }
-  }
-
-  String getResult(_value) {
-    var _index = _calIndex(_value * _angle + _current);
-    return getGiftItem(_index);
   }
 
   _buildResult(_value) {

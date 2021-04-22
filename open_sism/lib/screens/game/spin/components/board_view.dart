@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/screens/game/components/arrow_view.dart';
 import 'model.dart';
 
+// this class to build the wheel with arrow and start button
 class BoardView extends StatefulWidget {
   final double angle;
   final double current;
@@ -78,6 +79,7 @@ class _BoardViewState extends State<BoardView> {
     );
   }
 
+  //this method to build the start button of wheel
   _buildGo() {
     return Material(
       color: Colors.white,
@@ -89,7 +91,7 @@ class _BoardViewState extends State<BoardView> {
           height: 84,
           width: 84,
           child: Text(
-            "START",
+            "Spin",
             style: TextStyle(
                 color: Colors.black87,
                 fontSize: 20.0,
@@ -103,6 +105,7 @@ class _BoardViewState extends State<BoardView> {
     );
   }
 
+  // this method  to build the part of wheel and its color
   _buildCard(Luck luck) {
     var _rotate = _rotote(widget.items.indexOf(luck));
     var _angle = 2 * pi / widget.items.length;
@@ -117,12 +120,14 @@ class _BoardViewState extends State<BoardView> {
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [luck.color, luck.color.withOpacity(0)])),
+                  colors: [luck.color, luck.color.withOpacity(1)])),
         ),
       ),
     );
   }
 
+  // this method to build  singe  text on wheel and points ,
+  // we will contract it as loop to build all wheel text and points
   _buildImage(Luck luck) {
     var _rotate = _rotote(widget.items.indexOf(luck));
     return Transform.rotate(
