@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:open_sism/configurations/size_config.dart';
+import 'package:open_sism/screens/activity/activity_screen.dart';
+import 'package:open_sism/screens/game/daily_bonus/dailyBonusScreen.dart';
+import 'package:open_sism/screens/game/game_screen.dart';
+import 'package:open_sism/screens/profile/profile_screen.dart';
+import 'package:open_sism/screens/reward/rewards_screen.dart';
+import 'package:open_sism/screens/task/task_screen.dart';
 
 class Categories extends StatelessWidget {
   @override
@@ -16,12 +22,12 @@ class Categories extends StatelessWidget {
     ];
 
     List<String> routeList = [
-      '/home/taskScreen',
-      '/gameScreen',
-      '/home/prizeScreen',
-      '/giftScreen',
-      '/activityScreen',
-      '/home/profileScreen',
+      TaskScreen.routeName,
+      GameScreen.routeName,
+      RewardScreen.routeName,
+      DailyBonus.routeName,
+      ActivityScreen.routeName,
+      ProfileScreen.routeName,
       '/moreScreen',
     ];
 
