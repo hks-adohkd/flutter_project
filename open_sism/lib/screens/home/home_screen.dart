@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: kAppBarHeight,
         child: ReusableAppBar(
-          leadingIcon: Icons.emoji_people,
+          leadingIcon: null,
           appBarTitle: "Home",
         ),
       ),

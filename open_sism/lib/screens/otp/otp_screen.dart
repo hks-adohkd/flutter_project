@@ -19,3 +19,34 @@ class OtpScreen extends StatelessWidget {
     );
   }
 }
+
+/*
+How to send:
+
+    Navigator.pushNamed(ctx, '/foo', arguments: someObject);
+How to receive:
+
+...
+    return MaterialApp(
+        ...
+        onGenerateRoute: _getRoute,
+        ...
+    );
+...
+
+Route<dynamic> _getRoute(RouteSettings settings) {
+    if (settings.name == '/foo') {
+        // FooRoute constructor expects SomeObject
+        return _buildRoute(settings, new FooRoute(settings.arguments));
+    }
+
+    return null;
+}
+
+MaterialPageRoute _buildRoute(RouteSettings settings, Widget builder) {
+    return new MaterialPageRoute(
+        settings: settings,
+        builder: (ctx) => builder,
+    );
+}
+ */
