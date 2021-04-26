@@ -3,6 +3,7 @@ import 'package:open_sism/configurations/size_config.dart';
 import 'package:open_sism/screens/profile/components/profile_constants.dart';
 import 'package:open_sism/screens/profile/components/default_Button.dart';
 import 'package:open_sism/screens/profile/components/form_error.dart';
+import 'package:open_sism/components/custom_suffix_svgIcon.dart';
 
 class AccountScreenForm extends StatefulWidget {
   @override
@@ -13,7 +14,8 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
   String email;
   String name;
   String password;
-  String conform_password;
+  String confirm_password;
+  bool showPassword = false;
   bool remember = false;
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
@@ -47,6 +49,32 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
           buildPasswordFormField(),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           buildDefaultField('Phone number', 'Enter your Phone number', false),
+          SizedBox(height: SizeConfig.screenHeight * 0.02),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () => {},
+                child: Text(
+                  "Change Password",
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.04),
+              InkWell(
+                onTap: () => {},
+                child: Text(
+                  "Change Phone Number",
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: SizeConfig.screenHeight * 0.02),
           FormError(errors: errors),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           DefaultButton(
@@ -88,14 +116,16 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/na"),
+        suffixIcon: title == "Name"
+            ? CustomSuffixIcon(svgIcon: 'assets/icons/User.svg')
+            : CustomSuffixIcon(svgIcon: 'assets/icons/Location point.svg'),
       ),
     );
   }
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
-      obscureText: true,
+      obscureText: showPassword,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -122,7 +152,17 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: IconButton(
+          onPressed: () {
+            setState(() {
+              showPassword = !showPassword;
+            });
+          },
+          icon: Icon(
+            Icons.remove_red_eye,
+            color: Colors.grey,
+          ),
+        ),
       ),
     );
   }
@@ -156,7 +196,7 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+        suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Mail.svg"),
       ),
     );
   }

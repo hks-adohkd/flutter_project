@@ -29,12 +29,6 @@ class _BodyAccountState extends State<BodyAccount> {
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 AccountScreenForm(),
-                SizedBox(height: getProportionateScreenHeight(20)),
-                Text(
-                  'By continuing your confirm that you agree \nwith our Term and Condition',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.caption,
-                )
               ],
             ),
           ),

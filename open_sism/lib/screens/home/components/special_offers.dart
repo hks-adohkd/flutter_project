@@ -4,9 +4,10 @@ import 'section_title.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class SpecialOffers extends StatelessWidget {
-  const SpecialOffers({
-    Key key,
-  }) : super(key: key);
+  final int points;
+  final String badge;
+  const SpecialOffers({Key key, this.points = 0, this.badge = "bronze"})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +16,49 @@ class SpecialOffers extends StatelessWidget {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: Text(
-            "Special for you",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-            //press: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text.rich(
+                TextSpan(
+                  style: TextStyle(
+                    color: Colors.amber,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: points.toString() + "\n",
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(12),
+                      ),
+                    ),
+                    TextSpan(
+                      text: "    points",
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(10),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                "Special for you",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                //press: () {},
+              ),
+              Text(
+                badge,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.amber,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
