@@ -3,8 +3,7 @@ import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'categories.dart';
 import 'discount_banner.dart';
-//import 'home_header.dart';
-//import 'popular_product.dart';
+import 'package:open_sism/screens/home/components/points_banner.dart';
 import 'special_offers.dart';
 import 'package:open_sism/screens/home/components/gategories_grid.dart';
 
@@ -24,12 +23,14 @@ class Body extends StatelessWidget {
             children: [
               SizedBox(height: getProportionateScreenHeight(40)),
               SpecialOffers(),
-              SizedBox(height: getProportionateScreenHeight(30)),
+              SizedBox(height: getProportionateScreenHeight(0.5)),
+
+              SizedBox(height: getProportionateScreenHeight(1)),
               DiscountBanner(isShown: true),
               Categories(),
               SizedBox(height: getProportionateScreenHeight(30)),
-             // CategoriesGrid(),
-             // SizedBox(height: getProportionateScreenWidth(30)),
+              // CategoriesGrid(),
+              // SizedBox(height: getProportionateScreenWidth(30)),
             ],
           ),
         ),

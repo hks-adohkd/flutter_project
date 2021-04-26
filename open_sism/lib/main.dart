@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/routes.dart';
 import 'package:open_sism/screens/game/spin_games/golden_spin/goldspin_screen.dart';
-import 'file:///C:/Users/Yazbek/AndroidStudioProjects/Sism/opensism/open_sism/lib/screens/game/spin_games/spin/spin_screen.dart';
+import 'package:open_sism/screens/game/spin_games/spin/spin_screen.dart';
 import 'package:open_sism/screens/home/home_screen.dart';
 import 'package:open_sism/screens/login/login_screen.dart';
 import 'package:open_sism/screens/profile/profile_screen.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: theme(),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
-      initialRoute: DailyBonus.routeName,
+      initialRoute: HomeScreen.routeName,
       routes: routes,
     );
   }
