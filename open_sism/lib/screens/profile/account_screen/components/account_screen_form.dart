@@ -44,11 +44,11 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
       key: _formKey,
       child: Column(
         children: [
-          buildDefaultField('Name', 'Enter your Name', true),
+          buildNameField('Name', 'Enter your Name'),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           buildEmailFormField(),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
-          buildDefaultField('Address', 'Enter your Address', false),
+          buildAddressField('Address', 'Enter your Address'),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           buildPasswordFormField(),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
@@ -109,9 +109,9 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
         if (value.phoneNumber.isNotEmpty) {
           removeError(error: kPhoneNullError);
         }
-        // if (phoneRegExp.hasMatch(value.phoneNumber)) {
-        //   removeError(error: kInvalidPhoneError);
-        // }
+        if (phoneRegExp.hasMatch(value.phoneNumber)) {
+          removeError(error: kInvalidPhoneError);
+        }
         return null;
       },
       validator: (value) {
@@ -146,19 +146,37 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
     );
   }
 
-  TextFormField buildDefaultField(String title, String hint, bool showError) {
+  TextFormField buildAddressField(String title, String hint) {
     return TextFormField(
-      initialValue: title == "Name" ? name : address,
+      initialValue: address,
+      keyboardType: TextInputType.name,
+      onSaved: (newValue) => address = newValue,
+      onChanged: (value) {},
+      decoration: InputDecoration(
+        labelText: title,
+        hintText: hint,
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon:
+            CustomSuffixIcon(svgIcon: 'assets/icons/Location point.svg'),
+      ),
+    );
+  }
+
+  TextFormField buildNameField(String title, String hint) {
+    return TextFormField(
+      initialValue: name,
       keyboardType: TextInputType.name,
       onSaved: (newValue) => name = newValue,
       onChanged: (value) {
-        if (value.isNotEmpty && showError) {
+        if (value.isNotEmpty) {
           removeError(error: kNameNullError);
         }
         return null;
       },
       validator: (value) {
-        if (value.isEmpty && showError) {
+        if (value.isEmpty) {
           addError(error: kNameNullError);
           return "";
         }
@@ -170,9 +188,7 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: title == "Name"
-            ? CustomSuffixIcon(svgIcon: 'assets/icons/User.svg')
-            : CustomSuffixIcon(svgIcon: 'assets/icons/Location point.svg'),
+        suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/User.svg'),
       ),
     );
   }

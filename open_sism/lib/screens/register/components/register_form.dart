@@ -6,7 +6,6 @@ import 'package:open_sism/components/form_error.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/otp/otp_screen.dart';
 
-
 class RegisterForm extends StatefulWidget {
   @override
   _RegisterFormState createState() => _RegisterFormState();
@@ -45,22 +44,35 @@ class _RegisterFormState extends State<RegisterForm> {
             height: 30,
           ),
           buildPhoneFormField(),
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           buildNameFormField(),
           SizedBox(height: 30),
           buildEmailFormField(),
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           buildPasswordFormField(),
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           buildConfirmPasswordFormField(),
           FormError(errors: errors),
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           DefaultButton(
             text: "Continue",
-            press: (){
-              if(_formKey.currentState.validate()){
+            press: () {
+              if (_formKey.currentState.validate()) {
                 // TODO: Go to complete profile page
-                Navigator.push(context, MaterialPageRoute(builder: (context) => OtpScreen(isRegister: false,)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OtpScreen(
+                              isRegister: false,
+                            )));
               }
             },
           )
@@ -120,7 +132,8 @@ class _RegisterFormState extends State<RegisterForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        }  if (value.length >= 8) {
+        }
+        if (value.length >= 8) {
           removeError(error: kShortPassError);
         }
         password = value;
@@ -130,7 +143,8 @@ class _RegisterFormState extends State<RegisterForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } if (value.length < 8) {
+        }
+        if (value.length < 8) {
           addError(error: kShortPassError);
           return "";
         }
@@ -153,7 +167,8 @@ class _RegisterFormState extends State<RegisterForm> {
       onChanged: (value) {
         if (password == confirmPassword) {
           removeError(error: kMatchPassError);
-        }  if (value.length >= 8) {
+        }
+        if (value.length >= 8) {
           removeError(error: kShortPassError);
         }
         return null;
@@ -161,9 +176,8 @@ class _RegisterFormState extends State<RegisterForm> {
       validator: (value) {
         if (value.isEmpty) {
           return "";
-        } if (password != value) {
-          print("password: " + password);
-          print("confirm: " + confirmPassword);
+        }
+        if (password != value) {
           addError(error: kMatchPassError);
           return "";
         }
@@ -184,14 +198,14 @@ class _RegisterFormState extends State<RegisterForm> {
     return TextFormField(
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
-        if (phoneRegExp.hasMatch(value)) {
-          removeError(error: kInvalidPhoneError);
+        if (emailValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidEmailError);
         }
         return null;
       },
       validator: (value) {
         if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: kInvalidPhoneError);
+          addError(error: kInvalidEmailError);
           return "";
         }
         return null;
@@ -211,11 +225,15 @@ class _RegisterFormState extends State<RegisterForm> {
     return TextFormField(
       onSaved: (newValue) => name = newValue,
       onChanged: (value) {
-
+        if (value.isNotEmpty) {
+          removeError(error: "Name doesn't exist!");
+        }
+        return null;
       },
       validator: (value) {
-        if(value.isEmpty){
-          errors.add("Name doesn't exist!");
+        if (value.isEmpty) {
+          addError(error: "Name doesn't exist!");
+          return "";
         }
         return null;
       },
