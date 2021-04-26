@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/home/components/body.dart';
 import 'package:open_sism/components/appBar.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
 class HomeScreen extends StatelessWidget {
   static String routeName = "/home";
@@ -15,7 +16,12 @@ class HomeScreen extends StatelessWidget {
           appBarTitle: "Home",
         ),
       ),
-      body: Body(),
+      body: DoubleBackToCloseApp(
+        child: Body(),
+        snackBar: const SnackBar(
+          content: Text('Tap back again to leave'),
+        ),
+      ),
       // bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
     );
   }
