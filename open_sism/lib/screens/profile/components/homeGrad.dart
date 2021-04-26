@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/screens/login/login_screen.dart';
+import 'package:open_sism/screens/profile/aboutus_screen/AboutUS_screen.dart';
 import 'package:open_sism/screens/profile/account_screen/account_screen.dart';
 
 import 'package:open_sism/screens/profile/components/profile_header.dart';
@@ -7,6 +9,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:open_sism/screens/profile/components/profile_constants.dart';
 import 'package:open_sism/screens/profile/components/profile_list_item.dart';
 import 'package:open_sism/configurations/size_config.dart';
+import 'package:open_sism/screens/profile/help_support/Help_support_screen.dart';
 
 /*
 * Main profile class */
@@ -44,6 +47,9 @@ class HomeProfileScreenGrad extends StatelessWidget {
                 ProfileListItem(
                   icon: LineAwesomeIcons.question_circle,
                   text: 'Help & Support',
+                  press: () {
+                    Navigator.pushNamed(context, HelpSupportScreen.routeName);
+                  },
                 ),
                 ProfileListItem(
                   icon: LineAwesomeIcons.cog,
@@ -52,11 +58,17 @@ class HomeProfileScreenGrad extends StatelessWidget {
                 ProfileListItem(
                   icon: LineAwesomeIcons.question,
                   text: 'About Us',
+                  press: () {
+                    Navigator.pushNamed(context, AboutUs.routeName);
+                  },
                 ),
                 ProfileListItem(
                   icon: LineAwesomeIcons.alternate_sign_out,
                   text: 'Logout',
                   hasNavigation: false,
+                  press: () {
+                    Navigator.pushNamed(context, LoginScreen.routeName);
+                  },
                 ),
               ],
             ),

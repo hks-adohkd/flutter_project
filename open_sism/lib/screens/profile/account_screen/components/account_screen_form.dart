@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/configurations/size_config.dart';
+import 'package:open_sism/screens/home/home_screen.dart';
 import 'package:open_sism/screens/profile/components/default_Button.dart';
 import 'package:open_sism/screens/profile/components/form_error.dart';
 import 'package:open_sism/components/custom_suffix_svgIcon.dart';
@@ -12,11 +13,12 @@ class AccountScreenForm extends StatefulWidget {
 }
 
 class _AccountScreenFormState extends State<AccountScreenForm> {
-  String email;
-  String name;
-  String password;
+  String email = "Mohammed.yazbek@gmail.com";
+  String name = "Yazbek";
+  String password = "password";
+  String address = "damascus";
   String confirm_password;
-  String phone;
+  String phone = "934631746";
   bool showPassword = false;
   bool remember = false;
   final _formKey = GlobalKey<FormState>();
@@ -85,6 +87,9 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
+                // Navigator.pushNamedAndRemoveUntil(
+                //     context, HomeScreen.routeName, (route) => false);
+                Navigator.pop(context);
                 // if all are valid then go to success screen
                 // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
               }
@@ -99,13 +104,14 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
     PhoneNumber number = PhoneNumber(isoCode: 'SY');
 
     return InternationalPhoneNumberInput(
+      isEnabled: false,
       onInputChanged: (value) {
         if (value.phoneNumber.isNotEmpty) {
           removeError(error: kPhoneNullError);
         }
-        if (phoneRegExp.hasMatch(value.phoneNumber)) {
-          removeError(error: kInvalidPhoneError);
-        }
+        // if (phoneRegExp.hasMatch(value.phoneNumber)) {
+        //   removeError(error: kInvalidPhoneError);
+        // }
         return null;
       },
       validator: (value) {
@@ -113,15 +119,15 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
           addError(error: kPhoneNullError);
           return "";
         }
-        if (!phoneRegExp.hasMatch(value)) {
-          addError(error: kInvalidPhoneError);
-          return "";
-        }
+        // if (!phoneRegExp.hasMatch(value)) {
+        //   addError(error: kInvalidPhoneError);
+        //   return "";
+        // }
         return null;
       },
       onSaved: (newValue) => phone = newValue.phoneNumber,
       textStyle: TextStyle(color: Colors.white),
-      initialValue: number,
+      initialValue: PhoneNumber(phoneNumber: "934631746", isoCode: "SY"),
       selectorConfig: SelectorConfig(
         setSelectorButtonAsPrefixIcon: true,
         trailingSpace: false,
@@ -142,6 +148,7 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
 
   TextFormField buildDefaultField(String title, String hint, bool showError) {
     return TextFormField(
+      initialValue: title == "Name" ? name : address,
       keyboardType: TextInputType.name,
       onSaved: (newValue) => name = newValue,
       onChanged: (value) {
@@ -172,6 +179,7 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      readOnly: true,
       obscureText: showPassword,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
@@ -193,9 +201,11 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
         }
         return null;
       },
+      initialValue: password,
       decoration: InputDecoration(
         labelText: "Password",
         hintText: "Enter your password",
+
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -216,6 +226,7 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      initialValue: email,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {

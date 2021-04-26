@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/screens/game/components/game_bundle.dart';
 import 'package:open_sism/configurations/constants.dart';
+import 'package:open_sism/screens/game/spin_games/golden_spin/goldspin_screen.dart';
+import 'package:open_sism/screens/game/spin_games/spin/spin_screen.dart';
 
 class GameRow extends StatelessWidget {
   final Game game;
@@ -10,9 +12,9 @@ class GameRow extends StatelessWidget {
 
   String getRouteName(String type) {
     if (type == "Spin Wheel") {
-      return "spin";
+      return WhellFortune.routeName;
     } else if (type == "Golden Spin Wheel") {
-      return "goldenSpin";
+      return GoldWheelFortune.routeName;
     } else
       return "no route";
   }
@@ -83,8 +85,7 @@ class GameRow extends StatelessWidget {
     );
 
     return GestureDetector(
-      onTap: () => print(getRouteName(
-          type)), //Navigator.pushNamed(context, getRouteName(type)),
+      onTap: () => Navigator.pushNamed(context, getRouteName(type)),
       child: new Container(
           height: 120.0,
           margin: const EdgeInsets.symmetric(

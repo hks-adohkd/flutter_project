@@ -44,4 +44,6 @@ final Map<String, WidgetBuilder> routes = {
   WhellFortune.routeName: (context) => WhellFortune(),
   GoldWheelFortune.routeName: (context) => GoldWheelFortune(),
   DailyBonus.routeName: (context) => DailyBonus(),
+  WhellFortune.routeName: (context) => WhellFortune(),
+  GoldWheelFortune.routeName: (context) => GoldWheelFortune(),
 };

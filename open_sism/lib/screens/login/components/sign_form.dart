@@ -140,9 +140,9 @@ class _SignFormState extends State<SignForm> {
         if (value.phoneNumber.isNotEmpty) {
           removeError(error: kPhoneNullError);
         }
-        if (phoneRegExp.hasMatch(value.phoneNumber)) {
-          removeError(error: kInvalidPhoneError);
-        }
+        // if (phoneRegExp.hasMatch(value.phoneNumber)) {
+        //   removeError(error: kInvalidPhoneError);
+        // }
         return null;
       },
       validator: (value) {
@@ -150,10 +150,10 @@ class _SignFormState extends State<SignForm> {
           addError(error: kPhoneNullError);
           return "";
         }
-        if (!phoneRegExp.hasMatch(value)) {
-          addError(error: kInvalidPhoneError);
-          return "";
-        }
+        // if (!phoneRegExp.hasMatch(value)) {
+        //   addError(error: kInvalidPhoneError);
+        //   return "";
+        // }
         return null;
       },
       onSaved: (newValue) => phone = newValue.phoneNumber,
@@ -176,7 +176,6 @@ class _SignFormState extends State<SignForm> {
       ),
     );
   }
-
 
 /*return TextFormField(
       onSaved: (newValue) => email = newValue,
