@@ -5,6 +5,7 @@ import 'package:open_sism/components/form_error.dart';
 import 'package:open_sism/components/no_account_text.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/configurations/size_config.dart';
+import 'package:open_sism/screens/otp/otp_screen.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -115,6 +116,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
             DefaultButton(text: "Continue", press: () {
               if (_formKey.currentState.validate()) {
                 // TODO: send verification code via message
+                Navigator.pushNamed(context, OtpScreen.routeName);
               }
             }),
             SizedBox(height: SizeConfig.screenHeight * 0.1),

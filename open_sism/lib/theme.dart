@@ -26,7 +26,7 @@ InputDecorationTheme inputDecorationTheme() {
     labelStyle: TextStyle(color: Colors.white),
     hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
     contentPadding: EdgeInsets.symmetric(
-      horizontal: 45,
+      horizontal: 40,
       vertical: 20,
     ),
     enabledBorder: outlineInputBorder,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:open_sism/components/custom_suffix_svgIcon.dart';
 import 'package:open_sism/components/default_button.dart';
 import 'package:open_sism/components/form_error.dart';
 import 'package:open_sism/configurations/constants.dart';
+import 'package:open_sism/screens/otp/otp_screen.dart';
 
 
 class RegisterForm extends StatefulWidget {
@@ -28,6 +30,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   String phone;
   String email;
+  String name;
   String password;
   String confirmPassword;
   final List<String> errors = [];
@@ -43,6 +46,8 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           buildPhoneFormField(),
           SizedBox(height: 30,),
+          buildNameFormField(),
+          SizedBox(height: 30),
           buildEmailFormField(),
           SizedBox(height: 30,),
           buildPasswordFormField(),
@@ -55,10 +60,56 @@ class _RegisterFormState extends State<RegisterForm> {
             press: (){
               if(_formKey.currentState.validate()){
                 // TODO: Go to complete profile page
+                Navigator.push(context, MaterialPageRoute(builder: (context) => OtpScreen(isRegister: false,)));
               }
             },
           )
         ],
+      ),
+    );
+  }
+
+  InternationalPhoneNumberInput buildPhoneFormField() {
+    PhoneNumber number = PhoneNumber(isoCode: 'SY');
+
+    return InternationalPhoneNumberInput(
+      onInputChanged: (value) {
+        if (value.phoneNumber.isNotEmpty) {
+          removeError(error: kPhoneNullError);
+        }
+        if (phoneRegExp.hasMatch(value.phoneNumber)) {
+          removeError(error: kInvalidPhoneError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kPhoneNullError);
+          return "";
+        }
+        if (!phoneRegExp.hasMatch(value)) {
+          addError(error: kInvalidPhoneError);
+          return "";
+        }
+        return null;
+      },
+      onSaved: (newValue) => phone = newValue.phoneNumber,
+      textStyle: TextStyle(color: Colors.white),
+      initialValue: number,
+      selectorConfig: SelectorConfig(
+        setSelectorButtonAsPrefixIcon: true,
+        trailingSpace: false,
+        //selectorType: PhoneInputSelectorType.DIALOG,
+      ),
+      inputDecoration: InputDecoration(
+        //labelText: "Phone",
+        hintText: "Phone number",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Phone.svg'),
+      ),
+      selectorTextStyle: TextStyle(color: Colors.white),
+      searchBoxDecoration: InputDecoration(
+        contentPadding: EdgeInsets.only(left: 40),
       ),
     );
   }
@@ -110,7 +161,9 @@ class _RegisterFormState extends State<RegisterForm> {
       validator: (value) {
         if (value.isEmpty) {
           return "";
-        } if (password != confirmPassword) {
+        } if (password != value) {
+          print("password: " + password);
+          print("confirm: " + confirmPassword);
           addError(error: kMatchPassError);
           return "";
         }
@@ -123,40 +176,6 @@ class _RegisterFormState extends State<RegisterForm> {
         hintText: "Re-enter your Password",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Lock.svg'),
-      ),
-    );
-  }
-
-  TextFormField buildPhoneFormField() {
-    return TextFormField(
-      onSaved: (newValue) => phone = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kPhoneNullError);
-        }
-        if (phoneRegExp.hasMatch(value)) {
-          removeError(error: kInvalidPhoneError);
-        }
-        return null;
-      },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kPhoneNullError);
-          return "";
-        }
-        if (!phoneRegExp.hasMatch(value)) {
-          addError(error: kInvalidPhoneError);
-          return "";
-        }
-        return null;
-      },
-      keyboardType: TextInputType.phone,
-      style: TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        labelText: "Phone",
-        hintText: "Enter your phone number",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Phone.svg'),
       ),
     );
   }
@@ -184,6 +203,29 @@ class _RegisterFormState extends State<RegisterForm> {
         hintText: "Enter your Email (Optional)",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Phone.svg'),
+      ),
+    );
+  }
+
+  TextFormField buildNameFormField() {
+    return TextFormField(
+      onSaved: (newValue) => name = newValue,
+      onChanged: (value) {
+
+      },
+      validator: (value) {
+        if(value.isEmpty){
+          errors.add("Name doesn't exist!");
+        }
+        return null;
+      },
+      keyboardType: TextInputType.name,
+      style: TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        labelText: "Name",
+        hintText: "Enter your Name",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/User.svg'),
       ),
     );
   }
