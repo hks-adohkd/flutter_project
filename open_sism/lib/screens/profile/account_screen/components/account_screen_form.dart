@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/configurations/size_config.dart';
-import 'package:open_sism/screens/profile/components/profile_constants.dart';
 import 'package:open_sism/screens/profile/components/default_Button.dart';
 import 'package:open_sism/screens/profile/components/form_error.dart';
 import 'package:open_sism/components/custom_suffix_svgIcon.dart';
@@ -15,6 +16,7 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
   String name;
   String password;
   String confirm_password;
+  String phone;
   bool showPassword = false;
   bool remember = false;
   final _formKey = GlobalKey<FormState>();
@@ -48,7 +50,7 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           buildPasswordFormField(),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
-          buildDefaultField('Phone number', 'Enter your Phone number', false),
+          buildPhoneFormField(),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -89,6 +91,51 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  InternationalPhoneNumberInput buildPhoneFormField() {
+    PhoneNumber number = PhoneNumber(isoCode: 'SY');
+
+    return InternationalPhoneNumberInput(
+      onInputChanged: (value) {
+        if (value.phoneNumber.isNotEmpty) {
+          removeError(error: kPhoneNullError);
+        }
+        if (phoneRegExp.hasMatch(value.phoneNumber)) {
+          removeError(error: kInvalidPhoneError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kPhoneNullError);
+          return "";
+        }
+        if (!phoneRegExp.hasMatch(value)) {
+          addError(error: kInvalidPhoneError);
+          return "";
+        }
+        return null;
+      },
+      onSaved: (newValue) => phone = newValue.phoneNumber,
+      textStyle: TextStyle(color: Colors.white),
+      initialValue: number,
+      selectorConfig: SelectorConfig(
+        setSelectorButtonAsPrefixIcon: true,
+        trailingSpace: false,
+        //selectorType: PhoneInputSelectorType.DIALOG,
+      ),
+      inputDecoration: InputDecoration(
+        //labelText: "Phone",
+        hintText: "Phone number",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Phone.svg'),
+      ),
+      selectorTextStyle: TextStyle(color: Colors.white),
+      searchBoxDecoration: InputDecoration(
+        contentPadding: EdgeInsets.only(left: 40),
       ),
     );
   }
