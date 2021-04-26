@@ -8,10 +8,11 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:PreferredSize(
+      appBar: PreferredSize(
         preferredSize: kAppBarHeight,
         child: ReusableAppBar(
           appBarTitle: "Login",
+          leadingIcon: null,
         ),
       ),
       body: Body(),

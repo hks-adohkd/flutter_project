@@ -67,7 +67,8 @@ class HomeProfileScreenGrad extends StatelessWidget {
                   text: 'Logout',
                   hasNavigation: false,
                   press: () {
-                    Navigator.pushNamed(context, LoginScreen.routeName);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        LoginScreen.routeName, (Route<dynamic> route) => false);
                   },
                 ),
               ],

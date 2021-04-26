@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/screens/activity/components/activityBundel.dart';
 import 'package:open_sism/configurations/constants.dart';
+import 'package:open_sism/screens/activity/finished_task/finished_task_screen.dart';
+import 'package:open_sism/screens/activity/message/message_screen.dart';
+import 'package:open_sism/screens/activity/order/order_screen.dart';
 
 class ActivityRow extends StatelessWidget {
   final Activity activity;
@@ -10,11 +13,11 @@ class ActivityRow extends StatelessWidget {
 
   String getRouteName(String type) {
     if (type == "Message") {
-      return "message";
+      return Messages.routeName;
     } else if (type == "Order") {
-      return "order";
+      return Order.routeName;
     } else if (type == "Finished Task") {
-      return "finished_task";
+      return FinishedTask.routeName;
     } else
       return "no route";
   }
@@ -85,8 +88,7 @@ class ActivityRow extends StatelessWidget {
     );
 
     return GestureDetector(
-      onTap: () => print(getRouteName(
-          type)), //Navigator.pushNamed(context, getRouteName(type)),
+      onTap: () => Navigator.pushNamed(context, getRouteName(type)),
       child: new Container(
           height: 120.0,
           margin: const EdgeInsets.symmetric(
