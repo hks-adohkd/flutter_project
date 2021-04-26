@@ -6,36 +6,44 @@ import 'package:open_sism/screens/home/home_screen.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        children: [
-          SizedBox(height: SizeConfig.screenHeight * 0.04),
-          Image.asset(
-            "assets/images/success_blue.png",
-            width: SizeConfig.screenWidth, //40%
+    SizeConfig().init(context); // to get the screen size
+    return Container(
+      //width: double.infinity,
+      // height: SizeConfig.screenHeight,
+      child: SingleChildScrollView(
+        child: Container(
+          height: SizeConfig.orientation == Orientation.landscape
+              ? SizeConfig.screenHeight * 2
+              : SizeConfig.screenHeight,
+          child: Column(
+            children: [
+              SizedBox(height: SizeConfig.screenHeight * 0.04),
+              Image.asset(
+                "assets/images/success_blue.png",
+                width: SizeConfig.screenWidth, //40%
+              ),
+              SizedBox(height: SizeConfig.screenHeight * 0.08),
+              Text(
+                "Login Success",
+                style: TextStyle(
+                  fontSize: getProportionateScreenWidth(30),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: SizeConfig.screenHeight * 0.03),
+              SizedBox(
+                width: SizeConfig.screenWidth * 0.6,
+                child: DefaultButton(
+                  text: "Back to home",
+                  press: () {
+                    Navigator.popAndPushNamed(context, HomeScreen.routeName);
+                  },
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.08),
-          Text(
-            "Login Success",
-            style: TextStyle(
-              fontSize: getProportionateScreenWidth(30),
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          Spacer(),
-          SizedBox(
-            width: SizeConfig.screenWidth * 0.6,
-            child: DefaultButton(
-              text: "Back to home",
-              press: () {
-                Navigator.popAndPushNamed(context, HomeScreen.routeName);
-              },
-            ),
-          ),
-          Spacer(),
-        ],
+        ),
       ),
     );
   }

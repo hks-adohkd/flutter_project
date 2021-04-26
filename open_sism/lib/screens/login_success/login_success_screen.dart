@@ -15,7 +15,9 @@ class LoginSuccessScreen extends StatelessWidget {
           appBarTitle: "Success",
         ),
       ),
-      body: Body(),
+      body: SafeArea(
+        child: Body(),
+      ),
     );
   }
 }
