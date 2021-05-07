@@ -52,9 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage message) {
-      if (message != null) {
-        print(message.data);
-      }
+      if (message != null) {}
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -73,7 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 channel.description,
                 // TODO add a proper drawable resource to android, for now using
                 //      one that already exists in example app.
-                icon: 'launch_background',
+                icon: 'notif',
+                styleInformation: DefaultStyleInformation(true, true),
               ),
             ));
       }
