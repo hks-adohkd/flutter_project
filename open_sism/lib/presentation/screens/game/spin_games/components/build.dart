@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/model.dart';
+import 'package:open_sism/presentation/screens/home/home_screen.dart';
+import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
 import 'dart:math';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -92,7 +94,13 @@ class BuildMethod {
             "GO to Reward",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
-          //onPressed: () => Nav.route(context, Home()),
+          onPressed: () => {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => RewardScreen()),
+                ModalRoute.withName(HomeScreen.routeName))
+          },
           color: Color.fromRGBO(0, 179, 134, 1.0),
         ),
       ],

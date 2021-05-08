@@ -109,10 +109,12 @@ class _BodyState extends State<Body> {
     );
   }
 
-  String convertSecondsToTime(int seconds){
-    int mins = (seconds/60).floor();
-    int secs = seconds%60;
-    return mins.toString().padLeft(2, '0') + ":" + secs.toString().padLeft(2, '0');
+  String convertSecondsToTime(int seconds) {
+    int mins = (seconds / 60).floor();
+    int secs = seconds % 60;
+    return mins.toString().padLeft(2, '0') +
+        ":" +
+        secs.toString().padLeft(2, '0');
   }
 
   Row buildTimer() {

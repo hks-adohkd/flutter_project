@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/presentation/components/appBar.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
-import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/components/card_component.dart';

@@ -18,9 +18,8 @@ class DefaultButton extends StatelessWidget {
       height: 56,
       child: TextButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(kAccentColor),
-          shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder())
-        ),
+            backgroundColor: MaterialStateProperty.all<Color>(kAccentColor),
+            shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder())),
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         // color: kPrimaryColor,
         onPressed: press,

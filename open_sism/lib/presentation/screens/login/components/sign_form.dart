@@ -18,7 +18,7 @@ class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
 
   String phone;
-  String password;
+  String password = "12345678";
   bool remember = false;
 
   void addError({String error}) {
@@ -89,7 +89,8 @@ class _SignFormState extends State<SignForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                Navigator.popAndPushNamed(
+                    context, LoginSuccessScreen.routeName);
               }
             },
           )
@@ -100,6 +101,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      initialValue: password,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -133,7 +135,7 @@ class _SignFormState extends State<SignForm> {
   }
 
   InternationalPhoneNumberInput buildPhoneFormField() {
-    PhoneNumber number = PhoneNumber(isoCode: 'SY');
+    PhoneNumber number = PhoneNumber(isoCode: 'SY', phoneNumber: "911111111");
 
     return InternationalPhoneNumberInput(
       onInputChanged: (value) {
@@ -158,7 +160,8 @@ class _SignFormState extends State<SignForm> {
       },
       onSaved: (newValue) => phone = newValue.phoneNumber,
       textStyle: TextStyle(color: Colors.white),
-      initialValue: number,
+      initialValue:
+          PhoneNumber(phoneNumber: "934631745", isoCode: "SY"), //number
       selectorConfig: SelectorConfig(
         setSelectorButtonAsPrefixIcon: true,
         trailingSpace: false,
@@ -176,7 +179,6 @@ class _SignFormState extends State<SignForm> {
       ),
     );
   }
-
 
 /*return TextFormField(
       onSaved: (newValue) => email = newValue,

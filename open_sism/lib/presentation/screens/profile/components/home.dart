@@ -1,6 +1,8 @@
 // this home not used
 
 import 'package:flutter/material.dart';
+import 'package:open_sism/presentation/screens/login/login_screen.dart';
+import 'package:open_sism/presentation/screens/profile/aboutus_screen/AboutUS_screen.dart';
 
 import 'package:open_sism/presentation/screens/profile/components/profile_header.dart';
 
@@ -11,6 +13,9 @@ import 'package:open_sism/presentation/screens/profile/components/profile_consta
 import 'package:open_sism/presentation/screens/profile/components/profile_list_item.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/profile/account_screen/account_screen.dart';
+
+import 'package:open_sism/presentation/screens/profile/help_support/Help_support_screen.dart';
+
 
 /*
 * Main profile class */
@@ -37,8 +42,7 @@ class HomeProfileScreen extends StatelessWidget {
                     children: <Widget>[
                       ProfileListItem(
                         press: () {
-                          Navigator.pushNamed(
-                              context, '/home/profileScreen/account');
+                          Navigator.pushNamed(context, AccountScreen.routeName);
                         },
                         icon: LineAwesomeIcons.user_shield,
                         text: 'Account Settings',
@@ -50,6 +54,10 @@ class HomeProfileScreen extends StatelessWidget {
                       ProfileListItem(
                         icon: LineAwesomeIcons.question_circle,
                         text: 'Help & Support',
+                        press: () {
+                          Navigator.pushNamed(
+                              context, HelpSupportScreen.routeName);
+                        },
                       ),
                       ProfileListItem(
                         icon: LineAwesomeIcons.cog,
@@ -58,11 +66,17 @@ class HomeProfileScreen extends StatelessWidget {
                       ProfileListItem(
                         icon: LineAwesomeIcons.question,
                         text: 'About Us',
+                        press: () {
+                          Navigator.pushNamed(context, AboutUs.routeName);
+                        },
                       ),
                       ProfileListItem(
                         icon: LineAwesomeIcons.alternate_sign_out,
                         text: 'Logout',
                         hasNavigation: false,
+                        press: () {
+                          Navigator.pushNamed(context, LoginScreen.routeName);
+                        },
                       ),
                     ],
                   ),
