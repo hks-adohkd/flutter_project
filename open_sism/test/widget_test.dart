@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:open_sism/main.dart';
+import 'file:///D:/AndroidStudioProjects/OpenSism/open_sism/lib/presentation/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
