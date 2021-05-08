@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:open_sism/components/custom_suffix_svgIcon.dart';
@@ -6,6 +7,7 @@ import 'package:open_sism/components/form_error.dart';
 import 'package:open_sism/configurations/constants.dart';
 import 'package:open_sism/screens/forgot_password/forgot_password_screen.dart';
 import 'package:open_sism/screens/login_success/login_success_screen.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -15,7 +17,7 @@ class SignForm extends StatefulWidget {
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
 
-  String email;
+  String phone;
   String password;
   bool remember = false;
 
@@ -69,7 +71,8 @@ class _SignFormState extends State<SignForm> {
               ),
               Spacer(),
               GestureDetector(
-                onTap: () => Navigator.pushNamed(context, ForgotPasswordScreen.routeName),
+                onTap: () => Navigator.pushNamed(
+                    context, ForgotPasswordScreen.routeName),
                 child: Text(
                   "Forgot Password",
                   style: TextStyle(
@@ -101,7 +104,8 @@ class _SignFormState extends State<SignForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        }  if (value.length >= 8) {
+        }
+        if (value.length >= 8) {
           removeError(error: kShortPassError);
         }
         return null;
@@ -110,7 +114,8 @@ class _SignFormState extends State<SignForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } if (value.length < 8) {
+        }
+        if (value.length < 8) {
           addError(error: kShortPassError);
           return "";
         }
@@ -127,8 +132,53 @@ class _SignFormState extends State<SignForm> {
     );
   }
 
-  TextFormField buildPhoneFormField() {
-    return TextFormField(
+  InternationalPhoneNumberInput buildPhoneFormField() {
+    PhoneNumber number = PhoneNumber(isoCode: 'SY');
+
+    return InternationalPhoneNumberInput(
+      onInputChanged: (value) {
+        if (value.phoneNumber.isNotEmpty) {
+          removeError(error: kPhoneNullError);
+        }
+        if (phoneRegExp.hasMatch(value.phoneNumber)) {
+          removeError(error: kInvalidPhoneError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kPhoneNullError);
+          return "";
+        }
+        if (!phoneRegExp.hasMatch(value)) {
+          addError(error: kInvalidPhoneError);
+          return "";
+        }
+        return null;
+      },
+      onSaved: (newValue) => phone = newValue.phoneNumber,
+      textStyle: TextStyle(color: Colors.white),
+      initialValue: number,
+      selectorConfig: SelectorConfig(
+        setSelectorButtonAsPrefixIcon: true,
+        trailingSpace: false,
+        //selectorType: PhoneInputSelectorType.DIALOG,
+      ),
+      inputDecoration: InputDecoration(
+        //labelText: "Phone",
+        hintText: "Phone number",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Phone.svg'),
+      ),
+      selectorTextStyle: TextStyle(color: Colors.white),
+      searchBoxDecoration: InputDecoration(
+        contentPadding: EdgeInsets.only(left: 40),
+      ),
+    );
+  }
+
+
+/*return TextFormField(
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -158,6 +208,5 @@ class _SignFormState extends State<SignForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Phone.svg'),
       ),
-    );
-  }
+    );*/
 }

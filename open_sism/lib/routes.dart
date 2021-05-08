@@ -39,9 +39,7 @@ final Map<String, WidgetBuilder> routes = {
   AboutUs.routeName: (context) => AboutUs(),
   RegisterScreen.routeName: (context) => RegisterScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
-  OtpScreen.routeName: (context) => OtpScreen(
-        isRegister: true,
-      ),
+  OtpScreen.routeName: (context) => OtpScreen(),
   GameScreen.routeName: (context) => GameScreen(),
   WhellFortune.routeName: (context) => WhellFortune(),
   GoldWheelFortune.routeName: (context) => GoldWheelFortune(),

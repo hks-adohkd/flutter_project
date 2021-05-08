@@ -109,6 +109,12 @@ class _BodyState extends State<Body> {
     );
   }
 
+  String convertSecondsToTime(int seconds){
+    int mins = (seconds/60).floor();
+    int secs = seconds%60;
+    return mins.toString().padLeft(2, '0') + ":" + secs.toString().padLeft(2, '0');
+  }
+
   Row buildTimer() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -118,7 +124,7 @@ class _BodyState extends State<Body> {
           tween: Tween(begin: 120.0, end: 0.0),
           duration: Duration(seconds: 120),
           builder: (_, value, child) => Text(
-            "00:${value.toInt()}",
+            convertSecondsToTime(value.toInt()),
             style: TextStyle(color: kPrimaryColor),
           ),
         ),

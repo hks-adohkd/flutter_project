@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:open_sism/configurations/size_config.dart';
 import 'package:open_sism/components/appBar.dart';
@@ -31,12 +33,24 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Text(
+                      'Daily',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Surfer',
+                        color: Colors.yellow[700],
+                      ),
+                    ),
+                  ),
                   ListView(
                     shrinkWrap: true,
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
-                            left: 8, right: 8, bottom: 8, top: 40),
+                            left: 8, right: 8, bottom: 8, top: 10),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 8),
@@ -45,7 +59,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                           scrollDirection: Axis.horizontal,
                           children: [
                             CardItem(
-                              imagePath: 'assets/images/logo.png',
+                              imagePath: 'assets/images/1.png',
                               title: 'Day one',
                               description: 'Mix vegetables',
                               price: '15 DT',
@@ -54,7 +68,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                               width: 15,
                             ),
                             CardItem(
-                              imagePath: 'assets/images/logo.png',
+                              imagePath: 'assets/images/2.png',
                               title: 'Day Two',
                               description: 'spicy with garlic',
                               price: '24 Dt',
@@ -63,7 +77,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                               width: 15,
                             ),
                             CardItem(
-                              imagePath: 'assets/images/logo.png',
+                              imagePath: 'assets/images/3.png',
                               title: 'Day Three',
                               description: 'with parmesan ',
                               price: '20 Dt',
@@ -72,7 +86,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                               width: 15,
                             ),
                             CardItem(
-                              imagePath: 'assets/images/logo.png',
+                              imagePath: 'assets/images/4.png',
                               title: 'Day Four',
                               description: 'Mix vegetables',
                               price: '15 DT',
@@ -81,7 +95,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                               width: 15,
                             ),
                             CardItem(
-                              imagePath: 'assets/images/logo.png',
+                              imagePath: 'assets/images/5.png',
                               title: 'Day Five',
                               description: 'Mix vegetables',
                               price: '15 DT',
@@ -90,7 +104,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                               width: 15,
                             ),
                             CardItem(
-                              imagePath: 'assets/images/logo.png',
+                              imagePath: 'assets/images/6.png',
                               title: 'Day Six',
                               description: 'Mix vegetables',
                               price: '15 DT',
@@ -99,7 +113,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                               width: 15,
                             ),
                             CardItem(
-                              imagePath: 'assets/images/logo.png',
+                              imagePath: 'assets/images/7.png',
                               title: 'Day Seven',
                               description: 'Mix vegetables',
                               price: '15 DT',
@@ -108,6 +122,21 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Weekly',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Surfer',
+                      color: Colors.yellow[700],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
                   ),
                   passwordIconWidget(),
                 ],
@@ -119,11 +148,26 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
     );
   }
 
-  CircleAvatar passwordIconWidget() {
-    return CircleAvatar(
-      maxRadius: 80,
-      child: Container(child: Image.asset("assets/images/imgforgot.png")),
-      //backgroundColor: Colors.white,
+  Stack passwordIconWidget() {
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(45.0),
+          child: CircleAvatar(
+            maxRadius: 30,
+            child: Container(child: Image.asset("assets/images/imgforgot.png")),
+            //backgroundColor: Colors.white,
+          ),
+        ),
+        Opacity(
+          opacity: 0.2,
+          child: Image.asset(
+            "assets/images/giftt.png",
+            height: 150,
+            width: 150,
+          ),
+        ),
+      ],
     );
   }
 }

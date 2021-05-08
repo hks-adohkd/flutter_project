@@ -4,13 +4,20 @@ import 'package:open_sism/configurations/constants.dart';
 class ReusableAppBar extends StatelessWidget {
   final String appBarTitle;
   final IconData leadingIcon;
-  ReusableAppBar({@required this.appBarTitle, this.leadingIcon = Icons.home});
+  final bool isHome;
+  ReusableAppBar(
+      {@required this.appBarTitle,
+      this.leadingIcon = Icons.home,
+      this.isHome = false});
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: LeadingAppBarIcon(
-        leadingIcon: leadingIcon,
-      ),
+      leading: !isHome
+          ? LeadingAppBarIcon(
+              leadingIcon: leadingIcon,
+            )
+          : IconButton(
+              icon: Image.asset('assets/images/logo.png'), onPressed: () => {}),
       elevation: 5.0,
       backgroundColor: kAppBarBackgroundColor,
       centerTitle: true,
