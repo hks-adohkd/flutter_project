@@ -41,6 +41,9 @@ dependencies:
   cached_network_image: ^3.0.0
   google_fonts: ^2.0.0
   intl_phone_number_input: ^0.7.0+1
+  flutter_bloc: ^7.0.0
+  connectivity_plus: ^1.0.1
+  http: ^0.13.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
