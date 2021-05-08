@@ -13,7 +13,7 @@ class MyHttpOverrides extends HttpOverrides{
 
 Future<http.Response> fetchCities() async {
   print("communicating");
-  var url ='https://10.0.2.2:44355/api/Cities/GetAll';
+  var url = 'http://10.0.2.2:1095/api/Cities/GetAll';
 
   Map data = {
     "page": 1,
