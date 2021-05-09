@@ -135,8 +135,6 @@ class _SignFormState extends State<SignForm> {
   }
 
   InternationalPhoneNumberInput buildPhoneFormField() {
-    PhoneNumber number = PhoneNumber(isoCode: 'SY', phoneNumber: "911111111");
-
     return InternationalPhoneNumberInput(
       onInputChanged: (value) {
         if (value.phoneNumber.isNotEmpty) {

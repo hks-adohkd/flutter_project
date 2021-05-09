@@ -3,7 +3,6 @@ import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/profile/components/profile_constants.dart';
 import 'package:open_sism/presentation/screens/profile/components/default_Button.dart';
 import 'package:open_sism/presentation/screens/profile/components/form_error.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SupportScreenForm extends StatefulWidget {
   @override

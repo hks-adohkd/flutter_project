@@ -11,7 +11,6 @@ class BuildOrder {
       "name": "Google Play Gift card",
       "location": "5\$",
       "status": "Pending",
-      "status": "Pending",
       "type": "10000 Points",
       "logoText":
           "https://www.freepnglogos.com/uploads/gift-png/gift-png-past-events-dancegarden-grow-your-dance-offering-33.png"

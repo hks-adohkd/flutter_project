@@ -1,5 +1,3 @@
-import 'dart:ui' as ui;
-import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/screens/profile/aboutus_screen/components/assets.dart';
 import 'package:open_sism/presentation/screens/profile/aboutus_screen/components/video_card.dart';
 import 'package:open_sism/presentation/screens/profile/aboutus_screen/components/about_us_boundle.dart';

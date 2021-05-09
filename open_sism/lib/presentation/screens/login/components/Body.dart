@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:open_sism/presentation/components/custom_suffix_svgIcon.dart';
-import 'package:open_sism/presentation/components/default_button.dart';
-import 'package:open_sism/presentation/components/form_error.dart';
 import 'package:open_sism/presentation/components/no_account_text.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';

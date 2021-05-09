@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/screens/profile/account_screen/components/body_account_screen.dart';
 import 'package:open_sism/presentation/screens/profile/profile_screen.dart';
-import 'package:open_sism/presentation/theme.dart';
 
 class AccountScreen extends StatelessWidget {
   static String routeName = ProfileScreen.routeName + "/Account_Screen";

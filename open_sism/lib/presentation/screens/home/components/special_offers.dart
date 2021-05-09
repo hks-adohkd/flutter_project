@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
-import 'section_title.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class SpecialOffers extends StatelessWidget {

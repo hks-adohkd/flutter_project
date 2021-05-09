@@ -5,7 +5,6 @@ import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'time_and_preson.dart';
 import 'description.dart';
 import 'product_title_with_image.dart';
-import 'start_task_with_alert.dart';
 
 class Body extends StatelessWidget {
   final TaskBundle product;

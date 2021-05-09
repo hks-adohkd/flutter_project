@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/presentation/components/custom_suffix_svgIcon.dart';
-import 'package:open_sism/presentation/components/default_button.dart';
-import 'package:open_sism/presentation/components/form_error.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/register/components/register_form.dart';

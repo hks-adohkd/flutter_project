@@ -4,7 +4,6 @@ import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
 import 'package:open_sism/presentation/components/card_component.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/components/appBar.dart';
-import 'task_info_screen.dart';
 import 'detailedTask_screen.dart';
 
 class TaskScreen extends StatefulWidget {

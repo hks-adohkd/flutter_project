@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
-import 'package:open_sism/presentation/theme.dart';
 import 'package:open_sism/presentation/screens/profile/help_support/components/help_support_body.dart';
 
 class HelpSupportScreen extends StatelessWidget {

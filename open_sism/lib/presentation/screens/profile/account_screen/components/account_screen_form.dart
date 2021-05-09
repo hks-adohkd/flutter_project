@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
-
-import 'package:open_sism/presentation/screens/home/home_screen.dart';
-
 import 'package:open_sism/presentation/screens/profile/components/default_Button.dart';
 import 'package:open_sism/presentation/screens/profile/components/form_error.dart';
 import 'package:open_sism/presentation/components/custom_suffix_svgIcon.dart';
@@ -19,7 +16,7 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
   String name = "Yazbek";
   String password = "password";
   String address = "damascus";
-  String confirm_password;
+  String confirmPassword;
   String phone = "934631746";
   bool showPassword = false;
   bool remember = false;
@@ -103,7 +100,6 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
   }
 
   InternationalPhoneNumberInput buildPhoneFormField() {
-    PhoneNumber number = PhoneNumber(isoCode: 'SY');
 
     return InternationalPhoneNumberInput(
       isEnabled: false,
