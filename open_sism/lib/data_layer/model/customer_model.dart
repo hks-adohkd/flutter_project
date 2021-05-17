@@ -1,42 +1,77 @@
-import 'package:open_sism/data_layer/api/base_entity_model.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:open_sism/data_layer/model/application_user_model.dart';
 import 'package:open_sism/data_layer/model/city_model.dart';
+import 'package:open_sism/data_layer/model/group_model.dart';
 
-class CustomerModel extends BaseEntityModel{
-  String firstName;
-  String lastName;
-  String imageUrl;
-  bool termsAndConditions;
-  bool gender; //! why gender is a boolean from the api !!!
-  int currentPoints;
-  int totalPoints;
-  DateTime luckyWheelLastSpinDate;
-  DateTime dailyBonusLastUseDate;
-  int dailyBonusLevel;
-  int cityId;
-  String userId;
-  bool lockOutEnabled;
-  int groupId;
-  String fcmToken;
-  String token;
-  DateTime tokenExpiration;
-  String facebookFirstName;
-  String facebookLastName;
-  String facebookEmail;
-  String facebookId;
-  String facebookAccessToken;
-  int nextGroupPoints;
-  String shareCode;
-  String installedFrom;
-  Group group;
-  CityModel city;
-  CustomerModel user;
-}
+part 'customer_model.g.dart';
 
-class Group extends BaseEntityModel{
-  String name;
-  String displayName;
-  int itemOrder;
-  String color;
-  int points;
-  String imageUrl;
+@JsonSerializable(explicitToJson: true)
+class CustomerModel extends Equatable{
+  final String firstName;
+  final String lastName;
+  final String imageUrl;
+  final bool termsAndConditions;
+  final bool gender; //! why gender is a boolean from the api !!!
+  final int currentPoints;
+  final int totalPoints;
+  final DateTime luckyWheelLastSpinDate;
+  final DateTime dailyBonusLastUseDate;
+  final int dailyBonusLevel;
+  final int cityId;
+  final String userId;
+  final bool lockOutEnabled;
+  final int groupId;
+  final String fcmToken;
+  final String token;
+  final DateTime tokenExpiration;
+  final String facebookFirstName;
+  final String facebookLastName;
+  final String facebookEmail;
+  final String facebookId;
+  final String facebookAccessToken;
+  final int nextGroupPoints;
+  final String shareCode;
+  final String installedFrom;
+  final GroupModel group;
+  final ApplicationUserModel user;
+  final CityModel city;
+
+  CustomerModel({
+      this.firstName,
+      this.lastName,
+      this.imageUrl,
+      this.termsAndConditions,
+      this.gender,
+      this.currentPoints,
+      this.totalPoints,
+      this.luckyWheelLastSpinDate,
+      this.dailyBonusLastUseDate,
+      this.dailyBonusLevel,
+      this.cityId,
+      this.userId,
+      this.lockOutEnabled,
+      this.groupId,
+      this.fcmToken,
+      this.token,
+      this.tokenExpiration,
+      this.facebookFirstName,
+      this.facebookLastName,
+      this.facebookEmail,
+      this.facebookId,
+      this.facebookAccessToken,
+      this.nextGroupPoints,
+      this.shareCode,
+      this.installedFrom,
+      this.group,
+      this.user,
+      this.city
+  });
+
+  factory CustomerModel.fromJson(Map<String, dynamic> json) => _$CustomerModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
+
+  @override
+  List<Object> get props => [firstName, lastName, cityId, userId];
 }

@@ -11,30 +11,39 @@ class MyHttpOverrides extends HttpOverrides{
   }
 }
 
-Future<http.Response> fetchCities() async {
-  print("communicating");
-  var url = 'http://10.0.2.2:1095/api/Cities/GetAll';
+class OpenSismApiDataProvider {
 
-  Map data = {
+  static final Map data = {
     "page": 1,
-    "limit": 100
+    "limit": 100,
   };
 
-  Map<String, String> headers = {
+  static final Map<String, String> headers = {
     "Content-Type": "application/json",
-    "Accept-Language" : "en",
-    "App-Version" : "1.0.0",
-    "Platform" : "Android",
+    "Accept-Language": "en",
+    "App-Version": "1.0.0",
+    "Platform": "Android",
   };
 
-  //encode Map to JSON
-  var body = json.encode(data);
+  static final String body = json.encode(data);
 
-  var response = await http.post(Uri.parse(url),
+  static final String domain = "http://10.0.2.2:1095/";
+
+  Future<http.Response> postGeneric(String urlFragment) async {
+    var url = domain + urlFragment;
+
+    var response = await http.post(Uri.parse(url),
       headers: headers,
-      body: body
-  );
-  print("${response.statusCode}");
-  print("${response.body}");
-  return response;
+      body: body,
+    );
+
+    return response;
+  }
+
+  Future<http.Response> fetchHomeJson() async =>
+      postGeneric("api/Home/GetHome");
+
+  Future<http.Response> fetchCitiesJson() async =>
+      postGeneric("api/Cities/GetAll");
+
 }

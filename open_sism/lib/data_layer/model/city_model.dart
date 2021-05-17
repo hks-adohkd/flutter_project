@@ -1,5 +1,19 @@
-import 'package:open_sism/data_layer/api/base_entity_model.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class CityModel extends BaseEntityModel{
-  String displayName;
+part 'city_model.g.dart';
+
+@JsonSerializable()
+class CityModel extends Equatable{
+  final String displayName;
+
+  CityModel({this.displayName});
+
+  factory CityModel.fromJson(Map<String, dynamic> json) => _$CityModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CityModelToJson(this);
+
+  @override
+  List<Object> get props => [displayName];
+
 }
