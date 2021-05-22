@@ -81,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
     //FirebaseAuth.getInstance().useEmulator('10.0.2.2', 9099);
     FirebaseMessaging.instance.getToken().then(setToken);
+
     _tokenStream = FirebaseMessaging.instance.onTokenRefresh;
     _tokenStream.listen(setToken);
   }

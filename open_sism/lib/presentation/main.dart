@@ -67,7 +67,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   final Connectivity connectivity = Connectivity();
 
   // This widget is the root of your application.
