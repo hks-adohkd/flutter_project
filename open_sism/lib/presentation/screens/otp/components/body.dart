@@ -80,7 +80,7 @@ class _BodyState extends State<Body> {
                   visible: sendCode || widget.isRegister,
                   child: Column(
                     children: [
-                      OtpForm(),
+                      OtpForm(phone: widget.phoneNumber),
                       SizedBox(height: SizeConfig.screenHeight * 0.01),
                       GestureDetector(
                         onTap: () {

@@ -71,7 +71,8 @@ class _RegisterFormState extends State<RegisterForm> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => OtpScreen(
-                              isRegister: false,
+                              isRegister: true,
+                              phoneNumber: phone,
                             )));
               }
             },
@@ -86,6 +87,9 @@ class _RegisterFormState extends State<RegisterForm> {
 
     return InternationalPhoneNumberInput(
       onInputChanged: (value) {
+        setState(() {
+          phone = value.phoneNumber;
+        });
         if (value.phoneNumber.isNotEmpty) {
           removeError(error: kPhoneNullError);
         }
@@ -105,7 +109,9 @@ class _RegisterFormState extends State<RegisterForm> {
         }
         return null;
       },
-      onSaved: (newValue) => phone = newValue.phoneNumber,
+      onSaved: (PhoneNumber number) {
+        print('On Saved: $number');
+      },
       textStyle: TextStyle(color: Colors.white),
       initialValue: number,
       selectorConfig: SelectorConfig(
