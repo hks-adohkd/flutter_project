@@ -7,30 +7,19 @@ import 'package:open_sism/presentation/screens/home/components/body.dart';
 import 'package:open_sism/presentation/components/appBar.dart';
 
 class HomeScreen extends StatelessWidget {
-  static String routeName = "/home";
+  static const String routeName = "/home";
   @override
   Widget build(BuildContext context) {
-    return BlocListener<InternetCubit, InternetState>(
-      listener: (internetContext, internetState) {
-        if(internetState is InternetConnected){
-          print("Internet Connected");
-        } else if(internetState is InternetDisconnected){
-          print("Internet Disconnected");
-        } else {
-          print("Unknown State");
-        }
-      },
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: kAppBarHeight,
-          child: ReusableAppBar(
-            leadingIcon: null,
-            appBarTitle: "Home",
-          ),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: kAppBarHeight,
+        child: ReusableAppBar(
+          leadingIcon: null,
+          appBarTitle: "Home",
         ),
-        body: Body(),
-        // bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
       ),
+      body: Body(),
+      // bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
     );
   }
 }

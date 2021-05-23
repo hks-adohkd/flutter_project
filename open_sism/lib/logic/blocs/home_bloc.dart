@@ -14,8 +14,8 @@ class HomeBloc extends Bloc<HomeRequested, HomeState>{
   final InternetCubit internetCubit;
   StreamSubscription internetStreamSubscription;
 
-  HomeBloc({@required this.homeRepository, @required this.internetCubit, @required internetStreamSubscription})
-      : assert(homeRepository != null && internetCubit != null && internetStreamSubscription != null),
+  HomeBloc({@required this.homeRepository, @required this.internetCubit})
+      : assert(homeRepository != null && internetCubit != null),
         super(HomeInitial()){
     internetStreamSubscription = internetCubit.stream.listen((internetState) {
       if(internetState is InternetDisconnected){

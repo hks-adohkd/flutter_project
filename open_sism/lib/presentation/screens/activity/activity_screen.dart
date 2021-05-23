@@ -6,7 +6,7 @@ import 'package:open_sism/presentation/screens/activity/components/activityBunde
 import 'package:open_sism/presentation/screens/activity/components/activity_row.dart';
 
 class ActivityScreen extends StatefulWidget {
-  static String routeName = "/activity_screen";
+  static const String routeName = "/activity_screen";
 
   @override
   _ActivityScreenState createState() => _ActivityScreenState();

@@ -4,7 +4,7 @@ import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/activity/message/components/build_message.dart';
 
 class Messages extends StatefulWidget {
-  static String routeName = "/messageScreen";
+  static const String routeName = "/messageScreen";
   @override
   _MessagesState createState() => _MessagesState();
 }

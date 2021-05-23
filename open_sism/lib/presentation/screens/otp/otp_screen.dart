@@ -3,7 +3,7 @@ import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'components/body.dart';
 
 class OtpScreen extends StatelessWidget {
-  static String routeName = "/otp";
+  static const String routeName = "/otp";
   final bool isRegister;
   OtpScreen({@required this.isRegister});
   @override

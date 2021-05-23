@@ -6,7 +6,7 @@ import 'package:open_sism/presentation/screens/game/components/game_bundle.dart'
 import 'package:open_sism/presentation/screens/game/components/game_row.dart';
 
 class GameScreen extends StatelessWidget {
-  static String routeName = "/game";
+  static const String routeName = "/game";
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context); // to get the screen size

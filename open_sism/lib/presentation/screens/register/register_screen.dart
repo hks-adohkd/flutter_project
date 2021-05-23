@@ -4,7 +4,7 @@ import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/screens/register/components/body.dart';
 
 class RegisterScreen extends StatelessWidget {
-  static String routeName = "/register";
+  static const String routeName = "/register";
 
   @override
   Widget build(BuildContext context) {

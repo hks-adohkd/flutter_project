@@ -7,7 +7,7 @@ import 'package:open_sism/presentation/components/appBar.dart';
 import 'detailedTask_screen.dart';
 
 class TaskScreen extends StatefulWidget {
-  static String routeName = "/taskScreen";
+  static const String routeName = "/taskScreen";
 
   @override
   _TaskScreenState createState() => _TaskScreenState();

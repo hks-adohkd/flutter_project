@@ -8,7 +8,7 @@ import 'package:open_sism/presentation/screens/activity/finished_task/components
 BuildFinishedTask finishedTask = BuildFinishedTask();
 
 class FinishedTask extends StatefulWidget {
-  static String routeName = "/finishedTaskScreen";
+  static const String routeName = "/finishedTaskScreen";
   @override
   _FinishedTaskState createState() => _FinishedTaskState();
 }

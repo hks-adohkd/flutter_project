@@ -4,7 +4,7 @@ import 'package:open_sism/presentation/screens/profile/account_screen/components
 import 'package:open_sism/presentation/screens/profile/profile_screen.dart';
 
 class AccountScreen extends StatelessWidget {
-  static String routeName = ProfileScreen.routeName + "/Account_Screen";
+  static const String routeName = ProfileScreen.routeName + "/Account_Screen";
 
   @override
   Widget build(BuildContext context) {

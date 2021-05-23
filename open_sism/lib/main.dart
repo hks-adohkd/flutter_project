@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/data_layer/api/api_data_provider.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 
-import 'package:open_sism/presentation/routes.dart';
+import 'package:open_sism/router.dart';
 import 'package:open_sism/presentation/screens/login/login_screen.dart';
 import 'package:open_sism/presentation/theme.dart';
 
@@ -66,9 +66,16 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  const MyApp({Key key}) : super(key: key);
 
-  final Connectivity connectivity = Connectivity();
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  static Connectivity connectivity = Connectivity();
+  AppRouter _appRouter = AppRouter(connectivity: connectivity);
 
   // This widget is the root of your application.
   @override
@@ -82,7 +89,7 @@ class MyApp extends StatelessWidget {
         theme: theme(),
         //home: MyHomePage(title: 'Flutter Demo Home Page'),
         initialRoute: LoginScreen.routeName,
-        routes: routes,
+        onGenerateRoute: _appRouter.onGenerateRoute,
       ),
     );
   }

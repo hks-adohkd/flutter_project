@@ -9,7 +9,7 @@ import 'package:open_sism/presentation/screens/game/daily_bonus/components/butto
 import 'package:google_fonts/google_fonts.dart';
 
 class DailyBonus extends StatefulWidget {
-  static String routeName = "/daily_bonus_screen";
+  static const String routeName = "/daily_bonus_screen";
   @override
   _DailyBonusState createState() => _DailyBonusState();
 }

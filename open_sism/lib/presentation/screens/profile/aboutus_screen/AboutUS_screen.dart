@@ -5,7 +5,7 @@ import 'package:open_sism/presentation/screens/profile/aboutus_screen/components
 
 class AboutUs extends StatelessWidget {
   static final String path = "lib/src/pages/profile/profile6.dart";
-  static final String routeName = "/aboutUsScreen";
+  static const String routeName = "/aboutUsScreen";
   BuildContent buildContent = BuildContent();
   //AboutUs({this.dev});
 

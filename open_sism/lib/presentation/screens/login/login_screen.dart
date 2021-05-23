@@ -4,7 +4,7 @@ import 'package:open_sism/presentation/screens/login/components/Body.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
-  static String routeName = "/login";
+  static const String routeName = "/login";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

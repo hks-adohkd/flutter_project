@@ -4,7 +4,7 @@ import 'package:open_sism/presentation/screens/game/spin_games/components/board_
 import 'package:open_sism/presentation/screens/game/spin_games/components/build.dart';
 
 class GoldWheelFortune extends StatefulWidget {
-  static String routeName = "/gold_spin_screen";
+  static const String routeName = "/gold_spin_screen";
   @override
   State<StatefulWidget> createState() {
     return _GoldWheelFortuneState();

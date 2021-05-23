@@ -7,7 +7,7 @@ import 'package:open_sism/presentation/components/appBar.dart';
 import 'components/redeem_screen.dart';
 
 class RewardScreen extends StatefulWidget {
-  static String routeName = "/prizeScreen";
+  static const String routeName = "/prizeScreen";
 
   @override
   _RewardScreenState createState() => _RewardScreenState();

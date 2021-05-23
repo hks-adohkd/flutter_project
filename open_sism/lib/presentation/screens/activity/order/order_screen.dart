@@ -6,7 +6,7 @@ import 'package:open_sism/presentation/screens/activity/order/components/build_o
 BuildOrder buildOrder = BuildOrder();
 
 class Order extends StatefulWidget {
-  static String routeName = "/orderScreen";
+  static const String routeName = "/orderScreen";
   @override
   _OrderState createState() => _OrderState();
 }
