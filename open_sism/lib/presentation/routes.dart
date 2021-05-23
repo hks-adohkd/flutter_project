@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/logic/blocs/home_bloc.dart';
 import 'package:open_sism/presentation/screens/activity/activity_screen.dart';
 import 'package:open_sism/presentation/screens/forgot_password/forgot_password_screen.dart';
 import 'package:open_sism/presentation/screens/home/home_screen.dart';
@@ -36,8 +37,16 @@ final Map<String, WidgetBuilder> routes = {
   FinishedTask.routeName: (context) => FinishedTask(),
   AboutUs.routeName: (context) => AboutUs(),
   RegisterScreen.routeName: (context) => RegisterScreen(),
-  HomeScreen.routeName: (context) => HomeScreen(),
-  OtpScreen.routeName: (context) => OtpScreen(isRegister: false,),
+  HomeScreen.routeName: (context) => BlockProvider<HomeBloc>(
+        create: (BuildContext context) => HomeBloc(
+            homeRepository: null,
+            internetCubit: null,
+            internetStreamSubscription: null),
+        child: HomeScreen(),
+      ),
+  OtpScreen.routeName: (context) => OtpScreen(
+        isRegister: false,
+      ),
   GameScreen.routeName: (context) => GameScreen(),
   WhellFortune.routeName: (context) => WhellFortune(),
   GoldWheelFortune.routeName: (context) => GoldWheelFortune(),
