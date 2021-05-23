@@ -40,6 +40,7 @@ class _RegisterFormState extends State<RegisterForm> {
     return Form(
       key: _formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             height: 30,
@@ -85,7 +86,63 @@ class _RegisterFormState extends State<RegisterForm> {
 
   InternationalPhoneNumberInput buildPhoneFormField() {
     PhoneNumber number = PhoneNumber(isoCode: 'SY');
+    return InternationalPhoneNumberInput(
+      //initialValue: PhoneNumber(isoCode: 'SY', phoneNumber: "123456789"),
+      onInputChanged: (value) {
+        // setState(() {
+        //   phone = value.phoneNumber;
+        // });
+        if (value.phoneNumber.isNotEmpty) {
+          setState(() {
+            phone = value.phoneNumber;
+          });
+          removeError(error: kPhoneNullError);
+        }
+        if (phoneRegExp.hasMatch(value.phoneNumber)) {
+          removeError(error: kInvalidPhoneError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kPhoneNullError);
+          return "";
+        }
+        if (!phoneRegExp.hasMatch(value)) {
+          addError(error: kInvalidPhoneError);
+          return "";
+        }
+        return null;
+      },
+      onSaved: (newValue) => {
+        setState(
+          () {
+            phone = newValue.phoneNumber;
+          },
+        )
+      },
+      textStyle: TextStyle(color: Colors.white),
+      //  initialValue: PhoneNumber(phoneNumber: "123", isoCode: "SY"), //number
+      selectorConfig: SelectorConfig(
+        leadingPadding: 20,
+        setSelectorButtonAsPrefixIcon: true,
+        trailingSpace: false,
+        selectorType: PhoneInputSelectorType.DIALOG,
+      ),
+      inputDecoration: InputDecoration(
+        // contentPadding: EdgeInsets.only(bottom: 30),
 
+        //labelText: "Phone",
+        hintText: "Phone number",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Phone.svg'),
+      ),
+      selectorTextStyle: TextStyle(color: Colors.white),
+      searchBoxDecoration: InputDecoration(
+        contentPadding: EdgeInsets.only(left: 40),
+      ),
+    );
+/*
     return InternationalPhoneNumberInput(
       onInputChanged: (value) {
         setState(() {
@@ -118,7 +175,8 @@ class _RegisterFormState extends State<RegisterForm> {
         )
       },
       textStyle: TextStyle(color: Colors.white),
-      initialValue: PhoneNumber(phoneNumber: "", isoCode: "SY"), //number
+      initialValue:
+          PhoneNumber(phoneNumber: "934631745", isoCode: "SY"), //number
       selectorConfig: SelectorConfig(
         setSelectorButtonAsPrefixIcon: true,
         trailingSpace: false,
@@ -134,7 +192,7 @@ class _RegisterFormState extends State<RegisterForm> {
       searchBoxDecoration: InputDecoration(
         contentPadding: EdgeInsets.only(left: 40),
       ),
-    );
+    );*/
   }
 
   TextFormField buildPasswordFormField() {

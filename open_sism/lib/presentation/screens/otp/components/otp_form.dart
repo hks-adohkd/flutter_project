@@ -4,7 +4,7 @@ import 'package:open_sism/presentation/configurations/size_config.dart';
 
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'file:///E:/AndroidApp/opensism/open_sism/lib/main.dart';
+import "package:open_sism/main.dart";
 import 'package:open_sism/presentation/screens/home/home_screen.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;

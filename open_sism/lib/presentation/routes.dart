@@ -14,7 +14,7 @@ import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
 import 'package:open_sism/presentation/screens/task/task_screen.dart';
 import 'package:open_sism/presentation/screens/activity/message/message_screen.dart';
 import 'package:open_sism/presentation/screens/activity/order/order_screen.dart';
-import 'file:///E:/AndroidApp/opensism/open_sism/lib/main.dart';
+import 'package:open_sism/main.dart';
 import 'package:open_sism/presentation/screens/activity/finished_task/finished_task_screen.dart';
 import 'package:open_sism/presentation/screens/profile/aboutus_screen/AboutUS_screen.dart';
 import 'package:open_sism/presentation/screens/otp/otp_screen.dart';
