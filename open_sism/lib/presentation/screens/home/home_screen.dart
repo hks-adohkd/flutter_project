@@ -9,7 +9,7 @@ import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:open_sism/presentation/configurations/token_monitor.dart';
-import '../../main.dart';
+import '../../../main.dart';
 
 // Crude counter to make messages unique
 int _messageCount = 0;

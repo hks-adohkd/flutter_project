@@ -4,7 +4,8 @@ import 'package:open_sism/presentation/configurations/size_config.dart';
 
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:open_sism/presentation/main.dart';
+import 'file:///E:/AndroidApp/opensism/open_sism/lib/main.dart';
+import 'package:open_sism/presentation/screens/home/home_screen.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -26,6 +27,7 @@ class _OtpFormState extends State<OtpForm> {
   @override
   void initState() {
     super.initState();
+    print(widget.phone);
     _verifyPhoneNumber();
     //_verifyPhone();
     pin2FocusNode = FocusNode();
@@ -43,6 +45,7 @@ class _OtpFormState extends State<OtpForm> {
     pin4FocusNode.dispose();
     pin5FocusNode.dispose();
     pin6FocusNode.dispose();
+    _auth.signOut();
   }
 
   void nextField(String value, FocusNode focusNode) {
@@ -58,7 +61,7 @@ class _OtpFormState extends State<OtpForm> {
   String code5 = "";
   String code6 = "";
   String code = "";
-  String _verificationCode;
+  String verificationCode;
   String _message = '';
   String _verificationId;
   @override
@@ -204,17 +207,23 @@ class _OtpFormState extends State<OtpForm> {
           DefaultButton(
             text: "Continue",
             press: () async {
+              FirebaseAuth auth = FirebaseAuth.instance;
               print(widget.phone);
+              print(code);
+              print(verificationCode);
               try {
                 await FirebaseAuth.instance
                     .signInWithCredential(PhoneAuthProvider.credential(
-                        verificationId: _verificationCode, smsCode: code))
+                        verificationId: verificationCode, smsCode: code))
                     .then((value) async {
                   if (value.user != null) {
-                    // Navigator.pushAndRemoveUntil(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => Home()),
-                    //         (route) => false);
+                    print("signIn");
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        (route) => false);
+                  } else {
+                    print("user not found ");
                   }
                 });
               } catch (e) {
@@ -237,15 +246,19 @@ class _OtpFormState extends State<OtpForm> {
         },
         codeSent: (String verficationID, int resendToken) {
           setState(() {
-            _verificationCode = verficationID;
+            verificationCode = verficationID;
           });
         },
         codeAutoRetrievalTimeout: (String verificationID) {
           setState(() {
-            _verificationCode = verificationID;
+            verificationCode = verificationID;
           });
         },
         timeout: Duration(seconds: 120));
+  }
+
+  Future<String> setVerificationID(String verificationId) async {
+    return verificationId;
   }
 
   // Example code of how to verify phone number
@@ -272,25 +285,33 @@ class _OtpFormState extends State<OtpForm> {
     PhoneCodeSent codeSent =
         (String verificationId, [int forceResendingToken]) async {
       print('Please check your phone for the verification code.');
+      print(verificationId);
 
-      _verificationId = verificationId;
+      setState(() {
+        verificationCode = verificationId;
+      });
+
+      // print(" code sent verification ID :" + verificationId);
     };
 
     PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
         (String verificationId) {
-      _verificationId = verificationId;
+      setState(() {
+        verificationCode = verificationId;
+      });
     };
 
     try {
       await _auth.verifyPhoneNumber(
-          phoneNumber: "+963934631746",
-          timeout: const Duration(seconds: 5),
+          phoneNumber: widget.phone,
+          timeout: const Duration(seconds: 60),
           verificationCompleted: verificationCompleted,
           verificationFailed: verificationFailed,
           codeSent: codeSent,
           codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
     } catch (e) {
       print('Failed to Verify Phone Number: $e');
+      print(widget.phone);
     }
   }
 }

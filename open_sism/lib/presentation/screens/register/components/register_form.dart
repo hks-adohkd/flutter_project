@@ -30,12 +30,13 @@ class _RegisterFormState extends State<RegisterForm> {
   String phone;
   String email;
   String name;
-  String password;
+  String password = "12345678";
   String confirmPassword;
   final List<String> errors = [];
 
   @override
   Widget build(BuildContext context) {
+    String initialPassword = "12345678";
     return Form(
       key: _formKey,
       child: Column(
@@ -109,11 +110,15 @@ class _RegisterFormState extends State<RegisterForm> {
         }
         return null;
       },
-      onSaved: (PhoneNumber number) {
-        print('On Saved: $number');
+      onSaved: (newValue) => {
+        setState(
+          () {
+            phone = newValue.phoneNumber;
+          },
+        )
       },
       textStyle: TextStyle(color: Colors.white),
-      initialValue: number,
+      initialValue: PhoneNumber(phoneNumber: "", isoCode: "SY"), //number
       selectorConfig: SelectorConfig(
         setSelectorButtonAsPrefixIcon: true,
         trailingSpace: false,
@@ -134,8 +139,15 @@ class _RegisterFormState extends State<RegisterForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => {
+        setState(() {
+          password = newValue;
+        })
+      },
       onChanged: (value) {
+        setState(() {
+          password = value;
+        });
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
         }
@@ -157,6 +169,7 @@ class _RegisterFormState extends State<RegisterForm> {
         return null;
       },
       obscureText: true,
+      initialValue: password,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: "Password",
@@ -169,7 +182,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   TextFormField buildConfirmPasswordFormField() {
     return TextFormField(
-      onSaved: (newValue) => confirmPassword = newValue,
+      onSaved: (newValue) => {confirmPassword = newValue},
       onChanged: (value) {
         if (password == confirmPassword) {
           removeError(error: kMatchPassError);
@@ -190,6 +203,7 @@ class _RegisterFormState extends State<RegisterForm> {
         return null;
       },
       obscureText: true,
+      initialValue: password,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: "Confirm Password",
@@ -216,7 +230,8 @@ class _RegisterFormState extends State<RegisterForm> {
         }
         return null;
       },
-      keyboardType: TextInputType.phone,
+      keyboardType: TextInputType.emailAddress,
+      initialValue: "asdasd@gmail.com",
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: "Email",
@@ -244,6 +259,7 @@ class _RegisterFormState extends State<RegisterForm> {
         return null;
       },
       keyboardType: TextInputType.name,
+      initialValue: "yaz",
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: "Name",
