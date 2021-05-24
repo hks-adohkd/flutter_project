@@ -5,7 +5,8 @@ import 'components/body.dart';
 class OtpScreen extends StatelessWidget {
   static const String routeName = "/otp";
   final bool isRegister;
-  OtpScreen({@required this.isRegister});
+  final String phoneNumber;
+  OtpScreen({@required this.isRegister , @required this.phoneNumber});
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -13,7 +14,7 @@ class OtpScreen extends StatelessWidget {
       child: Scaffold(
         body: Body(
           isRegister: isRegister,
-          phoneNumber: "+963934631746",
+          phoneNumber: phoneNumber,
         ),
       ),
     );

@@ -66,12 +66,14 @@ class _RegisterFormState extends State<RegisterForm> {
             text: "Continue",
             press: () {
               if (_formKey.currentState.validate()) {
+                _formKey.currentState.save();
                 // TODO: Go to complete profile page
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => OtpScreen(
-                              isRegister: false,
+                              isRegister: true,
+                              phoneNumber: phone,
                             )));
               }
             },
@@ -83,10 +85,12 @@ class _RegisterFormState extends State<RegisterForm> {
 
   InternationalPhoneNumberInput buildPhoneFormField() {
     PhoneNumber number = PhoneNumber(isoCode: 'SY');
-
     return InternationalPhoneNumberInput(
+      //initialValue: PhoneNumber(isoCode: 'SY', phoneNumber: "123456789"),
       onInputChanged: (value) {
+
         if (value.phoneNumber.isNotEmpty) {
+
           removeError(error: kPhoneNullError);
         }
         if (phoneRegExp.hasMatch(value.phoneNumber)) {
@@ -105,15 +109,24 @@ class _RegisterFormState extends State<RegisterForm> {
         }
         return null;
       },
-      onSaved: (newValue) => phone = newValue.phoneNumber,
+      onSaved: (newValue) => {
+        setState(
+              () {
+            phone = newValue.phoneNumber;
+          },
+        )
+      },
       textStyle: TextStyle(color: Colors.white),
-      initialValue: number,
+        initialValue: PhoneNumber( isoCode: "SY"), //number
       selectorConfig: SelectorConfig(
+        leadingPadding: 20,
         setSelectorButtonAsPrefixIcon: true,
         trailingSpace: false,
-        //selectorType: PhoneInputSelectorType.DIALOG,
+        selectorType: PhoneInputSelectorType.DIALOG,
       ),
       inputDecoration: InputDecoration(
+        // contentPadding: EdgeInsets.only(bottom: 30),
+
         //labelText: "Phone",
         hintText: "Phone number",
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -124,11 +137,16 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 40),
       ),
     );
+
   }
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => {
+        setState(() {
+          password = newValue;
+        })
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
@@ -163,7 +181,11 @@ class _RegisterFormState extends State<RegisterForm> {
 
   TextFormField buildConfirmPasswordFormField() {
     return TextFormField(
-      onSaved: (newValue) => confirmPassword = newValue,
+      onSaved: (newValue) => {
+        setState(() {
+          confirmPassword = newValue;
+        })
+      },
       onChanged: (value) {
         if (password == confirmPassword) {
           removeError(error: kMatchPassError);
@@ -196,7 +218,11 @@ class _RegisterFormState extends State<RegisterForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => {
+        setState(() {
+          email = newValue;
+        })
+      },
       onChanged: (value) {
         if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
@@ -210,7 +236,7 @@ class _RegisterFormState extends State<RegisterForm> {
         }
         return null;
       },
-      keyboardType: TextInputType.phone,
+      keyboardType: TextInputType.emailAddress,
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: "Email",
@@ -223,7 +249,11 @@ class _RegisterFormState extends State<RegisterForm> {
 
   TextFormField buildNameFormField() {
     return TextFormField(
-      onSaved: (newValue) => name = newValue,
+      onSaved: (newValue) => {
+        setState(() {
+          name = newValue;
+        })
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: "Name doesn't exist!");
