@@ -17,9 +17,11 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   bool sendCode = false;
+
   @override
   Widget build(BuildContext context) {
     //sendCode = !widget.isRegister;
+    print("body TOP " + widget.phoneNumber);
     return Container(
       height: double.infinity,
       decoration: kBoxDecoration,

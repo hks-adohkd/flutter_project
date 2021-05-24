@@ -67,6 +67,10 @@ class _RegisterFormState extends State<RegisterForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
+                print(phone);
+                print(password);
+                print(email);
+                print(name);
                 // TODO: Go to complete profile page
                 Navigator.push(
                     context,
@@ -88,9 +92,7 @@ class _RegisterFormState extends State<RegisterForm> {
     return InternationalPhoneNumberInput(
       //initialValue: PhoneNumber(isoCode: 'SY', phoneNumber: "123456789"),
       onInputChanged: (value) {
-
         if (value.phoneNumber.isNotEmpty) {
-
           removeError(error: kPhoneNullError);
         }
         if (phoneRegExp.hasMatch(value.phoneNumber)) {
@@ -111,13 +113,13 @@ class _RegisterFormState extends State<RegisterForm> {
       },
       onSaved: (newValue) => {
         setState(
-              () {
+          () {
             phone = newValue.phoneNumber;
           },
         )
       },
       textStyle: TextStyle(color: Colors.white),
-        initialValue: PhoneNumber( isoCode: "SY"), //number
+      initialValue: PhoneNumber(isoCode: "SY"), //number
       selectorConfig: SelectorConfig(
         leadingPadding: 20,
         setSelectorButtonAsPrefixIcon: true,
@@ -137,7 +139,6 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 40),
       ),
     );
-
   }
 
   TextFormField buildPasswordFormField() {
