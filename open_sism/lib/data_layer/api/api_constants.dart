@@ -47,3 +47,6 @@ const String INTRO_IMAGES = "api/Contents/GetIntro";
 const String INTRO_VIDEO = "api/Contents/GetIntroVideo";
 const String ABOUT_US = "api/Contents/AboutUs";
 const String CONTACT = "api/Contacts/";
+
+const String TEST_TOKEN =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiKzk2Mzk5OTk5OTk5OSIsImp0aSI6IjEwMGMxMGQ5LTUyY2ItNDgxNC1hOTJmLWMzZTRiYjhkZDEwOSIsImV4cCI6MTYyMjgyMjM1NSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.OZyOStukE9-pYIaGS80edWfUgqX1k7A6D9IMlHsmSrg";

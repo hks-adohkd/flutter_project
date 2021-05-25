@@ -30,9 +30,9 @@ class OpenSismApiDataProvider {
 
   static final String domain = API_Domain;
 
-  Future<http.Response> postGeneric(String urlFragment) async {
+  Future<http.Response> postGeneric(String urlFragment, String token) async {
     var url = domain + urlFragment;
-
+    headers["Authorization"] = 'Bearer $token';
     var response = await http.post(
       Uri.parse(url),
       headers: headers,
@@ -42,8 +42,9 @@ class OpenSismApiDataProvider {
     return response;
   }
 
-  Future<http.Response> fetchHomeJson() async => postGeneric(HOME_PAGE);
+  Future<http.Response> fetchHomeJson(String token) async =>
+      postGeneric(HOME_PAGE, token);
 
-  Future<http.Response> fetchCitiesJson() async =>
-      postGeneric(CITIES + GET_ALL);
+  Future<http.Response> fetchCitiesJson(String token) async =>
+      postGeneric(CITIES + GET_ALL, token);
 }
