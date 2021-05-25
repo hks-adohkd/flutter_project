@@ -2,17 +2,18 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:open_sism/data_layer/api/api_constants.dart';
 
-class MyHttpOverrides extends HttpOverrides{
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext context){
+  HttpClient createHttpClient(SecurityContext context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
 
 class OpenSismApiDataProvider {
-
   static final Map data = {
     "page": 1,
     "limit": 100,
@@ -27,12 +28,13 @@ class OpenSismApiDataProvider {
 
   static final String body = json.encode(data);
 
-  static final String domain = "http://10.0.2.2:1095/";
+  static final String domain = API_Domain;
 
   Future<http.Response> postGeneric(String urlFragment) async {
     var url = domain + urlFragment;
 
-    var response = await http.post(Uri.parse(url),
+    var response = await http.post(
+      Uri.parse(url),
       headers: headers,
       body: body,
     );
@@ -40,10 +42,8 @@ class OpenSismApiDataProvider {
     return response;
   }
 
-  Future<http.Response> fetchHomeJson() async =>
-      postGeneric("api/Home/GetHome");
+  Future<http.Response> fetchHomeJson() async => postGeneric(HOME_PAGE);
 
   Future<http.Response> fetchCitiesJson() async =>
-      postGeneric("api/Cities/GetAll");
-
+      postGeneric(CITIES + GET_ALL);
 }
