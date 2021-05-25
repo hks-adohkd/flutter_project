@@ -11,7 +11,7 @@ class HomeRepository {
     var response = await dataProvider.fetchHomeJson(TEST_TOKEN);
 
     var homeModel = HomeApiResponse.fromJson(json.decode(response.body));
-
+    print(homeModel);
     return homeModel;
   }
 }

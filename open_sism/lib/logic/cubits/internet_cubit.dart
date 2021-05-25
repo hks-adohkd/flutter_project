@@ -4,23 +4,21 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
 
-class InternetCubit extends Cubit<InternetState>{
-
+class InternetCubit extends Cubit<InternetState> {
   final Connectivity connectivity;
   StreamSubscription connectivtiyStreamSubscription;
 
-  InternetCubit({@required this.connectivity}) : super(InternetLoading()){
-
+  InternetCubit({@required this.connectivity}) : super(InternetLoading()) {
     print("cubit initialized");
 
-    connectivtiyStreamSubscription = connectivity.onConnectivityChanged.listen( (connectivityResult) {
-      if(connectivityResult == ConnectivityResult.wifi || connectivityResult == ConnectivityResult.mobile){
+    connectivtiyStreamSubscription =
+        connectivity.onConnectivityChanged.listen((connectivityResult) {
+      if (connectivityResult == ConnectivityResult.wifi ||
+          connectivityResult == ConnectivityResult.mobile) {
         emitInternetConnected();
-      }
-      else if (connectivityResult == ConnectivityResult.none){
+      } else if (connectivityResult == ConnectivityResult.none) {
         emitInternetDisconnected();
-      }
-      else {
+      } else {
         print("Unknown Reason for Disconnection!!!");
         emitInternetDisconnected();
       }
