@@ -42,6 +42,9 @@ class HomeLoadedSuccess extends HomeState {
   List<Object> get props => [homeData];
 }
 
-class HomeLoadFailure extends HomeState {}
+class HomeLoadFailure extends HomeState {
+  final HomeApiResponse homeStoredData;
+  HomeLoadFailure({@required this.homeStoredData});
+}
 //
 // class HomeNoInternet extends HomeState {}

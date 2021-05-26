@@ -63,7 +63,7 @@ class DiscountBanner extends StatelessWidget {
                       ],
                     ),
                   );
-                } else {
+                } else if (state is HomeLoadFailure) {
                   return Text.rich(
                     TextSpan(
                       style: TextStyle(
@@ -72,10 +72,13 @@ class DiscountBanner extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
-                          text: "A  Surpise\n",
+                          text:
+                              state.homeStoredData.content.banner.first.title +
+                                  '\n',
                         ),
                         TextSpan(
-                          text: "Your points will be +20",
+                          text:
+                              state.homeStoredData.content.banner.first.script,
                           style: TextStyle(
                             fontSize: getProportionateScreenWidth(20),
                           ),
@@ -83,7 +86,8 @@ class DiscountBanner extends StatelessWidget {
                       ],
                     ),
                   );
-                }
+                } else
+                  return Container();
               },
             ),
           ],

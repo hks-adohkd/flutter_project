@@ -3,3 +3,5 @@ abstract class HomeEvent {
 }
 
 class HomePageRequested extends HomeEvent {}
+
+class HomeDataRequested extends HomeEvent {}

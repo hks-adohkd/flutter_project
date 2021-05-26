@@ -14,14 +14,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final InternetCubit internetCubit;
   StreamSubscription internetStreamSubscription;
   bool isConnected;
-
+  HomeApiResponse homeModel;
   HomeBloc({@required this.homeRepository, @required this.internetCubit})
       : assert(homeRepository != null && internetCubit != null),
         super(HomeBeforeInitial()) {
     internetStreamSubscription = internetCubit.stream.listen((internetState) {
       if (internetState is InternetDisconnected) {
         isConnected = false;
-      } else if (internetState is InternetConnected) {
+      } else if (internetState is InternetConnected &&
+          !(state is HomeBeforeInitial)) {
+        this.add(HomeDataRequested());
         isConnected = true;
       } else if (internetState is InternetLoading) {}
     });
@@ -29,17 +31,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
-    if (event is HomePageRequested) {
-      print("Home Page Requested!");
+    if (event is HomePageRequested || event is HomeDataRequested) {
       yield HomeLoadInProgress();
 
       try {
-        final HomeApiResponse homeModel = await homeRepository.getHomeData();
+        homeModel = await homeRepository.getHomeData();
         yield HomeLoadedSuccess(homeData: homeModel);
       } catch (Exception) {
-        print("Exception");
-        print(Exception);
-        yield HomeLoadFailure();
+        yield HomeLoadFailure(homeStoredData: homeModel);
       }
     }
   }

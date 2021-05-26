@@ -41,6 +41,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String _token;
   Stream<String> _tokenStream;
+
   void setToken(String token) {
     print('FCM Token: $token');
     setState(() {
