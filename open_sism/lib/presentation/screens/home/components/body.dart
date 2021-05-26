@@ -6,8 +6,8 @@ import 'categories.dart';
 import 'discount_banner.dart';
 import 'special_offers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_sism/logic/blocs/home_bloc.dart';
-import 'package:open_sism/logic/blocs/home_event.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_event.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 
 class Body extends StatelessWidget {
   bool discountBannerShow;

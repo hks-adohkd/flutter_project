@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/logic/blocs/home_state.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_sism/logic/blocs/home_bloc.dart';
 import 'dart:async';
+import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 
 class SpecialOffers extends StatelessWidget {
   final int points;

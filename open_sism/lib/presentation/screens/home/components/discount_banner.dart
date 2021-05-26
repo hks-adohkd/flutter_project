@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_sism/logic/blocs/home_bloc.dart';
-import 'package:open_sism/logic/blocs/home_state.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'dart:async';
