@@ -8,7 +8,7 @@ part of 'home_api_response.dart';
 
 HomeApiResponse _$HomeApiResponseFromJson(Map<String, dynamic> json) {
   return HomeApiResponse(
-    code: json['code'] as String,
+    code: json['code'] as int,
     message: json['message'] as String,
     content: json['content'] == null
         ? null

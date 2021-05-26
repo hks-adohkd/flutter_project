@@ -9,43 +9,36 @@ import 'package:open_sism/logic/cubits/internet_state.dart';
 import 'home_event.dart';
 import 'home_state.dart';
 
-class HomeBloc extends Bloc<HomeRequested, HomeState>{
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final HomeRepository homeRepository;
   final InternetCubit internetCubit;
   StreamSubscription internetStreamSubscription;
+  bool isConnected;
 
   HomeBloc({@required this.homeRepository, @required this.internetCubit})
       : assert(homeRepository != null && internetCubit != null),
-        super(HomeInitial()){
+        super(HomeBeforeInitial()) {
     internetStreamSubscription = internetCubit.stream.listen((internetState) {
-      if(internetState is InternetDisconnected){
-        this.emit(HomeNoInternet());
-      } else if (internetState is InternetConnected){
-        this.add(HomeRequested());
-      } else if(internetState is InternetLoading){
-        this.emit(HomeLoadInProgress());
-      }
+      if (internetState is InternetDisconnected) {
+        isConnected = false;
+      } else if (internetState is InternetConnected) {
+        isConnected = true;
+      } else if (internetState is InternetLoading) {}
     });
   }
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
+    if (event is HomePageRequested) {
+      print("Home Page Requested!");
+      yield HomeLoadInProgress();
 
-    if(state is HomeNoInternet){
-      yield state;
-    }
-
-    if(event is HomeRequested){
-
-      if(! (state is HomeLoadInProgress)) {
-        yield HomeLoadInProgress();
-      }
-
-      try{
+      try {
         final HomeApiResponse homeModel = await homeRepository.getHomeData();
         yield HomeLoadedSuccess(homeData: homeModel);
-      }
-      catch(Exception){
+      } catch (Exception) {
+        print("Exception");
+        print(Exception);
         yield HomeLoadFailure();
       }
     }

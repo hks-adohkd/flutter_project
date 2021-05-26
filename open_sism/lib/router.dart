@@ -52,7 +52,12 @@ class AppRouter {
       case ProfileScreen.routeName:
         return MaterialPageRoute(builder: (context) => ProfileScreenGradient());
       case LoginSuccessScreen.routeName:
-        return MaterialPageRoute(builder: (context) => LoginSuccessScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: _homeBloc,
+            child: LoginSuccessScreen(),
+          ),
+        );
       case AccountScreen.routeName:
         return MaterialPageRoute(builder: (context) => AccountScreen());
       case HelpSupportScreen.routeName:
@@ -77,7 +82,8 @@ class AppRouter {
           ),
         );
       case OtpScreen.routeName:
-        return MaterialPageRoute(builder: (context) => OtpScreen(isRegister: false));
+        return MaterialPageRoute(
+            builder: (context) => OtpScreen(isRegister: false));
       case GameScreen.routeName:
         return MaterialPageRoute(builder: (context) => GameScreen());
       case WhellFortune.routeName:
@@ -91,7 +97,7 @@ class AppRouter {
     }
   }
 
-  void dispose(){
+  void dispose() {
     _homeBloc.close();
   }
 }

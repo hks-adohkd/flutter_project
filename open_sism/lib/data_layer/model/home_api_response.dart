@@ -6,18 +6,19 @@ import 'package:open_sism/data_layer/model/home_content.dart';
 part 'home_api_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class HomeApiResponse extends Equatable{
-  String code;
+class HomeApiResponse extends Equatable {
+  int code;
   String message;
 
   HomeContent content;
 
   CustomerModel currentCustomer;
 
+  HomeApiResponse(
+      {this.code, this.message, this.content, this.currentCustomer});
 
-  HomeApiResponse({this.code, this.message, this.content, this.currentCustomer});
-
-  factory HomeApiResponse.fromJson(Map<String, dynamic> json) => _$HomeApiResponseFromJson(json);
+  factory HomeApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$HomeApiResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$HomeApiResponseToJson(this);
 

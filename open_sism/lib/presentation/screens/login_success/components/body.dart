@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/logic/blocs/home_bloc.dart';
+import 'package:open_sism/logic/blocs/home_event.dart';
 import 'package:open_sism/presentation/components/default_button.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/home/home_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -30,6 +33,7 @@ class Body extends StatelessWidget {
             child: DefaultButton(
               text: "Back to home",
               press: () {
+                context.read<HomeBloc>().add(HomePageRequested());
                 Navigator.pushNamed(context, HomeScreen.routeName);
               },
             ),

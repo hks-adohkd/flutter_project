@@ -1,5 +1,5 @@
-abstract class HomeEvent{
+abstract class HomeEvent {
   const HomeEvent();
 }
 
-class HomeRequested extends HomeEvent{}
+class HomePageRequested extends HomeEvent {}
