@@ -47,4 +47,7 @@ class OpenSismApiDataProvider {
 
   Future<http.Response> fetchCitiesJson(String token) async =>
       postGeneric(CITIES + GET_ALL, token);
+
+  Future<http.Response> fetchPrizeAllJson() async =>
+      postGeneric(PRIZES + GET_ALL, TEST_TOKEN);
 }
