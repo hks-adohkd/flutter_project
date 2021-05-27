@@ -10,10 +10,10 @@ class HomeRepository {
   Future<HomeApiResponse> getHomeData() async {
     var response = await dataProvider.fetchHomeJson();
     var jsonObj = json.decode(response.body);
-    //print(jsonObj);
+    // print(jsonObj);
     var homeModel = HomeApiResponse.fromJson(jsonObj);
-    //print(homeModel);
-    // print(homeModel);
+    //  print(homeModel);
+    //  print(homeModel);
     return homeModel;
   }
 }

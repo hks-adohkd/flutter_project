@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Yazbek/AndroidStudioProjects/Sism/opensism/open_sism/lib/logic/blocs/homeBloc/home_bloc.dart';
-import 'file:///C:/Users/Yazbek/AndroidStudioProjects/Sism/opensism/open_sism/lib/logic/blocs/homeBloc/home_event.dart';
+
+import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_event.dart';
+
 import 'package:open_sism/presentation/components/default_button.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/home/home_screen.dart';

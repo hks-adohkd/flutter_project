@@ -2,7 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/home_repository.dart';
-import 'file:///C:/Users/Yazbek/AndroidStudioProjects/Sism/opensism/open_sism/lib/logic/blocs/homeBloc/home_bloc.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/presentation/screens/activity/activity_screen.dart';
 import 'package:open_sism/presentation/screens/forgot_password/forgot_password_screen.dart';
@@ -25,6 +24,7 @@ import 'package:open_sism/presentation/screens/game/game_screen.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/golden_spin/goldspin_screen.dart';
 import 'package:open_sism/presentation/screens/game/daily_bonus/dailyBonusScreen.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 
 class AppRouter {
   Connectivity connectivity;
