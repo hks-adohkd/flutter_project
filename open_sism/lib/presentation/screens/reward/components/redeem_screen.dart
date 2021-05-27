@@ -124,7 +124,8 @@ class _RedeemScreenState extends State<RedeemScreen> {
                               ),
                               SizedBox(height: 20),
                               Text(
-                                  'this is a gift card for google play this is a gift card for google play'),
+                                widget.prizeBundle.description,
+                              ),
                               SizedBox(height: 20),
                               ElevatedButton(
                                 onPressed: () async {

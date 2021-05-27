@@ -20,14 +20,14 @@ class PrizeRepository {
     return prizeModel;
   }
 
-  Future<PrizePageModel> getPrizePage() async {
+  Future<PrizeApiResponse> getPrizePage() async {
     var response = await dataProvider.fetchPrizePageJson();
     var jsonObj = json.decode(response.body);
-    print(jsonObj);
+    // print(jsonObj);
     var prizePageModel = PrizeApiResponse.fromJson(jsonObj);
     // //  print(homeModel);
     // print("prize Model : ");
-    print(prizePageModel);
-    return null;
+    // print(prizePageModel);
+    return prizePageModel;
   }
 }

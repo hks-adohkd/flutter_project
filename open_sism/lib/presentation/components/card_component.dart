@@ -38,7 +38,7 @@ class RecipeBundelCard extends StatelessWidget {
             AspectRatio(
               aspectRatio: 0.71,
               child: Image.asset(
-                recipeBundle.imageSrc,
+                "assets/images/googlePlay.png",
                 fit: BoxFit.cover,
                 alignment: Alignment.centerLeft,
               ),
@@ -102,49 +102,47 @@ class RecipeBundelCard extends StatelessWidget {
     );
   }
 
-  SingleChildScrollView cardPrizeDesign(double defaultSize) {
-    return SingleChildScrollView(
-      child: Container(
-        height: 200,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          //mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              recipeBundle.title,
+  Container cardPrizeDesign(double defaultSize) {
+    return Container(
+      height: 200,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        //mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            recipeBundle.title,
+            style: TextStyle(
+                fontSize: defaultSize * 2.5, //22
+                color: Colors.white),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          SizedBox(height: defaultSize * 1.5), // 5
+          Text(
+            recipeBundle.title + " From OpenSimsm Team",
+            style: TextStyle(color: Colors.white, fontSize: 11),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          SizedBox(height: defaultSize * 1.5),
+          buildInfoRow(
+            defaultSize,
+            iconData: Icons.star,
+            text: "${recipeBundle.points} Points",
+          ),
+          SizedBox(height: defaultSize * 1.2), //5
+          Center(
+            child: Text(
+              recipeBundle.value,
               style: TextStyle(
-                  fontSize: defaultSize * 2.5, //22
-                  color: Colors.white),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(height: defaultSize * 1.5), // 5
-            Text(
-              recipeBundle.description,
-              style: TextStyle(color: Colors.white),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(height: defaultSize * 1.5),
-            buildInfoRow(
-              defaultSize,
-              iconData: Icons.star,
-              text: "${recipeBundle.points} Points",
-            ),
-            SizedBox(height: defaultSize * 1.2), //5
-            Center(
-              child: Text(
-                recipeBundle.value,
-                style: TextStyle(
-                  fontSize: defaultSize * 2.5, //22
-                  color: Color(0xFF512DA8),
-                  fontWeight: FontWeight.bold,
-                ),
+                fontSize: defaultSize * 2.5, //22
+                color: Color(0xFF512DA8),
+                fontWeight: FontWeight.bold,
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

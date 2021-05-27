@@ -6,9 +6,9 @@ part 'prizePage_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class PrizePageModel extends Equatable {
-  final List<PrizeModel> prizeModel;
+  final List<PrizeModel> prizes;
   // PrizeModel prizeModel;
-  PrizePageModel({this.prizeModel});
+  PrizePageModel({this.prizes});
 
   factory PrizePageModel.fromJson(Map<String, dynamic> json) =>
       _$PrizePageModelFromJson(json);
@@ -16,5 +16,5 @@ class PrizePageModel extends Equatable {
   Map<String, dynamic> toJson() => _$PrizePageModelToJson(this);
 
   @override
-  List<Object> get props => [prizeModel];
+  List<Object> get props => [prizes];
 }

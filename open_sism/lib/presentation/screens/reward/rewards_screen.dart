@@ -63,15 +63,10 @@ class _RewardScreenState extends State<RewardScreen> {
                     child: BlocBuilder<PrizeBloc, PrizeState>(
                       builder: (context, state) {
                         if (state is PrizeLoadedSuccess) {
-                          print(state.prizeData.prizeModel);
-                          // List<PrizeBundle> prizeBundles = state.prizeData.props
-                          //     .map(
-                          //       (item) => PrizeBundle(
-                          //         id: state.prizeData.props
-                          //       ),
-                          //     )
-                          //     .toList();
-                          return buildGridView(state);
+                          List<PrizeBundle> prizeList =
+                              createPrizeList(state: state);
+                          //print(prizeList.first.description);
+                          return buildGridView(prizeList);
                         } else
                           return RewardPlaceHolder();
                       },
@@ -86,7 +81,7 @@ class _RewardScreenState extends State<RewardScreen> {
     );
   }
 
-  GridView buildGridView(PrizeState state) {
+  GridView buildGridView(List<PrizeBundle> prizeList) {
     return GridView.builder(
       itemCount: prizeBundles.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -99,7 +94,7 @@ class _RewardScreenState extends State<RewardScreen> {
       ),
       itemBuilder: (context, index) => RecipeBundelCard(
         selectedGender: ScreenType.prize,
-        recipeBundle: prizeBundles[index],
+        recipeBundle: prizeList[index],
         press: () {
           setState(
             () {
@@ -107,7 +102,7 @@ class _RewardScreenState extends State<RewardScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return RedeemScreen(prizeBundle: prizeBundles[index]);
+                    return RedeemScreen(prizeBundle: prizeList[index]);
                   },
                 ),
               );
@@ -116,5 +111,52 @@ class _RewardScreenState extends State<RewardScreen> {
         },
       ),
     );
+  }
+
+  Color getPrizeColor(PrizeLoadedSuccess state, int index) {
+    if (state.prizeData.content.prizes[index].prizeType.name == "gift_card") {
+      return kGooglePlayCardColor;
+    } else if (state.prizeData.content.prizes[index].prizeType.name ==
+        "units") {
+      return kSyriatelCardColor;
+    } else
+      return kMtnCardColor;
+  }
+
+  List<PrizeBundle> createPrizeList({PrizeState state}) {
+    //List<PrizeBundle> prizeBundles;
+    if (state is PrizeLoadedSuccess) {
+      return prizeBundles = state.prizeData.content.prizes
+          .map(
+            (item) => PrizeBundle(
+              id: state.prizeData.content
+                  .prizes[state.prizeData.content.prizes.indexOf(item)].id,
+              description: state
+                  .prizeData
+                  .content
+                  .prizes[state.prizeData.content.prizes.indexOf(item)]
+                  .description,
+              imageSrc: state
+                  .prizeData
+                  .content
+                  .prizes[state.prizeData.content.prizes.indexOf(item)]
+                  .imageUrl,
+              value: state.prizeData.content
+                  .prizes[state.prizeData.content.prizes.indexOf(item)].value
+                  .toString(),
+              points: state.prizeData.content
+                  .prizes[state.prizeData.content.prizes.indexOf(item)].points,
+              title: state
+                  .prizeData
+                  .content
+                  .prizes[state.prizeData.content.prizes.indexOf(item)]
+                  .displayName,
+              color: getPrizeColor(
+                  state, state.prizeData.content.prizes.indexOf(item)),
+            ),
+          )
+          .toList();
+    } else
+      return null;
   }
 }

@@ -17,10 +17,9 @@ PrizeModel _$PrizeModelFromJson(Map<String, dynamic> json) {
     itemOrder: json['itemOrder'] as int,
     luckyWheelId: json['luckyWheelId'] as int,
     points: json['points'] as int,
-    prizeTypeModel: json['prizeTypeModel'] == null
+    prizeType: json['prizeType'] == null
         ? null
-        : PrizeTypeModel.fromJson(
-            json['prizeTypeModel'] as Map<String, dynamic>),
+        : PrizeTypeModel.fromJson(json['prizeType'] as Map<String, dynamic>),
     prizeTypeId: json['prizeTypeId'] as int,
     value: json['value'] as int,
     createdAt: json['createdAt'] == null
@@ -51,5 +50,5 @@ Map<String, dynamic> _$PrizeModelToJson(PrizeModel instance) =>
       'createdAt': instance.createdAt?.toIso8601String(),
       'modified': instance.modified?.toIso8601String(),
       'isDeleted': instance.isDeleted,
-      'prizeTypeModel': instance.prizeTypeModel?.toJson(),
+      'prizeType': instance.prizeType?.toJson(),
     };

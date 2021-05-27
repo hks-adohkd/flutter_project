@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:open_sism/data_layer/model/prize_api_response.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
 import 'package:open_sism/data_layer/model/prize_model.dart';
@@ -35,7 +36,7 @@ class PrizeInitial extends PrizeState {}
 class PrizeLoadInProgress extends PrizeState {}
 
 class PrizeLoadedSuccess extends PrizeState {
-  final PrizePageModel prizeData;
+  final PrizeApiResponse prizeData;
 
   const PrizeLoadedSuccess({@required this.prizeData})
       : assert(prizeData != null);
@@ -45,7 +46,7 @@ class PrizeLoadedSuccess extends PrizeState {
 }
 
 class PrizeLoadFailure extends PrizeState {
-  final PrizePageModel prizeStoredData;
+  final PrizeApiResponse prizeStoredData;
   PrizeLoadFailure({@required this.prizeStoredData});
 }
 //

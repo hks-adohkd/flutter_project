@@ -21,7 +21,7 @@ class PrizeModel extends Equatable {
   final DateTime createdAt;
   final DateTime modified;
   final bool isDeleted;
-  PrizeTypeModel prizeTypeModel;
+  PrizeTypeModel prizeType;
   PrizeModel(
       {this.displayName,
       this.name,
@@ -32,7 +32,7 @@ class PrizeModel extends Equatable {
       this.itemOrder,
       this.luckyWheelId,
       this.points,
-      this.prizeTypeModel,
+      this.prizeType,
       this.prizeTypeId,
       this.value,
       this.createdAt,
@@ -56,7 +56,7 @@ class PrizeModel extends Equatable {
         itemOrder,
         luckyWheelId,
         points,
-        prizeTypeModel,
+        prizeType,
         prizeTypeId,
         value,
         id,

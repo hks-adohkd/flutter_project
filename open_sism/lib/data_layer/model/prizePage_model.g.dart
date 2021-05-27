@@ -8,7 +8,7 @@ part of 'prizePage_model.dart';
 
 PrizePageModel _$PrizePageModelFromJson(Map<String, dynamic> json) {
   return PrizePageModel(
-    prizeModel: (json['prizeModel'] as List)
+    prizes: (json['prizes'] as List)
         ?.map((e) =>
             e == null ? null : PrizeModel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -17,5 +17,5 @@ PrizePageModel _$PrizePageModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$PrizePageModelToJson(PrizePageModel instance) =>
     <String, dynamic>{
-      'prizeModel': instance.prizeModel?.map((e) => e?.toJson())?.toList(),
+      'prizes': instance.prizes?.map((e) => e?.toJson())?.toList(),
     };
