@@ -53,4 +53,7 @@ class OpenSismApiDataProvider {
 
   Future<http.Response> fetchPrizePageJson() async =>
       postGeneric(PRIZESPage, TEST_TOKEN);
+
+  Future<http.Response> fetchWheelPageJson() async =>
+      postGeneric(LUCKY_WHEEL + GET_ONE, TEST_TOKEN);
 }

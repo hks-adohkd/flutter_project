@@ -16,6 +16,28 @@ class BuildMethod {
   String prevPoint;
   String result;
 
+  List<String> itemsImages = [
+    "apple",
+    "raspberry",
+    "grapes",
+    "fruit",
+    "milk",
+    "salad",
+    "cheese",
+    "carrot",
+  ];
+
+  List<Color> itemsColors = [
+    Color(0xFF9F6083),
+    Color(0xFFFDB78B),
+    Color(0xFF57CFE2),
+    Color(0xFF606B7E),
+    Color(0xFF24ACE9),
+    Color(0xFFFB7C7A),
+    Color(0xFF1BD3AC),
+    Color(0xFFa73737),
+  ];
+
   List<Luck> items = [
     Luck("apple", Color(0xFF9F6083), "10"),
     Luck("raspberry", Color(0xFFFDB78B), "30"),

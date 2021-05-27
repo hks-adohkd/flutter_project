@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/board_view.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/build.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_state.dart';
+import 'package:open_sism/presentation/screens/game/spin_games/components/model.dart';
 
 class WhellFortune extends StatefulWidget {
   static const String routeName = "/spin_screen";
@@ -93,21 +97,58 @@ class _WhellFortuneState extends State<WhellFortune>
                 SizedBox(
                   height: getProportionateScreenHeight(10),
                 ),
-                BoardView(
-                  items: buildMethod.items,
-                  current: buildMethod.current,
-                  angle: _angle,
-                  isStart: buildMethod.isStart,
-                  press: () {
-                    setState(
-                      () {
-                        buildMethod.isStart = true;
-                        buildMethod.isEnd = false;
-                        buildMethod.animation(context, spinInitState);
+                BlocBuilder<WheelBloc, WheelState>(builder: (context, state) {
+                  if (state is WheelLoadedSuccess) {
+                    //  print(state.wheeleData.content.prizes.first.description);
+                    List<Luck> widgets = state.wheeleData.content.prizes
+                        .map(
+                          (item) => Luck(
+                            buildMethod.itemsImages[
+                                state.wheeleData.content.prizes.indexOf(item)],
+                            buildMethod.itemsColors[
+                                state.wheeleData.content.prizes.indexOf(item)],
+                            state
+                                .wheeleData
+                                .content
+                                .prizes[state.wheeleData.content.prizes
+                                    .indexOf(item)]
+                                .value
+                                .toString(),
+                          ),
+                        )
+                        .toList();
+                    return BoardView(
+                      items: widgets,
+                      current: buildMethod.current,
+                      angle: _angle,
+                      isStart: buildMethod.isStart,
+                      press: () {
+                        setState(
+                          () {
+                            buildMethod.isStart = true;
+                            buildMethod.isEnd = false;
+                            buildMethod.animation(context, spinInitState);
+                          },
+                        );
                       },
                     );
-                  },
-                ),
+                  } else
+                    return BoardView(
+                      items: buildMethod.items,
+                      current: buildMethod.current,
+                      angle: _angle,
+                      isStart: buildMethod.isStart,
+                      press: () {
+                        setState(
+                          () {
+                            buildMethod.isStart = true;
+                            buildMethod.isEnd = false;
+                            buildMethod.animation(context, spinInitState);
+                          },
+                        );
+                      },
+                    );
+                }),
                 SizedBox(
                   height: getProportionateScreenHeight(10),
                 ),

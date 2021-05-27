@@ -7,6 +7,7 @@ import 'package:open_sism/logic/blocs/prizeBloc/prize_bloc.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/presentation/screens/activity/activity_screen.dart';
 import 'package:open_sism/presentation/screens/forgot_password/forgot_password_screen.dart';
+import 'package:open_sism/presentation/screens/game/components/game_bundle.dart';
 import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:open_sism/presentation/screens/login/login_screen.dart';
 import 'package:open_sism/presentation/screens/login_success/login_success_screen.dart';
@@ -27,11 +28,13 @@ import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen.
 import 'package:open_sism/presentation/screens/game/spin_games/golden_spin/goldspin_screen.dart';
 import 'package:open_sism/presentation/screens/game/daily_bonus/dailyBonusScreen.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
 
 class AppRouter {
   Connectivity connectivity;
   HomeBloc _homeBloc;
   PrizeBloc _prizeBloc;
+  WheelBloc _wheelBloc;
   AppRouter({@required this.connectivity}) {
     _homeBloc = new HomeBloc(
       homeRepository: new HomeRepository(),
@@ -39,6 +42,11 @@ class AppRouter {
     );
 
     _prizeBloc = new PrizeBloc(
+      prizeRepository: new PrizeRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
+
+    _wheelBloc = new WheelBloc(
       prizeRepository: new PrizeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
@@ -99,9 +107,18 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => OtpScreen(isRegister: false));
       case GameScreen.routeName:
-        return MaterialPageRoute(builder: (context) => GameScreen());
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider.value(
+                  value: _wheelBloc,
+                  child: GameScreen(),
+                ));
       case WhellFortune.routeName:
-        return MaterialPageRoute(builder: (context) => WhellFortune());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: _wheelBloc,
+            child: WhellFortune(),
+          ),
+        );
       case GoldWheelFortune.routeName:
         return MaterialPageRoute(builder: (context) => GoldWheelFortune());
       case DailyBonus.routeName:
