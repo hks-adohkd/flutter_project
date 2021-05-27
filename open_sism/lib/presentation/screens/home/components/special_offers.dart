@@ -60,7 +60,9 @@ class SpecialOffers extends StatelessWidget {
             ),
           );
         } else {
-          return Container();
+          return Text(
+            "",
+          );
         }
       },
     );
@@ -95,7 +97,7 @@ class SpecialOffers extends StatelessWidget {
             ),
           );
         } else {
-          return Container();
+          return Text("");
         }
       },
     );

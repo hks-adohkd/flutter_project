@@ -18,6 +18,7 @@ class Body extends StatelessWidget {
     // _bloc.add(LoadHomeAds());
     // _categoriesBloc.add(LoadCategories());
     // _featuredBloc.add(LoadFeaturedAds());
+    await Future.delayed(Duration(milliseconds: 1000));
     context.read<HomeBloc>().add(HomePageRequested());
     print("refresh");
     _refreshController.refreshCompleted();
@@ -29,6 +30,7 @@ class Body extends StatelessWidget {
     SizeConfig().init(context);
     return SafeArea(
       child: SmartRefresher(
+        enablePullDown: true,
         controller: _refreshController,
         onRefresh: () => _onRefresh(context),
         child: Container(
