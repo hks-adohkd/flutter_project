@@ -36,7 +36,9 @@ class Body extends StatelessWidget {
               text: "Back to home",
               press: () {
                 context.read<HomeBloc>().add(HomePageRequested());
-                Navigator.pushNamed(context, HomeScreen.routeName);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    HomeScreen.routeName, (Route<dynamic> route) => false);
+                // Navigator.pushNamed(context, HomeScreen.routeName);
               },
             ),
           ),

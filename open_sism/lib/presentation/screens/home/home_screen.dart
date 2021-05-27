@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_event.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
@@ -12,6 +14,7 @@ import 'package:open_sism/main.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // Crude counter to make messages unique
 int _messageCount = 0;
@@ -89,6 +92,19 @@ class _HomeScreenState extends State<HomeScreen> {
     _tokenStream.listen(setToken);
   }
 
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh(BuildContext context) async {
+    // _bloc.add(LoadHomeAds());
+    // _categoriesBloc.add(LoadCategories());
+    // _featuredBloc.add(LoadFeaturedAds());
+    await Future.delayed(Duration(milliseconds: 1000));
+    await context.read<HomeBloc>().add(HomePageRequested());
+    print("refresh");
+    _refreshController.refreshCompleted();
+  }
+
   @override
   Widget build(BuildContext context) {
     print(_token);
@@ -100,16 +116,20 @@ class _HomeScreenState extends State<HomeScreen> {
           appBarTitle: "Home",
         ),
       ),
-      body: DoubleBackToCloseApp(
-        child: Body(),
-        snackBar: const SnackBar(
-          behavior: SnackBarBehavior.floating,
-          elevation: 6.0,
-          content: Text(
-            'Tap back again to leave',
-            textAlign: TextAlign.center,
+      body: SmartRefresher(
+        controller: _refreshController,
+        onRefresh: () => _onRefresh(context),
+        child: DoubleBackToCloseApp(
+          child: Body(),
+          snackBar: const SnackBar(
+            behavior: SnackBarBehavior.floating,
+            elevation: 6.0,
+            content: Text(
+              'Tap back again to leave',
+              textAlign: TextAlign.center,
+            ),
+            backgroundColor: Colors.orange,
           ),
-          backgroundColor: Colors.orange,
         ),
       ),
       // bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
