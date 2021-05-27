@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:open_sism/logic/blocs/prizeBloc/prize_bloc.dart';
+import 'package:open_sism/logic/blocs/prizeBloc/prize_event.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/activity/activity_screen.dart';
 import 'package:open_sism/presentation/screens/game/daily_bonus/dailyBonusScreen.dart';
@@ -7,6 +9,7 @@ import 'package:open_sism/presentation/screens/game/game_screen.dart';
 import 'package:open_sism/presentation/screens/profile/profile_screen.dart';
 import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
 import 'package:open_sism/presentation/screens/task/task_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Categories extends StatelessWidget {
   @override
@@ -48,6 +51,19 @@ class Categories extends StatelessWidget {
                     icon: categoriesFirst[index]["icon"],
                     text: categoriesFirst[index]["text"],
                     press: () {
+                      print(index);
+                      switch (index) {
+                        case 2:
+                          {
+                            context.read<PrizeBloc>().add(PrizePageRequested());
+                          }
+                          break;
+                        default:
+                          {
+                            //statements;
+                          }
+                          break;
+                      }
                       Navigator.pushNamed(context, routeList[index]);
                     },
                   ),

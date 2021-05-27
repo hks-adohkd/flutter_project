@@ -8,6 +8,7 @@ import 'package:open_sism/logic/cubits/internet_state.dart';
 import 'prize_event.dart';
 import 'prize_state.dart';
 import 'package:open_sism/data_layer/model/prize_model.dart';
+import 'package:open_sism/data_layer/model/prizePage_model.dart';
 
 class PrizeBloc extends Bloc<PrizeEvent, PrizeState> {
   final PrizeRepository prizeRepository;
@@ -15,13 +16,15 @@ class PrizeBloc extends Bloc<PrizeEvent, PrizeState> {
   StreamSubscription internetStreamSubscription;
   bool isConnected;
   PrizeModel prizeModel;
+  PrizePageModel prizePageModel;
   PrizeBloc({@required this.prizeRepository, @required this.internetCubit})
       : assert(prizeRepository != null && internetCubit != null),
         super(PrizeInitial()) {
     internetStreamSubscription = internetCubit.stream.listen((internetState) {
       if (internetState is InternetDisconnected) {
         isConnected = false;
-      } else if (internetState is InternetConnected) {
+      } else if (internetState is InternetConnected &&
+          !(state is PrizeInitial)) {
         this.add(PrizeDataRequested());
         isConnected = true;
       } else if (internetState is InternetLoading) {}
@@ -34,10 +37,10 @@ class PrizeBloc extends Bloc<PrizeEvent, PrizeState> {
       yield PrizeLoadInProgress();
 
       try {
-        prizeModel = await prizeRepository.getPrizeAll();
-        yield PrizeLoadedSuccess(prizeData: prizeModel);
+        prizePageModel = await prizeRepository.getPrizePage();
+        yield PrizeLoadedSuccess(prizeData: prizePageModel);
       } catch (Exception) {
-        yield PrizeLoadFailure(prizeStoredData: prizeModel);
+        yield PrizeLoadFailure(prizeStoredData: prizePageModel);
       }
     }
   }

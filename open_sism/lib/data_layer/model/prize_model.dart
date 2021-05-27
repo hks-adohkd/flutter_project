@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:open_sism/data_layer/model/prizeType_model.dart';
-//part 'prize_model.g.dart';
 
-@JsonSerializable()
+part 'prize_model.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class PrizeModel extends Equatable {
   String imageUrl;
   String name;
@@ -16,6 +17,10 @@ class PrizeModel extends Equatable {
   int luckyWheelId;
   bool isValid;
   int itemOrder;
+  final int id;
+  final DateTime createdAt;
+  final DateTime modified;
+  final bool isDeleted;
   PrizeTypeModel prizeTypeModel;
   PrizeModel(
       {this.displayName,
@@ -29,12 +34,16 @@ class PrizeModel extends Equatable {
       this.points,
       this.prizeTypeModel,
       this.prizeTypeId,
-      this.value});
+      this.value,
+      this.createdAt,
+      this.id,
+      this.isDeleted,
+      this.modified});
 
-  // factory PrizeModel.fromJson(Map<String, dynamic> json) =>
-  //     _$PrizeModelFromJson(json);
-  //
-  // Map<String, dynamic> toJson() => _$PrizeModelToJson(this);
+  factory PrizeModel.fromJson(Map<String, dynamic> json) =>
+      _$PrizeModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PrizeModelToJson(this);
 
   @override
   List<Object> get props => [
@@ -49,6 +58,10 @@ class PrizeModel extends Equatable {
         points,
         prizeTypeModel,
         prizeTypeId,
-        value
+        value,
+        id,
+        createdAt,
+        modified,
+        isDeleted,
       ];
 }

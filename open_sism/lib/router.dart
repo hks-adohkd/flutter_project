@@ -2,6 +2,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/home_repository.dart';
+import 'package:open_sism/data_layer/Repositories/prize_repository.dart';
+import 'package:open_sism/logic/blocs/prizeBloc/prize_bloc.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/presentation/screens/activity/activity_screen.dart';
 import 'package:open_sism/presentation/screens/forgot_password/forgot_password_screen.dart';
@@ -29,10 +31,15 @@ import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 class AppRouter {
   Connectivity connectivity;
   HomeBloc _homeBloc;
-
+  PrizeBloc _prizeBloc;
   AppRouter({@required this.connectivity}) {
     _homeBloc = new HomeBloc(
       homeRepository: new HomeRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
+
+    _prizeBloc = new PrizeBloc(
+      prizeRepository: new PrizeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
   }
@@ -48,7 +55,11 @@ class AppRouter {
       case TaskScreen.routeName:
         return MaterialPageRoute(builder: (context) => TaskScreen());
       case RewardScreen.routeName:
-        return MaterialPageRoute(builder: (context) => RewardScreen());
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider.value(
+                  value: _prizeBloc,
+                  child: RewardScreen(),
+                ));
       case ProfileScreen.routeName:
         return MaterialPageRoute(builder: (context) => ProfileScreenGradient());
       case LoginSuccessScreen.routeName:
@@ -76,8 +87,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => RegisterScreen());
       case HomeScreen.routeName:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: _homeBloc,
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: _homeBloc),
+              BlocProvider.value(value: _prizeBloc),
+            ],
             child: HomeScreen(),
           ),
         );

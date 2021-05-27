@@ -19,6 +19,7 @@ const String SET_FCM_TOKEN = "Authenticate/SetFCMToken";
 
 const String TASKS = "api/AppTasks/";
 const String PRIZES = "api/Prizes/";
+const String PRIZESPage = "api/PrizesPage/GetPrizePage";
 const String QUESTIONS = "api/Questions/";
 const String SPORT_MATCHES = "api/SportMatches/";
 const String VERSION = "api/MobileVersion/";

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
 import 'package:open_sism/data_layer/model/prize_model.dart';
+import 'package:open_sism/data_layer/model/prizePage_model.dart';
 
 abstract class PrizeState extends Equatable {
   const PrizeState();
@@ -34,7 +35,7 @@ class PrizeInitial extends PrizeState {}
 class PrizeLoadInProgress extends PrizeState {}
 
 class PrizeLoadedSuccess extends PrizeState {
-  final PrizeModel prizeData;
+  final PrizePageModel prizeData;
 
   const PrizeLoadedSuccess({@required this.prizeData})
       : assert(prizeData != null);
@@ -44,7 +45,7 @@ class PrizeLoadedSuccess extends PrizeState {
 }
 
 class PrizeLoadFailure extends PrizeState {
-  final PrizeModel prizeStoredData;
+  final PrizePageModel prizeStoredData;
   PrizeLoadFailure({@required this.prizeStoredData});
 }
 //
