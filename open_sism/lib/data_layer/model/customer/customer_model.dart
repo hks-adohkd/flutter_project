@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:open_sism/data_layer/model/application_user_model.dart';
-import 'package:open_sism/data_layer/model/city_model.dart';
-import 'package:open_sism/data_layer/model/group_model.dart';
+import 'package:open_sism/data_layer/model/application_user/application_user_model.dart';
+import 'package:open_sism/data_layer/model/city/city_model.dart';
+import 'package:open_sism/data_layer/model/group/group_model.dart';
 
 part 'customer_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class CustomerModel extends Equatable{
+class CustomerModel extends Equatable {
   final String firstName;
   final String lastName;
   final String imageUrl;
@@ -37,8 +37,8 @@ class CustomerModel extends Equatable{
   final ApplicationUserModel user;
   final CityModel city;
 
-  CustomerModel({
-      this.firstName,
+  CustomerModel(
+      {this.firstName,
       this.lastName,
       this.imageUrl,
       this.termsAndConditions,
@@ -65,10 +65,10 @@ class CustomerModel extends Equatable{
       this.installedFrom,
       this.group,
       this.user,
-      this.city
-  });
+      this.city});
 
-  factory CustomerModel.fromJson(Map<String, dynamic> json) => _$CustomerModelFromJson(json);
+  factory CustomerModel.fromJson(Map<String, dynamic> json) =>
+      _$CustomerModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
 

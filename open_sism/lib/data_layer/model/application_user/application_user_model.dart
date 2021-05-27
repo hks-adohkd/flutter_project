@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'application_user_model.g.dart';
 
 @JsonSerializable()
-class ApplicationUserModel extends Equatable{
+class ApplicationUserModel extends Equatable {
   final bool phoneNumberConfirmed;
   final String phoneNumber;
   final bool emailConfirmed;
@@ -14,17 +14,17 @@ class ApplicationUserModel extends Equatable{
   final bool lockoutEnabled;
   final int accessFailedCount;
 
-  ApplicationUserModel({
-      this.phoneNumberConfirmed,
+  ApplicationUserModel(
+      {this.phoneNumberConfirmed,
       this.phoneNumber,
       this.emailConfirmed,
       this.email,
       this.userName,
       this.lockoutEnabled,
-      this.accessFailedCount
-  });
+      this.accessFailedCount});
 
-  factory ApplicationUserModel.fromJson(Map<String, dynamic> json) => _$ApplicationUserModelFromJson(json);
+  factory ApplicationUserModel.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationUserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ApplicationUserModelToJson(this);
 

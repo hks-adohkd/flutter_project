@@ -9,9 +9,9 @@ part of 'group_model.dart';
 GroupModel _$GroupModelFromJson(Map<String, dynamic> json) {
   return GroupModel(
     id: json['id'] as int,
-    created: json['created'] == null
+    created: json['createdAt'] == null
         ? null
-        : DateTime.parse(json['created'] as String),
+        : DateTime.parse(json['createdAt'] as String),
     modified: json['modified'] == null
         ? null
         : DateTime.parse(json['modified'] as String),
@@ -28,7 +28,7 @@ GroupModel _$GroupModelFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$GroupModelToJson(GroupModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'created': instance.created?.toIso8601String(),
+      'createdAt': instance.created?.toIso8601String(),
       'modified': instance.modified?.toIso8601String(),
       'isDeleted': instance.isDeleted,
       'name': instance.name,

@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/prize_repository.dart';
-import 'package:open_sism/data_layer/model/prize_api_response.dart';
+import 'package:open_sism/data_layer/model/prize/prize_api_response.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
 import 'prize_event.dart';
 import 'prize_state.dart';
-import 'package:open_sism/data_layer/model/prize_model.dart';
-import 'package:open_sism/data_layer/model/prizePage_model.dart';
+import 'package:open_sism/data_layer/model/prize/prize_model.dart';
+import 'package:open_sism/data_layer/model/prize/prizePage_model.dart';
 
 class PrizeBloc extends Bloc<PrizeEvent, PrizeState> {
   final PrizeRepository prizeRepository;

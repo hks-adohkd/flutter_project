@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:open_sism/data_layer/model/customer_model.dart';
-import 'package:open_sism/data_layer/model/home_content.dart';
+import 'package:open_sism/data_layer/model/customer/customer_model.dart';
+import 'package:open_sism/data_layer/model/home/home_content.dart';
 
 part 'home_api_response.g.dart';
 

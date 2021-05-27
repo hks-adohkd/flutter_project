@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:open_sism/data_layer/api/api_data_provider.dart';
-import 'package:open_sism/data_layer/model/prize_api_response.dart';
-import 'package:open_sism/data_layer/model/prize_model.dart';
-import 'package:open_sism/data_layer/model/prizePage_model.dart';
+import 'package:open_sism/data_layer/model/prize/prize_api_response.dart';
+
+import 'package:open_sism/data_layer/model/prize/prize_model.dart';
+import 'package:open_sism/data_layer/model/prize/prizePage_model.dart';
 
 class PrizeRepository {
   final OpenSismApiDataProvider dataProvider = new OpenSismApiDataProvider();

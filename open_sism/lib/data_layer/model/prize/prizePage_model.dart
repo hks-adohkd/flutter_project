@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:open_sism/data_layer/model/prize_model.dart';
+import 'package:open_sism/data_layer/model/prize/prize_model.dart';
 
 part 'prizePage_model.g.dart';
 

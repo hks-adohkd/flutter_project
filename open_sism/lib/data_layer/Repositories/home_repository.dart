@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:open_sism/data_layer/api/api_data_provider.dart';
-import 'package:open_sism/data_layer/model/home_api_response.dart';
+import 'package:open_sism/data_layer/model/home/home_api_response.dart';
 
 class HomeRepository {
   final OpenSismApiDataProvider dataProvider = new OpenSismApiDataProvider();
