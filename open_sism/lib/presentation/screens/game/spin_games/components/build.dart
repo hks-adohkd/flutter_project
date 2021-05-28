@@ -82,9 +82,12 @@ class BuildMethod {
         result =
             prevPoint; // to show the result in alert and in the main screen
         isEnd = true; // end of animation to control  the result visability
-        init(); // function spin init state
-        alert(context); //alert when the animation end
-        ctrl.reset();
+        init();
+        Future.delayed(const Duration(milliseconds: 1000), () {
+          // function spin init state
+          alert(context); //alert when the animation end
+          ctrl.reset();
+        });
       });
     }
   }
@@ -116,16 +119,17 @@ class BuildMethod {
       buttons: [
         DialogButton(
           child: Text(
-            "GO to Reward",
+            "Get it ",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
-            context.read<PrizeBloc>().add(PrizePageRequested());
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => RewardScreen()),
-                ModalRoute.withName(HomeScreen.routeName));
+            // context.read<PrizeBloc>().add(PrizePageRequested());
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (BuildContext context) => RewardScreen()),
+            //     ModalRoute.withName(HomeScreen.routeName));
+            Navigator.pop(context);
           },
           color: Color.fromRGBO(0, 179, 134, 1.0),
         ),
@@ -158,7 +162,7 @@ class BuildMethod {
     var _index = _calIndex(_value * angle + current);
 
     return Visibility(
-      visible: isStart,
+      visible: false,
       child: Padding(
         //padding: EdgeInsets.symmetric(vertical: 48.0),
         padding: EdgeInsets.symmetric(vertical: 20.0),
