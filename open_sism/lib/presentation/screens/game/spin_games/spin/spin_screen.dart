@@ -103,18 +103,26 @@ class _WhellFortuneState extends State<WhellFortune>
                     List<Luck> widgets = state.wheeleData.content.prizes
                         .map(
                           (item) => Luck(
-                            buildMethod.itemsImages[
-                                state.wheeleData.content.prizes.indexOf(item)],
-                            buildMethod.itemsColors[
-                                state.wheeleData.content.prizes.indexOf(item)],
-                            state
-                                .wheeleData
-                                .content
-                                .prizes[state.wheeleData.content.prizes
-                                    .indexOf(item)]
-                                .value
-                                .toString(),
-                          ),
+                              buildMethod.itemsImages[state
+                                  .wheeleData.content.prizes
+                                  .indexOf(item)],
+                              buildMethod.itemsColors[state
+                                  .wheeleData.content.prizes
+                                  .indexOf(item)],
+                              state
+                                  .wheeleData
+                                  .content
+                                  .prizes[state.wheeleData.content.prizes
+                                      .indexOf(item)]
+                                  .value
+                                  .toString(),
+                              state
+                                  .wheeleData
+                                  .content
+                                  .prizes[state.wheeleData.content.prizes
+                                      .indexOf(item)]
+                                  .prizeType
+                                  .displayName),
                         )
                         .toList();
                     return BoardView(

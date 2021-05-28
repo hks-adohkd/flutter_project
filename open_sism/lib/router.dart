@@ -114,8 +114,11 @@ class AppRouter {
                 ));
       case WhellFortune.routeName:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: _wheelBloc,
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: _wheelBloc),
+              BlocProvider.value(value: _prizeBloc),
+            ],
             child: WhellFortune(),
           ),
         );

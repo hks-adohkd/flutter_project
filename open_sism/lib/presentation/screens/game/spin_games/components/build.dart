@@ -4,6 +4,9 @@ import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
 import 'dart:math';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/prizeBloc/prize_bloc.dart';
+import 'package:open_sism/logic/blocs/prizeBloc/prize_event.dart';
 
 class BuildMethod {
   double angle = 0;
@@ -39,33 +42,33 @@ class BuildMethod {
   ];
 
   List<Luck> items = [
-    Luck("apple", Color(0xFF9F6083), "10"),
-    Luck("raspberry", Color(0xFFFDB78B), "30"),
-    Luck("grapes", Color(0xFF57CFE2), "45"),
-    Luck("fruit", Color(0xFF606B7E), "75"),
-    Luck("milk", Color(0xFF24ACE9), "150"),
-    Luck("salad", Color(0xFFFB7C7A), "250"),
-    Luck("cheese", Color(0xFF1BD3AC), "500"),
-    Luck("carrot", Color(0xFFa73737), "1000"),
+    Luck("apple", Color(0xFF9F6083), "0", "point"),
+    Luck("raspberry", Color(0xFFFDB78B), "0", "point"),
+    Luck("grapes", Color(0xFF57CFE2), "0", "point"),
+    Luck("fruit", Color(0xFF606B7E), "0", "point"),
+    Luck("milk", Color(0xFF24ACE9), "0", "point"),
+    Luck("salad", Color(0xFFFB7C7A), "0", "point"),
+    Luck("cheese", Color(0xFF1BD3AC), "0", "point"),
+    Luck("carrot", Color(0xFFa73737), "0", "point"),
   ];
 
   List<Luck> goldItems = [
-    Luck("apple", Color(0xFF9F6083), "1k"),
-    Luck("raspberry", Color(0xFFFDB78B), "30k"),
-    Luck("grapes", Color(0xFF57CFE2), "4.5k"),
-    Luck("fruit", Color(0xFF606B7E), "7.5k"),
-    Luck("milk", Color(0xFF24ACE9), "150k"),
-    Luck("salad", Color(0xFFFB7C7A), "25k"),
-    Luck("cheese", Color(0xFF1BD3AC), "50k"),
-    Luck("carrot", Color(0xFFa73737), "100k"),
+    Luck("apple", Color(0xFF9F6083), "1k", "point"),
+    Luck("raspberry", Color(0xFFFDB78B), "30k", "point"),
+    Luck("grapes", Color(0xFF57CFE2), "4.5k", "point"),
+    Luck("fruit", Color(0xFF606B7E), "7.5k", "point"),
+    Luck("milk", Color(0xFF24ACE9), "150k", "point"),
+    Luck("salad", Color(0xFFFB7C7A), "25k", "point"),
+    Luck("cheese", Color(0xFF1BD3AC), "50k", "point"),
+    Luck("carrot", Color(0xFFa73737), "100k", "point"),
   ];
 
   List<Luck> gift_items = [
-    Luck("apple", Color(0xFF9F6083), "10"),
-    Luck("raspberry", Color(0xFFFDB78B), "30"),
-    Luck("grapes", Color(0xFF57CFE2), "45"),
-    Luck("fruit", Color(0xFF606B7E), "75"),
-    Luck("milk", Color(0xFF24ACE9), "150"),
+    Luck("apple", Color(0xFF9F6083), "10", "point"),
+    Luck("raspberry", Color(0xFFFDB78B), "30", "point"),
+    Luck("grapes", Color(0xFF57CFE2), "45", "point"),
+    Luck("fruit", Color(0xFF606B7E), "75", "point"),
+    Luck("milk", Color(0xFF24ACE9), "150", "point"),
   ];
 
   // main animation of wheel
@@ -116,12 +119,13 @@ class BuildMethod {
             "GO to Reward",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
-          onPressed: () => {
+          onPressed: () {
+            context.read<PrizeBloc>().add(PrizePageRequested());
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                     builder: (BuildContext context) => RewardScreen()),
-                ModalRoute.withName(HomeScreen.routeName))
+                ModalRoute.withName(HomeScreen.routeName));
           },
           color: Color.fromRGBO(0, 179, 134, 1.0),
         ),
