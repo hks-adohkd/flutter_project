@@ -29,13 +29,17 @@ import 'package:open_sism/presentation/screens/game/spin_games/golden_spin/golds
 import 'package:open_sism/presentation/screens/game/daily_bonus/dailyBonusScreen.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
+import 'package:open_sism/logic/blocs/bonusBloc/bonus_bloc.dart';
 
 class AppRouter {
   Connectivity connectivity;
   HomeBloc _homeBloc;
   PrizeBloc _prizeBloc;
   WheelBloc _wheelBloc;
+
   WheelPremiumBloc _wheelPremiumBloc;
+  BonusBloc _bonusBloc;
+  BonusPremiumBloc _bonusPremiumBloc;
   AppRouter({@required this.connectivity}) {
     _homeBloc = new HomeBloc(
       homeRepository: new HomeRepository(),
@@ -52,6 +56,14 @@ class AppRouter {
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
     _wheelPremiumBloc = new WheelPremiumBloc(
+      prizeRepository: new PrizeRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
+    _bonusBloc = new BonusBloc(
+      prizeRepository: new PrizeRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
+    _bonusPremiumBloc = new BonusPremiumBloc(
       prizeRepository: new PrizeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
@@ -104,6 +116,8 @@ class AppRouter {
             providers: [
               BlocProvider.value(value: _homeBloc),
               BlocProvider.value(value: _prizeBloc),
+              BlocProvider.value(value: _bonusBloc),
+              BlocProvider.value(value: _bonusPremiumBloc),
             ],
             child: HomeScreen(),
           ),
@@ -134,7 +148,11 @@ class AppRouter {
                   child: GoldWheelFortune(),
                 ));
       case DailyBonus.routeName:
-        return MaterialPageRoute(builder: (context) => DailyBonus());
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider.value(
+                  value: _bonusBloc,
+                  child: DailyBonus(),
+                ));
       default:
         return null;
     }

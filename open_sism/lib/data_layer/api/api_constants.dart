@@ -27,6 +27,7 @@ const String CONTACT_US = "api/ContactUs/";
 const String CITIES = "api/Cities/";
 const String LUCKY_WHEEL = "api/LuckyWheels/";
 const String DAILY_BONUS = "api/DailyBonusess/";
+
 const String CUSTOMER_PRIZES = "api/CustomerPrizes/";
 const String CUSTOMER_TASKS = "api/CustomerTasks/";
 const String CUSTOMER_MESSAGES = "api/CustomerMessages/";

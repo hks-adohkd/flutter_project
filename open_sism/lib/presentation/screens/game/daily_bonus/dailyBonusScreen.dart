@@ -7,6 +7,31 @@ import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/screens/game/daily_bonus/components/cardItem.dart';
 import 'package:open_sism/presentation/screens/game/daily_bonus/components/buttom_clipper.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:open_sism/logic/blocs/bonusBloc/bonus_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/bonusBloc/bonus_state.dart';
+import 'package:open_sism/logic/blocs/bonusBloc/bonus_event.dart';
+
+List<CardItem> cards;
+
+List<String> images = [
+  'assets/images/1.png',
+  'assets/images/2.png',
+  'assets/images/3.png',
+  'assets/images/4.png',
+  'assets/images/5.png',
+  'assets/images/6.png',
+  'assets/images/7.png',
+];
+List<String> title = [
+  'Day One',
+  'Day Two',
+  'Day Three',
+  'Day Four',
+  'Day Five',
+  'Day Six',
+  'Day Seven',
+];
 
 class DailyBonus extends StatefulWidget {
   static const String routeName = "/daily_bonus_screen";
@@ -55,71 +80,69 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                       Container(
                         margin: EdgeInsets.only(left: 8),
                         height: SizeConfig.screenHeight * 0.3,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            CardItem(
-                              imagePath: 'assets/images/1.png',
-                              title: 'Day one',
-                              description: 'Mix vegetables',
-                              price: '15 DT',
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            CardItem(
-                              imagePath: 'assets/images/2.png',
-                              title: 'Day Two',
-                              description: 'spicy with garlic',
-                              price: '24 Dt',
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            CardItem(
-                              imagePath: 'assets/images/3.png',
-                              title: 'Day Three',
-                              description: 'with parmesan ',
-                              price: '20 Dt',
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            CardItem(
-                              imagePath: 'assets/images/4.png',
-                              title: 'Day Four',
-                              description: 'Mix vegetables',
-                              price: '15 DT',
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            CardItem(
-                              imagePath: 'assets/images/5.png',
-                              title: 'Day Five',
-                              description: 'Mix vegetables',
-                              price: '15 DT',
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            CardItem(
-                              imagePath: 'assets/images/6.png',
-                              title: 'Day Six',
-                              description: 'Mix vegetables',
-                              price: '15 DT',
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            CardItem(
-                              imagePath: 'assets/images/7.png',
-                              title: 'Day Seven',
-                              description: 'Mix vegetables',
-                              price: '15 DT',
-                            ),
-                          ],
-                        ),
+                        child: BlocBuilder<BonusBloc, BonusState>(
+                            builder: (context, state) {
+                          if (state is BonusLoadedSuccess) {
+                            cards = state.bonusData.content.prizes.map((item) {
+                              if (state.bonusData.content.prizes.indexOf(item) <
+                                  7) {
+                                CardItem(
+                                  imagePath: images[state
+                                      .bonusData.content.prizes
+                                      .indexOf(item)],
+                                  title: title[state.bonusData.content.prizes
+                                      .indexOf(item)],
+                                  description: 'None',
+                                  price: state
+                                      .bonusData
+                                      .content
+                                      .prizes[state.bonusData.content.prizes
+                                          .indexOf(item)]
+                                      .value
+                                      .toString(),
+                                );
+                              }
+                            }).toList();
+                            cards.forEach((element) {
+                              print(element.price);
+                            });
+                            context
+                                .read<BonusBloc>()
+                                .add(BonusDataReadyEvent());
+                            return ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  CardItem(
+                                    imagePath: 'assets/images/2.png',
+                                    title: 'Day Two',
+                                    description: 'Mix vegetables',
+                                    price: '15 DT',
+                                  ),
+                                ]);
+                          } else if (state is BonusDataReady) {
+                            return ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                CardItem(
+                                  imagePath: 'assets/images/4.png',
+                                  title: 'Day Two',
+                                  description: 'Mix vegetables',
+                                  price: '15 DT',
+                                ),
+                              ],
+                            );
+                          } else
+                            return ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  CardItem(
+                                    imagePath: 'assets/images/1.png',
+                                    title: 'Day one',
+                                    description: 'Mix vegetables',
+                                    price: '15 DT',
+                                  ),
+                                ]);
+                        }),
                       ),
                     ],
                   ),

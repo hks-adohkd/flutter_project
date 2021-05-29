@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 import 'package:open_sism/data_layer/api/api_data_provider.dart';
 import 'package:open_sism/data_layer/model/prize/prize_api_response.dart';
 import 'package:open_sism/data_layer/model/luckyWheel/wheel_api_response.dart';
-
+import 'package:open_sism/data_layer/model/dailyBonus/bonus_api_response.dart';
 import 'package:open_sism/data_layer/model/prize/prize_model.dart';
 import 'package:open_sism/data_layer/model/prize/prizePage_model.dart';
 
@@ -53,5 +53,28 @@ class PrizeRepository {
     // print("prize Model : ");
     // print(wheelPageModel);
     return wheelPageModel;
+  }
+
+  Future<BonusApiResponse> getBonusPrizes() async {
+    var response = await dataProvider.fetchBonusJson();
+    var jsonObj = json.decode(response.body);
+    // print(jsonObj);
+    var bonusModel = BonusApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    // print("prize Model : ");
+    print("bonus Model : ");
+    print(bonusModel);
+    return bonusModel;
+  }
+
+  Future<BonusApiResponse> getPremiumBonusPrizes() async {
+    var response = await dataProvider.fetchPremiumBonusJson();
+    var jsonObj = json.decode(response.body);
+    // print(jsonObj);
+    var bonusModel = BonusApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    // print("prize Model : ");
+    // print(wheelPageModel);
+    return bonusModel;
   }
 }

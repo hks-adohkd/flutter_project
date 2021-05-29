@@ -10,6 +10,8 @@ import 'package:open_sism/presentation/screens/profile/profile_screen.dart';
 import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
 import 'package:open_sism/presentation/screens/task/task_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/bonusBloc/bonus_bloc.dart';
+import 'package:open_sism/logic/blocs/bonusBloc/bonus_event.dart';
 
 class Categories extends StatelessWidget {
   @override
@@ -56,6 +58,12 @@ class Categories extends StatelessWidget {
                         case 2:
                           {
                             context.read<PrizeBloc>().add(PrizePageRequested());
+                          }
+                          break;
+                        case 3:
+                          {
+                            //read if user is Premium or not
+                            context.read<BonusBloc>().add(BonusPageRequested());
                           }
                           break;
                         default:
