@@ -43,10 +43,10 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    setState(() {
-      buildMethod.isStart = false;
-      buildMethod.isEnd = false;
-    });
+    //setState(() {
+    buildMethod.isStart = false;
+    buildMethod.isEnd = false;
+    // });
   }
 
   @override

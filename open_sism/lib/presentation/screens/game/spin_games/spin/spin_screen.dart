@@ -42,11 +42,11 @@ class _WhellFortuneState extends State<WhellFortune>
   @override
   void dispose() {
     // TODO: implement dispose
+    //setState(() {
+    buildMethod.isStart = false;
+    buildMethod.isEnd = false;
+    // });
     super.dispose();
-    setState(() {
-      buildMethod.isStart = false;
-      buildMethod.isEnd = false;
-    });
   }
 
   @override
