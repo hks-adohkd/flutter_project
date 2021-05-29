@@ -26,6 +26,7 @@ WheelModel _$WheelModelFromJson(Map<String, dynamic> json) {
     modified: json['modified'] == null
         ? null
         : DateTime.parse(json['modified'] as String),
+    isPremium: json['isPremium'] as bool,
   );
 }
 
@@ -35,6 +36,7 @@ Map<String, dynamic> _$WheelModelToJson(WheelModel instance) =>
       'partsCount': instance.partsCount,
       'isDoneToday': instance.isDoneToday,
       'id': instance.id,
+      'isPremium': instance.isPremium,
       'created': instance.created?.toIso8601String(),
       'modified': instance.modified?.toIso8601String(),
       'isDeleted': instance.isDeleted,

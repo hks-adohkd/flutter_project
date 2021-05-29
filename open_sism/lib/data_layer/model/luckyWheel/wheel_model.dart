@@ -11,6 +11,7 @@ class WheelModel extends Equatable {
   int partsCount;
   bool isDoneToday;
   final int id;
+  bool isPremium;
 
   final DateTime created;
   final DateTime modified;
@@ -26,7 +27,8 @@ class WheelModel extends Equatable {
       this.created,
       this.id,
       this.isDeleted,
-      this.modified});
+      this.modified,
+      this.isPremium});
 
   factory WheelModel.fromJson(Map<String, dynamic> json) =>
       _$WheelModelFromJson(json);
@@ -44,5 +46,6 @@ class WheelModel extends Equatable {
         isDeleted,
         modified,
         group,
+        isPremium,
       ];
 }

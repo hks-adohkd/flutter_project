@@ -43,4 +43,15 @@ class PrizeRepository {
     // print(wheelPageModel);
     return wheelPageModel;
   }
+
+  Future<WheelApiResponse> getPremiumWheelPrizes() async {
+    var response = await dataProvider.fetchPremiumWheelPageJson();
+    var jsonObj = json.decode(response.body);
+    // print(jsonObj);
+    var wheelPageModel = WheelApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    // print("prize Model : ");
+    // print(wheelPageModel);
+    return wheelPageModel;
+  }
 }

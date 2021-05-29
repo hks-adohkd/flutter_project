@@ -60,3 +60,32 @@ class WheelLoadFailure extends WheelState {
 }
 //
 // class HomeNoInternet extends HomeState {}
+
+class WheelPremiumInitial extends WheelState {}
+
+class WheelPremiumLoadInProgress extends WheelState {}
+
+class WheelPremiumLoadedSuccess extends WheelState {
+  final WheelApiResponse wheelData;
+
+  const WheelPremiumLoadedSuccess({@required this.wheelData})
+      : assert(wheelData != null);
+
+  @override
+  List<Object> get props => [wheelData];
+}
+
+class WheelPremiumDataReady extends WheelState {
+  final WheelApiResponse wheelData;
+
+  const WheelPremiumDataReady({@required this.wheelData})
+      : assert(wheelData != null);
+
+  @override
+  List<Object> get props => [wheelData];
+}
+
+class WheelPremiumLoadFailure extends WheelState {
+  final WheelApiResponse wheelStoredData;
+  WheelPremiumLoadFailure({@required this.wheelStoredData});
+}

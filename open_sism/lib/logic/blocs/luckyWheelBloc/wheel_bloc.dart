@@ -52,3 +52,46 @@ class WheelBloc extends Bloc<WheelEvent, WheelState> {
     }
   }
 }
+
+class WheelPremiumBloc extends Bloc<WheelEvent, WheelState> {
+  final PrizeRepository prizeRepository;
+  final InternetCubit internetCubit;
+  StreamSubscription internetStreamSubscription;
+  bool isConnected;
+  WheelModel wheelModel;
+  WheelApiResponse wheelPageModel;
+  WheelPremiumBloc(
+      {@required this.prizeRepository, @required this.internetCubit})
+      : assert(prizeRepository != null && internetCubit != null),
+        super(WheelPremiumInitial()) {
+    internetStreamSubscription = internetCubit.stream.listen((internetState) {
+      if (internetState is InternetDisconnected) {
+        isConnected = false;
+      } else if (internetState is InternetConnected &&
+          !(state is WheelInitial)) {
+        this.add(WheelPremiumDataRequested());
+        isConnected = true;
+      } else if (internetState is InternetLoading) {}
+    });
+  }
+
+  @override
+  Stream<WheelState> mapEventToState(WheelEvent event) async* {
+    if (event is WheelPremiumPageRequested ||
+        event is WheelPremiumDataRequested) {
+      yield WheelPremiumLoadInProgress();
+
+      try {
+        wheelPageModel = await prizeRepository.getPremiumWheelPrizes();
+        yield WheelPremiumLoadedSuccess(wheelData: wheelPageModel);
+      } catch (Exception) {
+        yield WheelPremiumLoadFailure(wheelStoredData: wheelPageModel);
+      }
+    }
+
+    if (event is WheelPremiumDataReadyEvent) {
+      print("into state WheelDataReady");
+      yield WheelPremiumDataReady(wheelData: wheelPageModel);
+    }
+  }
+}

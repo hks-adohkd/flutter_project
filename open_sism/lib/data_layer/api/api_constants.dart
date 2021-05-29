@@ -34,6 +34,7 @@ const String GROUPS = "api/Groups/";
 
 const String GET_ALL = "GetAll";
 const String GET_ONE = "Get";
+const String GET_Premium = "GetPremium";
 const String ADD = "Add";
 const String ADD_LUCKY = "api/AddLucky";
 const String ADD_DAILY_BONUS = "api/AddDailyBonus";

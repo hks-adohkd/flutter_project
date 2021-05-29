@@ -92,7 +92,7 @@ class GameRow extends StatelessWidget {
         if (getRouteName(type) == WhellFortune.routeName) {
           context.read<WheelBloc>().add(WheelPageRequested());
         } else if (getRouteName(type) == GoldWheelFortune.routeName) {
-          //context.read<WheelBloc>().add(WheelPageRequested());
+          context.read<WheelPremiumBloc>().add(WheelPremiumPageRequested());
         }
 
         Navigator.pushNamed(context, getRouteName(type));

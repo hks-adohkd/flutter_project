@@ -35,6 +35,7 @@ class AppRouter {
   HomeBloc _homeBloc;
   PrizeBloc _prizeBloc;
   WheelBloc _wheelBloc;
+  WheelPremiumBloc _wheelPremiumBloc;
   AppRouter({@required this.connectivity}) {
     _homeBloc = new HomeBloc(
       homeRepository: new HomeRepository(),
@@ -47,6 +48,10 @@ class AppRouter {
     );
 
     _wheelBloc = new WheelBloc(
+      prizeRepository: new PrizeRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
+    _wheelPremiumBloc = new WheelPremiumBloc(
       prizeRepository: new PrizeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
@@ -108,22 +113,26 @@ class AppRouter {
             builder: (context) => OtpScreen(isRegister: false));
       case GameScreen.routeName:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider.value(
-                  value: _wheelBloc,
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: _wheelBloc),
+                    BlocProvider.value(value: _wheelPremiumBloc),
+                  ],
                   child: GameScreen(),
                 ));
       case WhellFortune.routeName:
         return MaterialPageRoute(
-          builder: (context) => MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: _wheelBloc),
-              BlocProvider.value(value: _prizeBloc),
-            ],
-            child: WhellFortune(),
-          ),
-        );
+            builder: (context) => BlocProvider.value(
+                  value: _wheelBloc,
+                  child: WhellFortune(),
+                ));
+
       case GoldWheelFortune.routeName:
-        return MaterialPageRoute(builder: (context) => GoldWheelFortune());
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider.value(
+                  value: _wheelPremiumBloc,
+                  child: GoldWheelFortune(),
+                ));
       case DailyBonus.routeName:
         return MaterialPageRoute(builder: (context) => DailyBonus());
       default:

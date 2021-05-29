@@ -25,6 +25,10 @@ class BuildMethod {
 
   List<Luck> giftItemsN = [];
   List<Luck> wheelGiftParts = [];
+
+  List<Luck> giftPremiumItemsN = [];
+  List<Luck> wheelPremiumGiftParts = [];
+
   List<String> itemsImages = [
     "apple",
     "raspberry",
@@ -171,6 +175,27 @@ class BuildMethod {
     }
   }
 
+  String premiumGetGiftItem(var index) {
+    if (index > giftPremiumItemsN.length - 1) {
+      index = Random().nextInt(giftPremiumItemsN.length);
+    }
+    if (index == prevIndex) {
+      //result = prevPoint;
+
+      return prevPoint;
+    } else {
+      // print({"getGiftItem  ", index});
+
+      prevPoint =
+          giftPremiumItemsN[Random().nextInt(giftPremiumItemsN.length)].point;
+      // print({index, prevPoint});
+      prevIndex = index;
+
+      //result = prevPoint;
+      return prevPoint;
+    }
+  }
+
   // show the result in the top of screen above wheel when start is pressed
   buildResult(_value) {
     var _index = _calIndex(_value * angle + current);
@@ -221,53 +246,53 @@ class BuildMethod {
     );
   }
 
-  // resultVisibility(_resultValue) {
-  //   return Visibility(
-  //     visible: isEnd,
-  //     child: Container(
-  //       padding: EdgeInsets.all(getProportionateScreenWidth(1)),
-  //       alignment: Alignment.center,
-  //       height: getProportionateScreenWidth(80),
-  //       width: getProportionateScreenWidth(80),
-  //       decoration: BoxDecoration(
-  //         shape: BoxShape.circle,
-  //         color: Colors.amber.withOpacity(0.6),
-  //
-  //         //borderRadius: BorderRadius.circular(10),
-  //       ),
-  //       child: BlocBuilder<WheelBloc, WheelState>(builder: (context, state) {
-  //         if (state is WheelDataReady) {
-  //           return RichText(
-  //             textAlign: TextAlign.center,
-  //             text: TextSpan(
-  //               children: [
-  //                 TextSpan(
-  //                   text: _resultValue,
-  //                   style: Theme.of(context).textTheme.headline4.copyWith(
-  //                       color: Colors.black,
-  //                       fontWeight: FontWeight.bold,
-  //                       fontSize: 24),
-  //                 ),
-  //               ],
-  //             ),
-  //           );
-  //         } else
-  //           return RichText(
-  //             textAlign: TextAlign.center,
-  //             text: TextSpan(
-  //               children: [
-  //                 TextSpan(
-  //                   text: "0",
-  //                   style: Theme.of(context).textTheme.headline4.copyWith(
-  //                       color: Colors.black,
-  //                       fontWeight: FontWeight.bold,
-  //                       fontSize: 24),
-  //                 ),
-  //               ],
-  //             ),
-  //           );
-  //       }),
-  //     ),
-  //   );
-  // }
+  buildPremiumResult(_value) {
+    var _index = _calIndex(_value * angle + current);
+
+    return Visibility(
+      visible: isStart,
+      child: Padding(
+        //padding: EdgeInsets.symmetric(vertical: 48.0),
+        padding: EdgeInsets.symmetric(vertical: 20.0),
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.star,
+                color: Colors.red,
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              BlocBuilder<WheelPremiumBloc, WheelState>(
+                  builder: (context, state) {
+                if (state is WheelPremiumDataReady) {
+                  premiumGetGiftItem(_index);
+                  return Text(
+                    // _items[_index].point,
+
+                    "Spin your Gift ", // to get value from created items no all spin item
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
+                  );
+                } else
+                  return Text(
+                    // _items[_index].point,
+                    "0", // to get value from created items no all spin item
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
+                  );
+              }),
+            ],
+          ), //gosterim
+        ),
+      ),
+    );
+  }
 }

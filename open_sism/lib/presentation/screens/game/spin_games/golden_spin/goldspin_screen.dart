@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_event.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/board_view.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/build.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_state.dart';
+import 'package:open_sism/presentation/screens/game/spin_games/components/model.dart';
 
 class GoldWheelFortune extends StatefulWidget {
   static const String routeName = "/gold_spin_screen";
@@ -89,25 +94,54 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
                 SizedBox(
                   height: getProportionateScreenHeight(10),
                 ),
-                buildMethod.buildResult(_value),
+                buildMethod.buildPremiumResult(_value),
                 SizedBox(
                   height: getProportionateScreenHeight(10),
                 ),
-                BoardView(
-                  items: buildMethod.goldItems,
-                  current: buildMethod.current,
-                  angle: _angle,
-                  isStart: buildMethod.isStart,
-                  press: () {
-                    setState(
-                      () {
-                        buildMethod.isStart = true;
-                        buildMethod.isEnd = false;
-                        buildMethod.animation(context, spinInitState);
-                      },
-                    );
-                  },
-                ),
+                BlocBuilder<WheelPremiumBloc, WheelState>(
+                    builder: (context, state) {
+                  if (state is WheelPremiumLoadedSuccess) {
+                    context
+                        .read<WheelPremiumBloc>()
+                        .add(WheelPremiumDataReadyEvent());
+                    buildGift(state);
+                    buildMethod.wheelPremiumGiftParts = state
+                        .wheelData.content.prizes
+                        .map(
+                          (item) => Luck(
+                              buildMethod.itemsImages[
+                                  state.wheelData.content.prizes.indexOf(item)],
+                              buildMethod.itemsColors[
+                                  state.wheelData.content.prizes.indexOf(item)],
+                              state
+                                      .wheelData
+                                      .content
+                                      .prizes[state.wheelData.content.prizes
+                                          .indexOf(item)]
+                                      .value
+                                      .toString() +
+                                  "k",
+                              state
+                                  .wheelData
+                                  .content
+                                  .prizes[state.wheelData.content.prizes
+                                      .indexOf(item)]
+                                  .prizeType
+                                  .displayName),
+                        )
+                        .toList();
+                    return buildBoardViewWithData(_angle, context);
+                  } else if (state is WheelPremiumDataReady) {
+                    //  print("WheelDataReady");
+                    print("premium");
+                    // buildMethod.giftItemsN.forEach((element) {
+                    //   print(element.point);
+                    // });
+                    //  print("WheelDataReadyEvent");
+                    return buildBoardViewWithData(_angle, context);
+                  } else
+                    return buildBoardView(_angle, context);
+                }),
                 SizedBox(
                   height: getProportionateScreenHeight(10),
                 ),
@@ -117,6 +151,42 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
             ),
           );
         });
+  }
+
+  BoardView buildBoardView(_angle, BuildContext context) {
+    return BoardView(
+      items: buildMethod.items,
+      current: buildMethod.current,
+      angle: _angle,
+      isStart: buildMethod.isStart,
+      press: () {
+        setState(
+          () {
+            buildMethod.isStart = true;
+            buildMethod.isEnd = false;
+            buildMethod.animation(context, spinInitState);
+          },
+        );
+      },
+    );
+  }
+
+  BoardView buildBoardViewWithData(_angle, BuildContext context) {
+    return BoardView(
+      items: buildMethod.wheelPremiumGiftParts,
+      current: buildMethod.current,
+      angle: _angle,
+      isStart: buildMethod.isStart,
+      press: () {
+        setState(
+          () {
+            buildMethod.isStart = true;
+            buildMethod.isEnd = false;
+            buildMethod.animation(context, spinInitState);
+          },
+        );
+      },
+    );
   }
 
   //show the result in the screen buttom after animation end
@@ -150,5 +220,43 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
         ),
       ),
     );
+  }
+
+  void buildGift(WheelState state) {
+    List<Luck> items = [];
+    //buildMethod.giftItemsN = [];
+    if (state is WheelPremiumLoadedSuccess) {
+      state.wheelData.content.prizes.map((item) {
+        if (state.wheelData.content
+            .prizes[state.wheelData.content.prizes.indexOf(item)].isValid) {
+          items.add(Luck(
+              buildMethod
+                  .itemsImages[state.wheelData.content.prizes.indexOf(item)],
+              buildMethod
+                  .itemsColors[state.wheelData.content.prizes.indexOf(item)],
+              state
+                      .wheelData
+                      .content
+                      .prizes[state.wheelData.content.prizes.indexOf(item)]
+                      .value
+                      .toString() +
+                  "k",
+              state
+                  .wheelData
+                  .content
+                  .prizes[state.wheelData.content.prizes.indexOf(item)]
+                  .prizeType
+                  .displayName));
+        }
+      }).toList();
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      buildMethod.giftPremiumItemsN = items;
+    });
+
+    // print("new");
+    // buildMethod.giftItemsN.forEach((element) {
+    //   print(element.point);
+    // });
   }
 }
