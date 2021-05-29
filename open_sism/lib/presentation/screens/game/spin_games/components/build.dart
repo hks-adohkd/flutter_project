@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_state.dart';
+import 'package:open_sism/logic/blocs/prizeBloc/prize_state.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/model.dart';
 import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
@@ -18,6 +21,8 @@ class BuildMethod {
   var prevIndex;
   String prevPoint;
   String result;
+
+  List<Luck> giftItemsN = [];
 
   List<String> itemsImages = [
     "apple",
@@ -149,7 +154,7 @@ class BuildMethod {
       //result = prevPoint;
       return prevPoint;
     } else {
-      prevPoint = gift_items[Random().nextInt(gift_items.length - 1)].point;
+      prevPoint = giftItemsN[Random().nextInt(giftItemsN.length - 1)].point;
       prevIndex = index;
 
       //result = prevPoint;
@@ -178,15 +183,20 @@ class BuildMethod {
               SizedBox(
                 width: 4,
               ),
-              Text(
-                // _items[_index].point,
-                getGiftItem(
-                    _index), // to get value from created items no all spin item
-                style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600),
-              ),
+              BlocBuilder<WheelBloc, WheelState>(builder: (context, state) {
+                if (state is WheelLoadedSuccess) {
+                  return Text(
+                    // _items[_index].point,
+                    getGiftItem(
+                        _index), // to get value from created items no all spin item
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
+                  );
+                } else
+                  return null;
+              }),
             ],
           ), //gosterim
         ),

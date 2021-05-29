@@ -40,10 +40,14 @@ class WheelBloc extends Bloc<WheelEvent, WheelState> {
 
       try {
         wheelPageModel = await prizeRepository.getWheelPrizes();
-        yield WheelLoadedSuccess(wheeleData: wheelPageModel);
+        yield WheelLoadedSuccess(wheelData: wheelPageModel);
       } catch (Exception) {
         yield WheelLoadFailure(wheelStoredData: wheelPageModel);
       }
+    }
+
+    if (event is WheelDataReadyEvent) {
+      yield WheelDataReady();
     }
   }
 }

@@ -36,13 +36,22 @@ class WheelInitial extends WheelState {}
 class WheelLoadInProgress extends WheelState {}
 
 class WheelLoadedSuccess extends WheelState {
-  final WheelApiResponse wheeleData;
+  final WheelApiResponse wheelData;
 
-  const WheelLoadedSuccess({@required this.wheeleData})
-      : assert(wheeleData != null);
+  const WheelLoadedSuccess({@required this.wheelData})
+      : assert(wheelData != null);
 
   @override
-  List<Object> get props => [wheeleData];
+  List<Object> get props => [wheelData];
+}
+
+class WheelDataReady extends WheelState {
+  final WheelApiResponse wheelData;
+
+  const WheelDataReady({@required this.wheelData}) : assert(wheelData != null);
+
+  @override
+  List<Object> get props => [wheelData];
 }
 
 class WheelLoadFailure extends WheelState {

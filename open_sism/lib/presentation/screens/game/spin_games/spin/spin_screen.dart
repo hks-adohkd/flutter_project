@@ -99,27 +99,26 @@ class _WhellFortuneState extends State<WhellFortune>
                 ),
                 BlocBuilder<WheelBloc, WheelState>(builder: (context, state) {
                   if (state is WheelLoadedSuccess) {
-                    //  print(state.wheeleData.content.prizes.first.description);
-                    List<Luck> widgets = state.wheeleData.content.prizes
+                    buildGift(state);
+                    //  print(state.wheelData.content.prizes.first.description);
+                    List<Luck> widgets = state.wheelData.content.prizes
                         .map(
                           (item) => Luck(
-                              buildMethod.itemsImages[state
-                                  .wheeleData.content.prizes
-                                  .indexOf(item)],
-                              buildMethod.itemsColors[state
-                                  .wheeleData.content.prizes
-                                  .indexOf(item)],
+                              buildMethod.itemsImages[
+                                  state.wheelData.content.prizes.indexOf(item)],
+                              buildMethod.itemsColors[
+                                  state.wheelData.content.prizes.indexOf(item)],
                               state
-                                  .wheeleData
+                                  .wheelData
                                   .content
-                                  .prizes[state.wheeleData.content.prizes
+                                  .prizes[state.wheelData.content.prizes
                                       .indexOf(item)]
                                   .value
                                   .toString(),
                               state
-                                  .wheeleData
+                                  .wheelData
                                   .content
-                                  .prizes[state.wheeleData.content.prizes
+                                  .prizes[state.wheelData.content.prizes
                                       .indexOf(item)]
                                   .prizeType
                                   .displayName),
@@ -166,6 +165,35 @@ class _WhellFortuneState extends State<WhellFortune>
             ),
           );
         });
+  }
+
+  void buildGift(WheelState state) {
+    buildMethod.giftItemsN = [];
+    if (state is WheelLoadedSuccess) {
+      state.wheelData.content.prizes.map((item) {
+        if (state.wheelData.content
+            .prizes[state.wheelData.content.prizes.indexOf(item)].isValid) {
+          buildMethod.giftItemsN.add(Luck(
+              buildMethod
+                  .itemsImages[state.wheelData.content.prizes.indexOf(item)],
+              buildMethod
+                  .itemsColors[state.wheelData.content.prizes.indexOf(item)],
+              state.wheelData.content
+                  .prizes[state.wheelData.content.prizes.indexOf(item)].value
+                  .toString(),
+              state
+                  .wheelData
+                  .content
+                  .prizes[state.wheelData.content.prizes.indexOf(item)]
+                  .prizeType
+                  .displayName));
+        }
+      }).toList();
+    }
+    print("new");
+    buildMethod.giftItemsN.forEach((element) {
+      print(element.point);
+    });
   }
 
   //show the result in the screen buttom after animation end
