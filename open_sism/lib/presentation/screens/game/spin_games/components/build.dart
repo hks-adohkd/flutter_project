@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_state.dart';
 import 'package:open_sism/logic/blocs/prizeBloc/prize_state.dart';
+import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/model.dart';
 import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
@@ -23,7 +24,7 @@ class BuildMethod {
   String result;
 
   List<Luck> giftItemsN = [];
-
+  List<Luck> wheelGiftParts = [];
   List<String> itemsImages = [
     "apple",
     "raspberry",
@@ -84,6 +85,7 @@ class BuildMethod {
       ctrl.forward(from: 0.0).then((_) {
         current = (current + _random);
         current = current - current ~/ 1;
+
         result =
             prevPoint; // to show the result in alert and in the main screen
         isEnd = true; // end of animation to control  the result visability
@@ -150,11 +152,18 @@ class BuildMethod {
 
   // get the available list point not all items showing in spin
   String getGiftItem(var index) {
+    if (index > giftItemsN.length - 1) {
+      index = Random().nextInt(giftItemsN.length);
+    }
     if (index == prevIndex) {
       //result = prevPoint;
+
       return prevPoint;
     } else {
-      prevPoint = giftItemsN[Random().nextInt(giftItemsN.length - 1)].point;
+      // print({"getGiftItem  ", index});
+
+      prevPoint = giftItemsN[Random().nextInt(giftItemsN.length)].point;
+      // print({index, prevPoint});
       prevIndex = index;
 
       //result = prevPoint;
@@ -167,7 +176,7 @@ class BuildMethod {
     var _index = _calIndex(_value * angle + current);
 
     return Visibility(
-      visible: false,
+      visible: isStart,
       child: Padding(
         //padding: EdgeInsets.symmetric(vertical: 48.0),
         padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -184,18 +193,26 @@ class BuildMethod {
                 width: 4,
               ),
               BlocBuilder<WheelBloc, WheelState>(builder: (context, state) {
-                if (state is WheelLoadedSuccess) {
+                if (state is WheelDataReady) {
+                  getGiftItem(_index);
                   return Text(
                     // _items[_index].point,
-                    getGiftItem(
-                        _index), // to get value from created items no all spin item
+
+                    "Spin your Gift ", // to get value from created items no all spin item
                     style: TextStyle(
                         fontSize: 22,
                         color: Colors.black,
                         fontWeight: FontWeight.w600),
                   );
                 } else
-                  return null;
+                  return Text(
+                    // _items[_index].point,
+                    "0", // to get value from created items no all spin item
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
+                  );
               }),
             ],
           ), //gosterim
@@ -203,4 +220,54 @@ class BuildMethod {
       ),
     );
   }
+
+  // resultVisibility(_resultValue) {
+  //   return Visibility(
+  //     visible: isEnd,
+  //     child: Container(
+  //       padding: EdgeInsets.all(getProportionateScreenWidth(1)),
+  //       alignment: Alignment.center,
+  //       height: getProportionateScreenWidth(80),
+  //       width: getProportionateScreenWidth(80),
+  //       decoration: BoxDecoration(
+  //         shape: BoxShape.circle,
+  //         color: Colors.amber.withOpacity(0.6),
+  //
+  //         //borderRadius: BorderRadius.circular(10),
+  //       ),
+  //       child: BlocBuilder<WheelBloc, WheelState>(builder: (context, state) {
+  //         if (state is WheelDataReady) {
+  //           return RichText(
+  //             textAlign: TextAlign.center,
+  //             text: TextSpan(
+  //               children: [
+  //                 TextSpan(
+  //                   text: _resultValue,
+  //                   style: Theme.of(context).textTheme.headline4.copyWith(
+  //                       color: Colors.black,
+  //                       fontWeight: FontWeight.bold,
+  //                       fontSize: 24),
+  //                 ),
+  //               ],
+  //             ),
+  //           );
+  //         } else
+  //           return RichText(
+  //             textAlign: TextAlign.center,
+  //             text: TextSpan(
+  //               children: [
+  //                 TextSpan(
+  //                   text: "0",
+  //                   style: Theme.of(context).textTheme.headline4.copyWith(
+  //                       color: Colors.black,
+  //                       fontWeight: FontWeight.bold,
+  //                       fontSize: 24),
+  //                 ),
+  //               ],
+  //             ),
+  //           );
+  //       }),
+  //     ),
+  //   );
+  // }
 }

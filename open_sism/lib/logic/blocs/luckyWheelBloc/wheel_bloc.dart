@@ -47,7 +47,8 @@ class WheelBloc extends Bloc<WheelEvent, WheelState> {
     }
 
     if (event is WheelDataReadyEvent) {
-      yield WheelDataReady();
+      print("into state WheelDataReady");
+      yield WheelDataReady(wheelData: wheelPageModel);
     }
   }
 }

@@ -36,11 +36,11 @@ class PrizeRepository {
   Future<WheelApiResponse> getWheelPrizes() async {
     var response = await dataProvider.fetchWheelPageJson();
     var jsonObj = json.decode(response.body);
-    print(jsonObj);
+    // print(jsonObj);
     var wheelPageModel = WheelApiResponse.fromJson(jsonObj);
     // //  print(homeModel);
     // print("prize Model : ");
-    print(wheelPageModel);
+    // print(wheelPageModel);
     return wheelPageModel;
   }
 }

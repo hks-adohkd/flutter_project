@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_event.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/board_view.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/build.dart';
@@ -72,6 +73,9 @@ class _WhellFortuneState extends State<WhellFortune>
         builder: (context, child) {
           final _value = buildMethod.ani.value;
           final _angle = _value * buildMethod.angle;
+          final res = buildMethod.result;
+          // print("res");
+          //  print(res);
           return SingleChildScrollView(
             child: Column(
               //alignment: Alignment.center,
@@ -99,9 +103,13 @@ class _WhellFortuneState extends State<WhellFortune>
                 ),
                 BlocBuilder<WheelBloc, WheelState>(builder: (context, state) {
                   if (state is WheelLoadedSuccess) {
+                    context.read<WheelBloc>().add(WheelDataReadyEvent());
+                    //return Luck Items contains the valid prizes and
+                    // store in buildmethod.giftItemsN
+                    // ignore: unnecessary_statements
                     buildGift(state);
                     //  print(state.wheelData.content.prizes.first.description);
-                    List<Luck> widgets = state.wheelData.content.prizes
+                    buildMethod.wheelGiftParts = state.wheelData.content.prizes
                         .map(
                           (item) => Luck(
                               buildMethod.itemsImages[
@@ -124,37 +132,18 @@ class _WhellFortuneState extends State<WhellFortune>
                                   .displayName),
                         )
                         .toList();
-                    return BoardView(
-                      items: widgets,
-                      current: buildMethod.current,
-                      angle: _angle,
-                      isStart: buildMethod.isStart,
-                      press: () {
-                        setState(
-                          () {
-                            buildMethod.isStart = true;
-                            buildMethod.isEnd = false;
-                            buildMethod.animation(context, spinInitState);
-                          },
-                        );
-                      },
-                    );
+                    return buildBoardViewWithData(_angle, context);
+                  } else if (state is WheelDataReady) {
+                    //  print("WheelDataReady");
+                    // buildMethod.giftItemsN.forEach((element) {
+                    //   print(element.point);
+                    // });
+                    //  print("WheelDataReadyEvent");
+                    return buildBoardViewWithData(_angle, context);
                   } else
-                    return BoardView(
-                      items: buildMethod.items,
-                      current: buildMethod.current,
-                      angle: _angle,
-                      isStart: buildMethod.isStart,
-                      press: () {
-                        setState(
-                          () {
-                            buildMethod.isStart = true;
-                            buildMethod.isEnd = false;
-                            buildMethod.animation(context, spinInitState);
-                          },
-                        );
-                      },
-                    );
+                    //return the standard spin view
+
+                    return buildBoardView(_angle, context);
                 }),
                 SizedBox(
                   height: getProportionateScreenHeight(10),
@@ -167,13 +156,52 @@ class _WhellFortuneState extends State<WhellFortune>
         });
   }
 
+//return the Bord Vire with data of  spin
+  BoardView buildBoardViewWithData(_angle, BuildContext context) {
+    return BoardView(
+      items: buildMethod.wheelGiftParts,
+      current: buildMethod.current,
+      angle: _angle,
+      isStart: buildMethod.isStart,
+      press: () {
+        setState(
+          () {
+            buildMethod.isStart = true;
+            buildMethod.isEnd = false;
+            buildMethod.animation(context, spinInitState);
+          },
+        );
+      },
+    );
+  }
+
+  //return the standard spin view
+  BoardView buildBoardView(_angle, BuildContext context) {
+    return BoardView(
+      items: buildMethod.items,
+      current: buildMethod.current,
+      angle: _angle,
+      isStart: buildMethod.isStart,
+      press: () {
+        setState(
+          () {
+            buildMethod.isStart = true;
+            buildMethod.isEnd = false;
+            buildMethod.animation(context, spinInitState);
+          },
+        );
+      },
+    );
+  }
+
   void buildGift(WheelState state) {
-    buildMethod.giftItemsN = [];
+    List<Luck> items = [];
+    //buildMethod.giftItemsN = [];
     if (state is WheelLoadedSuccess) {
       state.wheelData.content.prizes.map((item) {
         if (state.wheelData.content
             .prizes[state.wheelData.content.prizes.indexOf(item)].isValid) {
-          buildMethod.giftItemsN.add(Luck(
+          items.add(Luck(
               buildMethod
                   .itemsImages[state.wheelData.content.prizes.indexOf(item)],
               buildMethod
@@ -190,10 +218,14 @@ class _WhellFortuneState extends State<WhellFortune>
         }
       }).toList();
     }
-    print("new");
-    buildMethod.giftItemsN.forEach((element) {
-      print(element.point);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      buildMethod.giftItemsN = items;
     });
+
+    // print("new");
+    // buildMethod.giftItemsN.forEach((element) {
+    //   print(element.point);
+    // });
   }
 
   //show the result in the screen buttom after animation end
@@ -211,20 +243,38 @@ class _WhellFortuneState extends State<WhellFortune>
 
           //borderRadius: BorderRadius.circular(10),
         ),
-        child: RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: buildMethod.result,
-                style: Theme.of(context).textTheme.headline4.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24),
+        child: BlocBuilder<WheelBloc, WheelState>(builder: (context, state) {
+          if (state is WheelDataReady) {
+            return RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: buildMethod.result,
+                    style: Theme.of(context).textTheme.headline4.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            );
+          } else
+            return RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: "0",
+                    style: Theme.of(context).textTheme.headline4.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24),
+                  ),
+                ],
+              ),
+            );
+        }),
       ),
     );
   }
