@@ -226,7 +226,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                       if (state.bonusPrize.message == "success") {
                         int index =
                             state.bonusPrize.currentCustomer.dailyBonusLevel -
-                                1;
+                                2;
                         return Visibility(
                           visible: visiblePoint,
                           child: Container(
@@ -253,7 +253,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                         int doHour = state.bonusPrize.currentCustomer
                             .dailyBonusLastUseDate.hour;
                         //print({"doHour", doHour});
-                        int remain = nowHour - doHour;
+                        int remain = 24 - (nowHour - doHour);
 
                         return Visibility(
                           visible: visiblePoint,
