@@ -13,6 +13,8 @@ import 'package:open_sism/logic/blocs/bonusBloc/bonus_state.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_event.dart';
 
 bool visiblePoint = false;
+bool visibleGift = true;
+bool visibleLock = true;
 List<CardItem> cards;
 CardItem card;
 List<String> images = [
@@ -134,6 +136,10 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                                 ]);
                           } else if (state is BonusDataReady) {
                             print("BonusDataReady state");
+                            if (state.bonusData.currentCustomer
+                                    .dailyBonusLevel ==
+                                8) {}
+
                             return ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: 7,
@@ -299,20 +305,52 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
   Stack passwordIconWidget() {
     return Stack(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(45.0),
-          child: CircleAvatar(
-            maxRadius: 30,
-            child: Container(child: Image.asset("assets/images/imgforgot.png")),
-            //backgroundColor: Colors.white,
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(45.0),
+            child: Visibility(
+              visible: visibleLock,
+              child: CircleAvatar(
+                maxRadius: 30,
+                child: Container(
+                    child: Image.asset("assets/images/imgforgot.png")),
+                //backgroundColor: Colors.white,
+              ),
+            ),
           ),
         ),
-        Opacity(
-          opacity: 0.2,
-          child: Image.asset(
-            "assets/images/giftt.png",
-            height: 150,
-            width: 150,
+        Center(
+          child: Visibility(
+            visible: visibleGift,
+            child: Opacity(
+              opacity: 0.2,
+              child: Image.asset(
+                "assets/images/giftt.png",
+                height: 150,
+                width: 150,
+              ),
+            ),
+          ),
+        ),
+        Center(
+          child: Visibility(
+            visible: !visibleLock && !visibleGift,
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.redAccent.withOpacity(0.8),
+                //borderRadius: BorderRadius.circular(10),
+              ),
+              height: getProportionateScreenWidth(80),
+              width: getProportionateScreenWidth(80),
+              child: Center(
+                child: Text(
+                  cards[1].price,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
           ),
         ),
       ],
