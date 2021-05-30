@@ -12,7 +12,7 @@ class HomeRepository {
     var jsonObj = json.decode(response.body);
     // print(jsonObj);
     var homeModel = HomeApiResponse.fromJson(jsonObj);
-    //  print(homeModel);
+    print(homeModel);
     //  print(homeModel);
     return homeModel;
   }

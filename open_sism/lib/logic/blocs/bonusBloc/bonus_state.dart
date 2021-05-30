@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:open_sism/data_layer/model/customerPrize/customer_prize_api_response.dart';
 import 'package:open_sism/data_layer/model/dailyBonus/bonus_api_response.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
@@ -29,10 +30,29 @@ class BonusLoadedSuccess extends BonusState {
   List<Object> get props => [bonusData];
 }
 
+class BonusAddSuccess extends BonusState {
+  final CustomerPrizeApiResponse bonusPrize;
+
+  const BonusAddSuccess({@required this.bonusPrize})
+      : assert(bonusPrize != null);
+
+  @override
+  List<Object> get props => [bonusPrize];
+}
+
 class BonusDataReady extends BonusState {
   final BonusApiResponse bonusData;
 
   const BonusDataReady({@required this.bonusData}) : assert(bonusData != null);
+
+  @override
+  List<Object> get props => [bonusData];
+}
+
+class BonusAddPrize extends BonusState {
+  final BonusApiResponse bonusData;
+
+  const BonusAddPrize({@required this.bonusData}) : assert(bonusData != null);
 
   @override
   List<Object> get props => [bonusData];
@@ -63,6 +83,16 @@ class BonusPremiumDataReady extends BonusState {
   final BonusApiResponse bonusData;
 
   const BonusPremiumDataReady({@required this.bonusData})
+      : assert(bonusData != null);
+
+  @override
+  List<Object> get props => [bonusData];
+}
+
+class BonusPremiumAddPrize extends BonusState {
+  final BonusApiResponse bonusData;
+
+  const BonusPremiumAddPrize({@required this.bonusData})
       : assert(bonusData != null);
 
   @override

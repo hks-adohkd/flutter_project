@@ -42,6 +42,20 @@ class OpenSismApiDataProvider {
     return response;
   }
 
+  Future<http.Response> postGenericWithBody(
+      String urlFragment, String token, Map data) async {
+    var url = domain + urlFragment;
+    String body = json.encode(data);
+    headers["Authorization"] = 'Bearer $token';
+    var response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: body,
+    );
+
+    return response;
+  }
+
   Future<http.Response> fetchHomeJson() async =>
       postGeneric(HOME_PAGE, TEST_TOKEN);
 
@@ -64,4 +78,10 @@ class OpenSismApiDataProvider {
       postGeneric(DAILY_BONUS + GET_ONE, TEST_TOKEN);
   Future<http.Response> fetchPremiumBonusJson() async =>
       postGeneric(DAILY_BONUS + GET_Premium, TEST_TOKEN);
+
+  Future<http.Response> fetchAddDailyBonus({int prizeId}) async {
+    Map data = {"PrizeId": prizeId};
+
+    return postGenericWithBody(ADD_LUCKY, TEST_TOKEN, data);
+  }
 }

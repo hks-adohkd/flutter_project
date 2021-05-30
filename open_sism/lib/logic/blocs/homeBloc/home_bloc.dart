@@ -33,10 +33,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     if (event is HomePageRequested || event is HomeDataRequested) {
       yield HomeLoadInProgress();
-
+      print("HomeLoadInProgress");
       try {
         homeModel = await homeRepository.getHomeData();
         yield HomeLoadedSuccess(homeData: homeModel);
+        print("HomeLoadedSuccess");
       } catch (Exception) {
         yield HomeLoadFailure(homeStoredData: homeModel);
       }

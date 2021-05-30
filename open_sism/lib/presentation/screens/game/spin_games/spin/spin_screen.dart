@@ -116,18 +116,22 @@ class _WhellFortuneState extends State<WhellFortune>
                                   state.wheelData.content.prizes.indexOf(item)],
                               buildMethod.itemsColors[
                                   state.wheelData.content.prizes.indexOf(item)],
+                              state.wheelData.content.prizes[state.wheelData.content.prizes.indexOf(item)].value < 10000
+                                  ? state
+                                      .wheelData
+                                      .content
+                                      .prizes[state.wheelData.content.prizes
+                                          .indexOf(item)]
+                                      .value
+                                      .toString()
+                                  : (state.wheelData.content.prizes[state.wheelData.content.prizes.indexOf(item)].value ~/
+                                              1000)
+                                          .toString() +
+                                      "K",
                               state
                                   .wheelData
                                   .content
-                                  .prizes[state.wheelData.content.prizes
-                                      .indexOf(item)]
-                                  .value
-                                  .toString(),
-                              state
-                                  .wheelData
-                                  .content
-                                  .prizes[state.wheelData.content.prizes
-                                      .indexOf(item)]
+                                  .prizes[state.wheelData.content.prizes.indexOf(item)]
                                   .prizeType
                                   .displayName),
                         )

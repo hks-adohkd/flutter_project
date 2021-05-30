@@ -13,7 +13,7 @@ import 'package:open_sism/logic/blocs/bonusBloc/bonus_state.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_event.dart';
 
 List<CardItem> cards;
-
+CardItem card;
 List<String> images = [
   'assets/images/1.png',
   'assets/images/2.png',
@@ -21,6 +21,7 @@ List<String> images = [
   'assets/images/4.png',
   'assets/images/5.png',
   'assets/images/6.png',
+  'assets/images/7.png',
   'assets/images/7.png',
 ];
 List<String> title = [
@@ -31,6 +32,7 @@ List<String> title = [
   'Day Five',
   'Day Six',
   'Day Seven',
+  'Day eight',
 ];
 
 class DailyBonus extends StatefulWidget {
@@ -40,6 +42,12 @@ class DailyBonus extends StatefulWidget {
 }
 
 class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context); // to get the screen size
@@ -83,29 +91,32 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                         child: BlocBuilder<BonusBloc, BonusState>(
                             builder: (context, state) {
                           if (state is BonusLoadedSuccess) {
-                            cards = state.bonusData.content.prizes.map((item) {
-                              if (state.bonusData.content.prizes.indexOf(item) <
-                                  7) {
-                                CardItem(
-                                  imagePath: images[state
-                                      .bonusData.content.prizes
-                                      .indexOf(item)],
-                                  title: title[state.bonusData.content.prizes
-                                      .indexOf(item)],
-                                  description: 'None',
-                                  price: state
-                                      .bonusData
-                                      .content
-                                      .prizes[state.bonusData.content.prizes
-                                          .indexOf(item)]
-                                      .value
-                                      .toString(),
-                                );
-                              }
-                            }).toList();
-                            cards.forEach((element) {
-                              print(element.price);
-                            });
+                            print("BonusLoadedSuccess");
+                            // print(state.bonusData.content.prizes.last.value);
+
+                            cards = state.bonusData.content.prizes
+                                .map((item) => CardItem(
+                                      imagePath: images[state
+                                          .bonusData.content.prizes
+                                          .indexOf(item)],
+                                      title: title[state
+                                          .bonusData.content.prizes
+                                          .indexOf(item)],
+                                      description: 'None',
+                                      price: state
+                                          .bonusData
+                                          .content
+                                          .prizes[state.bonusData.content.prizes
+                                              .indexOf(item)]
+                                          .value
+                                          .toString(),
+                                    ))
+                                .toList();
+                            //
+                            // print(cards.last.price);
+                            // cards.forEach((element) {
+                            //   print(element.price);
+                            // });
                             context
                                 .read<BonusBloc>()
                                 .add(BonusDataReadyEvent());
@@ -113,33 +124,72 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                                 scrollDirection: Axis.horizontal,
                                 children: [
                                   CardItem(
-                                    imagePath: 'assets/images/2.png',
-                                    title: 'Day Two',
+                                    imagePath: 'assets/images/logo.png',
+                                    title: 'No Data',
                                     description: 'Mix vegetables',
-                                    price: '15 DT',
+                                    price: '0',
                                   ),
                                 ]);
                           } else if (state is BonusDataReady) {
-                            return ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                CardItem(
-                                  imagePath: 'assets/images/4.png',
-                                  title: 'Day Two',
-                                  description: 'Mix vegetables',
-                                  price: '15 DT',
-                                ),
-                              ],
-                            );
+                            print("BonusDataReady");
+                            return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 7,
+                                itemBuilder: (BuildContext context, int index) {
+                                  cards[index].press =
+                                      () => addGift(context, state);
+                                  if (index < 7) {
+                                    // Return Widget for this condition,
+                                    if (index + 1 <
+                                        state.bonusData.currentCustomer
+                                            .dailyBonusLevel) {
+                                      cards[index].visibility = true;
+                                    } else {
+                                      cards[index].visibility = false;
+                                    }
+                                    return Row(
+                                      children: [
+                                        cards[index],
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                      ],
+                                    ); //cards[index];
+                                  } else {
+                                    // Return else widget
+                                    // if you don't have else widget the return null like below
+                                    return null;
+                                  }
+                                });
+                          } else if (state is BonusAddPrize) {
+                            print("BonusAddPrize state");
+
+                            return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 7,
+                                itemBuilder: (BuildContext context, int index) {
+                                  print(cards[index].visibility);
+                                  return Row(
+                                    children: [
+                                      cards[index],
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                    ],
+                                  ); //cards[index];
+                                });
+                          } else if (state is BonusAddSuccess) {
+                            context.read<BonusBloc>().add(BonusPageRequested());
+                            return null;
                           } else
                             return ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: [
                                   CardItem(
-                                    imagePath: 'assets/images/1.png',
-                                    title: 'Day one',
+                                    imagePath: 'assets/images/logo.png',
+                                    title: 'Failure Data',
                                     description: 'Mix vegetables',
-                                    price: '15 DT',
+                                    price: '0',
                                   ),
                                 ]);
                         }),
@@ -149,6 +199,17 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                   SizedBox(
                     height: 30,
                   ),
+                  BlocBuilder<BonusBloc, BonusState>(builder: (context, state) {
+                    print(state);
+                    if (state is BonusAddPrize) {
+                      return ElevatedButton(
+                          onPressed: () => addGift(context, state),
+                          child: Text("new"));
+                    } else
+                      return ElevatedButton(
+                          onPressed: () => addGift(context, state),
+                          child: Text("hhhhhhhh"));
+                  }),
                   Text(
                     'Weekly',
                     style: TextStyle(
@@ -192,5 +253,23 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
         ),
       ],
     );
+  }
+
+  void addGift(BuildContext context, BonusState state) {
+    if (state is BonusDataReady) {
+      // int index = state.bonusData.currentCustomer.dailyBonusLevel - 1;
+      // print(index);
+
+      // int id = state.bonusData.content.prizes[index].id;
+      //  print({"id: ", id});
+      setState(() {
+        cards[3].visibility = true;
+        //
+        //     //BlocProvider.of<BonusBloc>(context).add(BonusAddPrizeEvent(id));
+        //     //context.read<BonusBloc>().add(BonusAddPrizeEvent(id));
+      });
+      context.read<BonusBloc>().add(BonusAddPrizeEvent(3));
+    } else
+      return null;
   }
 }

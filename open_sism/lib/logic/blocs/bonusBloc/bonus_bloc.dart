@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/prize_repository.dart';
+import 'package:open_sism/data_layer/model/customerPrize/customer_prize_api_response.dart';
+import 'package:open_sism/data_layer/model/pagination/customer_prize_pagination_model.dart';
 import 'package:open_sism/data_layer/model/prize/prize_api_response.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
@@ -19,6 +21,8 @@ class BonusBloc extends Bloc<BonusEvent, BonusState> {
   bool isConnected;
   BonusModel bonusModel;
   BonusApiResponse bonusPageModel;
+  CustomerPrizePaginationModel customerPrizePaginationMode;
+  CustomerPrizeApiResponse customerPrizeApiResponse;
   BonusBloc({@required this.prizeRepository, @required this.internetCubit})
       : assert(prizeRepository != null && internetCubit != null),
         super(BonusInitial()) {
@@ -44,6 +48,18 @@ class BonusBloc extends Bloc<BonusEvent, BonusState> {
       } catch (Exception) {
         yield BonusLoadFailure(bonusStoredData: bonusPageModel);
       }
+    }
+    if (event is BonusAddPrizeEvent) {
+      print("BonusAddPrizeEvent");
+
+      yield BonusAddPrize(bonusData: bonusPageModel);
+      // try {
+      //   customerPrizeApiResponse =
+      //       await prizeRepository.addBonusPrizes(prizeId: event.prizeId);
+      //   yield BonusAddSuccess(bonusPrize: customerPrizeApiResponse);
+      // } catch (Exception) {
+      //   yield BonusLoadFailure(bonusStoredData: bonusPageModel);
+      // }
     }
 
     if (event is BonusDataReadyEvent) {
