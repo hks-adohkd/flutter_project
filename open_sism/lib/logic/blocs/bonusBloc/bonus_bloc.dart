@@ -40,12 +40,14 @@ class BonusBloc extends Bloc<BonusEvent, BonusState> {
   @override
   Stream<BonusState> mapEventToState(BonusEvent event) async* {
     if (event is BonusPageRequested || event is BonusDataRequested) {
+      print("BonusPageRequestedEvent");
       yield BonusLoadInProgress();
-
       try {
         bonusPageModel = await prizeRepository.getBonusPrizes();
+        print("bonusPageModel");
         yield BonusLoadedSuccess(bonusData: bonusPageModel);
       } catch (Exception) {
+        print("failure BonusPageRequested");
         yield BonusLoadFailure(bonusStoredData: bonusPageModel);
       }
     }
@@ -53,17 +55,20 @@ class BonusBloc extends Bloc<BonusEvent, BonusState> {
       print("BonusAddPrizeEvent");
 
       yield BonusAddPrize(bonusData: bonusPageModel);
-      // try {
-      //   customerPrizeApiResponse =
-      //       await prizeRepository.addBonusPrizes(prizeId: event.prizeId);
-      //   yield BonusAddSuccess(bonusPrize: customerPrizeApiResponse);
-      // } catch (Exception) {
-      //   yield BonusLoadFailure(bonusStoredData: bonusPageModel);
-      // }
+      try {
+        customerPrizeApiResponse =
+            await prizeRepository.addBonusPrizes(prizeId: event.prizeId);
+        print("customerPrizeApiResponse");
+        yield BonusAddSuccess(bonusPrize: customerPrizeApiResponse);
+      } catch (Exception) {
+        print("failure BonusAddPrize");
+        print(Exception);
+        yield BonusLoadFailure(bonusStoredData: bonusPageModel);
+      }
     }
 
     if (event is BonusDataReadyEvent) {
-      print("into state BonusDataReady");
+      print("BonusDataReadyEvent");
       yield BonusDataReady(bonusData: bonusPageModel);
     }
   }

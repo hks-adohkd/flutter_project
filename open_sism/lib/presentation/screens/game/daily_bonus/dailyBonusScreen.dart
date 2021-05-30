@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_state.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_event.dart';
 
+bool visiblePoint = false;
 List<CardItem> cards;
 CardItem card;
 List<String> images = [
@@ -91,9 +92,8 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                         child: BlocBuilder<BonusBloc, BonusState>(
                             builder: (context, state) {
                           if (state is BonusLoadedSuccess) {
-                            print("BonusLoadedSuccess");
+                            print("BonusLoadedSuccess state");
                             // print(state.bonusData.content.prizes.last.value);
-
                             cards = state.bonusData.content.prizes
                                 .map((item) => CardItem(
                                       imagePath: images[state
@@ -104,12 +104,14 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                                           .indexOf(item)],
                                       description: 'None',
                                       price: state
-                                          .bonusData
-                                          .content
-                                          .prizes[state.bonusData.content.prizes
-                                              .indexOf(item)]
-                                          .value
-                                          .toString(),
+                                              .bonusData
+                                              .content
+                                              .prizes[state
+                                                  .bonusData.content.prizes
+                                                  .indexOf(item)]
+                                              .value
+                                              .toString() +
+                                          "k",
                                     ))
                                 .toList();
                             //
@@ -131,7 +133,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                                   ),
                                 ]);
                           } else if (state is BonusDataReady) {
-                            print("BonusDataReady");
+                            print("BonusDataReady state");
                             return ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: 7,
@@ -163,12 +165,18 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                                 });
                           } else if (state is BonusAddPrize) {
                             print("BonusAddPrize state");
-
+                            //addGift(context, state);
+                            // Future.delayed(const Duration(milliseconds: 1000),
+                            //     () {
+                            //   // function spin init state
+                            //   setState(() {
+                            //     cards[3].visibility = true;
+                            //   });
+                            // });
                             return ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: 7,
                                 itemBuilder: (BuildContext context, int index) {
-                                  print(cards[index].visibility);
                                   return Row(
                                     children: [
                                       cards[index],
@@ -179,8 +187,21 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                                   ); //cards[index];
                                 });
                           } else if (state is BonusAddSuccess) {
-                            context.read<BonusBloc>().add(BonusPageRequested());
-                            return null;
+                            print("BonusAddSuccess state");
+                            Future.delayed(const Duration(milliseconds: 2000),
+                                () {
+                              // function spin init state
+                              context
+                                  .read<BonusBloc>()
+                                  .add(BonusPageRequested());
+                            });
+
+                            return CardItem(
+                              imagePath: 'assets/images/logo.png',
+                              title: 'Your Daily Bonus Prize ',
+                              description: 'Mix vegetables',
+                              price: '0',
+                            );
                           } else
                             return ListView(
                                 scrollDirection: Axis.horizontal,
@@ -197,18 +218,61 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   BlocBuilder<BonusBloc, BonusState>(builder: (context, state) {
-                    print(state);
-                    if (state is BonusAddPrize) {
-                      return ElevatedButton(
-                          onPressed: () => addGift(context, state),
-                          child: Text("new"));
+                    //print(state);
+                    if (state is BonusAddSuccess) {
+                      if (state.bonusPrize.message == "success") {
+                        int index =
+                            state.bonusPrize.currentCustomer.dailyBonusLevel -
+                                1;
+                        return Visibility(
+                          visible: visiblePoint,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.amber.withOpacity(0.6),
+                              //borderRadius: BorderRadius.circular(10),
+                            ),
+                            height: getProportionateScreenWidth(40),
+                            width: getProportionateScreenWidth(40),
+                            child: Center(
+                              child: Text(
+                                cards[index].price,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        int nowHour = new DateTime.now().hour;
+                        // print({"now", nowHour});
+                        int doHour = state.bonusPrize.currentCustomer
+                            .dailyBonusLastUseDate.hour;
+                        //print({"doHour", doHour});
+                        int remain = nowHour - doHour;
+
+                        return Visibility(
+                          visible: visiblePoint,
+                          child: Container(
+                              height: getProportionateScreenWidth(40),
+                              width: getProportionateScreenWidth(80),
+                              child: Text("Come back in  " +
+                                  remain.toString() +
+                                  ": 00 hour")),
+                        );
+                      }
                     } else
-                      return ElevatedButton(
-                          onPressed: () => addGift(context, state),
-                          child: Text("hhhhhhhh"));
+                      return Visibility(
+                        visible: visiblePoint,
+                        child: Container(
+                            height: getProportionateScreenWidth(40),
+                            width: getProportionateScreenWidth(80),
+                            child: Text("")),
+                      );
                   }),
                   Text(
                     'Weekly',
@@ -256,20 +320,29 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
   }
 
   void addGift(BuildContext context, BonusState state) {
+    int index;
     if (state is BonusDataReady) {
-      // int index = state.bonusData.currentCustomer.dailyBonusLevel - 1;
+      index = state.bonusData.currentCustomer.dailyBonusLevel - 1;
       // print(index);
 
-      // int id = state.bonusData.content.prizes[index].id;
-      //  print({"id: ", id});
-      setState(() {
-        cards[3].visibility = true;
-        //
-        //     //BlocProvider.of<BonusBloc>(context).add(BonusAddPrizeEvent(id));
-        //     //context.read<BonusBloc>().add(BonusAddPrizeEvent(id));
-      });
-      context.read<BonusBloc>().add(BonusAddPrizeEvent(3));
-    } else
-      return null;
+      int id = state.bonusData.content.prizes[index].id;
+      // print({"id: ", id});
+
+      context.read<BonusBloc>().add(BonusAddPrizeEvent(id));
+    }
+    //else
+    //   return null;
+    setState(() {
+      visiblePoint = true;
+      cards[index].visibility = true;
+    });
+
+    // Future.delayed(const Duration(milliseconds: 1000), () {
+    //
+    //   // function spin init state
+    //   context.read<BonusBloc>().add(BonusAddPrizeEvent(3));
+    // });
+
+    //context.read<BonusBloc>().add(BonusAddPrizeEvent(3));
   }
 }

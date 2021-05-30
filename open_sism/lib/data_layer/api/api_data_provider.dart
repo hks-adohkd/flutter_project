@@ -82,6 +82,6 @@ class OpenSismApiDataProvider {
   Future<http.Response> fetchAddDailyBonus({int prizeId}) async {
     Map data = {"PrizeId": prizeId};
 
-    return postGenericWithBody(ADD_LUCKY, TEST_TOKEN, data);
+    return postGenericWithBody(ADD_DAILY_BONUS, TEST_TOKEN, data);
   }
 }

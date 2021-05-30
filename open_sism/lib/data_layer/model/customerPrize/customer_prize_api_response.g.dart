@@ -13,8 +13,7 @@ CustomerPrizeApiResponse _$CustomerPrizeApiResponseFromJson(
     message: json['message'] as String,
     content: json['content'] == null
         ? null
-        : CustomerPrizePaginationModel.fromJson(
-            json['content'] as Map<String, dynamic>),
+        : CustomerPrizeModel.fromJson(json['content'] as Map<String, dynamic>),
     currentCustomer: json['currentCustomer'] == null
         ? null
         : CustomerModel.fromJson(

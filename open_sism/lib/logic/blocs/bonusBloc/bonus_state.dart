@@ -33,8 +33,7 @@ class BonusLoadedSuccess extends BonusState {
 class BonusAddSuccess extends BonusState {
   final CustomerPrizeApiResponse bonusPrize;
 
-  const BonusAddSuccess({@required this.bonusPrize})
-      : assert(bonusPrize != null);
+  const BonusAddSuccess({@required this.bonusPrize});
 
   @override
   List<Object> get props => [bonusPrize];

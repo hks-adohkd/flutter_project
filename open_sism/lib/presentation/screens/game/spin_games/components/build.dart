@@ -94,7 +94,7 @@ class BuildMethod {
             prevPoint; // to show the result in alert and in the main screen
         isEnd = true; // end of animation to control  the result visability
         init();
-        Future.delayed(const Duration(milliseconds: 1000), () {
+        Future.delayed(const Duration(milliseconds: 500), () {
           // function spin init state
           alert(context); //alert when the animation end
           ctrl.reset();

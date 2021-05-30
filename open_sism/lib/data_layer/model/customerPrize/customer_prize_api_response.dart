@@ -13,7 +13,7 @@ class CustomerPrizeApiResponse extends Equatable {
   int code;
   String message;
 
-  CustomerPrizePaginationModel content;
+  CustomerPrizeModel content;
 
   CustomerModel currentCustomer;
 

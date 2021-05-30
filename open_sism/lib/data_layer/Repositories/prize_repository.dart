@@ -64,8 +64,6 @@ class PrizeRepository {
     var bonusModel = BonusApiResponse.fromJson(jsonObj);
     // //  print(homeModel);
     // print("prize Model : ");
-    print("bonus Model : ");
-    print(bonusModel.currentCustomer.dailyBonusLevel);
     return bonusModel;
   }
 
@@ -83,12 +81,11 @@ class PrizeRepository {
   Future<CustomerPrizeApiResponse> addBonusPrizes({int prizeId}) async {
     var response = await dataProvider.fetchAddDailyBonus(prizeId: prizeId);
     var jsonObj = json.decode(response.body);
-    print("jsonObj");
-    print(jsonObj);
+
     var customerPrizeModel = CustomerPrizeApiResponse.fromJson(jsonObj);
     // //  print(homeModel);
-    print("customerPrizeModel : ");
-    print(customerPrizeModel);
-    return null;
+    // print("customerPrizeModel : ");
+    // print(customerPrizeModel);
+    return customerPrizeModel;
   }
 }
