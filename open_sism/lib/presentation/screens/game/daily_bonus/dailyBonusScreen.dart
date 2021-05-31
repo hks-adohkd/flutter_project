@@ -11,6 +11,7 @@ import 'package:open_sism/logic/blocs/bonusBloc/bonus_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_state.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_event.dart';
+import 'package:lottie/lottie.dart';
 
 bool visiblePoint = false;
 bool visibleGift = true;
@@ -50,6 +51,19 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   SizeConfig().init(context); // to get the screen size
+  //   return SafeArea(
+  //       child: Scaffold(
+  //           appBar: PreferredSize(
+  //     preferredSize: kAppBarHeight,
+  //     child: ReusableAppBar(
+  //       appBarTitle: "Daily Bonus",
+  //     ),
+  //   )));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +109,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                             builder: (context, state) {
                           if (state is BonusLoadedSuccess) {
                             print("BonusLoadedSuccess state");
-                            // print(state.bonusData.content.prizes.last.value);
+                            print(state.bonusData.content.prizes.last.value);
                             cards = state.bonusData.content.prizes
                                 .map((item) => CardItem(
                                       imagePath: images[state
@@ -121,6 +135,20 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                             // cards.forEach((element) {
                             //   print(element.price);
                             // });
+                            visibleLock = true;
+                            visibleGift = true;
+                            if (state.bonusData.currentCustomer
+                                    .dailyBonusLevel ==
+                                8) {
+                              visibleLock = false;
+                            }
+                            if (state.bonusData.currentCustomer
+                                    .dailyBonusLevel ==
+                                9) {
+                              visibleLock = false;
+                              visibleGift = false;
+                            }
+
                             context
                                 .read<BonusBloc>()
                                 .add(BonusDataReadyEvent());
@@ -136,9 +164,6 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                                 ]);
                           } else if (state is BonusDataReady) {
                             print("BonusDataReady state");
-                            if (state.bonusData.currentCustomer
-                                    .dailyBonusLevel ==
-                                8) {}
 
                             return ListView.builder(
                                 scrollDirection: Axis.horizontal,
@@ -201,13 +226,25 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                                   .read<BonusBloc>()
                                   .add(BonusPageRequested());
                             });
-
-                            return CardItem(
-                              imagePath: 'assets/images/logo.png',
-                              title: 'Your Daily Bonus Prize ',
-                              description: 'Mix vegetables',
-                              price: '0',
-                            );
+                            if (state.bonusPrize.currentCustomer
+                                    .dailyBonusLevel ==
+                                9) {
+                              visibleGift = false;
+                              visibleLock = false;
+                              return CardItem(
+                                imagePath: 'assets/images/logo.png',
+                                title: 'Your Weekly Bonus Prize ',
+                                description: 'Mix vegetables',
+                                price: '0',
+                              );
+                            } else {
+                              return CardItem(
+                                imagePath: 'assets/images/logo.png',
+                                title: 'Your Daily Bonus Prize ',
+                                description: 'Mix vegetables',
+                                price: '0',
+                              );
+                            }
                           } else
                             return ListView(
                                 scrollDirection: Axis.horizontal,
@@ -308,79 +345,136 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
         Center(
           child: Padding(
             padding: const EdgeInsets.all(45.0),
-            child: Visibility(
-              visible: visibleLock,
-              child: CircleAvatar(
-                maxRadius: 30,
-                child: Container(
-                    child: Image.asset("assets/images/imgforgot.png")),
-                //backgroundColor: Colors.white,
-              ),
-            ),
+            child:
+                BlocBuilder<BonusBloc, BonusState>(builder: (context, state) {
+              if (state is BonusDataReady || state is BonusLoadedSuccess) {
+                print({"lock", visibleLock});
+                return Visibility(
+                  visible: visibleLock,
+                  child: CircleAvatar(
+                    maxRadius: 30,
+                    child: Container(
+                        child: Image.asset("assets/images/imgforgot.png")),
+                    //backgroundColor: Colors.white,
+                  ),
+                );
+              } else
+                return Text("");
+            }),
           ),
         ),
         Center(
-          child: Visibility(
-            visible: visibleGift,
-            child: Opacity(
-              opacity: 0.2,
-              child: Image.asset(
-                "assets/images/giftt.png",
-                height: 150,
-                width: 150,
-              ),
-            ),
-          ),
-        ),
-        Center(
-          child: Visibility(
-            visible: !visibleLock && !visibleGift,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.redAccent.withOpacity(0.8),
-                //borderRadius: BorderRadius.circular(10),
-              ),
-              height: getProportionateScreenWidth(80),
-              width: getProportionateScreenWidth(80),
-              child: Center(
-                child: Text(
-                  cards[1].price,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          child: BlocBuilder<BonusBloc, BonusState>(builder: (context, state) {
+            if (state is BonusDataReady || state is BonusLoadedSuccess) {
+              print({"giftt", visibleLock});
+              return GestureDetector(
+                onTap: () => addGift(context, state),
+                child: Visibility(
+                  visible: visibleGift,
+                  child: Opacity(
+                    opacity: 0.2,
+                    child: Image.asset(
+                      "assets/images/giftt.png",
+                      height: 150,
+                      width: 150,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
+              );
+            } else
+              return Text("");
+          }),
         ),
+        Center(
+          child: BlocBuilder<BonusBloc, BonusState>(builder: (context, state) {
+            int index = 0;
+            if (state is BonusDataReady || state is BonusLoadedSuccess) {
+              if (state is BonusDataReady) {
+                index = state.bonusData.currentCustomer.dailyBonusLevel - 2;
+              }
+              if (state is BonusLoadedSuccess) {
+                index = state.bonusData.currentCustomer.dailyBonusLevel - 2;
+              }
+              if (index < 0) {
+                index = 100;
+              }
+              return GestureDetector(
+                onTap: () => addGift(context, state),
+                child: Visibility(
+                  visible: !visibleLock && !visibleGift,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.redAccent.withOpacity(0.8),
+                      //borderRadius: BorderRadius.circular(10),
+                    ),
+                    height: getProportionateScreenWidth(80),
+                    width: getProportionateScreenWidth(80),
+                    child: Center(
+                      child: Text(
+                        (index == null ||
+                                index == 100 ||
+                                !(!visibleLock && !visibleGift))
+                            ? ""
+                            : cards[index].price,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            } else
+              return Text(
+                "Check",
+              );
+          }),
+        ),
+        // Center(
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       Lottie.network(
+        //           'https://assets8.lottiefiles.com/packages/lf20_myfpkodn.json'),
+        //       // Lottie.asset(
+        //       //   'assets/lotti/rocket.json',
+        //       //   repeat: true,
+        //       //   reverse: true,
+        //       //   animate: true,
+        //       // ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
+  }
+
+  void addWeeklyGift(BuildContext context, BonusState state) {
+    int index;
+    if (state is BonusDataReady) {
+      index = state.bonusData.currentCustomer.dailyBonusLevel - 1;
+      if (index == 7) {
+        int id = state.bonusData.content.prizes[index].id;
+        context.read<BonusBloc>().add(BonusAddPrizeEvent(id));
+      }
+    }
   }
 
   void addGift(BuildContext context, BonusState state) {
     int index;
     if (state is BonusDataReady) {
       index = state.bonusData.currentCustomer.dailyBonusLevel - 1;
-      // print(index);
+      if (index <= 7) {
+        // print(index);
 
-      int id = state.bonusData.content.prizes[index].id;
-      // print({"id: ", id});
-
-      context.read<BonusBloc>().add(BonusAddPrizeEvent(id));
+        int id = state.bonusData.content.prizes[index].id;
+        context.read<BonusBloc>().add(BonusAddPrizeEvent(id));
+        setState(() {
+          visiblePoint = true;
+          cards[index].visibility = true;
+        });
+      }
     }
-    //else
-    //   return null;
-    setState(() {
-      visiblePoint = true;
-      cards[index].visibility = true;
-    });
-
-    // Future.delayed(const Duration(milliseconds: 1000), () {
-    //
-    //   // function spin init state
-    //   context.read<BonusBloc>().add(BonusAddPrizeEvent(3));
-    // });
-
-    //context.read<BonusBloc>().add(BonusAddPrizeEvent(3));
   }
 }

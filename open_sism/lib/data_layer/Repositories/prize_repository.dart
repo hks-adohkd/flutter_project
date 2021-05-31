@@ -64,6 +64,7 @@ class PrizeRepository {
     var bonusModel = BonusApiResponse.fromJson(jsonObj);
     // //  print(homeModel);
     // print("prize Model : ");
+    // print(bonusModel);
     return bonusModel;
   }
 

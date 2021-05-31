@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // _categoriesBloc.add(LoadCategories());
     // _featuredBloc.add(LoadFeaturedAds());
     await Future.delayed(Duration(milliseconds: 1000));
-    await context.read<HomeBloc>().add(HomePageRequested());
+    context.read<HomeBloc>().add(HomePageRequested());
     print("refresh");
     _refreshController.refreshCompleted();
   }
