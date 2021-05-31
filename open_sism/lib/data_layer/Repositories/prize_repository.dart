@@ -89,4 +89,15 @@ class PrizeRepository {
     // print(customerPrizeModel);
     return customerPrizeModel;
   }
+
+  Future<CustomerPrizeApiResponse> addLuckyPrizes({int prizeId}) async {
+    var response = await dataProvider.fetchAddLucky(prizeId: prizeId);
+    var jsonObj = json.decode(response.body);
+
+    var customerPrizeModel = CustomerPrizeApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    // print("customerPrizeModel : ");
+    print(customerPrizeModel);
+    return customerPrizeModel;
+  }
 }

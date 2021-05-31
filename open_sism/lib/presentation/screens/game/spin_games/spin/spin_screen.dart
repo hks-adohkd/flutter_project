@@ -19,7 +19,7 @@ class WhellFortune extends StatefulWidget {
 class _WhellFortuneState extends State<WhellFortune>
     with SingleTickerProviderStateMixin {
   BuildMethod buildMethod = BuildMethod();
-
+  List<int> giftId = [];
   void spinInitState() {
     setState(() {
       buildMethod.current = 0;
@@ -136,13 +136,13 @@ class _WhellFortuneState extends State<WhellFortune>
                                   .displayName),
                         )
                         .toList();
+
                     return buildBoardViewWithData(_angle, context);
                   } else if (state is WheelDataReady) {
-                    //  print("WheelDataReady");
-                    // buildMethod.giftItemsN.forEach((element) {
-                    //   print(element.point);
-                    // });
-                    //  print("WheelDataReadyEvent");
+                    return buildBoardViewWithData(_angle, context);
+                  } else if (state is WheelAddPrize) {
+                    return buildBoardViewWithData(_angle, context);
+                  } else if (state is WheelAddSuccess) {
                     return buildBoardViewWithData(_angle, context);
                   } else
                     //return the standard spin view
@@ -219,17 +219,22 @@ class _WhellFortuneState extends State<WhellFortune>
                   .prizes[state.wheelData.content.prizes.indexOf(item)]
                   .prizeType
                   .displayName));
+          giftId.add(state.wheelData.content
+              .prizes[state.wheelData.content.prizes.indexOf(item)].id);
+          // giftId = state.wheelData.content.prizes
+          //     .map((item) => state
+          //     .wheelData
+          //     .content
+          //     .prizes[
+          // state.wheelData.content.prizes.indexOf(item)]
+          //     .id)
+          //     .toList();
         }
       }).toList();
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       buildMethod.giftItemsN = items;
     });
-
-    // print("new");
-    // buildMethod.giftItemsN.forEach((element) {
-    //   print(element.point);
-    // });
   }
 
   //show the result in the screen buttom after animation end
@@ -249,6 +254,45 @@ class _WhellFortuneState extends State<WhellFortune>
         ),
         child: BlocBuilder<WheelBloc, WheelState>(builder: (context, state) {
           if (state is WheelDataReady) {
+            // print(giftId[buildMethod.finalIndex]);
+            context
+                .read<WheelBloc>()
+                .add(WheelAddPrizeEvent(giftId[buildMethod.finalIndex]));
+            return RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: buildMethod.result,
+                    style: Theme.of(context).textTheme.headline4.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24),
+                  ),
+                ],
+              ),
+            );
+          } else if (state is WheelAddPrize) {
+            // context.read<WheelBloc>().add(WheelPageRequested());
+            return RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: buildMethod.result,
+                    style: Theme.of(context).textTheme.headline4.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24),
+                  ),
+                ],
+              ),
+            );
+          } else if (state is WheelAddSuccess) {
+            Future.delayed(const Duration(milliseconds: 1000), () {
+              // function spin init state
+              //  context.read<WheelBloc>().add(WheelDataReadyEvent());
+            });
             return RichText(
               textAlign: TextAlign.center,
               text: TextSpan(

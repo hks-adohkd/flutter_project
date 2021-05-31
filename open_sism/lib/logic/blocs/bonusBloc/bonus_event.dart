@@ -21,4 +21,9 @@ class BonusPremiumDataRequested extends BonusEvent {}
 
 class BonusPremiumDataReadyEvent extends BonusEvent {}
 
-class BonusPremiumAddPrizeEvent extends BonusEvent {}
+class BonusPremiumAddPrizeEvent extends BonusEvent {
+  final int prizeId;
+  BonusPremiumAddPrizeEvent(this.prizeId) : assert(prizeId != null);
+  @override
+  List<Object> get props => [prizeId];
+}

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/prize_repository.dart';
+import 'package:open_sism/data_layer/model/customerPrize/customer_prize_api_response.dart';
 import 'package:open_sism/data_layer/model/prize/prize_api_response.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
@@ -19,6 +20,7 @@ class WheelBloc extends Bloc<WheelEvent, WheelState> {
   bool isConnected;
   WheelModel wheelModel;
   WheelApiResponse wheelPageModel;
+  CustomerPrizeApiResponse customerPrizeApiResponse;
   WheelBloc({@required this.prizeRepository, @required this.internetCubit})
       : assert(prizeRepository != null && internetCubit != null),
         super(WheelInitial()) {
@@ -45,6 +47,21 @@ class WheelBloc extends Bloc<WheelEvent, WheelState> {
         yield WheelLoadFailure(wheelStoredData: wheelPageModel);
       }
     }
+    if (event is WheelAddPrizeEvent) {
+      print("BonusAddPrizeEvent");
+
+      yield WheelAddPrize(wheelData: wheelPageModel);
+      try {
+        customerPrizeApiResponse =
+            await prizeRepository.addLuckyPrizes(prizeId: event.prizeId);
+        print("customerPrizeApiResponse");
+        yield WheelAddSuccess(wheelPrize: customerPrizeApiResponse);
+      } catch (Exception) {
+        print("failure BonusAddPrize");
+        print(Exception);
+        yield WheelLoadFailure(wheelStoredData: wheelPageModel);
+      }
+    }
 
     if (event is WheelDataReadyEvent) {
       print("into state WheelDataReady");
@@ -57,6 +74,7 @@ class WheelPremiumBloc extends Bloc<WheelEvent, WheelState> {
   final PrizeRepository prizeRepository;
   final InternetCubit internetCubit;
   StreamSubscription internetStreamSubscription;
+  CustomerPrizeApiResponse customerPrizeApiResponse;
   bool isConnected;
   WheelModel wheelModel;
   WheelApiResponse wheelPageModel;
@@ -85,6 +103,22 @@ class WheelPremiumBloc extends Bloc<WheelEvent, WheelState> {
         wheelPageModel = await prizeRepository.getPremiumWheelPrizes();
         yield WheelPremiumLoadedSuccess(wheelData: wheelPageModel);
       } catch (Exception) {
+        yield WheelPremiumLoadFailure(wheelStoredData: wheelPageModel);
+      }
+    }
+
+    if (event is WheelPremiumAddPrizeEvent) {
+      print("BonusAddPrizeEvent");
+
+      yield WheelPremiumAddPrize(wheelData: wheelPageModel);
+      try {
+        customerPrizeApiResponse =
+            await prizeRepository.addLuckyPrizes(prizeId: event.prizeId);
+        print("customerPrizeApiResponse");
+        yield WheelPremiumAddSuccess(wheelPrize: customerPrizeApiResponse);
+      } catch (Exception) {
+        print("failure BonusAddPrize");
+        print(Exception);
         yield WheelPremiumLoadFailure(wheelStoredData: wheelPageModel);
       }
     }

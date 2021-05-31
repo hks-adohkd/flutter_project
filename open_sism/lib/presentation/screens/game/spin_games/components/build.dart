@@ -22,6 +22,7 @@ class BuildMethod {
   var prevIndex;
   String prevPoint;
   String result;
+  int finalIndex;
 
   List<Luck> giftItemsN = [];
   List<Luck> wheelGiftParts = [];
@@ -161,12 +162,12 @@ class BuildMethod {
     }
     if (index == prevIndex) {
       //result = prevPoint;
-
+      finalIndex = index;
       return prevPoint;
     } else {
       // print({"getGiftItem  ", index});
-
-      prevPoint = giftItemsN[Random().nextInt(giftItemsN.length)].point;
+      finalIndex = Random().nextInt(giftItemsN.length);
+      prevPoint = giftItemsN[finalIndex].point;
       // print({index, prevPoint});
       prevIndex = index;
 

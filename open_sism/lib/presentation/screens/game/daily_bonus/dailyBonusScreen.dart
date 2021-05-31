@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/components/appBar.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
@@ -428,7 +430,21 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
             } else
               return Text(
                 "Check",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red),
               );
+            // return Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Lottie.asset(
+            //         'assets/lotti/rocket.json',
+            //         repeat: true,
+            //         reverse: true,
+            //         animate: true,
+            //       ),
+            //     ]);
           }),
         ),
         // Center(
