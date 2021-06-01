@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_event.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_state.dart';
 import 'package:open_sism/logic/blocs/prizeBloc/prize_state.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
@@ -23,7 +24,7 @@ class BuildMethod {
   String prevPoint;
   String result;
   int finalIndex;
-
+  List<int> giftIdTemp = [];
   List<Luck> giftItemsN = [];
   List<Luck> wheelGiftParts = [];
 
@@ -83,7 +84,7 @@ class BuildMethod {
   ];
 
   // main animation of wheel
-  animation(BuildContext context, Function init) {
+  animation(BuildContext context, Function init, bool allowed) {
     if (!ctrl.isAnimating) {
       var _random = Random().nextDouble();
       angle = 20 + Random().nextInt(5) + _random;
@@ -97,7 +98,7 @@ class BuildMethod {
         init();
         Future.delayed(const Duration(milliseconds: 500), () {
           // function spin init state
-          alert(context); //alert when the animation end
+          alert(context, allowed); //alert when the animation end
           ctrl.reset();
         });
       });
@@ -105,7 +106,7 @@ class BuildMethod {
   }
 
   // alert to go to reward screen and showing point in the end of animation
-  alert(BuildContext context) {
+  alert(BuildContext context, bool allowed) {
     var alertStyle = AlertStyle(
       animationType: AnimationType.shrink,
       isCloseButton: false,
@@ -127,7 +128,9 @@ class BuildMethod {
       style: alertStyle,
       type: AlertType.none,
       title: "Free Points",
-      desc: "You earned $result points. You can use it in your Rewards.",
+      desc: allowed
+          ? "You earned $result points. You can use it in your Rewards."
+          : "Come back Later",
       buttons: [
         DialogButton(
           child: Text(
@@ -135,6 +138,9 @@ class BuildMethod {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
+            context
+                .read<WheelBloc>()
+                .add(WheelAddPrizeEvent(giftIdTemp[finalIndex]));
             // context.read<PrizeBloc>().add(PrizePageRequested());
             // Navigator.pushAndRemoveUntil(
             //     context,

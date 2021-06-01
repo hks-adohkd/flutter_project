@@ -25,6 +25,8 @@ import 'package:open_sism/presentation/screens/activity/finished_task/finished_t
 import 'package:open_sism/presentation/screens/profile/aboutus_screen/AboutUS_screen.dart';
 import 'package:open_sism/presentation/screens/game/game_screen.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen.dart';
+import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen_bloc.dart';
+
 import 'package:open_sism/presentation/screens/game/spin_games/golden_spin/goldspin_screen.dart';
 import 'package:open_sism/presentation/screens/game/daily_bonus/dailyBonusScreen.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';

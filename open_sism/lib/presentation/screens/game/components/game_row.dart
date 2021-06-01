@@ -3,6 +3,8 @@ import 'package:open_sism/presentation/screens/game/components/game_bundle.dart'
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/golden_spin/goldspin_screen.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen.dart';
+import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen_bloc.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_event.dart';

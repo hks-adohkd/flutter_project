@@ -164,7 +164,7 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
           () {
             buildMethod.isStart = true;
             buildMethod.isEnd = false;
-            buildMethod.animation(context, spinInitState);
+            //   buildMethod.animation(context, spinInitState);
           },
         );
       },
@@ -182,7 +182,7 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
           () {
             buildMethod.isStart = true;
             buildMethod.isEnd = false;
-            buildMethod.animation(context, spinInitState);
+            //    buildMethod.animation(context, spinInitState);
           },
         );
       },
