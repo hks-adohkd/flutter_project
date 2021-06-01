@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:open_sism/data_layer/model/customerPrize/customer_prize_api_response.dart';
+import 'package:open_sism/data_layer/model/home/home_api_response.dart';
 import 'package:open_sism/data_layer/model/luckyWheel/wheel_api_response.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
@@ -65,6 +66,11 @@ class WheelLoadFailure extends WheelState {
 // class HomeNoInternet extends HomeState {}
 
 class WheelPremiumInitial extends WheelState {}
+
+class WheelPremiumCustomerInitial extends WheelState {
+  final HomeApiResponse customer;
+  WheelPremiumCustomerInitial({@required this.customer});
+}
 
 class WheelPremiumLoadInProgress extends WheelState {}
 

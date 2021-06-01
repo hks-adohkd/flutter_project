@@ -15,6 +15,8 @@ class WheelAddPrizeEvent extends WheelEvent {
   List<Object> get props => [prizeId];
 }
 
+class WheelPremiumCustomerRequested extends WheelEvent {}
+
 class WheelPremiumPageRequested extends WheelEvent {}
 
 class WheelPremiumDataRequested extends WheelEvent {}

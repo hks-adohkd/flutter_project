@@ -61,23 +61,32 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
     SizeConfig().init(context); // to get the screen size
     return Scaffold(
       body: Container(
-          height: SizeConfig.screenHeight,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/goldenwheel.png"),
-              fit: BoxFit.cover,
-            ),
+        height: SizeConfig.screenHeight,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/goldenwheel.png"),
+            fit: BoxFit.cover,
           ),
-          child: BlocBuilder<WheelPremiumBloc, WheelState>(
-              builder: (context, state) {
-            if (state is WheelPremiumLoadedSuccess) {
-              if (state.wheelData.currentCustomer.premium) {
+        ),
+        child: BlocBuilder<WheelPremiumBloc, WheelState>(
+          builder: (context, state) {
+            if (state is WheelPremiumCustomerInitial) {
+              if (state.customer.currentCustomer.premium) {
+                print("hi");
+                context
+                    .read<WheelPremiumBloc>()
+                    .add(WheelPremiumPageRequested());
                 return buildAnimatedBuilder();
               } else
                 return Container();
+            } else if (state is WheelPremiumLoadInProgress) {
+              return buildAnimatedBuilder();
             } else
               return Container();
-          })),
+          },
+          //buildWhen: (previous, current) => true,
+        ),
+      ),
     );
   }
 

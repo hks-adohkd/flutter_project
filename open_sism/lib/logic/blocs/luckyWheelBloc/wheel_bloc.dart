@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/data_layer/Repositories/home_repository.dart';
 import 'package:open_sism/data_layer/Repositories/prize_repository.dart';
 import 'package:open_sism/data_layer/model/customerPrize/customer_prize_api_response.dart';
+import 'package:open_sism/data_layer/model/home/home_api_response.dart';
 import 'package:open_sism/data_layer/model/prize/prize_api_response.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
@@ -72,14 +74,18 @@ class WheelBloc extends Bloc<WheelEvent, WheelState> {
 
 class WheelPremiumBloc extends Bloc<WheelEvent, WheelState> {
   final PrizeRepository prizeRepository;
+  final HomeRepository homeRepository;
   final InternetCubit internetCubit;
   StreamSubscription internetStreamSubscription;
   CustomerPrizeApiResponse customerPrizeApiResponse;
   bool isConnected;
   WheelModel wheelModel;
   WheelApiResponse wheelPageModel;
+  HomeApiResponse customer;
   WheelPremiumBloc(
-      {@required this.prizeRepository, @required this.internetCubit})
+      {@required this.prizeRepository,
+      @required this.internetCubit,
+      @required this.homeRepository})
       : assert(prizeRepository != null && internetCubit != null),
         super(WheelPremiumInitial()) {
     internetStreamSubscription = internetCubit.stream.listen((internetState) {
@@ -126,6 +132,12 @@ class WheelPremiumBloc extends Bloc<WheelEvent, WheelState> {
     if (event is WheelPremiumDataReadyEvent) {
       print("into state WheelDataReady");
       yield WheelPremiumDataReady(wheelData: wheelPageModel);
+    }
+
+    if (event is WheelPremiumCustomerRequested) {
+      print("into state WheelPremiumCustomerInitial");
+      customer = await homeRepository.getHomeData();
+      yield WheelPremiumCustomerInitial(customer: customer);
     }
   }
 }

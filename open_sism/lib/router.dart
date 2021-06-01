@@ -58,6 +58,7 @@ class AppRouter {
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
     _wheelPremiumBloc = new WheelPremiumBloc(
+      homeRepository: new HomeRepository(),
       prizeRepository: new PrizeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
