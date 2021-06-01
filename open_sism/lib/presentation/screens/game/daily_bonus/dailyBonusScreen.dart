@@ -221,7 +221,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                                 });
                           } else if (state is BonusAddSuccess) {
                             print("BonusAddSuccess state");
-                            Future.delayed(const Duration(milliseconds: 2000),
+                            Future.delayed(const Duration(milliseconds: 4000),
                                 () {
                               // function spin init state
                               context
@@ -277,11 +277,11 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                           child: Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.amber.withOpacity(0.6),
+                              color: Colors.red.withOpacity(0.6),
                               //borderRadius: BorderRadius.circular(10),
                             ),
-                            height: getProportionateScreenWidth(40),
-                            width: getProportionateScreenWidth(40),
+                            height: getProportionateScreenWidth(60),
+                            width: getProportionateScreenWidth(60),
                             child: Center(
                               child: Text(
                                 cards[index].price,
@@ -293,21 +293,50 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
                           ),
                         );
                       } else {
+                        int remain;
                         int nowHour = new DateTime.now().hour;
-                        // print({"now", nowHour});
+                        print({"now", nowHour});
+
                         int doHour = state.bonusPrize.currentCustomer
                             .dailyBonusLastUseDate.hour;
-                        //print({"doHour", doHour});
-                        int remain = 24 - (nowHour - doHour);
-
+                        print({"doHour", doHour});
+                        if (state.bonusPrize.currentCustomer
+                                .dailyBonusLastUseDate.day ==
+                            DateTime.now().day) {
+                          remain = 24 - (nowHour - doHour).abs();
+                        } else {
+                          remain = (nowHour - doHour).abs();
+                        }
                         return Visibility(
                           visible: visiblePoint,
                           child: Container(
-                              height: getProportionateScreenWidth(40),
-                              width: getProportionateScreenWidth(80),
-                              child: Text("Come back in  " +
-                                  remain.toString() +
-                                  ": 00 hour")),
+                            height: getProportionateScreenWidth(40),
+                            width: getProportionateScreenWidth(120),
+                            // style: TextStyle(
+                            //   color: Colors.red,
+                            //   fontSize: 24,
+                            // ) ,
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Come Back in  ',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    ' ${remain.toString()} : 00 hour  ',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         );
                       }
                     } else
@@ -477,6 +506,7 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
     }
   }
 
+  int getHour(BonusAddSuccess state) {}
   void addGift(BuildContext context, BonusState state) {
     int index;
     if (state is BonusDataReady) {

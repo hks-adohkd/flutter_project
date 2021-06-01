@@ -25,6 +25,7 @@ class _WhellFortuneState extends State<WhellFortune>
   bool allowed = true;
   //bool alertAllowed = true;
   int remain;
+  bool premium;
   void spinInitState() {
     setState(() {
       buildMethod.current = 0;
@@ -39,6 +40,7 @@ class _WhellFortuneState extends State<WhellFortune>
     // TODO: implement initState
     super.initState();
     var _duration = Duration(milliseconds: 5000);
+    premium = false;
     buildMethod.ctrl = AnimationController(vsync: this, duration: _duration);
     buildMethod.ani = CurvedAnimation(
         parent: buildMethod.ctrl, curve: Curves.fastLinearToSlowEaseIn);
@@ -212,7 +214,7 @@ class _WhellFortuneState extends State<WhellFortune>
         press: () {
           buildMethod.isStart = true;
           buildMethod.isEnd = false;
-          buildMethod.animation(context, spinInitState, allowed);
+          buildMethod.animation(context, spinInitState, allowed, premium);
           // setState(
           //   () {
           //     buildMethod.isStart = true;
@@ -262,7 +264,7 @@ class _WhellFortuneState extends State<WhellFortune>
       press: () {
         buildMethod.isStart = true;
         buildMethod.isEnd = false;
-        buildMethod.animation(context, spinInitState, allowed);
+        buildMethod.animation(context, spinInitState, allowed, premium);
         // setState(
         //   () {
         //     buildMethod.isStart = true;
@@ -374,12 +376,20 @@ class _WhellFortuneState extends State<WhellFortune>
 
           if (state.wheelPrize.message == "NotAllowed") {
             allowed = false;
+
             int nowHour = new DateTime.now().hour;
             // print({"now", nowHour});
             int doHour =
                 state.wheelPrize.currentCustomer.luckyWheelLastSpinDate.hour;
+            if (state.wheelPrize.currentCustomer.luckyWheelLastSpinDate.day ==
+                DateTime.now().day) {
+              remain = 24 - (nowHour - doHour).abs();
+            } else {
+              remain = (nowHour - doHour).abs();
+            }
+
             //print({"doHour", doHour});
-            remain = 24 - (nowHour - doHour);
+            //remain = 24 - (nowHour - doHour);
             return Center(
               child: Container(
                 padding: EdgeInsets.all(getProportionateScreenWidth(1)),
@@ -405,14 +415,14 @@ class _WhellFortuneState extends State<WhellFortune>
                       Text(
                         'Come Back in ',
                         style: Theme.of(context).textTheme.headline4.copyWith(
-                            color: Colors.black,
+                            color: Colors.red,
                             fontWeight: FontWeight.bold,
                             fontSize: 24),
                       ),
                       Text(
                         '$remain : 00 ',
                         style: Theme.of(context).textTheme.headline4.copyWith(
-                            color: Colors.black,
+                            color: Colors.red,
                             fontWeight: FontWeight.bold,
                             fontSize: 24),
                       ),

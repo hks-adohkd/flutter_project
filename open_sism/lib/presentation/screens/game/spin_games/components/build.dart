@@ -84,7 +84,7 @@ class BuildMethod {
   ];
 
   // main animation of wheel
-  animation(BuildContext context, Function init, bool allowed) {
+  animation(BuildContext context, Function init, bool allowed, bool premium) {
     if (!ctrl.isAnimating) {
       var _random = Random().nextDouble();
       angle = 20 + Random().nextInt(5) + _random;
@@ -98,7 +98,7 @@ class BuildMethod {
         init();
         Future.delayed(const Duration(milliseconds: 500), () {
           // function spin init state
-          alert(context, allowed); //alert when the animation end
+          alert(context, allowed, premium); //alert when the animation end
           ctrl.reset();
         });
       });
@@ -106,7 +106,7 @@ class BuildMethod {
   }
 
   // alert to go to reward screen and showing point in the end of animation
-  alert(BuildContext context, bool allowed) {
+  alert(BuildContext context, bool allowed, bool premium) {
     var alertStyle = AlertStyle(
       animationType: AnimationType.shrink,
       isCloseButton: false,
@@ -138,9 +138,15 @@ class BuildMethod {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
-            context
-                .read<WheelBloc>()
-                .add(WheelAddPrizeEvent(giftIdTemp[finalIndex]));
+            if (premium) {
+              context
+                  .read<WheelPremiumBloc>()
+                  .add(WheelPremiumAddPrizeEvent(giftIdTemp[finalIndex]));
+            } else {
+              context
+                  .read<WheelBloc>()
+                  .add(WheelAddPrizeEvent(giftIdTemp[finalIndex]));
+            }
             // context.read<PrizeBloc>().add(PrizePageRequested());
             // Navigator.pushAndRemoveUntil(
             //     context,
@@ -188,13 +194,12 @@ class BuildMethod {
     }
     if (index == prevIndex) {
       //result = prevPoint;
-
+      finalIndex = index;
       return prevPoint;
     } else {
       // print({"getGiftItem  ", index});
-
-      prevPoint =
-          giftPremiumItemsN[Random().nextInt(giftPremiumItemsN.length)].point;
+      finalIndex = Random().nextInt(giftPremiumItemsN.length);
+      prevPoint = giftPremiumItemsN[finalIndex].point;
       // print({index, prevPoint});
       prevIndex = index;
 
@@ -278,9 +283,7 @@ class BuildMethod {
                 if (state is WheelPremiumDataReady) {
                   premiumGetGiftItem(_index);
                   return Text(
-                    // _items[_index].point,
-
-                    "Spin your Gift ", // to get value from created items no all spin item
+                    " Spin Your Premium Gift ", // to get value from created items no all spin item
                     style: TextStyle(
                         fontSize: 22,
                         color: Colors.black,
