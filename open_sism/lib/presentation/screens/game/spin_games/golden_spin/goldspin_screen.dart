@@ -26,6 +26,7 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
   //bool alertAllowed = true;
   int remain;
   bool premium;
+  bool isCustomerPremium;
   void spinInitState() {
     setState(() {
       buildMethod.current = 0;
@@ -58,7 +59,7 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context); // to get the screen size
+    SizeConfig().init(context);
     return Scaffold(
       body: Container(
         height: SizeConfig.screenHeight,
@@ -68,24 +69,7 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
             fit: BoxFit.cover,
           ),
         ),
-        child: BlocBuilder<WheelPremiumBloc, WheelState>(
-          builder: (context, state) {
-            if (state is WheelPremiumCustomerInitial) {
-              if (state.customer.currentCustomer.premium) {
-                print("hi");
-                context
-                    .read<WheelPremiumBloc>()
-                    .add(WheelPremiumPageRequested());
-                return buildAnimatedBuilder();
-              } else
-                return Container();
-            } else if (state is WheelPremiumLoadInProgress) {
-              return buildAnimatedBuilder();
-            } else
-              return Container();
-          },
-          //buildWhen: (previous, current) => true,
-        ),
+        child: buildAnimatedBuilder(),
       ),
     );
   }

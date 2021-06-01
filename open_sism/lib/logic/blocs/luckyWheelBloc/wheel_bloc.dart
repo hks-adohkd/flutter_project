@@ -136,8 +136,19 @@ class WheelPremiumBloc extends Bloc<WheelEvent, WheelState> {
 
     if (event is WheelPremiumCustomerRequested) {
       print("into state WheelPremiumCustomerInitial");
-      customer = await homeRepository.getHomeData();
-      yield WheelPremiumCustomerInitial(customer: customer);
+      try {
+        customer = await homeRepository.getHomeData();
+        yield WheelPremiumCustomerInitial(customer: customer);
+      } catch (Exception) {
+        print("failure BonusAddPrize");
+        print(Exception);
+        yield WheelPremiumLoadFailure(wheelStoredData: wheelPageModel);
+      }
+    }
+
+    if (event is WheelPremiumCustomerReadyEvent) {
+      print("into state WheelPremiumCustomerReady");
+      yield WheelPremiumCustomerReady();
     }
   }
 }

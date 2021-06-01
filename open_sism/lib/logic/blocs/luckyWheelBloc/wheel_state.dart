@@ -67,6 +67,8 @@ class WheelLoadFailure extends WheelState {
 
 class WheelPremiumInitial extends WheelState {}
 
+class WheelPremiumCustomerReady extends WheelState {}
+
 class WheelPremiumCustomerInitial extends WheelState {
   final HomeApiResponse customer;
   WheelPremiumCustomerInitial({@required this.customer});

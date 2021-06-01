@@ -17,6 +17,8 @@ class WheelAddPrizeEvent extends WheelEvent {
 
 class WheelPremiumCustomerRequested extends WheelEvent {}
 
+class WheelPremiumCustomerReadyEvent extends WheelEvent {}
+
 class WheelPremiumPageRequested extends WheelEvent {}
 
 class WheelPremiumDataRequested extends WheelEvent {}
