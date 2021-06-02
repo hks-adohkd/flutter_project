@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
@@ -98,7 +99,10 @@ class DiscountBanner extends StatelessWidget {
                 //     return Text("");
                 // }
                 else
-                  return Text("");
+                  return Text(""
+                      // width: 30,
+                      //  height: 30,
+                      );
               },
             ),
           ],

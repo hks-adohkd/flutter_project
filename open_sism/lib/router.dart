@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/home_repository.dart';
 import 'package:open_sism/data_layer/Repositories/prize_repository.dart';
+import 'package:open_sism/logic/blocs/app/app_bloc.dart';
 import 'package:open_sism/logic/blocs/prizeBloc/prize_bloc.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/presentation/screens/activity/activity_screen.dart';
@@ -33,16 +34,27 @@ import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_bloc.dart';
 
+import 'package:open_sism/data_layer/Repositories/app_repo.dart';
+import 'package:open_sism/data_layer/Repositories/user_repo.dart';
+
 class AppRouter {
+  final AppRepository appRepository = AppRepository();
+  final UserRepository userRepository = UserRepository();
+
   Connectivity connectivity;
   HomeBloc _homeBloc;
   PrizeBloc _prizeBloc;
   WheelBloc _wheelBloc;
+  AppBloc appBloc;
 
   WheelPremiumBloc _wheelPremiumBloc;
   BonusBloc _bonusBloc;
   BonusPremiumBloc _bonusPremiumBloc;
   AppRouter({@required this.connectivity}) {
+    appBloc = new AppBloc(
+        appRepository: appRepository,
+        userRepository: userRepository,
+        internetCubit: new InternetCubit(connectivity: connectivity));
     _homeBloc = new HomeBloc(
       homeRepository: new HomeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),

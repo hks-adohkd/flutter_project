@@ -8,6 +8,7 @@ part 'customer_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class CustomerModel extends Equatable {
+  final int id;
   final String firstName;
   final String lastName;
   final String imageUrl;
@@ -67,7 +68,8 @@ class CustomerModel extends Equatable {
       this.group,
       this.user,
       this.city,
-      this.premium});
+      this.premium,
+      this.id});
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
@@ -75,5 +77,18 @@ class CustomerModel extends Equatable {
   Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
 
   @override
-  List<Object> get props => [firstName, lastName, cityId, userId, premium];
+  List<Object> get props => [
+        firstName,
+        lastName,
+        cityId,
+        userId,
+        premium,
+        fcmToken,
+        gender,
+        luckyWheelLastSpinDate,
+        dailyBonusLevel,
+        dailyBonusLastUseDate,
+        token,
+        lockOutEnabled
+      ];
 }

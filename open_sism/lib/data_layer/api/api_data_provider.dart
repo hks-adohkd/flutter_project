@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 
@@ -27,7 +28,8 @@ class OpenSismApiDataProvider {
   };
 
   static final String body = json.encode(data);
-
+  static final Duration timeout = Duration(seconds: 30);
+  final countLimit = 1000;
   static final String domain = API_Domain;
 
   Future<http.Response> postGeneric(String urlFragment, String token) async {
@@ -42,15 +44,43 @@ class OpenSismApiDataProvider {
     return response;
   }
 
+  Future<http.Response> postGenericWithBodyWithOutToken(
+      String urlFragment, Map data) async {
+    var url = domain + urlFragment;
+    String body = json.encode(data);
+    //headers["Authorization"] = 'Bearer $token';
+    var response = await http
+        .post(
+      Uri.parse(url),
+      // headers: headers,
+      body: body,
+    )
+        .timeout(
+      timeout,
+      onTimeout: () {
+        throw TimeoutException;
+      },
+    );
+
+    return response;
+  }
+
   Future<http.Response> postGenericWithBody(
       String urlFragment, String token, Map data) async {
     var url = domain + urlFragment;
     String body = json.encode(data);
     headers["Authorization"] = 'Bearer $token';
-    var response = await http.post(
+    var response = await http
+        .post(
       Uri.parse(url),
       headers: headers,
       body: body,
+    )
+        .timeout(
+      timeout,
+      onTimeout: () {
+        throw TimeoutException;
+      },
     );
 
     return response;
@@ -89,5 +119,16 @@ class OpenSismApiDataProvider {
     Map data = {"PrizeId": prizeId};
 
     return postGenericWithBody(ADD_LUCKY, TEST_TOKEN, data);
+  }
+
+  Future<http.Response> signIn(
+      {String mobile, String password, String fcm_token}) async {
+    Map data = {
+      "password": password,
+      "username": mobile,
+      "fCMToken": fcm_token
+    };
+
+    return postGenericWithBodyWithOutToken(LOGIN, data);
   }
 }

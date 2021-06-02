@@ -6,10 +6,14 @@ import 'dart:async';
 import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 import 'package:open_sism/presentation/screens/home/components/special_offer_placeHolder.dart';
+import 'package:loading_overlay/loading_overlay.dart';
+
+bool _isLoading = false;
 
 class SpecialOffers extends StatelessWidget {
   final int points;
   final String badge;
+
   const SpecialOffers({Key key, this.points = 0, this.badge = "bronze"})
       : super(key: key);
 
@@ -106,6 +110,7 @@ class SpecialOffers extends StatelessWidget {
   BlocBuilder<HomeBloc, HomeState> buildBlocBuilderCard() {
     return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
       if (state is HomeLoadedSuccess) {
+        _isLoading = false;
         //int i=0;
         List<Widget> widgets = state.homeData.content.slides
             .map(
@@ -155,7 +160,14 @@ class SpecialOffers extends StatelessWidget {
           children: widgets,
         );
       } else {
-        return SpecialOfferPlaceHolder();
+        _isLoading = true;
+        return LoadingOverlay(
+          child: Center(child: SpecialOfferPlaceHolder()),
+          isLoading: _isLoading,
+          // demo of some additional parameters
+          opacity: 0.3,
+          progressIndicator: CircularProgressIndicator(),
+        );
       }
     });
   }
