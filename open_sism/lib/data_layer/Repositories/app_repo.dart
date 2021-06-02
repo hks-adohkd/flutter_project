@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppRepository {
-  final http.Client httpClient = http.Client();
+  // final http.Client httpClient = http.Client();
   static final Duration timeout = Duration(seconds: 30);
   final countLimit = 1000;
   static const String shouldUpdate = 'should_update';

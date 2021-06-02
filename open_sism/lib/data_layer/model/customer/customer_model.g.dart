@@ -49,11 +49,13 @@ CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) {
         ? null
         : CityModel.fromJson(json['city'] as Map<String, dynamic>),
     premium: json['premium'] as bool,
+    id: json['id'] as int,
   );
 }
 
 Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'imageUrl': instance.imageUrl,

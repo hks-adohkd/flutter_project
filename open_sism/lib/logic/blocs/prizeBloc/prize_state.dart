@@ -1,12 +1,6 @@
-import 'dart:async';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:open_sism/data_layer/model/prize/prize_api_response.dart';
-import 'package:open_sism/logic/cubits/internet_cubit.dart';
-import 'package:open_sism/logic/cubits/internet_state.dart';
-import 'package:open_sism/data_layer/model/prize/prize_model.dart';
-import 'package:open_sism/data_layer/model/prize/prizePage_model.dart';
 
 abstract class PrizeState extends Equatable {
   const PrizeState();

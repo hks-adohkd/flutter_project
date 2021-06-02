@@ -1,8 +1,10 @@
 import 'package:open_sism/data_layer/api/api_data_provider.dart';
 import 'package:open_sism/data_layer/model/application_user/application_user_model.dart';
 import 'package:open_sism/data_layer/model/customer/customer_model.dart';
+import 'package:open_sism/data_layer/model/prize/prize_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:open_sism/data_layer/model/customer/customer_response_model.dart';
 
 class UserRepository {
   static const String key_id = 'id';
@@ -28,38 +30,52 @@ class UserRepository {
   static const String key_userId = 'userId';
   static const String key_groupId = 'groupId';
 
-  final OpenSismApiDataProvider _api = new OpenSismApiDataProvider();
+  final OpenSismApiDataProvider api = new OpenSismApiDataProvider();
 
-  Future<CustomerModel> signInWithCredentials(
+  Future<PrizeModel> getPrizeAll() async {
+    var response = await api.fetchPrizeAllJson();
+    var jsonObj = json.decode(response.body);
+    print(jsonObj);
+    var prizeModel = PrizeModel.fromJson(jsonObj);
+
+    print("prize Model : ");
+    print(prizeModel);
+    // print(prizeModel);
+    return prizeModel;
+  }
+
+  Future<CustomerApiResponse> signInWithCredentials(
       String mobile, String password, String fcmToken) async {
-    try {
-      var response = await _api.signIn(
-          fcm_token: fcmToken, mobile: mobile, password: password);
-      var jsonObj = json.decode(response.body);
-      //print(jsonObj);
-      var customerModel = CustomerModel.fromJson(jsonObj);
-      //  print(homeModel);
-      // print("prize Model : ");
-      // print(prizeModel);
-      persistUser(customerModel);
-      return customerModel;
+    // try {
+    var response = await api.signIn(
+        fcm_token: fcmToken, mobile: mobile, password: password);
+    print(response.body);
 
-      //CustomerModel user = await _api.signIn(fcm_token: fcmToken , mobile: mobile , password: password);
+    var jsonObj = json.decode(response.body);
 
-      // User user = User((u) => u
-      //   ..id = 1
-      //   ..mobile = '0991345379'
-      //   ..name = 'emad'
-      //   ..email = 'email@example.com'
-      //   ..address = ''
-      //   ..username = 'supernova'
-      //   ..verified = false
-      //   ..token = 'fake sweet token');
+    var customerApiResponse = CustomerApiResponse.fromJson(jsonObj);
+    //  print(homeModel);
+    print("customerModel : ");
+    print(customerApiResponse);
+    persistUser(customerApiResponse.currentCustomer);
+    return customerApiResponse;
 
-    } catch (e) {
-      print('Error signInWithCredentials:$e');
-      throw e;
-    }
+    //CustomerModel user = await _api.signIn(fcm_token: fcmToken , mobile: mobile , password: password);
+
+    // User user = User((u) => u
+    //   ..id = 1
+    //   ..mobile = '0991345379'
+    //   ..name = 'emad'
+    //   ..email = 'email@example.com'
+    //   ..address = ''
+    //   ..username = 'supernova'
+    //   ..verified = false
+    //   ..token = 'fake sweet token');
+
+    // } catch (e) {
+    //   print('Error signInWithCredentials:$e');
+    //   throw e;
+    // }
   }
 
   // Future<CustomerModel> registerWithCredentials(
@@ -275,6 +291,10 @@ class UserRepository {
     return prefs.getString(key_token);
   }
 
+  Future<String> getFCMToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key_fcmToken);
+  }
   // Future<User> getUserProfile() async {
   //   try {
   //     // print('token: ${await getToken()}');

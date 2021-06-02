@@ -1,11 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
+import 'package:open_sism/data_layer/Repositories/app_repo.dart';
+import 'package:open_sism/data_layer/Repositories/app_repo.dart';
+import 'package:open_sism/logic/blocs/app/app_bloc.dart';
+import 'package:open_sism/logic/blocs/app/app_event.dart';
 import 'package:open_sism/presentation/configurations/custom_text.dart';
 import 'package:open_sism/presentation/screens/login/login_screen.dart';
 import 'package:open_sism/presentation/configurations/utils.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+bool visible = false;
 
 class SmartOnBoardingPage extends StatelessWidget {
+  static const String routeName = "/onBoarding_screen";
   final pages = [
+    PageViewModel(
+      pageColor: Color(0xF6F6F7FF),
+      bubbleBackgroundColor: Colors.indigo,
+      title: Container(),
+      body: Column(
+        children: <Widget>[
+          Text('Welcome to Smart Wallet'),
+          Text(
+            'Welcome To Open Sism',
+            style: TextStyle(color: Colors.blueAccent, fontSize: 30.0),
+          ),
+        ],
+      ),
+      mainImage: Image.asset(
+        'assets/images/logoBodyCircle.png',
+        width: 200.0,
+        alignment: Alignment.center,
+      ),
+      textStyle: TextStyle(color: Colors.black),
+    ),
     PageViewModel(
       pageColor: Color(0xF6F6F7FF),
       bubbleBackgroundColor: Colors.indigo,
@@ -72,6 +100,7 @@ class SmartOnBoardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppRepository appRepository = new AppRepository();
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -79,11 +108,15 @@ class SmartOnBoardingPage extends StatelessWidget {
             IntroViewsFlutter(
               pages,
               onTapDoneButton: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
-                  ),
-                );
+                //LoginScreen();
+                // appRepository.setIfOpenedBefore(true);
+                //context.read<AppBloc>().add(WalkthroughCompleted());
+                Navigator.pushNamed(context, LoginScreen.routeName);
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (context) => LoginScreen(),
+                //   ),
+                // );
               },
               showSkipButton: false,
               doneText: Text(
@@ -96,13 +129,16 @@ class SmartOnBoardingPage extends StatelessWidget {
                 fontFamily: "Regular",
               ),
             ),
-            Positioned(
-                top: 20.0,
-                left: MediaQuery.of(context).size.width / 2 - 50,
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  width: 100,
-                )),
+            Visibility(
+              visible: false,
+              child: Positioned(
+                  top: 30.0,
+                  left: MediaQuery.of(context).size.width / 2 - 50,
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    width: 100,
+                  )),
+            ),
           ],
         ),
       ),

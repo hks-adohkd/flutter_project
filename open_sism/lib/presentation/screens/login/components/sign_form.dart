@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:open_sism/logic/blocs/login/login_bloc.dart';
+import 'package:open_sism/logic/blocs/login/login_event.dart';
 import 'package:open_sism/presentation/components/custom_suffix_svgIcon.dart';
 import 'package:open_sism/presentation/components/default_button.dart';
 import 'package:open_sism/presentation/components/form_error.dart';
@@ -8,6 +10,7 @@ import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/screens/forgot_password/forgot_password_screen.dart';
 import 'package:open_sism/presentation/screens/login_success/login_success_screen.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -18,7 +21,7 @@ class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
 
   String phone;
-  String password = "12345678";
+  String password = "Yazbek@123";
   bool remember = false;
 
   void addError({String error}) {
@@ -89,8 +92,20 @@ class _SignFormState extends State<SignForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                Navigator.popAndPushNamed(
-                    context, LoginSuccessScreen.routeName);
+                print(phone);
+                print(password);
+                // widget.loginBloc.add(LoginWithCredentialsPressed(
+                //   mobile: phone,
+                //   password: password,
+                // ));
+                context.read<LoginBloc>().add(
+                      LoginWithCredentialsPressed(
+                        mobile: phone,
+                        password: password,
+                      ),
+                    );
+                // Navigator.popAndPushNamed(
+                //     context, LoginSuccessScreen.routeName);
               }
             },
           )
@@ -102,7 +117,11 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       initialValue: password,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) {
+        setState(() {
+          password = newValue;
+        });
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
@@ -156,10 +175,14 @@ class _SignFormState extends State<SignForm> {
         }
         return null;
       },
-      onSaved: (newValue) => phone = newValue.phoneNumber,
+      onSaved: (newValue) {
+        setState(() {
+          phone = newValue.phoneNumber;
+        });
+      },
       textStyle: TextStyle(color: Colors.white),
       initialValue:
-          PhoneNumber(phoneNumber: "934631745", isoCode: "SY"), //number
+          PhoneNumber(phoneNumber: "999999999", isoCode: "SY"), //number
       selectorConfig: SelectorConfig(
         setSelectorButtonAsPrefixIcon: true,
         trailingSpace: false,

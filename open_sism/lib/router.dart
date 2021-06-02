@@ -12,6 +12,7 @@ import 'package:open_sism/presentation/screens/game/components/game_bundle.dart'
 import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:open_sism/presentation/screens/login/login_screen.dart';
 import 'package:open_sism/presentation/screens/login_success/login_success_screen.dart';
+import 'package:open_sism/presentation/screens/onBoardScreen/smart_onboarding.dart';
 import 'package:open_sism/presentation/screens/otp/otp_screen.dart';
 import 'package:open_sism/presentation/screens/profile/account_screen/account_screen.dart';
 import 'package:open_sism/presentation/screens/profile/help_support/Help_support_screen.dart';
@@ -33,7 +34,7 @@ import 'package:open_sism/presentation/screens/game/daily_bonus/dailyBonusScreen
 import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_bloc.dart';
-
+import 'package:open_sism/logic/blocs/login/login_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/app_repo.dart';
 import 'package:open_sism/data_layer/Repositories/user_repo.dart';
 
@@ -46,6 +47,7 @@ class AppRouter {
   PrizeBloc _prizeBloc;
   WheelBloc _wheelBloc;
   AppBloc appBloc;
+  LoginBloc loginBloc;
 
   WheelPremiumBloc _wheelPremiumBloc;
   BonusBloc _bonusBloc;
@@ -55,6 +57,12 @@ class AppRouter {
         appRepository: appRepository,
         userRepository: userRepository,
         internetCubit: new InternetCubit(connectivity: connectivity));
+
+    loginBloc = new LoginBloc(
+        appBloc: appBloc,
+        userRepository: new UserRepository(),
+        internetCubit: new InternetCubit(connectivity: connectivity));
+
     homeBloc = new HomeBloc(
       homeRepository: new HomeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
@@ -87,7 +95,18 @@ class AppRouter {
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case LoginScreen.routeName:
-        return MaterialPageRoute(builder: (context) => LoginScreen());
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: loginBloc),
+                    BlocProvider.value(value: appBloc),
+                  ],
+                  child: LoginScreen(),
+                ));
+        break;
+      case SmartOnBoardingPage.routeName:
+        return MaterialPageRoute(builder: (context) => SmartOnBoardingPage());
+
         break;
       case ForgotPasswordScreen.routeName:
         return MaterialPageRoute(builder: (context) => ForgotPasswordScreen());

@@ -21,7 +21,7 @@ class OpenSismApiDataProvider {
   };
 
   static final Map<String, String> headers = {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json;charset=utf-8",
     "Accept-Language": "en",
     "App-Version": "1.0.0",
     "Platform": "Android",
@@ -49,19 +49,14 @@ class OpenSismApiDataProvider {
     var url = domain + urlFragment;
     String body = json.encode(data);
     //headers["Authorization"] = 'Bearer $token';
-    var response = await http
-        .post(
-      Uri.parse(url),
-      // headers: headers,
-      body: body,
-    )
-        .timeout(
-      timeout,
-      onTimeout: () {
-        throw TimeoutException;
-      },
-    );
 
+    var response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: body,
+    );
+    print("response here ");
+    print(response.body);
     return response;
   }
 
@@ -123,12 +118,17 @@ class OpenSismApiDataProvider {
 
   Future<http.Response> signIn(
       {String mobile, String password, String fcm_token}) async {
+    print(password);
+    print(mobile);
+    print(fcm_token);
     Map data = {
       "password": password,
       "username": mobile,
-      "fCMToken": fcm_token
+      "fCMToken": fcm_token,
     };
 
     return postGenericWithBodyWithOutToken(LOGIN, data);
+
+    //return postGenericWithBodyWithOutToken(CITIES + GET_ALL, data);
   }
 }

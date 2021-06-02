@@ -46,6 +46,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         // var res = await _appRepository.getSettings();
         var res = true;
         if (isConnected) {
+          //await appRepository.setIfOpenedBefore(false);
           bool hasOpenedBefore = await appRepository.checkIfOpenedBefore();
           print('Opened before?: $hasOpenedBefore');
 
@@ -57,13 +58,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             if (shouldUpdate) {
               yield AppOutdated();
             } else {
-              yield AppReady(showWalkthrough: true);
+              yield AppReady(showWalkthrough: false);
             }
           }
           // new user or deleted app date, either way
           // it should be considered a new user
-          else {
-            yield AppReady(showWalkthrough: false);
+          else if (!hasOpenedBefore) {
+            // Future.delayed(const Duration(milliseconds: 500), () async* {
+            //   yield AppReady(showWalkthrough: true);
+            // });
+            yield AppReady(showWalkthrough: true);
           }
         } else {
           yield AppOffline();
@@ -75,7 +79,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     }
 
     if (event is WalkthroughCompleted) {
-      yield AppReady(showWalkthrough: false);
+      print('I am IN WalkthroughCompleted');
+      //  yield AppReady(showWalkthrough: false);
       appRepository.setIfOpenedBefore(true);
     }
 

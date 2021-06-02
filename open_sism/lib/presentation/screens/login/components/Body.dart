@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:open_sism/logic/blocs/login/login_bloc.dart';
 import 'package:open_sism/presentation/components/no_account_text.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';

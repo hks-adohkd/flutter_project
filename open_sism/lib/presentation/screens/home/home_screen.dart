@@ -90,6 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _tokenStream = FirebaseMessaging.instance.onTokenRefresh;
     _tokenStream.listen(setToken);
+
+    context.read<HomeBloc>().add(HomePageRequested());
   }
 
   RefreshController _refreshController =

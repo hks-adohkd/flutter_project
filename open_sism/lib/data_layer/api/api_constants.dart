@@ -5,7 +5,7 @@ const String API_IMAGES_URL = "http://www.gamesadmin.somee.com";
 const String API_Domain = "http://10.0.2.2:1095/";
 const String UPLOAD_IMAGE = "/api/APIImages/SaveMedia";
 
-const String LOGIN = "Authenticate/Login";
+const String LOGIN = "api/Authenticate/login";
 const String FORGET_PASSWORD = "Authenticate/ForgotPassword";
 const String RESET_PASS = "Authenticate/ResetPassword";
 const String CHANGE_PASSWORD = "Authenticate/ChangePassword";
