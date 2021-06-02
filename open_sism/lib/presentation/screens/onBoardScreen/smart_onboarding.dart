@@ -1,8 +1,3 @@
-/**
- * Author: Damodar Lohani
- * profile: https://github.com/lohanidamodar
- */
-
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:open_sism/presentation/configurations/custom_text.dart';
@@ -10,8 +5,6 @@ import 'package:open_sism/presentation/screens/login/login_screen.dart';
 import 'package:open_sism/presentation/configurations/utils.dart';
 
 class SmartOnBoardingPage extends StatelessWidget {
-  static final String path =
-      "lib/src/pages/onboarding/smart_wallet_onboarding.dart";
   final pages = [
     PageViewModel(
       pageColor: Color(0xF6F6F7FF),

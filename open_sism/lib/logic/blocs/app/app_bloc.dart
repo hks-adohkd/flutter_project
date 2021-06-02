@@ -57,13 +57,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             if (shouldUpdate) {
               yield AppOutdated();
             } else {
-              yield AppReady(showWalkthrough: false);
+              yield AppReady(showWalkthrough: true);
             }
           }
           // new user or deleted app date, either way
           // it should be considered a new user
           else {
-            yield AppReady(showWalkthrough: true);
+            yield AppReady(showWalkthrough: false);
           }
         } else {
           yield AppOffline();

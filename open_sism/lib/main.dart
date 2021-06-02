@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/app_repo.dart';
 import 'package:open_sism/data_layer/Repositories/user_repo.dart';
+import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:open_sism/presentation/screens/offline/offline.dart';
 import 'package:open_sism/data_layer/api/api_data_provider.dart';
 import 'package:open_sism/logic/blocs/app/app_bloc.dart';
@@ -113,6 +114,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider.value(value: _appRouter.homeBloc),
         // BlocProvider<HomeAdsBloc>(
         //   create: (context) => HomeAdsBloc(dataRepository, userRepository),
         // ),
@@ -204,9 +206,7 @@ class _OpenSismState extends State<OpenSism> {
             if (state is AppReady) {
               return state.showWalkthrough
                   ? SmartOnBoardingPage()
-                  : Container(
-                      child: Text("AppInitial , LoadingState"),
-                    );
+                  : HomeScreen();
               // return LoginScreen();
             }
             if (state is AppOutdated) {
@@ -216,11 +216,15 @@ class _OpenSismState extends State<OpenSism> {
               );
             }
             if (state is AppOffline) {
-              return Offline(
-                callback: () {
-                  // _appBloc.add(AppStarted());
-                },
-              );
+              Future.delayed(const Duration(milliseconds: 2000), () {
+                return Offline(
+                  callback: () {
+                    context.read<AppBloc>().add(AppStarted());
+                    // _appBloc.add(AppStarted());
+                  },
+                );
+              });
+
               // return Container(
               //   child: Text("AppOffline"),
               // );

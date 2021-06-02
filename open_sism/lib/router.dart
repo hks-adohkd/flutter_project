@@ -42,7 +42,7 @@ class AppRouter {
   final UserRepository userRepository = UserRepository();
 
   Connectivity connectivity;
-  HomeBloc _homeBloc;
+  HomeBloc homeBloc;
   PrizeBloc _prizeBloc;
   WheelBloc _wheelBloc;
   AppBloc appBloc;
@@ -55,7 +55,7 @@ class AppRouter {
         appRepository: appRepository,
         userRepository: userRepository,
         internetCubit: new InternetCubit(connectivity: connectivity));
-    _homeBloc = new HomeBloc(
+    homeBloc = new HomeBloc(
       homeRepository: new HomeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
@@ -105,7 +105,7 @@ class AppRouter {
       case LoginSuccessScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => BlocProvider.value(
-            value: _homeBloc,
+            value: homeBloc,
             child: LoginSuccessScreen(),
           ),
         );
@@ -129,7 +129,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
             providers: [
-              BlocProvider.value(value: _homeBloc),
+              BlocProvider.value(value: homeBloc),
               BlocProvider.value(value: _prizeBloc),
               BlocProvider.value(value: _bonusBloc),
               BlocProvider.value(value: _bonusPremiumBloc),
@@ -174,6 +174,6 @@ class AppRouter {
   }
 
   void dispose() {
-    _homeBloc.close();
+    homeBloc.close();
   }
 }
