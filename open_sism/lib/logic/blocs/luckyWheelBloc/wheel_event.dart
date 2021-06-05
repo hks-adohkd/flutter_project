@@ -23,7 +23,10 @@ class WheelPremiumPageRequested extends WheelEvent {}
 
 class WheelPremiumDataRequested extends WheelEvent {}
 
-class WheelPremiumDataReadyEvent extends WheelEvent {}
+class WheelPremiumDataReadyEvent extends WheelEvent {
+  final bool isPremium;
+  WheelPremiumDataReadyEvent({this.isPremium});
+}
 
 class WheelPremiumAddPrizeEvent extends WheelEvent {
   final int prizeId;

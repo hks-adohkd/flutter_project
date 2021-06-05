@@ -78,8 +78,9 @@ class WheelPremiumLoadInProgress extends WheelState {}
 
 class WheelPremiumLoadedSuccess extends WheelState {
   final WheelApiResponse wheelData;
-
-  const WheelPremiumLoadedSuccess({@required this.wheelData})
+  final bool isPremium;
+  const WheelPremiumLoadedSuccess(
+      {@required this.wheelData, @required this.isPremium})
       : assert(wheelData != null);
 
   @override
@@ -88,8 +89,9 @@ class WheelPremiumLoadedSuccess extends WheelState {
 
 class WheelPremiumDataReady extends WheelState {
   final WheelApiResponse wheelData;
-
-  const WheelPremiumDataReady({@required this.wheelData})
+  final bool isPremium;
+  const WheelPremiumDataReady(
+      {@required this.wheelData, @required this.isPremium})
       : assert(wheelData != null);
 
   @override

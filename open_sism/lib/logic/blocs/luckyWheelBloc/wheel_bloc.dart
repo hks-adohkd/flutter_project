@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/data_layer/Repositories/app_repo.dart';
 import 'package:open_sism/data_layer/Repositories/home_repository.dart';
 import 'package:open_sism/data_layer/Repositories/prize_repository.dart';
 import 'package:open_sism/data_layer/model/customerPrize/customer_prize_api_response.dart';
@@ -14,6 +15,7 @@ import 'wheel_state.dart';
 import 'package:open_sism/data_layer/model/luckyWheel/wheel_model.dart';
 import 'package:open_sism/data_layer/model/prize/prizePage_model.dart';
 import 'package:open_sism/data_layer/model/luckyWheel/wheel_api_response.dart';
+import 'package:open_sism/data_layer/Repositories/user_repo.dart';
 
 class WheelBloc extends Bloc<WheelEvent, WheelState> {
   final PrizeRepository prizeRepository;
@@ -82,10 +84,14 @@ class WheelPremiumBloc extends Bloc<WheelEvent, WheelState> {
   WheelModel wheelModel;
   WheelApiResponse wheelPageModel;
   HomeApiResponse customer;
+  AppRepository appRepository;
+  UserRepository userRepository;
   WheelPremiumBloc(
       {@required this.prizeRepository,
       @required this.internetCubit,
-      @required this.homeRepository})
+      @required this.homeRepository,
+      @required this.userRepository,
+      @required this.appRepository})
       : assert(prizeRepository != null && internetCubit != null),
         super(WheelPremiumInitial()) {
     internetStreamSubscription = internetCubit.stream.listen((internetState) {
@@ -107,7 +113,13 @@ class WheelPremiumBloc extends Bloc<WheelEvent, WheelState> {
 
       try {
         wheelPageModel = await prizeRepository.getPremiumWheelPrizes();
-        yield WheelPremiumLoadedSuccess(wheelData: wheelPageModel);
+
+        print("wheelPageModel");
+        print(wheelPageModel.currentCustomer);
+        print(wheelPageModel.currentCustomer.premium);
+        yield WheelPremiumLoadedSuccess(
+            wheelData: wheelPageModel,
+            isPremium: wheelPageModel.currentCustomer.premium);
       } catch (Exception) {
         yield WheelPremiumLoadFailure(wheelStoredData: wheelPageModel);
       }
@@ -131,7 +143,8 @@ class WheelPremiumBloc extends Bloc<WheelEvent, WheelState> {
 
     if (event is WheelPremiumDataReadyEvent) {
       print("into state WheelDataReady");
-      yield WheelPremiumDataReady(wheelData: wheelPageModel);
+      yield WheelPremiumDataReady(
+          wheelData: wheelPageModel, isPremium: event.isPremium);
     }
 
     if (event is WheelPremiumCustomerRequested) {

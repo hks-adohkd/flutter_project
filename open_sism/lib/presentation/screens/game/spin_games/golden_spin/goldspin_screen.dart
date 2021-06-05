@@ -126,9 +126,8 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
                 BlocBuilder<WheelPremiumBloc, WheelState>(
                     builder: (context, state) {
                   if (state is WheelPremiumLoadedSuccess) {
-                    context
-                        .read<WheelPremiumBloc>()
-                        .add(WheelPremiumDataReadyEvent());
+                    context.read<WheelPremiumBloc>().add(
+                        WheelPremiumDataReadyEvent(isPremium: state.isPremium));
                     // return Luck Items contains the valid prizes and
                     // store in buildmethod.giftItemsN
                     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -170,7 +169,8 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
                     // return buildMethod.buildResult(_value);
                   } else if (state is WheelPremiumDataReady) {
                     // print(buildMethod.giftItemsN.first.point);
-                    return buildBoardViewWithData(_angle, context, state);
+                    return buildBoardViewWithData(
+                        _angle, context, state, state.isPremium);
                     // return Container(
                     //   child: Text(" your  Spin Data ready "),
                     // );
@@ -222,7 +222,7 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
   }
 
   Widget buildBoardViewWithData(
-      _angle, BuildContext context, WheelState state) {
+      _angle, BuildContext context, WheelState state, bool isPremium) {
     if (state is WheelPremiumDataReady) {
       return BoardView(
         items: buildMethod.wheelPremiumGiftParts,
@@ -230,9 +230,12 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
         angle: _angle,
         isStart: buildMethod.isStart,
         press: () {
-          buildMethod.isStart = true;
-          buildMethod.isEnd = false;
-          buildMethod.animation(context, spinInitState, allowed, premium);
+          print(isPremium);
+          if (isPremium) {
+            buildMethod.isStart = true;
+            buildMethod.isEnd = false;
+            buildMethod.animation(context, spinInitState, allowed, premium);
+          }
         },
       );
     } else if (state is WheelPremiumAddPrize) {
