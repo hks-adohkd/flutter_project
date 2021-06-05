@@ -46,7 +46,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         // var res = await _appRepository.getSettings();
         var res = true;
         if (isConnected) {
-          //await appRepository.setIfOpenedBefore(false);
+          // await appRepository.setIfOpenedBefore(false); // for testing
           bool hasOpenedBefore = await appRepository.checkIfOpenedBefore();
           print('Opened before?: $hasOpenedBefore');
 
@@ -84,13 +84,21 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       appRepository.setIfOpenedBefore(true);
     }
 
-    // if (event is UpdateFirebaseToken) {
-    //   print('called UpdateFirebaseToken event');
-    //   bool res = await _appRepository.updateFirebaseToken(event.token);
-    // }
+    if (event is UpdateFirebaseToken) {
+      print('called UpdateFirebaseToken event');
+      print(event.fcmToken);
+      try {
+        await userRepository.userSetFCMToken(fcmToken: event.fcmToken);
+        // await userRepository.
+        await userRepository.persistFCMToken(event.fcmToken);
+      } catch (e) {
+        print('Error is: $e');
+      }
+    }
 
     if (event is LogOut) {
       await userRepository.deleteToken();
+      await userRepository.deleteFCMToken();
       await appRepository.clear();
       await appRepository.setIfOpenedBefore(false);
       yield LoggedOut();

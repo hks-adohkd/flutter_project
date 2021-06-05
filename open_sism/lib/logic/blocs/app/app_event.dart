@@ -11,9 +11,9 @@ class AppStarted extends AppEvent {}
 class WalkthroughCompleted extends AppEvent {}
 
 class UpdateFirebaseToken extends AppEvent {
-  final String token;
+  final String fcmToken;
 
-  UpdateFirebaseToken(this.token);
+  UpdateFirebaseToken({this.fcmToken});
 }
 
 class LogIn extends AppEvent {

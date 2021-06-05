@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/app/app_bloc.dart';
+import 'package:open_sism/logic/blocs/app/app_event.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_event.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
@@ -47,9 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void setToken(String token) {
     print('FCM Token: $token');
+    if (token != null || token != "") {
+      context.read<AppBloc>().add(UpdateFirebaseToken(fcmToken: token));
+    }
     setState(() {
       _token = token;
     });
+    // print(" set FCM Token");
   }
 
   @override
@@ -109,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(_token);
+    // print(_token);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: kAppBarHeight,

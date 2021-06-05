@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:open_sism/logic/blocs/register/register_bloc.dart';
+import 'package:open_sism/logic/blocs/register/register_event.dart';
 import 'package:open_sism/presentation/components/custom_suffix_svgIcon.dart';
 import 'package:open_sism/presentation/components/default_button.dart';
 import 'package:open_sism/presentation/components/form_error.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
+import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/otp/otp_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -29,13 +34,16 @@ class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   String phone;
   String email;
-  String name;
+  String firstName;
+  String lastName;
   String password;
   String confirmPassword;
   final List<String> errors = [];
+  int _value = 0; //female  =1 , male = 0
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context); // to get the screen size
     return Form(
       key: _formKey,
       child: Column(
@@ -47,7 +55,13 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(
             height: 30,
           ),
-          buildNameFormField(),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            buildFirstNameFormField(),
+            SizedBox(width: 5),
+            buildLastNameFormField(),
+          ]),
+          SizedBox(height: 30),
+          buildGenderField(),
           SizedBox(height: 30),
           buildEmailFormField(),
           SizedBox(
@@ -67,14 +81,36 @@ class _RegisterFormState extends State<RegisterForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
+
+                print({
+                  "register Button Pressed",
+                  _value,
+                  phone,
+                  email,
+                  firstName,
+                  lastName,
+                  password,
+                  confirmPassword,
+                });
+                context.read<RegisterBloc>().add(
+                      RegisterButtonPressed(
+                        mobile: phone,
+                        email: email,
+                        firstName: firstName,
+                        lastName: lastName,
+                        password: password,
+                        gender: _value,
+                      ),
+                    );
+
                 // TODO: Go to complete profile page
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => OtpScreen(
-                              isRegister: true,
-                              phoneNumber: phone,
-                            )));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => OtpScreen(
+                //               isRegister: true,
+                //               phoneNumber: phone,
+                //             )));
               }
             },
           )
@@ -88,9 +124,7 @@ class _RegisterFormState extends State<RegisterForm> {
     return InternationalPhoneNumberInput(
       //initialValue: PhoneNumber(isoCode: 'SY', phoneNumber: "123456789"),
       onInputChanged: (value) {
-
         if (value.phoneNumber.isNotEmpty) {
-
           removeError(error: kPhoneNullError);
         }
         if (phoneRegExp.hasMatch(value.phoneNumber)) {
@@ -111,13 +145,13 @@ class _RegisterFormState extends State<RegisterForm> {
       },
       onSaved: (newValue) => {
         setState(
-              () {
+          () {
             phone = newValue.phoneNumber;
           },
         )
       },
       textStyle: TextStyle(color: Colors.white),
-        initialValue: PhoneNumber( isoCode: "SY"), //number
+      initialValue: PhoneNumber(isoCode: "SY"), //number
       selectorConfig: SelectorConfig(
         leadingPadding: 20,
         setSelectorButtonAsPrefixIcon: true,
@@ -137,7 +171,36 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 40),
       ),
     );
+  }
 
+  Padding buildGenderField() {
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          GestureDetector(
+            onTap: () => setState(() => _value = 0),
+            child: Container(
+              height: 36,
+              width: 36,
+              color: _value == 0 ? Colors.grey : Colors.transparent,
+              child: Icon(FontAwesomeIcons.male),
+            ),
+          ),
+          SizedBox(width: 4),
+          GestureDetector(
+            onTap: () => setState(() => _value = 1),
+            child: Container(
+              height: 36,
+              width: 36,
+              color: _value == 1 ? Colors.grey : Colors.transparent,
+              child: Icon(FontAwesomeIcons.female),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   TextFormField buildPasswordFormField() {
@@ -154,7 +217,9 @@ class _RegisterFormState extends State<RegisterForm> {
         if (value.length >= 8) {
           removeError(error: kShortPassError);
         }
-        password = value;
+        setState(() {
+          password = value;
+        });
         return null;
       },
       validator: (value) {
@@ -187,12 +252,16 @@ class _RegisterFormState extends State<RegisterForm> {
         })
       },
       onChanged: (value) {
-        if (password == confirmPassword) {
-          removeError(error: kMatchPassError);
+        if (value.isNotEmpty) {
+          removeError(error: kPassNullError);
         }
         if (value.length >= 8) {
           removeError(error: kShortPassError);
         }
+        if (value == password) {
+          removeError(error: kMatchPassError);
+        }
+        //password = value;
         return null;
       },
       validator: (value) {
@@ -200,6 +269,7 @@ class _RegisterFormState extends State<RegisterForm> {
           return "";
         }
         if (password != value) {
+          print({password, "password"});
           addError(error: kMatchPassError);
           return "";
         }
@@ -247,33 +317,72 @@ class _RegisterFormState extends State<RegisterForm> {
     );
   }
 
-  TextFormField buildNameFormField() {
-    return TextFormField(
-      onSaved: (newValue) => {
-        setState(() {
-          name = newValue;
-        })
-      },
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: "Name doesn't exist!");
-        }
-        return null;
-      },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: "Name doesn't exist!");
-          return "";
-        }
-        return null;
-      },
-      keyboardType: TextInputType.name,
-      style: TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        labelText: "Name",
-        hintText: "Enter your Name",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/User.svg'),
+  Container buildFirstNameFormField() {
+    return Container(
+      width: SizeConfig.screenWidth / 2.5,
+      child: TextFormField(
+        onSaved: (newValue) => {
+          setState(() {
+            firstName = newValue;
+          })
+        },
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            removeError(error: "FirstName doesn't exist!");
+          }
+          return null;
+        },
+        validator: (value) {
+          if (value.isEmpty) {
+            addError(error: "FirstName doesn't exist!");
+            return "";
+          }
+          return null;
+        },
+        keyboardType: TextInputType.name,
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          labelText: "FirstName",
+          hintText: "Enter your FirstName",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: CustomSuffixIcon(
+            svgIcon: 'assets/icons/User.svg',
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildLastNameFormField() {
+    return Container(
+      width: SizeConfig.screenWidth / 2.5,
+      child: TextFormField(
+        onSaved: (newValue) => {
+          setState(() {
+            lastName = newValue;
+          })
+        },
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            removeError(error: "LastName doesn't exist!");
+          }
+          return null;
+        },
+        validator: (value) {
+          if (value.isEmpty) {
+            addError(error: "LastName doesn't exist!");
+            return "";
+          }
+          return null;
+        },
+        keyboardType: TextInputType.name,
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          labelText: "LastName",
+          hintText: "Enter your LastName",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/User.svg'),
+        ),
       ),
     );
   }

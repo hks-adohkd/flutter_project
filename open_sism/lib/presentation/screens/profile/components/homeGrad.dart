@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:open_sism/logic/blocs/app/app_bloc.dart';
+import 'package:open_sism/logic/blocs/app/app_event.dart';
 
 import 'package:open_sism/presentation/screens/login/login_screen.dart';
 import 'package:open_sism/presentation/screens/profile/aboutus_screen/AboutUS_screen.dart';
@@ -13,7 +17,6 @@ import 'package:open_sism/presentation/screens/profile/components/profile_list_i
 import 'package:open_sism/presentation/configurations/size_config.dart';
 
 import 'package:open_sism/presentation/screens/profile/help_support/Help_support_screen.dart';
-
 
 /*
 * Main profile class */
@@ -71,6 +74,8 @@ class HomeProfileScreenGrad extends StatelessWidget {
                   text: 'Logout',
                   hasNavigation: false,
                   press: () {
+                    context.read<AppBloc>().add(LogOut());
+                    Phoenix.rebirth(context);
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         LoginScreen.routeName, (Route<dynamic> route) => false);
                   },

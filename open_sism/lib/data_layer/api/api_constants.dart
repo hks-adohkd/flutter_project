@@ -11,11 +11,11 @@ const String RESET_PASS = "Authenticate/ResetPassword";
 const String CHANGE_PASSWORD = "Authenticate/ChangePassword";
 const String VERIFY = "Authenticate/Verify";
 const String RESEND_CODE = "Authenticate/ResendVerifyCode";
-const String REGISTER = "Authenticate/Register";
+const String REGISTER = "api/Authenticate/Register";
 const String GET_PROFILE = "Authenticate/GetProfile";
 const String UPDATE_PROFILE = "Authenticate/UpdateProfile";
 const String SET_FACEBOOK_DATA = "Authenticate/SetFacebookData";
-const String SET_FCM_TOKEN = "Authenticate/SetFCMToken";
+const String SET_FCM_TOKEN = "api/Authenticate/SetFCMToken";
 
 const String TASKS = "api/AppTasks/";
 const String PRIZES = "api/Prizes/";
@@ -52,4 +52,4 @@ const String ABOUT_US = "api/Contents/AboutUs";
 const String CONTACT = "api/Contacts/";
 
 const String TEST_TOKEN =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiKzk2Mzk5OTk5OTk5OSIsImp0aSI6IjEwMGMxMGQ5LTUyY2ItNDgxNC1hOTJmLWMzZTRiYjhkZDEwOSIsImV4cCI6MTYyMjgyMjM1NSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.OZyOStukE9-pYIaGS80edWfUgqX1k7A6D9IMlHsmSrg";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiKzk2Mzk5OTk5OTk5MyIsImp0aSI6ImVhMzY4OGJkLWU5MDgtNGU4MC1iOTg5LTJmYzBjZTRiNTE5NiIsImV4cCI6MTYyNTQ4ODY1MywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.9JZg-8l6NoU7qla_0K_plxzkefRExED4pUGyxTHdOk4";

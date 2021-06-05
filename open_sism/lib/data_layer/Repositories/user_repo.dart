@@ -46,51 +46,67 @@ class UserRepository {
 
   Future<CustomerApiResponse> signInWithCredentials(
       String mobile, String password, String fcmToken) async {
-    // try {
-    var response = await api.signIn(
-        fcm_token: fcmToken, mobile: mobile, password: password);
-    print(response.body);
+    try {
+      var response = await api.signIn(
+          fcm_token: fcmToken, mobile: mobile, password: password);
+      // print(response.body);
 
-    var jsonObj = json.decode(response.body);
+      var jsonObj = json.decode(response.body);
 
-    var customerApiResponse = CustomerApiResponse.fromJson(jsonObj);
-    //  print(homeModel);
-    print("customerModel : ");
-    print(customerApiResponse);
-    persistUser(customerApiResponse.currentCustomer);
-    return customerApiResponse;
+      var customerApiResponse = CustomerApiResponse.fromJson(jsonObj);
+      //  print(homeModel);
+      //print("customerModel : ");
+      //print(customerApiResponse);
+      persistUser(customerApiResponse.currentCustomer);
+      return customerApiResponse;
 
-    //CustomerModel user = await _api.signIn(fcm_token: fcmToken , mobile: mobile , password: password);
+      //CustomerModel user = await _api.signIn(fcm_token: fcmToken , mobile: mobile , password: password);
 
-    // User user = User((u) => u
-    //   ..id = 1
-    //   ..mobile = '0991345379'
-    //   ..name = 'emad'
-    //   ..email = 'email@example.com'
-    //   ..address = ''
-    //   ..username = 'supernova'
-    //   ..verified = false
-    //   ..token = 'fake sweet token');
+      // User user = User((u) => u
+      //   ..id = 1
+      //   ..mobile = '0991345379'
+      //   ..name = 'emad'
+      //   ..email = 'email@example.com'
+      //   ..address = ''
+      //   ..username = 'supernova'
+      //   ..verified = false
+      //   ..token = 'fake sweet token');
 
-    // } catch (e) {
-    //   print('Error signInWithCredentials:$e');
-    //   throw e;
-    // }
+    } catch (e) {
+      print('Error signInWithCredentials:$e');
+      throw e;
+    }
   }
 
-  // Future<CustomerModel> registerWithCredentials(
-  //   String mobile,
-  //   String name,
-  //   String email,
-  //   String password,
-  //   String passwordConfirm,
-  //   int gender,
-  // ) async {
-  //   CustomerModel user = await _api.register(
-  //       mobile, name, email, password, passwordConfirm, gender);
-  //   persistUser(user);
-  //   return user;
-  // }
+  Future<CustomerApiResponse> registerWithCredentials({
+    String mobile,
+    String firstName,
+    String lastName,
+    String email,
+    String password,
+    String passwordConfirm,
+    int gender,
+  }) async {
+    try {
+      var response = await api.register(
+          mobile: mobile,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          gender: gender);
+      //   print(response.body);
+      var jsonObj = json.decode(response.body);
+      var customerApiResponse = CustomerApiResponse.fromJson(jsonObj);
+      //   print("customerModel : ");
+      //    print(customerApiResponse);
+      persistUser(customerApiResponse.currentCustomer);
+      return customerApiResponse;
+    } catch (e) {
+      print('Error signInWithCredentials:$e');
+      throw e;
+    }
+  }
 
   Future<void> persistUser(CustomerModel u) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -134,6 +150,39 @@ class UserRepository {
   Future<void> persistToken(String t) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(key_token, t);
+    return;
+  }
+
+  Future<void> persistFCMToken(String t) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(key_fcmToken, t);
+    return;
+  }
+
+  Future<CustomerApiResponse> userSetFCMToken({String fcmToken}) async {
+    try {
+      //  print("token");
+      //  print(await getToken());
+      //   print("userSetFCMToken");
+      //   print(fcmToken);
+      var response =
+          await api.setFCMToken(fcmToken: fcmToken, token: await getToken());
+      //  print("response");
+      //   print(response.body);
+      var jsonObj = json.decode(response.body);
+      //  print(jsonObj);
+      var customerApiResponse = CustomerApiResponse.fromJson(jsonObj);
+      //     print("customerApiResponse");
+      //    print(customerApiResponse);
+      return customerApiResponse;
+    } catch (e) {
+      print('error Set FCM Token :  $e');
+    }
+  }
+
+  Future<void> deleteFCMToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(key_fcmToken);
     return;
   }
 

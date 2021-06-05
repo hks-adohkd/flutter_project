@@ -52,7 +52,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           );
 
           print({"token", user.currentCustomer.token});
-
+          // appBloc.add(UpdateFirebaseToken(fcmToken: user.))
           appBloc.add(LogIn(token: user.currentCustomer.token));
           yield LoginSuccess();
         } catch (e) {

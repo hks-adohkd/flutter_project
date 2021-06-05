@@ -5,6 +5,7 @@ import 'package:open_sism/data_layer/Repositories/home_repository.dart';
 import 'package:open_sism/data_layer/Repositories/prize_repository.dart';
 import 'package:open_sism/logic/blocs/app/app_bloc.dart';
 import 'package:open_sism/logic/blocs/prizeBloc/prize_bloc.dart';
+import 'package:open_sism/logic/blocs/register/register_bloc.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/presentation/screens/activity/activity_screen.dart';
 import 'package:open_sism/presentation/screens/forgot_password/forgot_password_screen.dart';
@@ -48,7 +49,7 @@ class AppRouter {
   WheelBloc _wheelBloc;
   AppBloc appBloc;
   LoginBloc loginBloc;
-
+  RegisterBloc registerBloc;
   WheelPremiumBloc _wheelPremiumBloc;
   BonusBloc _bonusBloc;
   BonusPremiumBloc _bonusPremiumBloc;
@@ -63,7 +64,13 @@ class AppRouter {
         userRepository: new UserRepository(),
         internetCubit: new InternetCubit(connectivity: connectivity));
 
+    registerBloc = new RegisterBloc(
+        appBloc: appBloc,
+        userRepository: new UserRepository(),
+        internetCubit: new InternetCubit(connectivity: connectivity));
     homeBloc = new HomeBloc(
+      appBloc: appBloc,
+      userRepository: userRepository,
       homeRepository: new HomeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
@@ -120,7 +127,12 @@ class AppRouter {
                   child: RewardScreen(),
                 ));
       case ProfileScreen.routeName:
-        return MaterialPageRoute(builder: (context) => ProfileScreenGradient());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: appBloc,
+            child: ProfileScreenGradient(),
+          ),
+        );
       case LoginSuccessScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => BlocProvider.value(
@@ -143,7 +155,15 @@ class AppRouter {
       case AboutUs.routeName:
         return MaterialPageRoute(builder: (context) => AboutUs());
       case RegisterScreen.routeName:
-        return MaterialPageRoute(builder: (context) => RegisterScreen());
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: registerBloc),
+                    BlocProvider.value(value: appBloc),
+                  ],
+                  child: RegisterScreen(),
+                ));
+        break;
       case HomeScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
@@ -152,6 +172,7 @@ class AppRouter {
               BlocProvider.value(value: _prizeBloc),
               BlocProvider.value(value: _bonusBloc),
               BlocProvider.value(value: _bonusPremiumBloc),
+              BlocProvider.value(value: appBloc),
             ],
             child: HomeScreen(),
           ),

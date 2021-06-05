@@ -81,8 +81,8 @@ class OpenSismApiDataProvider {
     return response;
   }
 
-  Future<http.Response> fetchHomeJson() async =>
-      postGeneric(HOME_PAGE, TEST_TOKEN);
+  Future<http.Response> fetchHomeJson({String token}) async =>
+      postGeneric(HOME_PAGE, token);
 
   Future<http.Response> fetchCitiesJson(String token) async =>
       postGeneric(CITIES + GET_ALL, token);
@@ -130,5 +130,33 @@ class OpenSismApiDataProvider {
     return postGenericWithBodyWithOutToken(LOGIN, data);
 
     //return postGenericWithBodyWithOutToken(CITIES + GET_ALL, data);
+  }
+
+  Future<http.Response> register(
+      {String mobile,
+      String firstName,
+      String lastName,
+      String password,
+      String email,
+      int gender}) async {
+    Map data = {
+      "Phone": mobile,
+      "FirstName": firstName,
+      "LastName": lastName,
+      "Gender": gender == 0 ? false : true,
+      "TermsAndConditions": true,
+      "Password": password,
+      "email": email,
+    };
+
+    return postGenericWithBodyWithOutToken(REGISTER, data);
+
+    //return postGenericWithBodyWithOutToken(CITIES + GET_ALL, data);
+  }
+
+  Future<http.Response> setFCMToken({String fcmToken, String token}) async {
+    Map data = {"FCMToken": fcmToken};
+
+    return postGenericWithBody(SET_FCM_TOKEN, token, data);
   }
 }
