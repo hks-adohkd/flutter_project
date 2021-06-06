@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:open_sism/data_layer/model/home/home_api_response.dart';
-
 import 'package:flutter/material.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';

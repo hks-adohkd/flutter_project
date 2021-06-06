@@ -11,42 +11,27 @@ import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 
 class Body extends StatelessWidget {
   bool discountBannerShow;
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-
-  void _onRefresh(BuildContext context) async {
-    // _bloc.add(LoadHomeAds());
-    // _categoriesBloc.add(LoadCategories());
-    // _featuredBloc.add(LoadFeaturedAds());
-    context.read<HomeBloc>().add(HomePageRequested());
-    print("refresh");
-    _refreshController.refreshCompleted();
-  }
 
   @override
   Widget build(BuildContext context) {
     discountBannerShow = true;
     SizeConfig().init(context);
     return SafeArea(
-      child: SmartRefresher(
-        controller: _refreshController,
-        onRefresh: () => _onRefresh(context),
-        child: Container(
-          decoration: kBoxDecoration,
-          constraints: BoxConstraints.expand(),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: getProportionateScreenHeight(40)),
-                SpecialOffers(),
-                SizedBox(height: getProportionateScreenHeight(15)),
-                DiscountBanner(isShown: true),
-                Categories(),
-                SizedBox(height: getProportionateScreenHeight(30)),
-                // CategoriesGrid(),
-                // SizedBox(height: getProportionateScreenWidth(30)),
-              ],
-            ),
+      child: Container(
+        decoration: kBoxDecoration,
+        constraints: BoxConstraints.expand(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: getProportionateScreenHeight(40)),
+              SpecialOffers(),
+              SizedBox(height: getProportionateScreenHeight(15)),
+              DiscountBanner(isShown: true),
+              Categories(),
+              SizedBox(height: getProportionateScreenHeight(30)),
+              // CategoriesGrid(),
+              // SizedBox(height: getProportionateScreenWidth(30)),
+            ],
           ),
         ),
       ),

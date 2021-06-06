@@ -4,8 +4,8 @@ class Luck {
   final String image;
   final Color color;
   final String point;
-
-  Luck(this.image, this.color, this.point);
+  final String prizeType;
+  Luck(this.image, this.color, this.point, this.prizeType);
 
   String get asset => "assets/images/$image.png";
 }

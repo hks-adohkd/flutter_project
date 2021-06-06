@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
@@ -63,31 +64,45 @@ class DiscountBanner extends StatelessWidget {
                       ],
                     ),
                   );
-                } else if (state is HomeLoadFailure) {
-                  return Text.rich(
-                    TextSpan(
-                      style: TextStyle(
-                        color: Color(0xFF212121),
-                        fontWeight: FontWeight.bold,
-                      ),
-                      children: [
-                        TextSpan(
-                          text:
-                              state.homeStoredData.content.banner.first.title +
-                                  '\n',
-                        ),
-                        TextSpan(
-                          text:
-                              state.homeStoredData.content.banner.first.script,
-                          style: TextStyle(
-                            fontSize: getProportionateScreenWidth(20),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else
-                  return Container();
+                }
+                // else if (state is HomeLoadFailure) {
+                //   String title =
+                //       state.homeStoredData.content.banner.first.title;
+                //   String script =
+                //       state.homeStoredData.content.banner.first.script;
+                //   print("title" + title);
+                //   if (title.isNotEmpty && script != null) {
+                //     return Text.rich(
+                //       TextSpan(
+                //         style: TextStyle(
+                //           color: Color(0xFF212121),
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //         children: [
+                //           TextSpan(
+                //             text: state
+                //                     .homeStoredData.content.banner.first.title +
+                //                 '\n',
+                //           ),
+                //           TextSpan(
+                //             text: state
+                //                 .homeStoredData.content.banner.first.script,
+                //             style: TextStyle(
+                //               fontSize: getProportionateScreenWidth(20),
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     );
+                //   }
+                //   else
+                //     return Text("");
+                // }
+                else
+                  return Text(""
+                      // width: 30,
+                      //  height: 30,
+                      );
               },
             ),
           ],

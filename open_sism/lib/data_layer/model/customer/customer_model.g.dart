@@ -48,11 +48,14 @@ CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) {
     city: json['city'] == null
         ? null
         : CityModel.fromJson(json['city'] as Map<String, dynamic>),
+    premium: json['premium'] as bool,
+    id: json['id'] as int,
   );
 }
 
 Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'imageUrl': instance.imageUrl,
@@ -83,4 +86,5 @@ Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
       'group': instance.group?.toJson(),
       'user': instance.user?.toJson(),
       'city': instance.city?.toJson(),
+      'premium': instance.premium,
     };

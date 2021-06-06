@@ -35,7 +35,7 @@ class _ArrowClipper extends CustomClipper<Path> {
     _path.lineTo(size.width, 0);
     _path.lineTo(_center.dx, _center.dy);
     _path.close();
-    print("bitti");
+    // print("bitti");
     return _path;
   }
 

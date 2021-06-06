@@ -3,6 +3,11 @@ import 'package:open_sism/presentation/screens/game/components/game_bundle.dart'
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/golden_spin/goldspin_screen.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen.dart';
+import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen_bloc.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_bloc.dart';
+import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_event.dart';
 
 class GameRow extends StatelessWidget {
   final Game game;
@@ -85,7 +90,17 @@ class GameRow extends StatelessWidget {
     );
 
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, getRouteName(type)),
+      onTap: () {
+        if (getRouteName(type) == WhellFortune.routeName) {
+          context.read<WheelBloc>().add(WheelPageRequested());
+        } else if (getRouteName(type) == GoldWheelFortune.routeName) {
+          context.read<WheelPremiumBloc>().add(WheelPremiumPageRequested());
+          // context.read<WheelPremiumBloc>().add(WheelPremiumCustomerRequested());
+          print("event WheelPremiumCustomerRequested added ");
+        }
+
+        Navigator.pushNamed(context, getRouteName(type));
+      },
       child: new Container(
           height: 120.0,
           margin: const EdgeInsets.symmetric(
