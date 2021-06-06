@@ -38,6 +38,8 @@ import 'package:open_sism/logic/blocs/bonusBloc/bonus_bloc.dart';
 import 'package:open_sism/logic/blocs/login/login_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/app_repo.dart';
 import 'package:open_sism/data_layer/Repositories/user_repo.dart';
+import 'package:open_sism/logic/blocs/taskBloc/task_bloc.dart';
+import 'package:open_sism/data_layer/Repositories/task_repo.dart';
 
 class AppRouter {
   final AppRepository appRepository = AppRepository();
@@ -45,14 +47,15 @@ class AppRouter {
 
   Connectivity connectivity;
   HomeBloc homeBloc;
-  PrizeBloc _prizeBloc;
+  PrizeBloc prizeBloc;
+  TaskBloc taskBloc;
   WheelBloc _wheelBloc;
   AppBloc appBloc;
   LoginBloc loginBloc;
   RegisterBloc registerBloc;
   WheelPremiumBloc _wheelPremiumBloc;
-  BonusBloc _bonusBloc;
-  BonusPremiumBloc _bonusPremiumBloc;
+  BonusBloc bonusBloc;
+  BonusPremiumBloc bonusPremiumBloc;
   AppRouter({@required this.connectivity}) {
     appBloc = new AppBloc(
         appRepository: appRepository,
@@ -75,8 +78,14 @@ class AppRouter {
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
 
-    _prizeBloc = new PrizeBloc(
+    prizeBloc = new PrizeBloc(
       prizeRepository: new PrizeRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
+
+    taskBloc = new TaskBloc(
+      userRepository: userRepository,
+      taskRepository: new TaskRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
 
@@ -91,11 +100,11 @@ class AppRouter {
       prizeRepository: new PrizeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
-    _bonusBloc = new BonusBloc(
+    bonusBloc = new BonusBloc(
       prizeRepository: new PrizeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
-    _bonusPremiumBloc = new BonusPremiumBloc(
+    bonusPremiumBloc = new BonusPremiumBloc(
       prizeRepository: new PrizeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
@@ -121,11 +130,15 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => ForgotPasswordScreen());
         break;
       case TaskScreen.routeName:
-        return MaterialPageRoute(builder: (context) => TaskScreen());
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider.value(
+                  value: taskBloc,
+                  child: TaskScreen(),
+                ));
       case RewardScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => BlocProvider.value(
-                  value: _prizeBloc,
+                  value: prizeBloc,
                   child: RewardScreen(),
                 ));
       case ProfileScreen.routeName:
@@ -171,10 +184,11 @@ class AppRouter {
           builder: (context) => MultiBlocProvider(
             providers: [
               BlocProvider.value(value: homeBloc),
-              BlocProvider.value(value: _prizeBloc),
-              BlocProvider.value(value: _bonusBloc),
-              BlocProvider.value(value: _bonusPremiumBloc),
+              BlocProvider.value(value: prizeBloc),
+              BlocProvider.value(value: bonusBloc),
+              BlocProvider.value(value: bonusPremiumBloc),
               BlocProvider.value(value: appBloc),
+              BlocProvider.value(value: taskBloc)
             ],
             child: HomeScreen(),
           ),
@@ -207,7 +221,7 @@ class AppRouter {
       case DailyBonus.routeName:
         return MaterialPageRoute(
             builder: (context) => BlocProvider.value(
-                  value: _bonusBloc,
+                  value: bonusBloc,
                   child: DailyBonus(),
                 ));
       default:

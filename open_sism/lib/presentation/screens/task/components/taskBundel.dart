@@ -1,23 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:open_sism/data_layer/model/task/taskType_model.dart';
 
 class TaskBundle {
   final int id, person, hours, points;
   final String title, description, imageSrc;
+  final String startDate, endDate;
   final IconData icon;
   final Color color;
-
-  TaskBundle(
-      {this.id,
-      this.person,
-      this.hours,
-      this.points,
-      this.title,
-      this.description,
-      this.imageSrc,
-      this.icon,
-      this.color});
+  final bool isDone, isReachLimit, stared, isForAll;
+  final String link, packageName, pageId, videoId;
+  final int videoDuration;
+  final TaskTypeModel taskType;
+  TaskBundle({
+    this.id,
+    this.person,
+    this.hours,
+    this.points,
+    this.title,
+    this.description,
+    this.imageSrc,
+    this.icon,
+    this.color,
+    this.endDate,
+    this.startDate,
+    this.taskType,
+    this.videoDuration,
+    this.stared,
+    this.pageId,
+    this.packageName,
+    this.link,
+    this.isReachLimit,
+    this.isForAll,
+    this.isDone,
+    this.videoId,
+  });
 }
 
 // Demo list

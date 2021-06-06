@@ -35,7 +35,7 @@ class _TimeAndPersonState extends State<TimeAndPerson> {
                         isSelected: true,
                       ),
                       Text(
-                        "beginTime",
+                        widget.product.startDate,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
@@ -50,7 +50,7 @@ class _TimeAndPersonState extends State<TimeAndPerson> {
                         isSelected: true,
                       ),
                       Text(
-                        "endTime",
+                        widget.product.endDate,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,

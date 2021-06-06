@@ -49,55 +49,53 @@ class RecipeBundelCard extends StatelessWidget {
     );
   }
 
-  SingleChildScrollView cardTaskDesign(double defaultSize) {
-    return SingleChildScrollView(
-      child: Container(
-        //alignment: Alignment.centerLeft,
-        height: 200,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          //mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            //Spacer(),
-            Text(
-              recipeBundle.title,
-              style: TextStyle(
-                  fontSize: defaultSize * 2.0, //22
-                  color: Colors.white),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(height: defaultSize * 0.5), // 5
-            Text(
-              recipeBundle.description,
-              style: TextStyle(color: Colors.white),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(height: defaultSize * 0.5),
-            buildInfoRow(
-              defaultSize,
-              iconSrc: "assets/icons/pot.svg",
-              iconData: Icons.alarm,
-              text: "${recipeBundle.hours} hours",
-            ),
-            SizedBox(height: defaultSize * 0.5), //5
-            buildInfoRow(
-              defaultSize,
-              iconData: Icons.face,
-              iconSrc: "assets/icons/chef.svg",
-              text: "${recipeBundle.person} Person",
-            ),
-            SizedBox(height: defaultSize * 0.5),
-            buildInfoRow(
-              defaultSize,
-              iconData: Icons.star,
-              iconSrc: "assets/icons/chef.svg",
-              text: "${recipeBundle.points} Points",
-            ),
-          ],
-        ),
+  Container cardTaskDesign(double defaultSize) {
+    return Container(
+      //alignment: Alignment.centerLeft,
+      height: 200,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        //mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          //Spacer(),
+          Text(
+            recipeBundle.title,
+            style: TextStyle(
+                fontSize: defaultSize * 2.0, //22
+                color: Colors.white),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          SizedBox(height: defaultSize * 0.5), // 5
+          Text(
+            recipeBundle.description,
+            style: TextStyle(color: Colors.white),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          SizedBox(height: defaultSize * 0.5),
+          buildInfoRow(
+            defaultSize,
+            iconSrc: "assets/icons/pot.svg",
+            iconData: Icons.alarm,
+            text: "${recipeBundle.hours} days",
+          ),
+          SizedBox(height: defaultSize * 0.5), //5
+          buildInfoRow(
+            defaultSize,
+            iconData: Icons.face,
+            iconSrc: "assets/icons/chef.svg",
+            text: "${recipeBundle.person} Person",
+          ),
+          SizedBox(height: defaultSize * 0.5),
+          buildInfoRow(
+            defaultSize,
+            iconData: Icons.star,
+            iconSrc: "assets/icons/chef.svg",
+            text: "${recipeBundle.points} Points",
+          ),
+        ],
       ),
     );
   }

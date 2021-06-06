@@ -116,6 +116,9 @@ class OpenSismApiDataProvider {
     return postGenericWithBody(ADD_LUCKY, TEST_TOKEN, data);
   }
 
+  Future<http.Response> fetchTaskPageJson(String token) async =>
+      postGeneric(TASKS + GET_ALL, token);
+
   Future<http.Response> signIn(
       {String mobile, String password, String fcm_token}) async {
     print(password);

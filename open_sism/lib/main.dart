@@ -119,6 +119,10 @@ class _MyAppState extends State<MyApp> {
         //   create: (context) => HomeAdsBloc(dataRepository, userRepository),
         // ),
         BlocProvider.value(value: _appRouter.appBloc),
+        BlocProvider.value(value: _appRouter.taskBloc),
+        BlocProvider.value(value: _appRouter.bonusBloc),
+        BlocProvider.value(value: _appRouter.bonusPremiumBloc),
+        BlocProvider.value(value: _appRouter.prizeBloc),
         BlocProvider(
           create: (_) => InternetCubit(connectivity: connectivity),
         ),
