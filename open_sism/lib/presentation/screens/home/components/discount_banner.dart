@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'dart:async';
@@ -37,24 +40,55 @@ class DiscountBanner extends StatelessWidget {
               size: 40,
               color: Colors.amber,
             ),
-            Text.rich(
-              TextSpan(
-                style: TextStyle(
-                  color: Color(0xFF212121),
-                  fontWeight: FontWeight.bold,
-                ),
-                children: [
-                  TextSpan(
-                    text: "A  Surpise\n",
-                  ),
-                  TextSpan(
-                    text: "Your points will be +20",
-                    style: TextStyle(
-                      fontSize: getProportionateScreenWidth(20),
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                if (state is HomeLoadedSuccess) {
+                  return Text.rich(
+                    TextSpan(
+                      style: TextStyle(
+                        color: Color(0xFF212121),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
+                        TextSpan(
+                          text:
+                              state.homeData.content.banner.first.title + '\n',
+                        ),
+                        TextSpan(
+                          text: state.homeData.content.banner.first.script,
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(20),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
+                  );
+                } else if (state is HomeLoadFailure) {
+                  return Text.rich(
+                    TextSpan(
+                      style: TextStyle(
+                        color: Color(0xFF212121),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
+                        TextSpan(
+                          text:
+                              state.homeStoredData.content.banner.first.title +
+                                  '\n',
+                        ),
+                        TextSpan(
+                          text:
+                              state.homeStoredData.content.banner.first.script,
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(20),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                } else
+                  return Container();
+              },
             ),
           ],
         ),

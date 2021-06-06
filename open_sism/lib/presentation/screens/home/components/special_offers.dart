@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:async';
+import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 
 class SpecialOffers extends StatelessWidget {
   final int points;
@@ -18,27 +22,37 @@ class SpecialOffers extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text.rich(
-                TextSpan(
-                  style: TextStyle(
-                    color: Colors.amber,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: points.toString() + "\n",
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(12),
+              BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  if (state is HomeLoadedSuccess) {
+                    return Text.rich(
+                      TextSpan(
+                        style: TextStyle(
+                          color: Colors.amber,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: state.homeData.currentCustomer.currentPoints
+                                    .toString() +
+                                "\n",
+                            style: TextStyle(
+                              fontSize: getProportionateScreenWidth(12),
+                            ),
+                          ),
+                          TextSpan(
+                            text: "    points",
+                            style: TextStyle(
+                              fontSize: getProportionateScreenWidth(10),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    TextSpan(
-                      text: "    points",
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(10),
-                      ),
-                    ),
-                  ],
-                ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
               ),
               Text(
                 "Special for you",
@@ -49,13 +63,21 @@ class SpecialOffers extends StatelessWidget {
                 ),
                 //press: () {},
               ),
-              Text(
-                badge,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.amber,
-                  fontWeight: FontWeight.bold,
-                ),
+              BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  if (state is HomeLoadedSuccess) {
+                    return Text(
+                      state.homeData.currentCustomer.group.name,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.amber,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ],
           ),
