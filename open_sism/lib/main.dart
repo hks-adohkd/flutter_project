@@ -26,6 +26,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Define a top-level named handler which background/terminated messages will
 /// call.
@@ -187,6 +188,7 @@ class _OpenSismState extends State<OpenSism> {
         title: 'Open Sism',
         theme: theme(),
         localizationsDelegates: [
+          AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           DefaultCupertinoLocalizations.delegate,

@@ -18,6 +18,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 // Crude counter to make messages unique
 int _messageCount = 0;
 
@@ -121,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
         preferredSize: kAppBarHeight,
         child: ReusableAppBar(
           leadingIcon: null,
-          appBarTitle: "Home",
+          appBarTitle: AppLocalizations.of(context).home,
         ),
       ),
       body: SmartRefresher(
