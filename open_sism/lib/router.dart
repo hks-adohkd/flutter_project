@@ -40,6 +40,7 @@ import 'package:open_sism/data_layer/Repositories/app_repo.dart';
 import 'package:open_sism/data_layer/Repositories/user_repo.dart';
 import 'package:open_sism/logic/blocs/taskBloc/task_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/task_repo.dart';
+import 'package:open_sism/logic/blocs/finished_task_bloc/finishedTask_bloc.dart';
 
 class AppRouter {
   final AppRepository appRepository = AppRepository();
@@ -49,6 +50,7 @@ class AppRouter {
   HomeBloc homeBloc;
   PrizeBloc prizeBloc;
   TaskBloc taskBloc;
+  FinishedTaskBloc finishedTaskBloc;
   WheelBloc _wheelBloc;
   AppBloc appBloc;
   LoginBloc loginBloc;
@@ -89,7 +91,11 @@ class AppRouter {
       taskRepository: new TaskRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
-
+    finishedTaskBloc = new FinishedTaskBloc(
+      userRepository: userRepository,
+      taskRepository: new TaskRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
     _wheelBloc = new WheelBloc(
       userRepository: userRepository,
       prizeRepository: new PrizeRepository(),
@@ -163,11 +169,25 @@ class AppRouter {
       case HelpSupportScreen.routeName:
         return MaterialPageRoute(builder: (context) => HelpSupportScreen());
       case ActivityScreen.routeName:
-        return MaterialPageRoute(builder: (context) => ActivityScreen());
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: finishedTaskBloc),
+                    // BlocProvider.value(value: appBloc),
+                  ],
+                  child: ActivityScreen(),
+                ));
+        break;
+
       case Messages.routeName:
         return MaterialPageRoute(builder: (context) => Messages());
       case FinishedTask.routeName:
-        return MaterialPageRoute(builder: (context) => FinishedTask());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: finishedTaskBloc,
+            child: FinishedTask(),
+          ),
+        );
       case Order.routeName:
         return MaterialPageRoute(builder: (context) => Order());
       case AboutUs.routeName:

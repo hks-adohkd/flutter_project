@@ -90,18 +90,18 @@ class WheelBloc extends Bloc<WheelEvent, WheelState> {
       int mS = timeNow.dateTimeNow.millisecondsSinceEpoch -
           wheelPageModel
               .currentCustomer.luckyWheelLastSpinDate.millisecondsSinceEpoch;
-      print({"timeNow", timeNow.dateTimeNow});
-      print({
-        "luckyWheelLastSpinDate",
-        wheelPageModel.currentCustomer.luckyWheelLastSpinDate
-      });
+      // print({"timeNow", timeNow.dateTimeNow});
+      // print({
+      //   "luckyWheelLastSpinDate",
+      //   wheelPageModel.currentCustomer.luckyWheelLastSpinDate
+      // });
       int hour = (mS ~/ (1000 * 60 * 60));
       int minutes = (mS ~/ (1000 * 60)) % 60;
-      print({"hour", hour});
+      //print({"hour", hour});
       int nextSpinHourMs = (24 * 60 * 60 * 1000) - mS;
       int nextSpinMinutes = (nextSpinHourMs ~/ (1000 * 60)) % 60;
       int nextSpinHour = nextSpinHourMs ~/ (1000 * 60 * 60);
-      print({"nextSpinHour", nextSpinHour});
+      // print({"nextSpinHour", nextSpinHour});
       String spinTime = '$nextSpinHour h:$nextSpinMinutes m';
       if (nextSpinHour < 24 && nextSpinHour > 0) {
         spinValid = false;

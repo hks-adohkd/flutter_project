@@ -15,6 +15,7 @@ import 'package:open_sism/logic/blocs/bonusBloc/bonus_state.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_event.dart';
 import 'package:lottie/lottie.dart';
 import 'package:open_sism/presentation/configurations/utils.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 bool visiblePoint = false;
 bool visibleGift = true;
@@ -73,60 +74,73 @@ class _DailyBonusState extends State<DailyBonus> with TickerProviderStateMixin {
   // 'Your Spin is Available ',
   // SnackBarType.wheel,
   // );
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh(BuildContext context) async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    context.read<BonusBloc>().add(BonusPageRequested());
+    print("refresh");
+    _refreshController.refreshCompleted();
+  }
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context); // to get the screen size
     return SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: kAppBarHeight,
-          child: ReusableAppBar(
-            appBarTitle: "Daily Bonus",
+      child: SmartRefresher(
+        controller: _refreshController,
+        onRefresh: () => _onRefresh(context),
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: kAppBarHeight,
+            child: ReusableAppBar(
+              appBarTitle: "Daily Bonus",
+            ),
           ),
-        ),
-        body: BlocListener<BonusBloc, BonusState>(
-          listener: (context, state) {
-            if (state is BonusLoadedSuccess) {
-              visibleLock = true;
-              visibleGift = true;
-              if (state.bonusData.currentCustomer.dailyBonusLevel == 8) {
-                visibleLock = false;
-              }
-              if (state.bonusData.currentCustomer.dailyBonusLevel == 9) {
-                visibleLock = false;
-                visibleGift = false;
-              }
+          body: BlocListener<BonusBloc, BonusState>(
+            listener: (context, state) {
+              if (state is BonusLoadedSuccess) {
+                visibleLock = true;
+                visibleGift = true;
+                if (state.bonusData.currentCustomer.dailyBonusLevel == 8) {
+                  visibleLock = false;
+                }
+                if (state.bonusData.currentCustomer.dailyBonusLevel == 9) {
+                  visibleLock = false;
+                  visibleGift = false;
+                }
 
-              context.read<BonusBloc>().add(BonusDataReadyEvent());
-            }
-            if (state is BonusDataReady) {
-              if (!state.isAllowed) {
-                print(state.isAllowed);
-                showSnackBar(
-                  context,
-                  'Your Daily Gift Will be Available in ${state.nextSpin}',
-                  SnackBarType.error,
-                );
-              } else if (state.isAllowed) {
-                showSnackBar(
-                  context,
-                  'Your Daily Gift is Available ',
-                  SnackBarType.wheel,
-                );
+                context.read<BonusBloc>().add(BonusDataReadyEvent());
               }
-            }
-            if (state is BonusAddSuccess) {
-              if (state.bonusPrize.message == "success") {
-                showSnackBar(
-                  context,
-                  'Your  Gift is Added Successfully ',
-                  SnackBarType.wheel,
-                );
+              if (state is BonusDataReady) {
+                if (!state.isAllowed) {
+                  print(state.isAllowed);
+                  showSnackBar(
+                    context,
+                    'Your Daily Gift Will be Available in ${state.nextSpin}',
+                    SnackBarType.error,
+                  );
+                } else if (state.isAllowed) {
+                  showSnackBar(
+                    context,
+                    'Your Daily Gift is Available ',
+                    SnackBarType.wheel,
+                  );
+                }
               }
-            }
-          },
-          child: buildContainer(),
+              if (state is BonusAddSuccess) {
+                if (state.bonusPrize.message == "success") {
+                  showSnackBar(
+                    context,
+                    'Your  Gift is Added Successfully ',
+                    SnackBarType.wheel,
+                  );
+                }
+              }
+            },
+            child: buildContainer(),
+          ),
         ),
       ),
     );

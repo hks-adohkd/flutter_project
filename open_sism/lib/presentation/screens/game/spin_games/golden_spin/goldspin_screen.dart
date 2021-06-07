@@ -8,6 +8,7 @@ import 'package:open_sism/presentation/screens/game/spin_games/components/build.
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_state.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/model.dart';
 import 'package:open_sism/presentation/configurations/utils.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class GoldWheelFortune extends StatefulWidget {
   static const String routeName = "/gold_spin_screen";
@@ -58,55 +59,69 @@ class _GoldWheelFortuneState extends State<GoldWheelFortune>
     // });
   }
 
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh(BuildContext context) async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    context.read<WheelPremiumBloc>().add(WheelPremiumPageRequested());
+    print("refresh");
+    _refreshController.refreshCompleted();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      body: Container(
-        height: SizeConfig.screenHeight,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/goldenwheel.png"),
-            fit: BoxFit.cover,
+    return SmartRefresher(
+      controller: _refreshController,
+      onRefresh: () => _onRefresh(context),
+      child: Scaffold(
+        body: Container(
+          height: SizeConfig.screenHeight,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/goldenwheel.png"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: BlocListener<WheelPremiumBloc, WheelState>(
-          listener: (context, state) {
-            if (state is WheelPremiumDataReady) {
-              if (!state.isAllowed) {
-                print(state.isAllowed);
-                showSnackBar(
-                  context,
-                  'Your Spin Will be Available in ${state.nextSpin}',
-                  SnackBarType.error,
-                );
-              } else if (state.isAllowed) {
-                showSnackBar(
-                  context,
-                  'Your Spin is Available ',
-                  SnackBarType.wheel,
-                );
+          child: BlocListener<WheelPremiumBloc, WheelState>(
+            listener: (context, state) {
+              if (state is WheelPremiumDataReady) {
+                if (!state.isAllowed) {
+                  print(state.isAllowed);
+                  showSnackBar(
+                    context,
+                    'Your Spin Will be Available in ${state.nextSpin}',
+                    SnackBarType.error,
+                  );
+                } else if (state.isAllowed) {
+                  showSnackBar(
+                    context,
+                    'Your Spin is Available ',
+                    SnackBarType.wheel,
+                  );
+                }
               }
-            }
-            if (state is WheelPremiumAddSuccess) {
-              Future.delayed(const Duration(milliseconds: 2000), () {
-                context
-                    .read<WheelPremiumBloc>()
-                    .add(WheelPremiumPageRequested());
-              });
-              if (state.wheelPrize.message == "success") {
-                allowed = true;
-                showSnackBar(
-                  context,
-                  "Added Successful",
-                  SnackBarType.wheel,
-                );
-              } else if (state.wheelPrize.message == "NotAllowed") {
-                allowed = false;
+              if (state is WheelPremiumAddSuccess) {
+                Future.delayed(const Duration(milliseconds: 2000), () {
+                  context
+                      .read<WheelPremiumBloc>()
+                      .add(WheelPremiumPageRequested());
+                });
+                if (state.wheelPrize.message == "success") {
+                  allowed = true;
+                  showSnackBar(
+                    context,
+                    "Added Successful",
+                    SnackBarType.wheel,
+                  );
+                } else if (state.wheelPrize.message == "NotAllowed") {
+                  allowed = false;
+                }
               }
-            }
-          },
-          child: buildAnimatedBuilder(),
+            },
+            child: buildAnimatedBuilder(),
+          ),
         ),
       ),
     );
