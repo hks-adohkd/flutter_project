@@ -41,8 +41,11 @@ class BonusAddSuccess extends BonusState {
 
 class BonusDataReady extends BonusState {
   final BonusApiResponse bonusData;
-
-  const BonusDataReady({@required this.bonusData}) : assert(bonusData != null);
+  final String nextSpin;
+  final bool isAllowed;
+  const BonusDataReady(
+      {@required this.bonusData, this.nextSpin, this.isAllowed})
+      : assert(bonusData != null);
 
   @override
   List<Object> get props => [bonusData];

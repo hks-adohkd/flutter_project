@@ -17,7 +17,7 @@ class _CustomButtonState extends State<CustomButton> {
       color: Colors.grey.shade200,
       padding: const EdgeInsets.all(16.0),
       onPressed: () async {
-        if (await canLaunch(youtubeChannel)) launch(youtubeChannel);
+        if (await canLaunch(widget.product.link)) launch(widget.product.link);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

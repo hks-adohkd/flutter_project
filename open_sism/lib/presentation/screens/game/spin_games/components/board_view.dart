@@ -10,6 +10,8 @@ class BoardView extends StatefulWidget {
   final List<Luck> items;
   final bool isStart;
   final Function press;
+  final String nextSpin;
+  final bool valid;
 
   const BoardView(
       {Key key,
@@ -17,7 +19,9 @@ class BoardView extends StatefulWidget {
       this.current,
       this.items,
       this.isStart = false,
-      this.press})
+      this.press,
+      this.nextSpin = "",
+      this.valid = false})
       : super(key: key);
 
   @override
@@ -70,6 +74,27 @@ class _BoardViewState extends State<BoardView> {
             children: [
               // ArrowView(),
               _buildGo(),
+            ],
+          ),
+        ),
+        Container(
+          height: size.height,
+          width: size.width,
+          //alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              // ArrowView(),
+              Visibility(
+                visible: widget.valid,
+                child: Text(
+                  widget.nextSpin,
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red),
+                ),
+              ),
             ],
           ),
         ),

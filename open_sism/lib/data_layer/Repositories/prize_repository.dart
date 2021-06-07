@@ -13,8 +13,8 @@ import 'package:open_sism/data_layer/model/customerPrize/customer_prize_api_resp
 class PrizeRepository {
   final OpenSismApiDataProvider dataProvider = new OpenSismApiDataProvider();
 
-  Future<PrizeModel> getPrizeAll() async {
-    var response = await dataProvider.fetchPrizeAllJson();
+  Future<PrizeModel> getPrizeAll({String token}) async {
+    var response = await dataProvider.fetchPrizeAllJson(token: token);
     var jsonObj = json.decode(response.body);
     //print(jsonObj);
     var prizeModel = PrizeModel.fromJson(jsonObj);
@@ -24,8 +24,8 @@ class PrizeRepository {
     return prizeModel;
   }
 
-  Future<PrizeApiResponse> getPrizePage() async {
-    var response = await dataProvider.fetchPrizePageJson();
+  Future<PrizeApiResponse> getPrizePage({String token}) async {
+    var response = await dataProvider.fetchPrizePageJson(token: token);
     var jsonObj = json.decode(response.body);
     // print(jsonObj);
     var prizePageModel = PrizeApiResponse.fromJson(jsonObj);
@@ -35,8 +35,8 @@ class PrizeRepository {
     return prizePageModel;
   }
 
-  Future<WheelApiResponse> getWheelPrizes() async {
-    var response = await dataProvider.fetchWheelPageJson();
+  Future<WheelApiResponse> getWheelPrizes({String token}) async {
+    var response = await dataProvider.fetchWheelPageJson(token: token);
     var jsonObj = json.decode(response.body);
     // print(jsonObj);
     var wheelPageModel = WheelApiResponse.fromJson(jsonObj);
@@ -46,8 +46,8 @@ class PrizeRepository {
     return wheelPageModel;
   }
 
-  Future<WheelApiResponse> getPremiumWheelPrizes() async {
-    var response = await dataProvider.fetchPremiumWheelPageJson();
+  Future<WheelApiResponse> getPremiumWheelPrizes({String token}) async {
+    var response = await dataProvider.fetchPremiumWheelPageJson(token: token);
     var jsonObj = json.decode(response.body);
     // print(jsonObj);
     var wheelPageModel = WheelApiResponse.fromJson(jsonObj);
@@ -57,8 +57,8 @@ class PrizeRepository {
     return wheelPageModel;
   }
 
-  Future<BonusApiResponse> getBonusPrizes() async {
-    var response = await dataProvider.fetchBonusJson();
+  Future<BonusApiResponse> getBonusPrizes({String token}) async {
+    var response = await dataProvider.fetchBonusJson(token: token);
     var jsonObj = json.decode(response.body);
     // print(jsonObj);
     var bonusModel = BonusApiResponse.fromJson(jsonObj);
@@ -68,8 +68,8 @@ class PrizeRepository {
     return bonusModel;
   }
 
-  Future<BonusApiResponse> getPremiumBonusPrizes() async {
-    var response = await dataProvider.fetchPremiumBonusJson();
+  Future<BonusApiResponse> getPremiumBonusPrizes({String token}) async {
+    var response = await dataProvider.fetchPremiumBonusJson(token: token);
     var jsonObj = json.decode(response.body);
     // print(jsonObj);
     var bonusModel = BonusApiResponse.fromJson(jsonObj);
@@ -79,8 +79,10 @@ class PrizeRepository {
     return bonusModel;
   }
 
-  Future<CustomerPrizeApiResponse> addBonusPrizes({int prizeId}) async {
-    var response = await dataProvider.fetchAddDailyBonus(prizeId: prizeId);
+  Future<CustomerPrizeApiResponse> addBonusPrizes(
+      {int prizeId, String token}) async {
+    var response =
+        await dataProvider.fetchAddDailyBonus(prizeId: prizeId, token: token);
     var jsonObj = json.decode(response.body);
 
     var customerPrizeModel = CustomerPrizeApiResponse.fromJson(jsonObj);
@@ -90,8 +92,23 @@ class PrizeRepository {
     return customerPrizeModel;
   }
 
-  Future<CustomerPrizeApiResponse> addLuckyPrizes({int prizeId}) async {
-    var response = await dataProvider.fetchAddLucky(prizeId: prizeId);
+  Future<CustomerPrizeApiResponse> addLuckyPrizes(
+      {int prizeId, String token}) async {
+    var response =
+        await dataProvider.fetchAddLucky(prizeId: prizeId, token: token);
+    var jsonObj = json.decode(response.body);
+
+    var customerPrizeModel = CustomerPrizeApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    // print("customerPrizeModel : ");
+    print(customerPrizeModel);
+    return customerPrizeModel;
+  }
+
+  Future<CustomerPrizeApiResponse> addPremiumLuckyPrizes(
+      {int prizeId, String token}) async {
+    var response =
+        await dataProvider.fetchAddLuckyPremium(prizeId: prizeId, token: token);
     var jsonObj = json.decode(response.body);
 
     var customerPrizeModel = CustomerPrizeApiResponse.fromJson(jsonObj);

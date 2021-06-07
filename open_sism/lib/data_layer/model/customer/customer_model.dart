@@ -17,6 +17,7 @@ class CustomerModel extends Equatable {
   final int currentPoints;
   final int totalPoints;
   final DateTime luckyWheelLastSpinDate;
+  final DateTime luckyWheelPremiumLastSpinDate;
   final DateTime dailyBonusLastUseDate;
   final int dailyBonusLevel;
   final int cityId;
@@ -69,7 +70,8 @@ class CustomerModel extends Equatable {
       this.user,
       this.city,
       this.premium,
-      this.id});
+      this.id,
+      this.luckyWheelPremiumLastSpinDate});
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
@@ -87,6 +89,7 @@ class CustomerModel extends Equatable {
         gender,
         luckyWheelLastSpinDate,
         dailyBonusLevel,
+        luckyWheelPremiumLastSpinDate,
         dailyBonusLastUseDate,
         token,
         lockOutEnabled

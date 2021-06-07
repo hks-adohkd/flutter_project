@@ -81,40 +81,53 @@ class OpenSismApiDataProvider {
     return response;
   }
 
+  Future<http.Response> fetchTimeJson({String token}) async =>
+      postGeneric(TIME_NOW, token);
+
   Future<http.Response> fetchHomeJson({String token}) async =>
       postGeneric(HOME_PAGE, token);
 
   Future<http.Response> fetchCitiesJson(String token) async =>
       postGeneric(CITIES + GET_ALL, token);
 
-  Future<http.Response> fetchPrizeAllJson() async =>
-      postGeneric(PRIZES + GET_ALL, TEST_TOKEN);
+  Future<http.Response> fetchPrizeAllJson({String token}) async =>
+      postGeneric(PRIZES + GET_ALL, token);
 
-  Future<http.Response> fetchPrizePageJson() async =>
-      postGeneric(PRIZESPage, TEST_TOKEN);
+  Future<http.Response> fetchPrizePageJson({String token}) async =>
+      postGeneric(PRIZESPage, token);
 
-  Future<http.Response> fetchWheelPageJson() async =>
-      postGeneric(LUCKY_WHEEL + GET_ONE, TEST_TOKEN);
+  Future<http.Response> fetchWheelPageJson({String token}) async =>
+      postGeneric(LUCKY_WHEEL + GET_ONE, token);
 
-  Future<http.Response> fetchPremiumWheelPageJson() async =>
-      postGeneric(LUCKY_WHEEL + GET_Premium, TEST_TOKEN);
+  Future<http.Response> fetchPremiumWheelPageJson({String token}) async =>
+      postGeneric(LUCKY_WHEEL + GET_Premium, token);
 
-  Future<http.Response> fetchBonusJson() async =>
-      postGeneric(DAILY_BONUS + GET_ONE, TEST_TOKEN);
-  Future<http.Response> fetchPremiumBonusJson() async =>
-      postGeneric(DAILY_BONUS + GET_Premium, TEST_TOKEN);
+  Future<http.Response> fetchBonusJson({String token}) async =>
+      postGeneric(DAILY_BONUS + GET_ONE, token);
+  Future<http.Response> fetchPremiumBonusJson({String token}) async =>
+      postGeneric(DAILY_BONUS + GET_Premium, token);
 
-  Future<http.Response> fetchAddDailyBonus({int prizeId}) async {
+  Future<http.Response> fetchAddDailyBonus({int prizeId, String token}) async {
     Map data = {"PrizeId": prizeId};
 
-    return postGenericWithBody(ADD_DAILY_BONUS, TEST_TOKEN, data);
+    return postGenericWithBody(ADD_DAILY_BONUS, token, data);
   }
 
-  Future<http.Response> fetchAddLucky({int prizeId}) async {
+  Future<http.Response> fetchAddLucky({int prizeId, String token}) async {
     Map data = {"PrizeId": prizeId};
 
-    return postGenericWithBody(ADD_LUCKY, TEST_TOKEN, data);
+    return postGenericWithBody(ADD_LUCKY, token, data);
   }
+
+  Future<http.Response> fetchAddLuckyPremium(
+      {int prizeId, String token}) async {
+    Map data = {"PrizeId": prizeId};
+
+    return postGenericWithBody(ADD_LUCKY_Premium, token, data);
+  }
+
+  Future<http.Response> fetchTaskPageJson(String token) async =>
+      postGeneric(TASKS + GET_ALL, token);
 
   Future<http.Response> signIn(
       {String mobile, String password, String fcm_token}) async {

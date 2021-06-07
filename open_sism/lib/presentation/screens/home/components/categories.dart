@@ -12,6 +12,8 @@ import 'package:open_sism/presentation/screens/task/task_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_bloc.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_event.dart';
+import 'package:open_sism/logic/blocs/taskBloc/task_bloc.dart';
+import 'package:open_sism/logic/blocs/taskBloc/task_event.dart';
 
 class Categories extends StatelessWidget {
   @override
@@ -55,6 +57,11 @@ class Categories extends StatelessWidget {
                     press: () {
                       print(index);
                       switch (index) {
+                        case 0:
+                          {
+                            context.read<TaskBloc>().add(TaskPageRequested());
+                          }
+                          break;
                         case 2:
                           {
                             context.read<PrizeBloc>().add(PrizePageRequested());

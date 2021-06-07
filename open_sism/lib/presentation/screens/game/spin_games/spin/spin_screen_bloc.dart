@@ -7,6 +7,7 @@ import 'package:open_sism/presentation/screens/game/spin_games/components/build.
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_state.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/model.dart';
+import 'package:open_sism/presentation/configurations/utils.dart';
 
 class WhellFortune extends StatefulWidget {
   static const String routeName = "/spin_screen";
@@ -68,7 +69,42 @@ class _WhellFortuneState extends State<WhellFortune>
             fit: BoxFit.cover,
           ),
         ),
-        child: buildAnimatedBuilder(),
+        child: BlocListener<WheelBloc, WheelState>(
+          listener: (context, state) {
+            if (state is WheelDataReady) {
+              if (!state.isAllowed) {
+                print(state.isAllowed);
+                showSnackBar(
+                  context,
+                  'Your Spin Will be Available in ${state.nextSpin}',
+                  SnackBarType.error,
+                );
+              } else if (state.isAllowed) {
+                showSnackBar(
+                  context,
+                  'Your Spin is Available ',
+                  SnackBarType.wheel,
+                );
+              }
+            }
+            if (state is WheelAddSuccess) {
+              Future.delayed(const Duration(milliseconds: 2000), () {
+                context.read<WheelBloc>().add(WheelPageRequested());
+              });
+              if (state.wheelPrize.message == "success") {
+                allowed = true;
+                showSnackBar(
+                  context,
+                  "Added Successful",
+                  SnackBarType.wheel,
+                );
+              } else if (state.wheelPrize.message == "NotAllowed") {
+                allowed = false;
+              }
+            }
+          },
+          child: buildAnimatedBuilder(),
+        ),
       ),
     );
   }
@@ -171,7 +207,7 @@ class _WhellFortuneState extends State<WhellFortune>
                     );
                     // return buildMethod.buildResult(_value);
                   } else if (state is WheelDataReady) {
-                    print(buildMethod.giftItemsN.first.point);
+                    //  print(buildMethod.giftItemsN.first.point);
                     return buildBoardViewWithData(_angle, context, state);
                     // return Container(
                     //   child: Text(" your  Spin Data ready "),
@@ -182,10 +218,10 @@ class _WhellFortuneState extends State<WhellFortune>
                       child: Text("Preparing your AddPrize Data "),
                     );
                   } else if (state is WheelAddSuccess) {
-                    // return buildBoardViewWithData(_angle, context, state);
-                    return Container(
-                      child: Text(""),
-                    );
+                    return buildBoardViewWithData(_angle, context, state);
+                    // return Container(
+                    //   child: Text(""),
+                    // );
                   } else
                     //return the standard spin view
 
@@ -210,11 +246,21 @@ class _WhellFortuneState extends State<WhellFortune>
         items: buildMethod.wheelGiftParts,
         current: buildMethod.current,
         angle: _angle,
+        nextSpin: state.nextSpin,
+        valid: !state.isAllowed,
         isStart: buildMethod.isStart,
         press: () {
-          buildMethod.isStart = true;
-          buildMethod.isEnd = false;
-          buildMethod.animation(context, spinInitState, allowed, premium);
+          if (state.isAllowed) {
+            buildMethod.isStart = true;
+            buildMethod.isEnd = false;
+            buildMethod.animation(context, spinInitState, allowed, premium);
+          } else {
+            showSnackBar(
+              context,
+              'Your Spin Will be Available in ${state.nextSpin}',
+              SnackBarType.error,
+            );
+          }
           // setState(
           //   () {
           //     buildMethod.isStart = true;
@@ -226,15 +272,23 @@ class _WhellFortuneState extends State<WhellFortune>
       );
     } else if (state is WheelAddPrize) {
       return Container(
-        height: getProportionateScreenWidth(80),
-        width: getProportionateScreenWidth(80),
-        child: Text("adding your Prize"),
+        height: SizeConfig.screenHeight,
+        width: SizeConfig.screenWidth,
+        child: Center(
+          child: Image(
+            image: AssetImage('assets/images/giftt.png'),
+          ),
+        ),
       );
     } else if (state is WheelAddSuccess) {
       return Container(
-        height: getProportionateScreenWidth(80),
-        width: getProportionateScreenWidth(80),
-        child: Text("adding your Prize Success "),
+        height: SizeConfig.screenHeight,
+        width: SizeConfig.screenWidth,
+        child: Center(
+          child: Image(
+            image: AssetImage('assets/images/success.png'),
+          ),
+        ),
       );
     }
     // return BoardView(
@@ -369,95 +423,98 @@ class _WhellFortuneState extends State<WhellFortune>
             return Text("");
           } else
             return Text("error in Ready");
-        } else if (state is WheelAddSuccess) {
-          Future.delayed(const Duration(milliseconds: 2000), () {
-            context.read<WheelBloc>().add(WheelPageRequested());
-          });
+        }
 
-          if (state.wheelPrize.message == "NotAllowed") {
-            allowed = false;
-
-            int nowHour = new DateTime.now().hour;
-            // print({"now", nowHour});
-            int doHour =
-                state.wheelPrize.currentCustomer.luckyWheelLastSpinDate.hour;
-            if (state.wheelPrize.currentCustomer.luckyWheelLastSpinDate.day ==
-                DateTime.now().day) {
-              remain = 24 - (nowHour - doHour).abs();
-            } else {
-              remain = (nowHour - doHour).abs();
-            }
-
-            //print({"doHour", doHour});
-            //remain = 24 - (nowHour - doHour);
-            return Center(
-              child: Container(
-                padding: EdgeInsets.all(getProportionateScreenWidth(1)),
-                alignment: Alignment.center,
-                height: getProportionateScreenWidth(120),
-                width: getProportionateScreenWidth(140),
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  //color: Colors.amber.withOpacity(0.6),
-
-                  //borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Added  Error",
-                        style: Theme.of(context).textTheme.headline4.copyWith(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24),
-                      ),
-                      Text(
-                        'Come Back in ',
-                        style: Theme.of(context).textTheme.headline4.copyWith(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24),
-                      ),
-                      Text(
-                        '$remain : 00 ',
-                        style: Theme.of(context).textTheme.headline4.copyWith(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          } else if (state.wheelPrize.message == "success") {
-            allowed = true;
-            return Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(1)),
-              alignment: Alignment.center,
-              height: getProportionateScreenWidth(120),
-              width: getProportionateScreenWidth(140),
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                //color: Colors.amber.withOpacity(0.6),
-
-                //borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Text(
-                  "Added Successful",
-                  style: Theme.of(context).textTheme.headline4.copyWith(
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24),
-                ),
-              ),
-            );
-          } else
-            allowed = false;
-          return Text("Error");
-        } else {
+        //
+        // else if (state is WheelAddSuccess) {
+        //   Future.delayed(const Duration(milliseconds: 2000), () {
+        //     context.read<WheelBloc>().add(WheelPageRequested());
+        //   });
+        //
+        //   if (state.wheelPrize.message == "NotAllowed") {
+        //     allowed = false;
+        //
+        //     int mS = state.dateNow.dateTimeNow.millisecondsSinceEpoch -
+        //         state.wheelPrize.currentCustomer.luckyWheelLastSpinDate
+        //             .millisecondsSinceEpoch;
+        //     int hour = (mS ~/ (1000 * 60 * 60));
+        //     int minutes = (mS ~/ (1000 * 60)) % 60;
+        //
+        //     int nextSpinHourMs = (24 * 60 * 60 * 1000) - mS;
+        //     int nextSpinMinutes = (nextSpinHourMs ~/ (1000 * 60)) % 60;
+        //     int nextSpinHour = nextSpinHourMs ~/ (1000 * 60 * 60);
+        //
+        //     return Center(
+        //       child: Container(
+        //         padding: EdgeInsets.all(getProportionateScreenWidth(1)),
+        //         alignment: Alignment.center,
+        //         height: getProportionateScreenWidth(120),
+        //         width: getProportionateScreenWidth(140),
+        //         decoration: BoxDecoration(
+        //           shape: BoxShape.rectangle,
+        //           //color: Colors.amber.withOpacity(0.6),
+        //
+        //           //borderRadius: BorderRadius.circular(10),
+        //         ),
+        //         child: Center(
+        //           child: Column(
+        //             children: [
+        //               Text(
+        //                 "Added  Error",
+        //                 style: Theme.of(context).textTheme.headline4.copyWith(
+        //                     color: Colors.red,
+        //                     fontWeight: FontWeight.bold,
+        //                     fontSize: 24),
+        //               ),
+        //               Text(
+        //                 'Come Back in ',
+        //                 style: Theme.of(context).textTheme.headline4.copyWith(
+        //                     color: Colors.red,
+        //                     fontWeight: FontWeight.bold,
+        //                     fontSize: 24),
+        //               ),
+        //               Text(
+        //                 '$nextSpinHour : $nextSpinMinutes ',
+        //                 style: Theme.of(context).textTheme.headline4.copyWith(
+        //                     color: Colors.red,
+        //                     fontWeight: FontWeight.bold,
+        //                     fontSize: 24),
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     );
+        //   }
+        //   //else if (state.wheelPrize.message == "success") {
+        //   //   allowed = true;
+        //   // return Container(
+        //   //   padding: EdgeInsets.all(getProportionateScreenWidth(1)),
+        //   //   alignment: Alignment.center,
+        //   //   height: getProportionateScreenWidth(120),
+        //   //   width: getProportionateScreenWidth(140),
+        //   //   decoration: BoxDecoration(
+        //   //     shape: BoxShape.rectangle,
+        //   //     //color: Colors.amber.withOpacity(0.6),
+        //   //
+        //   //     //borderRadius: BorderRadius.circular(10),
+        //   //   ),
+        //   //   child: Center(
+        //   //     child: Text(
+        //   //       "Added Successful",
+        //   //       style: Theme.of(context).textTheme.headline4.copyWith(
+        //   //           color: Colors.green,
+        //   //           fontWeight: FontWeight.bold,
+        //   //           fontSize: 24),
+        //   //     ),
+        //   //   ),
+        //   // );
+        //   //}
+        //   else
+        //     allowed = false;
+        //   return Text("Error");
+        //}
+        else {
           return Text("");
         }
       }),
