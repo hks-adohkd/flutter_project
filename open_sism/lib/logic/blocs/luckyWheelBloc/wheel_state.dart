@@ -9,6 +9,7 @@ import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
 import 'package:open_sism/data_layer/model/prize/prize_model.dart';
 import 'package:open_sism/data_layer/model/prize/prizePage_model.dart';
+import 'package:open_sism/data_layer/model/application_user/time_model.dart';
 
 abstract class WheelState extends Equatable {
   const WheelState();
@@ -33,8 +34,11 @@ class WheelLoadedSuccess extends WheelState {
 
 class WheelDataReady extends WheelState {
   final WheelApiResponse wheelData;
-
-  const WheelDataReady({@required this.wheelData}) : assert(wheelData != null);
+  final bool isAllowed;
+  final String nextSpin;
+  const WheelDataReady(
+      {@required this.wheelData, this.isAllowed, this.nextSpin})
+      : assert(wheelData != null);
 
   @override
   List<Object> get props => [wheelData];
@@ -51,11 +55,11 @@ class WheelAddPrize extends WheelState {
 
 class WheelAddSuccess extends WheelState {
   final CustomerPrizeApiResponse wheelPrize;
-
-  const WheelAddSuccess({@required this.wheelPrize});
+  final TimeModel dateNow;
+  const WheelAddSuccess({@required this.wheelPrize, this.dateNow});
 
   @override
-  List<Object> get props => [wheelPrize];
+  List<Object> get props => [wheelPrize, dateNow];
 }
 
 class WheelLoadFailure extends WheelState {
@@ -90,8 +94,13 @@ class WheelPremiumLoadedSuccess extends WheelState {
 class WheelPremiumDataReady extends WheelState {
   final WheelApiResponse wheelData;
   final bool isPremium;
+  final String nextSpin;
+  final bool isAllowed;
   const WheelPremiumDataReady(
-      {@required this.wheelData, @required this.isPremium})
+      {@required this.wheelData,
+      @required this.isPremium,
+      this.isAllowed,
+      this.nextSpin})
       : assert(wheelData != null);
 
   @override
@@ -110,8 +119,8 @@ class WheelPremiumAddPrize extends WheelState {
 
 class WheelPremiumAddSuccess extends WheelState {
   final CustomerPrizeApiResponse wheelPrize;
-
-  const WheelPremiumAddSuccess({@required this.wheelPrize});
+  final TimeModel dateNow;
+  const WheelPremiumAddSuccess({@required this.wheelPrize, this.dateNow});
 
   @override
   List<Object> get props => [wheelPrize];

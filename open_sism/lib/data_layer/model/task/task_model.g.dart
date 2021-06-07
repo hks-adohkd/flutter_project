@@ -53,7 +53,7 @@ Map<String, dynamic> _$TaskModelToJson(TaskModel instance) => <String, dynamic>{
       'startDate': instance.startDate?.toIso8601String(),
       'endDate': instance.endDate?.toIso8601String(),
       'points': instance.points,
-      'limits': instance.limit,
+      'limit': instance.limit,
       'stared': instance.stared,
       'taskTypeId': instance.taskTypeId,
       'packageName': instance.packageName,

@@ -5,6 +5,7 @@ import 'package:open_sism/data_layer/model/prize/prize_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:open_sism/data_layer/model/customer/customer_response_model.dart';
+import 'package:open_sism/data_layer/model/application_user/time_model.dart';
 
 class UserRepository {
   static const String key_id = 'id';
@@ -31,6 +32,18 @@ class UserRepository {
   static const String key_groupId = 'groupId';
 
   final OpenSismApiDataProvider api = new OpenSismApiDataProvider();
+
+  Future<TimeModel> getTime() async {
+    var response = await api.fetchTimeJson(token: await getToken());
+    var jsonObj = json.decode(response.body);
+    print(jsonObj);
+    var timeModel = TimeModel.fromJson(jsonObj);
+
+    print("timeModel : ");
+    print(timeModel);
+    // print(prizeModel);
+    return timeModel;
+  }
 
   Future<PrizeModel> getPrizeAll() async {
     var response = await api.fetchPrizeAllJson();

@@ -38,6 +38,7 @@ const String GET_ONE = "Get";
 const String GET_Premium = "GetPremium";
 const String ADD = "Add";
 const String ADD_LUCKY = "api/CustomerPrizes/AddLucky";
+const String ADD_LUCKY_Premium = "api/CustomerPrizes/AddLuckyPremium";
 const String ADD_DAILY_BONUS = "api/CustomerPrizes/AddDailyBonus";
 const String ADD_START = "api/AddStart";
 const String REQUEST_PRIZE = "api/RequestPrize";
@@ -50,6 +51,6 @@ const String INTRO_IMAGES = "api/Contents/GetIntro";
 const String INTRO_VIDEO = "api/Contents/GetIntroVideo";
 const String ABOUT_US = "api/Contents/AboutUs";
 const String CONTACT = "api/Contacts/";
-
+const String TIME_NOW = "api/Customer/GetTime/";
 const String TEST_TOKEN =
     "    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiKzk2Mzk5OTk5OTk5OSIsImp0aSI6IjY1MzlmYzZlLTg1NTMtNDllNi05NzIwLTA3NzViMGYxNTQzMSIsImV4cCI6MTYyNTUxMTIyOCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.bjX4UUJ2aYd47SdQzcUnU0iyZ5jXeNbslqplBhr3xu0";

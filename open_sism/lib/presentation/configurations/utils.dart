@@ -143,15 +143,16 @@ showSnackBar(context, message, SnackBarType type) {
               )
             : CustomText(
                 message,
+                align: TextAlign.center,
                 maxLines: 2,
-                type: TextType.smallBody,
+                type: TextType.body,
               ),
         backgroundColor: getSnackBarColor(type),
       ),
     );
 }
 
-enum SnackBarType { normal, loading, error }
+enum SnackBarType { normal, loading, error, wheel }
 
 Color getSnackBarColor(SnackBarType type) {
   switch (type) {
@@ -163,6 +164,9 @@ Color getSnackBarColor(SnackBarType type) {
       break;
     case SnackBarType.error:
       return CustomColors.red;
+      break;
+    case SnackBarType.wheel:
+      return CustomColors.green;
       break;
     default:
       return CustomColors.black;

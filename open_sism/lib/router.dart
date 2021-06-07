@@ -79,6 +79,7 @@ class AppRouter {
     );
 
     prizeBloc = new PrizeBloc(
+      userRepository: userRepository,
       prizeRepository: new PrizeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
@@ -90,6 +91,7 @@ class AppRouter {
     );
 
     _wheelBloc = new WheelBloc(
+      userRepository: userRepository,
       prizeRepository: new PrizeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
@@ -101,6 +103,7 @@ class AppRouter {
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
     bonusBloc = new BonusBloc(
+      userRepository: userRepository,
       prizeRepository: new PrizeRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
