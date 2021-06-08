@@ -9,7 +9,10 @@ class ContactUSRepository {
   final OpenSismApiDataProvider dataProvider = new OpenSismApiDataProvider();
 
   Future<ContactUSApiResponse> getContactUSPage({String token}) async {
+    print("fetch");
     var response = await dataProvider.fetchContactUSPageJson(token);
+    print("response");
+    print(response.body);
     var jsonObj = json.decode(response.body);
     print(jsonObj);
     var contactUSPageModel = ContactUSApiResponse.fromJson(jsonObj);

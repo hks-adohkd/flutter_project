@@ -11,13 +11,15 @@ class HomeContent extends Equatable {
   final bool luckyWheelValid;
   final bool dailyBonusValid;
   final int newMessages;
+  final int newNotification;
 
   HomeContent(
       {this.slides,
       this.banner,
       this.luckyWheelValid,
       this.dailyBonusValid,
-      this.newMessages});
+      this.newMessages,
+      this.newNotification});
 
   factory HomeContent.fromJson(Map<String, dynamic> json) =>
       _$HomeContentFromJson(json);
@@ -25,6 +27,12 @@ class HomeContent extends Equatable {
   Map<String, dynamic> toJson() => _$HomeContentToJson(this);
 
   @override
-  List<Object> get props =>
-      [slides, banner, luckyWheelValid, dailyBonusValid, newMessages];
+  List<Object> get props => [
+        slides,
+        banner,
+        luckyWheelValid,
+        dailyBonusValid,
+        newMessages,
+        newNotification
+      ];
 }

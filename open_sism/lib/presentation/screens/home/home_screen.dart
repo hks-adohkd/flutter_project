@@ -20,6 +20,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
+
+import '../../../logic/blocs/homeBloc/home_state.dart';
+
 // Crude counter to make messages unique
 int _messageCount = 0;
 
@@ -120,12 +124,23 @@ class _HomeScreenState extends State<HomeScreen> {
     // print(_token);
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: kAppBarHeight,
-        child: ReusableAppBar(
-          leadingIcon: null,
-          appBarTitle: AppLocalizations.of(context).home,
-        ),
-      ),
+          preferredSize: kAppBarHeight,
+          child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+            if (state is HomeLoadedSuccess) {
+              return ReusableAppBar(
+                leadingIcon: null,
+                appBarTitle: AppLocalizations.of(context).home,
+                isHome: true,
+                newMessage: state.newMessage,
+                newNotification: state.newNotification,
+              );
+            }
+            return ReusableAppBar(
+              leadingIcon: null,
+              appBarTitle: AppLocalizations.of(context).home,
+              isHome: true,
+            );
+          })),
       body: SmartRefresher(
         controller: _refreshController,
         onRefresh: () => _onRefresh(context),

@@ -26,7 +26,7 @@ ContactUS _$ContactUSFromJson(Map<String, dynamic> json) {
     isFeatured: json['isFeatured'] as bool,
     isViewed: json['isViewed'] as bool,
     lastName: json['lastName'] as String,
-    replay: json['replay'] as String,
+    reply: json['reply'] as String,
     subject: json['subject'] as String,
   );
 }
@@ -43,7 +43,7 @@ Map<String, dynamic> _$ContactUSToJson(ContactUS instance) => <String, dynamic>{
       'subject': instance.subject,
       'message': instance.message,
       'featuredSubject': instance.featuredSubject,
-      'replay': instance.replay,
+      'reply': instance.reply,
       'featuredReplay': instance.featuredReplay,
       'isFeatured': instance.isFeatured,
       'isViewed': instance.isViewed,

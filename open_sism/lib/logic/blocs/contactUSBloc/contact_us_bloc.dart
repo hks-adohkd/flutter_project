@@ -6,6 +6,8 @@ import 'package:open_sism/data_layer/Repositories/contact_us_repo.dart';
 import 'package:open_sism/data_layer/Repositories/user_repo.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
+import '../../../presentation/screens/activity/message/components/build_message.dart';
+import '../../../presentation/screens/activity/message/components/build_message.dart';
 import 'contact_us_event.dart';
 import 'contact_us_state.dart';
 import 'package:open_sism/data_layer/model/contactUS/contactUS_model.dart';
@@ -17,6 +19,7 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
   final InternetCubit internetCubit;
   StreamSubscription internetStreamSubscription;
   bool isConnected;
+  List<ContactUsList> contactUsList;
   ContactUS contactUSModel;
   ContactUSApiResponse contactUSPageModel;
   ContactUsBloc(
@@ -40,11 +43,35 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
   Stream<ContactUsState> mapEventToState(ContactUsEvent event) async* {
     if (event is ContactUsPageRequested || event is ContactUsDataRequested) {
       yield ContactUSLoadInProgress();
-
+      print("contact us ");
       try {
+        print(await userRepository.getToken());
         contactUSPageModel = await contactUSRepository.getContactUSPage(
             token: await userRepository.getToken());
-        yield ContactUSLoadedSuccess(contactData: contactUSPageModel);
+        contactUsList = contactUSPageModel.content.content
+            .map(
+              (item) => ContactUsList(
+                firstName: contactUSPageModel
+                    .content
+                    .content[contactUSPageModel.content.content.indexOf(item)]
+                    .firstName,
+                message: contactUSPageModel
+                    .content
+                    .content[contactUSPageModel.content.content.indexOf(item)]
+                    .message,
+                replay: contactUSPageModel
+                    .content
+                    .content[contactUSPageModel.content.content.indexOf(item)]
+                    .reply,
+                subject: contactUSPageModel
+                    .content
+                    .content[contactUSPageModel.content.content.indexOf(item)]
+                    .subject,
+              ),
+            )
+            .toList();
+        yield ContactUSLoadedSuccess(
+            contactData: contactUSPageModel, contactUsList: contactUsList);
       } catch (Exception) {
         yield ContactUSLoadFailure(contactStoredData: contactUSPageModel);
       }

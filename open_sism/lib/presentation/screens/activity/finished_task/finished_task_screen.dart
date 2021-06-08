@@ -57,6 +57,17 @@ class _FinishedTaskState extends State<FinishedTask> {
                       if (state is FinishedTaskLoadedSuccess) {
                         //create List
                         //print(prizeList.first.description);
+                        if (state.taskData.content.content.isEmpty) {
+                          return Center(
+                            child: Text(
+                              "No Data Available , please Refresh",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          );
+                        }
                         return buildListView(state.finishedTaskList);
                       } else
                         return Center(

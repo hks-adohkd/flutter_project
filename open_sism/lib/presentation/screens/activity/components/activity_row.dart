@@ -6,6 +6,8 @@ import 'package:open_sism/presentation/screens/activity/order/order_screen.dart'
 import 'package:open_sism/logic/blocs/finished_task_bloc/finishedTask_bloc.dart';
 import 'package:open_sism/logic/blocs/finished_task_bloc/finishedTask_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/contactUSBloc/contact_us_bloc.dart';
+import 'package:open_sism/logic/blocs/contactUSBloc/contact_us_event.dart';
 
 class ActivityRow extends StatelessWidget {
   final Activity activity;
@@ -92,6 +94,7 @@ class ActivityRow extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (type == "Message") {
+          context.read<ContactUsBloc>().add(ContactUsPageRequested());
           Navigator.pushNamed(context, getRouteName(type));
         } else if (type == "Order") {
           Navigator.pushNamed(context, getRouteName(type));

@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -20,7 +18,7 @@ class ContactUS extends Equatable {
   final String subject;
   final String message;
   final String featuredSubject;
-  final String replay;
+  final String reply;
   final String featuredReplay;
   final bool isFeatured;
   final bool isViewed;
@@ -41,7 +39,7 @@ class ContactUS extends Equatable {
     this.isFeatured,
     this.isViewed,
     this.lastName,
-    this.replay,
+    this.reply,
     this.subject,
   });
 
@@ -56,7 +54,7 @@ class ContactUS extends Equatable {
         created,
         modified,
         isDeleted,
-        replay,
+        reply,
         lastName,
         isViewed,
         customerId,

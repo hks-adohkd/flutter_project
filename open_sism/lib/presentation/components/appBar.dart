@@ -5,19 +5,79 @@ class ReusableAppBar extends StatelessWidget {
   final String appBarTitle;
   final IconData leadingIcon;
   final bool isHome;
+  final bool newMessage, newNotification;
+
   ReusableAppBar(
       {@required this.appBarTitle,
       this.leadingIcon = Icons.home,
-      this.isHome = false});
+      this.isHome = false,
+      this.newNotification = false,
+      this.newMessage = false});
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: !isHome
+      leading: true
           ? LeadingAppBarIcon(
               leadingIcon: leadingIcon,
             )
           : IconButton(
               icon: Image.asset('assets/images/logo.png'), onPressed: () => {}),
+      actions: isHome
+          ? [
+              Center(
+                child: Stack(
+                  children: [
+                    Icon(Icons.notifications),
+                    Visibility(
+                      visible: newNotification,
+                      child: Positioned(
+                          right: 0,
+                          child: new Container(
+                            padding: EdgeInsets.all(1),
+                            decoration: new BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            constraints: BoxConstraints(
+                              minWidth: 12,
+                              minHeight: 12,
+                            ),
+                          )),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Center(
+                child: Stack(
+                  children: [
+                    Icon(Icons.sms_rounded),
+                    Visibility(
+                      visible: newMessage,
+                      child: Positioned(
+                          right: 0,
+                          child: new Container(
+                            padding: EdgeInsets.all(1),
+                            decoration: new BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            constraints: BoxConstraints(
+                              minWidth: 12,
+                              minHeight: 12,
+                            ),
+                          )),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+            ]
+          : [],
       elevation: 5.0,
       backgroundColor: kAppBarBackgroundColor,
       centerTitle: true,
