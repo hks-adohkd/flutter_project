@@ -796,4 +796,4 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,androidstudio,dart,flutter,csharp,visualstudio,visualstudiocode,dotnetcore
 open_sism/.idea/runConfigurations.xml
-
+open_sism/android/gradle.properties
