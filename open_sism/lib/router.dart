@@ -42,6 +42,9 @@ import 'package:open_sism/logic/blocs/taskBloc/task_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/task_repo.dart';
 import 'package:open_sism/logic/blocs/finished_task_bloc/finishedTask_bloc.dart';
 
+import 'package:open_sism/logic/blocs/contactUSBloc/contact_us_bloc.dart';
+import 'package:open_sism/data_layer/Repositories/contact_us_repo.dart';
+
 class AppRouter {
   final AppRepository appRepository = AppRepository();
   final UserRepository userRepository = UserRepository();
@@ -50,6 +53,7 @@ class AppRouter {
   HomeBloc homeBloc;
   PrizeBloc prizeBloc;
   TaskBloc taskBloc;
+  ContactUsBloc contactUSBloc;
   FinishedTaskBloc finishedTaskBloc;
   WheelBloc _wheelBloc;
   AppBloc appBloc;
@@ -89,6 +93,11 @@ class AppRouter {
     taskBloc = new TaskBloc(
       userRepository: userRepository,
       taskRepository: new TaskRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
+    contactUSBloc = new ContactUsBloc(
+      userRepository: userRepository,
+      contactUSRepository: new ContactUSRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
     finishedTaskBloc = new FinishedTaskBloc(
@@ -173,14 +182,19 @@ class AppRouter {
             builder: (context) => MultiBlocProvider(
                   providers: [
                     BlocProvider.value(value: finishedTaskBloc),
-                    // BlocProvider.value(value: appBloc),
+                    BlocProvider.value(value: contactUSBloc),
                   ],
                   child: ActivityScreen(),
                 ));
         break;
 
       case Messages.routeName:
-        return MaterialPageRoute(builder: (context) => Messages());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: contactUSBloc,
+            child: Messages(),
+          ),
+        );
       case FinishedTask.routeName:
         return MaterialPageRoute(
           builder: (context) => BlocProvider.value(
@@ -211,7 +225,7 @@ class AppRouter {
               BlocProvider.value(value: bonusBloc),
               BlocProvider.value(value: bonusPremiumBloc),
               BlocProvider.value(value: appBloc),
-              BlocProvider.value(value: taskBloc)
+              BlocProvider.value(value: taskBloc),
             ],
             child: HomeScreen(),
           ),

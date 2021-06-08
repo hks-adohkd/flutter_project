@@ -37,6 +37,7 @@ const String GET_ALL = "GetAll";
 const String GET_ONE = "Get";
 const String GET_Premium = "GetPremium";
 const String GET_Finished = "GetFinishCustomerTask";
+const String GET_CUSTOMER_ALL = "GetCustomerAll";
 
 const String ADD = "Add";
 const String ADD_LUCKY = "api/CustomerPrizes/AddLucky";
