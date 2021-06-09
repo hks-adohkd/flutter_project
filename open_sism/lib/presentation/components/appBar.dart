@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/logic/blocs/contactUSBloc/contact_us_bloc.dart';
+import 'package:open_sism/logic/blocs/contactUSBloc/contact_us_event.dart';
+import 'package:open_sism/logic/blocs/notificationBloc/notification_bloc.dart';
+import 'package:open_sism/logic/blocs/notificationBloc/notification_event.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
+import 'package:open_sism/presentation/screens/activity/message/message_screen.dart';
+import 'package:open_sism/presentation/screens/activity/notification/notification_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ReusableAppBar extends StatelessWidget {
   final String appBarTitle;
@@ -25,52 +32,66 @@ class ReusableAppBar extends StatelessWidget {
       actions: isHome
           ? [
               Center(
-                child: Stack(
-                  children: [
-                    Icon(Icons.notifications),
-                    Visibility(
-                      visible: newNotification,
-                      child: Positioned(
-                          right: 0,
-                          child: new Container(
-                            padding: EdgeInsets.all(1),
-                            decoration: new BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            constraints: BoxConstraints(
-                              minWidth: 12,
-                              minHeight: 12,
-                            ),
-                          )),
-                    )
-                  ],
+                child: GestureDetector(
+                  onTap: () {
+                    context
+                        .read<NotificationBloc>()
+                        .add(NotificationPageRequested());
+                    Navigator.pushNamed(context, Notifications.routeName);
+                  },
+                  child: Stack(
+                    children: [
+                      Icon(Icons.notifications),
+                      Visibility(
+                        visible: newNotification,
+                        child: Positioned(
+                            right: 0,
+                            child: new Container(
+                              padding: EdgeInsets.all(1),
+                              decoration: new BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              constraints: BoxConstraints(
+                                minWidth: 12,
+                                minHeight: 12,
+                              ),
+                            )),
+                      )
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
                 width: 10,
               ),
               Center(
-                child: Stack(
-                  children: [
-                    Icon(Icons.sms_rounded),
-                    Visibility(
-                      visible: newMessage,
-                      child: Positioned(
-                          right: 0,
-                          child: new Container(
-                            padding: EdgeInsets.all(1),
-                            decoration: new BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            constraints: BoxConstraints(
-                              minWidth: 12,
-                              minHeight: 12,
-                            ),
-                          )),
-                    )
-                  ],
+                child: GestureDetector(
+                  onTap: () {
+                    context.read<ContactUsBloc>().add(ContactUsPageRequested());
+                    Navigator.pushNamed(context, Messages.routeName);
+                  },
+                  child: Stack(
+                    children: [
+                      Icon(Icons.sms_rounded),
+                      Visibility(
+                        visible: newMessage,
+                        child: Positioned(
+                            right: 0,
+                            child: new Container(
+                              padding: EdgeInsets.all(1),
+                              decoration: new BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              constraints: BoxConstraints(
+                                minWidth: 12,
+                                minHeight: 12,
+                              ),
+                            )),
+                      )
+                    ],
+                  ),
                 ),
               ),
               SizedBox(

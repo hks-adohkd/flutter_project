@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'customer_prize_model.dart';
+part of 'customer_request_prize_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CustomerPrizeModel _$CustomerPrizeModelFromJson(Map<String, dynamic> json) {
-  return CustomerPrizeModel(
+CustomerRequestPrizeModel _$CustomerRequestPrizeModelFromJson(
+    Map<String, dynamic> json) {
+  return CustomerRequestPrizeModel(
     customerId: json['customerId'] as int,
     prizeId: json['prizeId'] as int,
     earnDate: json['earnDate'] == null
@@ -20,10 +21,9 @@ CustomerPrizeModel _$CustomerPrizeModelFromJson(Map<String, dynamic> json) {
     requestDate: json['requestDate'] == null
         ? null
         : DateTime.parse(json['requestDate'] as String),
-    prizes: (json['prizes'] as List)
-        ?.map((e) =>
-            e == null ? null : PrizeModel.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    prize: json['prize'] == null
+        ? null
+        : PrizeModel.fromJson(json['prize'] as Map<String, dynamic>),
     created: json['created'] == null
         ? null
         : DateTime.parse(json['created'] as String),
@@ -36,7 +36,8 @@ CustomerPrizeModel _$CustomerPrizeModelFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$CustomerPrizeModelToJson(CustomerPrizeModel instance) =>
+Map<String, dynamic> _$CustomerRequestPrizeModelToJson(
+        CustomerRequestPrizeModel instance) =>
     <String, dynamic>{
       'customerId': instance.customerId,
       'prizeId': instance.prizeId,
@@ -47,6 +48,6 @@ Map<String, dynamic> _$CustomerPrizeModelToJson(CustomerPrizeModel instance) =>
       'modified': instance.modified?.toIso8601String(),
       'isDeleted': instance.isDeleted,
       'prizeStatus': instance.prizeStatus?.toJson(),
-      'prizes': instance.prizes?.map((e) => e?.toJson())?.toList(),
+      'prize': instance.prize?.toJson(),
       'description': instance.description,
     };

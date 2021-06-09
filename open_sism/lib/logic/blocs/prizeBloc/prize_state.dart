@@ -43,5 +43,6 @@ class PrizeLoadFailure extends PrizeState {
   final PrizeApiResponse prizeStoredData;
   PrizeLoadFailure({@required this.prizeStoredData});
 }
+
 //
 // class HomeNoInternet extends HomeState {}

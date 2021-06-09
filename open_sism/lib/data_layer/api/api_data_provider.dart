@@ -132,8 +132,13 @@ class OpenSismApiDataProvider {
   Future<http.Response> fetchContactUSPageJson(String token) async =>
       postGeneric(CONTACT_US + GET_CUSTOMER_ALL, token);
 
+  Future<http.Response> fetchCustomerMessageJson({String token}) async =>
+      postGeneric(CUSTOMER_MESSAGES + GET_ALL, token);
+
   Future<http.Response> fetchCustomerFinishedTaskJson(String token) async =>
       postGeneric(TASKS + GET_Finished, token);
+  Future<http.Response> fetchGetOrderedCustomerPrize({String token}) async =>
+      postGeneric(CUSTOMER_REQUEST_PRIZES, token);
 
   Future<http.Response> signIn(
       {String mobile, String password, String fcm_token}) async {

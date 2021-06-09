@@ -124,6 +124,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider.value(value: _appRouter.bonusBloc),
         BlocProvider.value(value: _appRouter.bonusPremiumBloc),
         BlocProvider.value(value: _appRouter.prizeBloc),
+        BlocProvider.value(value: _appRouter.notificationBloc),
+        BlocProvider.value(value: _appRouter.contactUSBloc),
         BlocProvider(
           create: (_) => InternetCubit(connectivity: connectivity),
         ),

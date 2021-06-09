@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/data_layer/model/customer/customer_model.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 
 class PrizeBundle {
   final int id, points;
   final String title, description, imageSrc, value;
   final Color color;
+  final CustomerModel currentCustomer;
 
   PrizeBundle(
       {this.id,
@@ -13,7 +15,8 @@ class PrizeBundle {
       this.title,
       this.description,
       this.imageSrc,
-      this.color});
+      this.color,
+      this.currentCustomer});
 }
 
 List<PrizeBundle> prizeBundles = [

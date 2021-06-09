@@ -4,6 +4,8 @@ import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
 import 'package:open_sism/logic/blocs/prizeBloc/prize_bloc.dart';
 import 'package:open_sism/logic/blocs/prizeBloc/prize_event.dart';
 import 'package:open_sism/logic/blocs/prizeBloc/prize_state.dart';
+import 'package:open_sism/logic/blocs/redeemBloc/redeem_bloc.dart';
+import 'package:open_sism/logic/blocs/redeemBloc/redeem_event.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/reward/components/prizeBundel.dart';
 import 'package:open_sism/presentation/components/card_component.dart';
@@ -80,6 +82,7 @@ class _RewardScreenState extends State<RewardScreen> {
                           if (state is PrizeLoadedSuccess) {
                             List<PrizeBundle> prizeList =
                                 createPrizeList(state: state);
+
                             //print(prizeList.first.description);
                             return buildGridView(prizeList);
                           } else
@@ -112,18 +115,25 @@ class _RewardScreenState extends State<RewardScreen> {
         selectedGender: ScreenType.prize,
         recipeBundle: prizeList[index],
         press: () {
-          setState(
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return RedeemScreen(prizeBundle: prizeList[index]);
-                  },
-                ),
-              );
-            },
-          );
+          print("hi");
+          context.read<RedeemBloc>().add(RedeemPageRequested());
+          print("hi1");
+          Navigator.pushNamed(context, RedeemScreen.routeName,
+              arguments: prizeList[index]);
+          // setState(
+          //   () {
+          //     //print({"prizeList", prizeList[index].title});
+          //
+          //     // Navigator.push(
+          //     //   context,
+          //     //   MaterialPageRoute(
+          //     //     builder: (context) {
+          //     //       return RedeemScreen(prizeBundleArgs: prizeList[index]);
+          //     //     },
+          //     //   ),
+          //     // );
+          //   },
+          // );
         },
       ),
     );
@@ -145,31 +155,34 @@ class _RewardScreenState extends State<RewardScreen> {
       return prizeBundles = state.prizeData.content.prizes
           .map(
             (item) => PrizeBundle(
-              id: state.prizeData.content
-                  .prizes[state.prizeData.content.prizes.indexOf(item)].id,
-              description: state
-                  .prizeData
-                  .content
-                  .prizes[state.prizeData.content.prizes.indexOf(item)]
-                  .description,
-              imageSrc: state
-                  .prizeData
-                  .content
-                  .prizes[state.prizeData.content.prizes.indexOf(item)]
-                  .imageUrl,
-              value: state.prizeData.content
-                  .prizes[state.prizeData.content.prizes.indexOf(item)].value
-                  .toString(),
-              points: state.prizeData.content
-                  .prizes[state.prizeData.content.prizes.indexOf(item)].points,
-              title: state
-                  .prizeData
-                  .content
-                  .prizes[state.prizeData.content.prizes.indexOf(item)]
-                  .displayName,
-              color: getPrizeColor(
-                  state, state.prizeData.content.prizes.indexOf(item)),
-            ),
+                id: state.prizeData.content
+                    .prizes[state.prizeData.content.prizes.indexOf(item)].id,
+                description: state
+                    .prizeData
+                    .content
+                    .prizes[state.prizeData.content.prizes.indexOf(item)]
+                    .description,
+                imageSrc: state
+                    .prizeData
+                    .content
+                    .prizes[state.prizeData.content.prizes.indexOf(item)]
+                    .imageUrl,
+                value: state.prizeData.content
+                    .prizes[state.prizeData.content.prizes.indexOf(item)].value
+                    .toString(),
+                points: state
+                    .prizeData
+                    .content
+                    .prizes[state.prizeData.content.prizes.indexOf(item)]
+                    .points,
+                title: state
+                    .prizeData
+                    .content
+                    .prizes[state.prizeData.content.prizes.indexOf(item)]
+                    .displayName,
+                color: getPrizeColor(
+                    state, state.prizeData.content.prizes.indexOf(item)),
+                currentCustomer: state.prizeData.currentCustomer),
           )
           .toList();
     } else

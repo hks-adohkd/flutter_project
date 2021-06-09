@@ -3,10 +3,10 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:open_sism/data_layer/model/prize/prize_status_model.dart';
 import 'package:open_sism/data_layer/model/prize/prize_model.dart';
 
-part 'customer_prize_model.g.dart';
+part 'customer_request_prize_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class CustomerPrizeModel extends Equatable {
+class CustomerRequestPrizeModel extends Equatable {
   int customerId;
   int prizeId;
   final int id;
@@ -16,32 +16,32 @@ class CustomerPrizeModel extends Equatable {
   final DateTime modified;
   final bool isDeleted;
   PrizeStatusModel prizeStatus;
-  final List<PrizeModel> prizes;
+  final PrizeModel prize;
   final String description;
-  CustomerPrizeModel(
+  CustomerRequestPrizeModel(
       {this.customerId,
       this.prizeId,
       this.earnDate,
       this.prizeStatus,
       this.requestDate,
-      this.prizes,
+      this.prize,
       this.created,
       this.id,
       this.isDeleted,
       this.modified,
       this.description});
 
-  factory CustomerPrizeModel.fromJson(Map<String, dynamic> json) =>
-      _$CustomerPrizeModelFromJson(json);
+  factory CustomerRequestPrizeModel.fromJson(Map<String, dynamic> json) =>
+      _$CustomerRequestPrizeModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CustomerPrizeModelToJson(this);
+  Map<String, dynamic> toJson() => _$CustomerRequestPrizeModelToJson(this);
 
   @override
   List<Object> get props => [
         requestDate,
         earnDate,
         customerId,
-        prizes,
+        prize,
         created,
         id,
         isDeleted,

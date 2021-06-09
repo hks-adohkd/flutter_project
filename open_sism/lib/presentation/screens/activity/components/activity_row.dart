@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/logic/blocs/requested_prize_bloc/requestedPrize_bloc.dart';
+import 'package:open_sism/logic/blocs/requested_prize_bloc/requestedPrize_event.dart';
 import 'package:open_sism/presentation/screens/activity/components/activityBundel.dart';
 import 'package:open_sism/presentation/screens/activity/finished_task/finished_task_screen.dart';
 import 'package:open_sism/presentation/screens/activity/message/message_screen.dart';
@@ -97,6 +99,7 @@ class ActivityRow extends StatelessWidget {
           context.read<ContactUsBloc>().add(ContactUsPageRequested());
           Navigator.pushNamed(context, getRouteName(type));
         } else if (type == "Order") {
+          context.read<RequestedPrizeBloc>().add(RequestedPrizePageRequested());
           Navigator.pushNamed(context, getRouteName(type));
           //return Order.routeName;
         } else if (type == "Finished Task") {

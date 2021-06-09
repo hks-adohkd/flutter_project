@@ -76,46 +76,44 @@ class BuildMessage {
           // right: id == "admin" ? 20 : 0,
           bottom: 10),
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      child: Expanded(
-        child: Scrollbar(
+      child: Scrollbar(
+        controller: _controllerOne,
+        isAlwaysShown: true,
+        radius: Radius.circular(20),
+        thickness: 4,
+        child: SingleChildScrollView(
           controller: _controllerOne,
-          isAlwaysShown: true,
-          radius: Radius.circular(20),
-          thickness: 4,
-          child: SingleChildScrollView(
-            controller: _controllerOne,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '${contactUsList[index].firstName}: ${contactUsList[index].message}',
-                  style: TextStyle(
-                      //color: primary,
-                      color: Colors.black,
-                      fontSize: 14),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  contactUsList[index].replay != null
-                      ? 'Admin : ${contactUsList[index].replay}'
-                      : "Admin: no Answer yet ",
-                  style: contactUsList[index].replay != null
-                      ? TextStyle(
-                          //color: primary,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14)
-                      : TextStyle(
-                          //color: primary,
-                          color: Colors.black45,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                ),
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                '${contactUsList[index].firstName}: ${contactUsList[index].message}',
+                style: TextStyle(
+                    //color: primary,
+                    color: Colors.black,
+                    fontSize: 14),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                contactUsList[index].replay != null
+                    ? 'Admin : ${contactUsList[index].replay}'
+                    : "Admin: no Answer yet ",
+                style: contactUsList[index].replay != null
+                    ? TextStyle(
+                        //color: primary,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14)
+                    : TextStyle(
+                        //color: primary,
+                        color: Colors.black45,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14),
+              ),
+            ],
           ),
         ),
       ),

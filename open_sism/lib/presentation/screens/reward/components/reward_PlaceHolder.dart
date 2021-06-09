@@ -24,6 +24,13 @@ class RewardPlaceHolder extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: <Widget>[
+              Text(
+                "Waiting for Data",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
               //Categories(),
               SizedBox(
                 height: 30,

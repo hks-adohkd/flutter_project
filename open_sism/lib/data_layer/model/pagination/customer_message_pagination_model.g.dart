@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'customer_prize_pagination_model.dart';
+part of 'customer_message_pagination_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CustomerPrizePaginationModel _$CustomerPrizePaginationModelFromJson(
+CustomerMessagePaginationModel _$CustomerMessagePaginationModelFromJson(
     Map<String, dynamic> json) {
-  return CustomerPrizePaginationModel(
+  return CustomerMessagePaginationModel(
     content: (json['content'] as List)
         ?.map((e) => e == null
             ? null
-            : CustomerRequestPrizeModel.fromJson(e as Map<String, dynamic>))
+            : CustomerMessage.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     pagination: json['pagination'] == null
         ? null
@@ -20,8 +20,8 @@ CustomerPrizePaginationModel _$CustomerPrizePaginationModelFromJson(
   );
 }
 
-Map<String, dynamic> _$CustomerPrizePaginationModelToJson(
-        CustomerPrizePaginationModel instance) =>
+Map<String, dynamic> _$CustomerMessagePaginationModelToJson(
+        CustomerMessagePaginationModel instance) =>
     <String, dynamic>{
       'pagination': instance.pagination?.toJson(),
       'content': instance.content?.map((e) => e?.toJson())?.toList(),
