@@ -36,6 +36,19 @@ class PrizeRepository {
     return prizePageModel;
   }
 
+  Future<CustomerPrizeApiResponse> requestPrize(
+      {String token, int prizeId}) async {
+    var response = await dataProvider.fetchRequestPrizeJson(
+        token: token, prizeId: prizeId);
+    var jsonObj = json.decode(response.body);
+    print(jsonObj);
+    var prizePageModel = CustomerPrizeApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    print("prize Model : ");
+    print(prizePageModel);
+    return prizePageModel;
+  }
+
   Future<WheelApiResponse> getWheelPrizes({String token}) async {
     var response = await dataProvider.fetchWheelPageJson(token: token);
     var jsonObj = json.decode(response.body);

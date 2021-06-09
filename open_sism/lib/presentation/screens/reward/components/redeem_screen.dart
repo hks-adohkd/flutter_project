@@ -52,6 +52,22 @@ class _RedeemScreenState extends State<RedeemScreen> {
                 // debugPrint('Dialog Dissmiss from callback');
               })
           .show();
+    } else {
+      return AwesomeDialog(
+              context: context,
+              animType: AnimType.LEFTSLIDE,
+              headerAnimationLoop: false,
+              dialogType: DialogType.ERROR,
+              title: 'Rejected',
+              desc: 'your redeemption rejected ',
+              btnOkOnPress: () {
+                // debugPrint('OnClcik');
+              },
+              btnOkIcon: Icons.close_rounded,
+              onDissmissCallback: () {
+                // debugPrint('Dialog Dissmiss from callback');
+              })
+          .show();
     }
   }
 
@@ -84,7 +100,6 @@ class _RedeemScreenState extends State<RedeemScreen> {
           listener: (context, state) {
             print(state.toString());
             if (state is RedeemLoadedSuccess) {
-              print("here");
               if (prizeBundle.currentCustomer.currentPoints <
                   prizeBundle.points) {
                 isValid = false;
@@ -109,6 +124,48 @@ class _RedeemScreenState extends State<RedeemScreen> {
                   "Error",
                   SnackBarType.error,
                 );
+              }
+            }
+            if (state is RedeemRequestState) {
+              // showSnackBar(
+              //   context,
+              //   "Request Prize",
+              //   SnackBarType.wheel,
+              // );
+            }
+            if (state is RedeemCheckPrizeState) {
+              if (state.prizeStoredData.message == "success") {
+                // Scaffold.of(context)
+                //   ..hideCurrentSnackBar()
+                //   ..showSnackBar(
+                //     SnackBar(
+                //       elevation: 4,
+                //       margin: EdgeInsets.only(
+                //         left: Values.medium,
+                //         right: Values.medium,
+                //         bottom: Values.big,
+                //       ),
+                //       behavior: SnackBarBehavior.floating,
+                //       duration: Duration(seconds: 2),
+                //       content: Row(
+                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //         children: [
+                //           Text(
+                //             'الرجاء الانتظار...',
+                //           ),
+                //           CircularProgressIndicator(
+                //             valueColor: AlwaysStoppedAnimation<Color>(
+                //                 CustomColors.white),
+                //           )
+                //         ],
+                //       ),
+                //       backgroundColor: CustomColors.green,
+                //     ),
+                //   ).close();
+
+                startTaskResultAweasom(true);
+              } else {
+                startTaskResultAweasom(false);
               }
             } else {
               print("no");
@@ -182,14 +239,28 @@ class _RedeemScreenState extends State<RedeemScreen> {
                                 SizedBox(height: 20),
                                 ElevatedButton(
                                   onPressed: () async {
-                                    result =
-                                        await redeemAlert.onAlertButtonsPressed(
-                                      context,
-                                      "Redeem ALERT",
-                                      "Are you sure to redeem this Reward",
-                                    );
-                                    startTaskResultAweasom(result);
-                                    print(result);
+                                    if (isValid) {
+                                      result = await redeemAlert
+                                          .onAlertButtonsPressed(
+                                        context,
+                                        "Redeem ALERT",
+                                        "Are you sure to redeem this Reward",
+                                      );
+
+                                      // startTaskResultAweasom(result);
+                                      if (result == true) {
+                                        context.read<RedeemBloc>().add(
+                                            RedeemRequestPrize(
+                                                prizeId: prizeBundle.id));
+                                      }
+                                      print(result);
+                                    } else {
+                                      showSnackBar(
+                                        context,
+                                        "No Sufficient point",
+                                        SnackBarType.error,
+                                      );
+                                    }
                                   },
                                   child: Text('Redeem Reward'),
                                 ),

@@ -4,13 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/prize_repository.dart';
 import 'package:open_sism/data_layer/Repositories/user_repo.dart';
-import 'package:open_sism/data_layer/model/prize/prize_api_response.dart';
+import 'package:open_sism/data_layer/model/customerPrize/customer_prize_api_response.dart';
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
 import 'redeem_event.dart';
 import 'redeem_state.dart';
-import 'package:open_sism/data_layer/model/prize/prize_model.dart';
-import 'package:open_sism/data_layer/model/prize/prizePage_model.dart';
 
 class RedeemBloc extends Bloc<RedeemEvent, RedeemState> {
   final PrizeRepository prizeRepository;
@@ -19,7 +17,7 @@ class RedeemBloc extends Bloc<RedeemEvent, RedeemState> {
   StreamSubscription internetStreamSubscription;
   bool isConnected;
 
-  PrizeApiResponse prizePageModel;
+  CustomerPrizeApiResponse prizePageModel;
   RedeemBloc(
       {@required this.prizeRepository,
       @required this.userRepository,
@@ -47,6 +45,16 @@ class RedeemBloc extends Bloc<RedeemEvent, RedeemState> {
     }
     if (event is RedeemDataAdded) {
       yield RedeemLoadedSuccess();
+    }
+    if (event is RedeemRequestPrize) {
+      yield RedeemRequestState();
+      try {
+        prizePageModel = await prizeRepository.requestPrize(
+            token: await userRepository.getToken(), prizeId: event.prizeId);
+        yield RedeemCheckPrizeState(prizeStoredData: prizePageModel);
+      } catch (Exception) {
+        yield RedeemLoadFailure(prizeStoredData: prizePageModel);
+      }
     }
   }
 }
