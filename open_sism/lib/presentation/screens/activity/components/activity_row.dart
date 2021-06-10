@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/logic/blocs/requested_prize_bloc/requestedPrize_bloc.dart';
+import 'package:open_sism/logic/blocs/requested_prize_bloc/requestedPrize_event.dart';
 import 'package:open_sism/presentation/screens/activity/components/activityBundel.dart';
-import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/screens/activity/finished_task/finished_task_screen.dart';
 import 'package:open_sism/presentation/screens/activity/message/message_screen.dart';
 import 'package:open_sism/presentation/screens/activity/order/order_screen.dart';
+import 'package:open_sism/logic/blocs/finished_task_bloc/finishedTask_bloc.dart';
+import 'package:open_sism/logic/blocs/finished_task_bloc/finishedTask_event.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/contactUSBloc/contact_us_bloc.dart';
+import 'package:open_sism/logic/blocs/contactUSBloc/contact_us_event.dart';
 
 class ActivityRow extends StatelessWidget {
   final Activity activity;
@@ -88,7 +94,24 @@ class ActivityRow extends StatelessWidget {
     );
 
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, getRouteName(type)),
+      onTap: () {
+        if (type == "Message") {
+          context.read<ContactUsBloc>().add(ContactUsPageRequested());
+          Navigator.pushNamed(context, getRouteName(type));
+        } else if (type == "Order") {
+          context.read<RequestedPrizeBloc>().add(RequestedPrizePageRequested());
+          Navigator.pushNamed(context, getRouteName(type));
+          //return Order.routeName;
+        } else if (type == "Finished Task") {
+          context.read<FinishedTaskBloc>().add(FinishedTaskPageRequested());
+          Navigator.pushNamed(context, getRouteName(type));
+          // return FinishedTask.routeName;
+        } else {
+          Navigator.pushNamed(context, getRouteName(type));
+        }
+        //  return "no route";
+        //context.read<HomeBloc>().add(HomePageRequested());
+      },
       child: new Container(
           height: 120.0,
           margin: const EdgeInsets.symmetric(

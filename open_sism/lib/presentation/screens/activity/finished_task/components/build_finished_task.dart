@@ -3,10 +3,20 @@ import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
 
+class FinishedTaskList {
+  final String title;
+  final String endDate;
+  final String points;
+  final String imgURL;
+
+  FinishedTaskList({this.points, this.endDate, this.imgURL, this.title});
+}
+
 class BuildFinishedTask {
   final primary = Color(0xff696b9e);
   final secondary = Color(0xfff29a94);
-
+  final List<FinishedTaskList> finishedTaskList;
+  BuildFinishedTask({this.finishedTaskList});
   final List<Map> finishedTaskLists = [
     {
       "name": "Youtube",
@@ -52,7 +62,8 @@ class BuildFinishedTask {
     },
   ];
 
-  Widget buildList(BuildContext context, int index) {
+  Widget buildList(BuildContext context, int index,
+      List<FinishedTaskList> finishedTaskList) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
@@ -83,7 +94,7 @@ class BuildFinishedTask {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  finishedTaskLists[index]['name'],
+                  finishedTaskList[index].title,
                   style: TextStyle(
                       color: primary,
                       fontWeight: FontWeight.bold,
@@ -104,7 +115,7 @@ class BuildFinishedTask {
                       width: 5,
                     ),
                     Text(
-                      finishedTaskLists[index]['time'],
+                      finishedTaskList[index].endDate,
                       style: TextStyle(
                         color: primary,
                         fontSize: 13,
@@ -128,7 +139,7 @@ class BuildFinishedTask {
                       width: 5,
                     ),
                     Text(
-                      finishedTaskLists[index]['points'],
+                      finishedTaskList[index].points,
                       style: TextStyle(
                         color: primary,
                         fontSize: 13,

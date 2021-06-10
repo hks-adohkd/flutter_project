@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:open_sism/data_layer/Repositories/app_repo.dart';
 import 'package:open_sism/data_layer/Repositories/home_repository.dart';
 import 'package:open_sism/data_layer/Repositories/prize_repository.dart';
@@ -81,17 +82,26 @@ class WheelBloc extends Bloc<WheelEvent, WheelState> {
     if (event is WheelDataReadyEvent) {
       print("into state WheelDataReady");
       timeNow = await userRepository.getTime();
+      print({"timeNow", timeNow});
 
+      // DateTime now = DateTime.now();
+      // String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+      // DateTime dateTime = DateTime.parse(formattedDate);
       int mS = timeNow.dateTimeNow.millisecondsSinceEpoch -
           wheelPageModel
               .currentCustomer.luckyWheelLastSpinDate.millisecondsSinceEpoch;
+      // print({"timeNow", timeNow.dateTimeNow});
+      // print({
+      //   "luckyWheelLastSpinDate",
+      //   wheelPageModel.currentCustomer.luckyWheelLastSpinDate
+      // });
       int hour = (mS ~/ (1000 * 60 * 60));
       int minutes = (mS ~/ (1000 * 60)) % 60;
-
+      //print({"hour", hour});
       int nextSpinHourMs = (24 * 60 * 60 * 1000) - mS;
       int nextSpinMinutes = (nextSpinHourMs ~/ (1000 * 60)) % 60;
       int nextSpinHour = nextSpinHourMs ~/ (1000 * 60 * 60);
-
+      // print({"nextSpinHour", nextSpinHour});
       String spinTime = '$nextSpinHour h:$nextSpinMinutes m';
       if (nextSpinHour < 24 && nextSpinHour > 0) {
         spinValid = false;
@@ -179,7 +189,9 @@ class WheelPremiumBloc extends Bloc<WheelEvent, WheelState> {
       print("into state WheelDataReady");
 
       timeNow = await userRepository.getTime();
-
+      // DateTime now = DateTime.now();
+      // String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+      // DateTime dateTime = DateTime.parse(formattedDate);
       int mS = timeNow.dateTimeNow.millisecondsSinceEpoch -
           wheelPageModel.currentCustomer.luckyWheelPremiumLastSpinDate
               .millisecondsSinceEpoch;

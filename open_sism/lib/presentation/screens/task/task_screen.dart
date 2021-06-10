@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:open_sism/logic/blocs/taskBloc/task_event.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
 import 'package:open_sism/presentation/components/card_component.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/components/appBar.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'detailedTask_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
@@ -25,52 +27,66 @@ class _TaskScreenState extends State<TaskScreen> {
     super.initState();
   }
 
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh(BuildContext context) async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    context.read<TaskBloc>().add(TaskPageRequested());
+    print("refresh");
+    _refreshController.refreshCompleted();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context); // to get the screen size
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: kAppBarHeight,
-        child: ReusableAppBar(
-          appBarTitle: "Task",
-        ),
-      ),
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: kGradiantsPrimaryColor,
-            ),
-            border: Border.all(style: BorderStyle.solid, color: Colors.black),
+    return SmartRefresher(
+      controller: _refreshController,
+      onRefresh: () => _onRefresh(context),
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: kAppBarHeight,
+          child: ReusableAppBar(
+            appBarTitle: "Task",
           ),
-          constraints: BoxConstraints.expand(),
-          child: SafeArea(
-            child: Column(
-              children: <Widget>[
-                //Categories(),
-                SizedBox(
-                  height: 30,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.defaultSize * 2),
-                    child: BlocBuilder<TaskBloc, TaskState>(
-                      builder: (context, state) {
-                        if (state is TaskLoadedSuccess) {
-                          List<TaskBundle> taskList =
-                              createPrizeList(state: state);
-                          //print(prizeList.first.description);
-                          return buildGridView(taskList);
-                        } else
-                          return Container();
-                      },
+        ),
+        body: SafeArea(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: kGradiantsPrimaryColor,
+              ),
+              border: Border.all(style: BorderStyle.solid, color: Colors.black),
+            ),
+            constraints: BoxConstraints.expand(),
+            child: SafeArea(
+              child: Column(
+                children: <Widget>[
+                  //Categories(),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.defaultSize * 2),
+                      child: BlocBuilder<TaskBloc, TaskState>(
+                        builder: (context, state) {
+                          if (state is TaskLoadedSuccess) {
+                            List<TaskBundle> taskList =
+                                createPrizeList(state: state);
+                            //print(prizeList.first.description);
+                            return buildGridView(taskList);
+                          } else
+                            return Container();
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

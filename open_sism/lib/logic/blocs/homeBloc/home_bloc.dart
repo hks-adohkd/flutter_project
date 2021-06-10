@@ -45,7 +45,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         homeModel = await homeRepository.getHomeData(
             token: await userRepository.getToken());
-        yield HomeLoadedSuccess(homeData: homeModel);
+        bool newMessage = homeModel.content.newMessages > 0;
+        bool newNotification = homeModel.content.newNotification > 0;
+        yield HomeLoadedSuccess(
+            homeData: homeModel,
+            newMessage: newMessage,
+            newNotification: newNotification);
         print("HomeLoadedSuccess");
       } catch (Exception) {
         yield HomeLoadFailure(homeStoredData: homeModel);

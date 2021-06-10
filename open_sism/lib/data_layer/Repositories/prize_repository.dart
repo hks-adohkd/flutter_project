@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:open_sism/data_layer/api/api_data_provider.dart';
+import 'package:open_sism/data_layer/model/customerPrize/customer_request_prize_api_response.dart';
 import 'package:open_sism/data_layer/model/pagination/customer_prize_pagination_model.dart';
 import 'package:open_sism/data_layer/model/prize/prize_api_response.dart';
 import 'package:open_sism/data_layer/model/luckyWheel/wheel_api_response.dart';
@@ -30,8 +31,21 @@ class PrizeRepository {
     // print(jsonObj);
     var prizePageModel = PrizeApiResponse.fromJson(jsonObj);
     // //  print(homeModel);
-    // print("prize Model : ");
-    // print(prizePageModel);
+    print("prize Model : ");
+    print(prizePageModel);
+    return prizePageModel;
+  }
+
+  Future<CustomerPrizeApiResponse> requestPrize(
+      {String token, int prizeId}) async {
+    var response = await dataProvider.fetchRequestPrizeJson(
+        token: token, prizeId: prizeId);
+    var jsonObj = json.decode(response.body);
+    print(jsonObj);
+    var prizePageModel = CustomerPrizeApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    print("prize Model : ");
+    print(prizePageModel);
     return prizePageModel;
   }
 
@@ -101,7 +115,7 @@ class PrizeRepository {
     var customerPrizeModel = CustomerPrizeApiResponse.fromJson(jsonObj);
     // //  print(homeModel);
     // print("customerPrizeModel : ");
-    print(customerPrizeModel);
+    // print(customerPrizeModel);
     return customerPrizeModel;
   }
 
@@ -114,7 +128,21 @@ class PrizeRepository {
     var customerPrizeModel = CustomerPrizeApiResponse.fromJson(jsonObj);
     // //  print(homeModel);
     // print("customerPrizeModel : ");
-    print(customerPrizeModel);
+    // print(customerPrizeModel);
     return customerPrizeModel;
+  }
+
+  Future<CustomerRequestPrizeApiResponse> getOrderedCustomerPrize(
+      {String token}) async {
+    var response =
+        await dataProvider.fetchGetOrderedCustomerPrize(token: token);
+    var jsonObj = json.decode(response.body);
+    // print(jsonObj);
+    var customerRequestPrizeModel =
+        CustomerRequestPrizeApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    //print("customerPrizeModel : ");
+    // print(customerRequestPrizeModel);
+    return customerRequestPrizeModel;
   }
 }

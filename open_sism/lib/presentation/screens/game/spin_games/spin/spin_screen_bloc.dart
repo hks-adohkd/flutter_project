@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/logic/blocs/luckyWheelBloc/wheel_state.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/components/model.dart';
 import 'package:open_sism/presentation/configurations/utils.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class WhellFortune extends StatefulWidget {
   static const String routeName = "/spin_screen";
@@ -57,53 +58,67 @@ class _WhellFortuneState extends State<WhellFortune>
     super.dispose();
   }
 
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh(BuildContext context) async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    context.read<WheelBloc>().add(WheelPageRequested());
+    print("refresh");
+    _refreshController.refreshCompleted();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context); // to get the screen size
-    return Scaffold(
-      body: Container(
-        height: SizeConfig.screenHeight,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/wheel.jpg"),
-            fit: BoxFit.cover,
+    return SmartRefresher(
+      controller: _refreshController,
+      onRefresh: () => _onRefresh(context),
+      child: Scaffold(
+        body: Container(
+          height: SizeConfig.screenHeight,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/wheel.jpg"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: BlocListener<WheelBloc, WheelState>(
-          listener: (context, state) {
-            if (state is WheelDataReady) {
-              if (!state.isAllowed) {
-                print(state.isAllowed);
-                showSnackBar(
-                  context,
-                  'Your Spin Will be Available in ${state.nextSpin}',
-                  SnackBarType.error,
-                );
-              } else if (state.isAllowed) {
-                showSnackBar(
-                  context,
-                  'Your Spin is Available ',
-                  SnackBarType.wheel,
-                );
+          child: BlocListener<WheelBloc, WheelState>(
+            listener: (context, state) {
+              if (state is WheelDataReady) {
+                if (!state.isAllowed) {
+                  print(state.isAllowed);
+                  showSnackBar(
+                    context,
+                    'Your Spin Will be Available in ${state.nextSpin}',
+                    SnackBarType.error,
+                  );
+                } else if (state.isAllowed) {
+                  showSnackBar(
+                    context,
+                    'Your Spin is Available ',
+                    SnackBarType.wheel,
+                  );
+                }
               }
-            }
-            if (state is WheelAddSuccess) {
-              Future.delayed(const Duration(milliseconds: 2000), () {
-                context.read<WheelBloc>().add(WheelPageRequested());
-              });
-              if (state.wheelPrize.message == "success") {
-                allowed = true;
-                showSnackBar(
-                  context,
-                  "Added Successful",
-                  SnackBarType.wheel,
-                );
-              } else if (state.wheelPrize.message == "NotAllowed") {
-                allowed = false;
+              if (state is WheelAddSuccess) {
+                Future.delayed(const Duration(milliseconds: 2000), () {
+                  context.read<WheelBloc>().add(WheelPageRequested());
+                });
+                if (state.wheelPrize.message == "success") {
+                  allowed = true;
+                  showSnackBar(
+                    context,
+                    "Added Successful",
+                    SnackBarType.wheel,
+                  );
+                } else if (state.wheelPrize.message == "NotAllowed") {
+                  allowed = false;
+                }
               }
-            }
-          },
-          child: buildAnimatedBuilder(),
+            },
+            child: buildAnimatedBuilder(),
+          ),
         ),
       ),
     );

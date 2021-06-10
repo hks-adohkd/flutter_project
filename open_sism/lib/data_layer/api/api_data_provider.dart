@@ -96,6 +96,13 @@ class OpenSismApiDataProvider {
   Future<http.Response> fetchPrizePageJson({String token}) async =>
       postGeneric(PRIZESPage, token);
 
+  Future<http.Response> fetchRequestPrizeJson(
+      {String token, int prizeId}) async {
+    Map data = {"PrizeId": prizeId, "description": "request"};
+
+    return postGenericWithBody(PRIZES + REQUEST_PRIZE, token, data);
+  }
+
   Future<http.Response> fetchWheelPageJson({String token}) async =>
       postGeneric(LUCKY_WHEEL + GET_ONE, token);
 
@@ -128,6 +135,17 @@ class OpenSismApiDataProvider {
 
   Future<http.Response> fetchTaskPageJson(String token) async =>
       postGeneric(TASKS + GET_ALL, token);
+
+  Future<http.Response> fetchContactUSPageJson(String token) async =>
+      postGeneric(CONTACT_US + GET_CUSTOMER_ALL, token);
+
+  Future<http.Response> fetchCustomerMessageJson({String token}) async =>
+      postGeneric(CUSTOMER_MESSAGES + GET_ALL, token);
+
+  Future<http.Response> fetchCustomerFinishedTaskJson(String token) async =>
+      postGeneric(TASKS + GET_Finished, token);
+  Future<http.Response> fetchGetOrderedCustomerPrize({String token}) async =>
+      postGeneric(CUSTOMER_REQUEST_PRIZES, token);
 
   Future<http.Response> signIn(
       {String mobile, String password, String fcm_token}) async {

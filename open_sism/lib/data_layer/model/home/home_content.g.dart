@@ -19,6 +19,7 @@ HomeContent _$HomeContentFromJson(Map<String, dynamic> json) {
     luckyWheelValid: json['luckyWheelValid'] as bool,
     dailyBonusValid: json['dailyBonusValid'] as bool,
     newMessages: json['newMessages'] as int,
+    newNotification: json['newNotification'] as int,
   );
 }
 
@@ -29,4 +30,5 @@ Map<String, dynamic> _$HomeContentToJson(HomeContent instance) =>
       'luckyWheelValid': instance.luckyWheelValid,
       'dailyBonusValid': instance.dailyBonusValid,
       'newMessages': instance.newMessages,
+      'newNotification': instance.newNotification,
     };

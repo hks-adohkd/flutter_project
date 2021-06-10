@@ -17,19 +17,19 @@ class CustomerPrizeModel extends Equatable {
   final bool isDeleted;
   PrizeStatusModel prizeStatus;
   final List<PrizeModel> prizes;
-
-  CustomerPrizeModel({
-    this.customerId,
-    this.prizeId,
-    this.earnDate,
-    this.prizeStatus,
-    this.requestDate,
-    this.prizes,
-    this.created,
-    this.id,
-    this.isDeleted,
-    this.modified,
-  });
+  final String description;
+  CustomerPrizeModel(
+      {this.customerId,
+      this.prizeId,
+      this.earnDate,
+      this.prizeStatus,
+      this.requestDate,
+      this.prizes,
+      this.created,
+      this.id,
+      this.isDeleted,
+      this.modified,
+      this.description});
 
   factory CustomerPrizeModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerPrizeModelFromJson(json);
@@ -47,6 +47,7 @@ class CustomerPrizeModel extends Equatable {
         isDeleted,
         modified,
         prizeStatus,
-        prizeId
+        prizeId,
+        description
       ];
 }

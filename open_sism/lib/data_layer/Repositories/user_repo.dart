@@ -1,6 +1,7 @@
 import 'package:open_sism/data_layer/api/api_data_provider.dart';
 import 'package:open_sism/data_layer/model/application_user/application_user_model.dart';
 import 'package:open_sism/data_layer/model/customer/customer_model.dart';
+import 'package:open_sism/data_layer/model/message/customer_message_api_response.dart';
 import 'package:open_sism/data_layer/model/prize/prize_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -36,23 +37,35 @@ class UserRepository {
   Future<TimeModel> getTime() async {
     var response = await api.fetchTimeJson(token: await getToken());
     var jsonObj = json.decode(response.body);
-    print(jsonObj);
+    //print(jsonObj);
     var timeModel = TimeModel.fromJson(jsonObj);
 
-    print("timeModel : ");
-    print(timeModel);
+    // print("timeModel : ");
+    // print(timeModel);
     // print(prizeModel);
     return timeModel;
+  }
+
+  Future<CustomerMessageApiResponse> getCustomerMessage({String token}) async {
+    var response = await api.fetchCustomerMessageJson(token: token);
+    var jsonObj = json.decode(response.body);
+    // print(jsonObj);
+    var customerMessageModel = CustomerMessageApiResponse.fromJson(jsonObj);
+
+    // print("customerMessageModel : ");
+    // print(customerMessageModel);
+    // print(prizeModel);
+    return customerMessageModel;
   }
 
   Future<PrizeModel> getPrizeAll() async {
     var response = await api.fetchPrizeAllJson();
     var jsonObj = json.decode(response.body);
-    print(jsonObj);
+    //print(jsonObj);
     var prizeModel = PrizeModel.fromJson(jsonObj);
 
-    print("prize Model : ");
-    print(prizeModel);
+    // print("prize Model : ");
+    // print(prizeModel);
     // print(prizeModel);
     return prizeModel;
   }

@@ -35,8 +35,11 @@ class HomeLoadInProgress extends HomeState {}
 
 class HomeLoadedSuccess extends HomeState {
   final HomeApiResponse homeData;
-
-  const HomeLoadedSuccess({@required this.homeData}) : assert(homeData != null);
+  final bool newMessage;
+  final bool newNotification;
+  const HomeLoadedSuccess(
+      {@required this.homeData, this.newMessage, this.newNotification})
+      : assert(homeData != null);
 
   @override
   List<Object> get props => [homeData];

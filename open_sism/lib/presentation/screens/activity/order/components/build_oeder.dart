@@ -2,6 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 
+class OrderList {
+  final String displayName;
+
+  final String points;
+  final String value;
+  final String imgURL;
+  final String prizeType;
+  final String prizeStatusName;
+  final String prizeStatusDisplayName;
+  final DateTime requestDate;
+  final String description;
+  final DateTime earnDate;
+
+  OrderList({
+    this.points,
+    this.description,
+    this.displayName,
+    this.value,
+    this.earnDate,
+    this.requestDate,
+    this.imgURL,
+    this.prizeStatusDisplayName,
+    this.prizeStatusName,
+    this.prizeType,
+  });
+}
+
 class BuildOrder {
   final primary = Color(0xff696b9e);
   final secondary = Color(0xfff29a94);
@@ -73,7 +100,8 @@ class BuildOrder {
     },
   ];
 
-  Widget buildList(BuildContext context, int index) {
+  Widget buildList(BuildContext context, int index, List<OrderList> orderList,
+      String earnDate, String requestDate) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
@@ -104,7 +132,7 @@ class BuildOrder {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  orderLists[index]['name'],
+                  orderList[index].displayName,
                   style: TextStyle(
                       color: primary,
                       fontWeight: FontWeight.bold,
@@ -124,7 +152,7 @@ class BuildOrder {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(orderLists[index]['location'],
+                    Text(orderList[index].value,
                         style: TextStyle(
                             color: primary, fontSize: 13, letterSpacing: .3)),
                   ],
@@ -144,7 +172,7 @@ class BuildOrder {
                       width: 5,
                     ),
                     Text(
-                      orderLists[index]['type'],
+                      orderList[index].points + " points",
                       style: TextStyle(
                         color: primary,
                         fontSize: 13,
@@ -160,14 +188,15 @@ class BuildOrder {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Icon(
-                      orderLists[index]['status'] == "Verified"
+                      orderList[index].prizeStatusDisplayName == "Accepted"
                           ? FontAwesomeIcons.checkCircle
-                          : orderLists[index]['status'] == "Pending"
+                          : orderList[index].prizeStatusDisplayName == "Pending"
                               ? FontAwesomeIcons.hourglass
                               : FontAwesomeIcons.timesCircle,
-                      color: orderLists[index]['status'] == "Verified"
+                      color: orderList[index].prizeStatusDisplayName ==
+                              "Accepted"
                           ? verifiedColor
-                          : orderLists[index]['status'] == "Pending"
+                          : orderList[index].prizeStatusDisplayName == "Pending"
                               ? pendingColor
                               : rejectColor,
                       size: 20,
@@ -176,11 +205,23 @@ class BuildOrder {
                       width: 5,
                     ),
                     Text(
-                      orderLists[index]['status'],
+                      orderList[index].prizeStatusDisplayName == "Accepted"
+                          ? orderList[index].prizeStatusDisplayName +
+                              " " +
+                              earnDate
+                          : orderList[index].prizeStatusDisplayName == "Pending"
+                              ? orderList[index].prizeStatusDisplayName +
+                                  " " +
+                                  requestDate
+                              : orderList[index].prizeStatusDisplayName +
+                                  " " +
+                                  requestDate,
                       style: TextStyle(
-                        color: orderLists[index]['status'] == "Verified"
+                        color: orderList[index].prizeStatusDisplayName ==
+                                "Accepted"
                             ? verifiedColor
-                            : orderLists[index]['status'] == "Pending"
+                            : orderList[index].prizeStatusDisplayName ==
+                                    "Pending"
                                 ? pendingColor
                                 : rejectColor,
                         fontSize: 13,

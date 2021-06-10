@@ -32,6 +32,7 @@ CustomerPrizeModel _$CustomerPrizeModelFromJson(Map<String, dynamic> json) {
     modified: json['modified'] == null
         ? null
         : DateTime.parse(json['modified'] as String),
+    description: json['description'] as String,
   );
 }
 
@@ -47,4 +48,5 @@ Map<String, dynamic> _$CustomerPrizeModelToJson(CustomerPrizeModel instance) =>
       'isDeleted': instance.isDeleted,
       'prizeStatus': instance.prizeStatus?.toJson(),
       'prizes': instance.prizes?.map((e) => e?.toJson())?.toList(),
+      'description': instance.description,
     };

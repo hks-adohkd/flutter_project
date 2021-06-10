@@ -23,11 +23,22 @@ class TaskRepository {
   Future<TaskApiResponse> getTaskPage({String token}) async {
     var response = await dataProvider.fetchTaskPageJson(token);
     var jsonObj = json.decode(response.body);
-    print(jsonObj);
+    //print(jsonObj);
     var taskPageModel = TaskApiResponse.fromJson(jsonObj);
     // //  print(homeModel);
-    print("task Model : ");
-    print(taskPageModel);
+    // print("task Model : ");
+    // print(taskPageModel);
+    return taskPageModel;
+  }
+
+  Future<TaskApiResponse> getCustomerFinishedTask({String token}) async {
+    var response = await dataProvider.fetchCustomerFinishedTaskJson(token);
+    var jsonObj = json.decode(response.body);
+    //print(jsonObj);
+    var taskPageModel = TaskApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    // print("task Model : ");
+    // print(taskPageModel);
     return taskPageModel;
   }
 

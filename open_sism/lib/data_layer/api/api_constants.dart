@@ -28,6 +28,8 @@ const String CITIES = "api/Cities/";
 const String LUCKY_WHEEL = "api/LuckyWheels/";
 const String DAILY_BONUS = "api/DailyBonusess/";
 
+const String CUSTOMER_REQUEST_PRIZES = "api/CustomerPrizes/GetRequest";
+
 const String CUSTOMER_PRIZES = "api/CustomerPrizes/";
 const String CUSTOMER_TASKS = "api/CustomerTasks/";
 const String CUSTOMER_MESSAGES = "api/CustomerMessages/";
@@ -36,12 +38,15 @@ const String GROUPS = "api/Groups/";
 const String GET_ALL = "GetAll";
 const String GET_ONE = "Get";
 const String GET_Premium = "GetPremium";
+const String GET_Finished = "GetFinishCustomerTask";
+const String GET_CUSTOMER_ALL = "GetCustomerAll";
+
 const String ADD = "Add";
 const String ADD_LUCKY = "api/CustomerPrizes/AddLucky";
 const String ADD_LUCKY_Premium = "api/CustomerPrizes/AddLuckyPremium";
 const String ADD_DAILY_BONUS = "api/CustomerPrizes/AddDailyBonus";
 const String ADD_START = "api/AddStart";
-const String REQUEST_PRIZE = "api/RequestPrize";
+const String REQUEST_PRIZE = "RequestPrize";
 const String ADD_END = "api/AddEnd";
 const String ADD_SHARE_APP_END = "api/AddShareAppEnd";
 
