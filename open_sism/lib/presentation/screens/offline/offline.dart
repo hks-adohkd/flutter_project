@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/presentation/configurations/custom_text.dart';
 import 'package:open_sism/presentation/configurations/utils.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class Offline extends StatelessWidget {
   final Function callback;
 
@@ -24,13 +26,13 @@ class Offline extends StatelessWidget {
               ),
               Height(Values.big),
               CustomText(
-                'لا يوجد انترنت!',
+                AppLocalizations.of(context).noInternetAccess,
                 color: CustomColors.black,
                 type: TextType.title,
               ),
               Height(Values.small),
               CustomText(
-                'تأكد من اتصالك بالشبكة وحاول من جديد',
+                AppLocalizations.of(context).beSureToConnectToInternetAndTryAgain,
                 color: CustomColors.black,
                 type: TextType.body,
                 align: TextAlign.center,
@@ -39,7 +41,7 @@ class Offline extends StatelessWidget {
               RaisedButton(
                 onPressed: callback,
                 child: Center(
-                  child: CustomText('إعادة المحاولة'),
+                  child: CustomText(AppLocalizations.of(context).retry),
                 ),
               ).respectGuidelinesMargins()
             ],

@@ -22,6 +22,7 @@ import 'package:open_sism/presentation/screens/profile/account_screen/account_sc
 import 'package:open_sism/presentation/screens/profile/help_support/Help_support_screen.dart';
 import 'package:open_sism/presentation/screens/profile/profile_screen.dart';
 import 'package:open_sism/presentation/screens/profile/ProfileScreenGradiant.dart';
+import 'package:open_sism/presentation/screens/profile/setting_screen/Setting_screen.dart';
 import 'package:open_sism/presentation/screens/register/register_screen.dart';
 import 'package:open_sism/presentation/screens/reward/components/redeem_screen.dart';
 import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
@@ -154,6 +155,16 @@ class AppRouter {
     print(routeSettings.name);
 
     switch (routeSettings.name) {
+      case SettingsScreen.routeName:
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: loginBloc),
+                BlocProvider.value(value: appBloc),
+              ],
+              child: SettingsScreen(),
+            ));
+        break;
       case LoginScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(

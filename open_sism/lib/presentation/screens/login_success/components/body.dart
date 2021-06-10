@@ -7,6 +7,7 @@ import 'package:open_sism/presentation/components/default_button.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -22,7 +23,7 @@ class Body extends StatelessWidget {
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.08),
           Text(
-            "Login Success",
+            AppLocalizations.of(context).loginSuccess,
             style: TextStyle(
               fontSize: getProportionateScreenWidth(30),
               fontWeight: FontWeight.bold,
@@ -33,7 +34,7 @@ class Body extends StatelessWidget {
           SizedBox(
             width: SizeConfig.screenWidth * 0.6,
             child: DefaultButton(
-              text: "Back to home",
+              text: AppLocalizations.of(context).backToHome,
               press: () {
                 context.read<HomeBloc>().add(HomePageRequested());
                 Navigator.of(context).pushNamedAndRemoveUntil(

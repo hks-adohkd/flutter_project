@@ -7,6 +7,7 @@ import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
 import 'package:open_sism/presentation/screens/home/components/special_offer_placeHolder.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 bool _isLoading = false;
 
@@ -29,7 +30,7 @@ class SpecialOffers extends StatelessWidget {
             children: [
               buildBlocBuilderPoints(),
               Text(
-                "Special for you",
+                AppLocalizations.of(context).specialForYou,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -92,7 +93,7 @@ class SpecialOffers extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: "    points",
+                  text: "   " + AppLocalizations.of(context).points,
                   style: TextStyle(
                     fontSize: getProportionateScreenWidth(10),
                   ),

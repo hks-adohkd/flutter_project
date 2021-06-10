@@ -11,6 +11,7 @@ import 'package:open_sism/presentation/screens/forgot_password/forgot_password_s
 import 'package:open_sism/presentation/screens/login_success/login_success_screen.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -69,7 +70,7 @@ class _SignFormState extends State<SignForm> {
                 ),
               ),
               Text(
-                "Remember me",
+                AppLocalizations.of(context).rememberMe,
                 style: TextStyle(color: Colors.white.withOpacity(0.8)),
               ),
               Spacer(),
@@ -77,7 +78,7 @@ class _SignFormState extends State<SignForm> {
                 onTap: () => Navigator.pushNamed(
                     context, ForgotPasswordScreen.routeName),
                 child: Text(
-                  "Forgot Password",
+                  AppLocalizations.of(context).forgotPassword,
                   style: TextStyle(
                       color: Colors.white.withOpacity(0.8),
                       decoration: TextDecoration.underline),
@@ -88,7 +89,7 @@ class _SignFormState extends State<SignForm> {
           FormError(errors: errors),
           SizedBox(height: 20),
           DefaultButton(
-            text: "Continue",
+            text: AppLocalizations.of(context).continueText,
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
@@ -145,8 +146,8 @@ class _SignFormState extends State<SignForm> {
       obscureText: true,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        labelText: "Password",
-        hintText: "Enter your Password",
+        labelText: AppLocalizations.of(context).password,
+        hintText: AppLocalizations.of(context).enterYourPassword,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Lock.svg'),
       ),
@@ -190,7 +191,7 @@ class _SignFormState extends State<SignForm> {
       ),
       inputDecoration: InputDecoration(
         //labelText: "Phone",
-        hintText: "Phone number",
+        hintText: AppLocalizations.of(context).phoneNumber,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/Phone.svg'),
       ),

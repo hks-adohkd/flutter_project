@@ -42,5 +42,17 @@
     "firstName": "First Name",
     "lastName": "Last Name",
     "confirmPassword": "Confirm Password",
-    "pleaseWait": "Please Wait"
+    "pleaseWait": "Please Wait",
+    "loggingInPleaseWait": "Logging in ... please wait",
+    "enterYourPassword": "Enter your password",
+    "categories": "Categories",
+    "seeMore": "See more",
+    "points": " points",
+    "phoneNumber": "Phone number",
+    "success": "Success",
+    "loginSuccess": "Login success",
+    "backToHome": "Back to Home",
+    "beSureToConnectToInternetAndTryAgain": "Be sure to connect to Internet and try again",
+    "noInternetAccess": "No Internet Access!",
+    "retry": "Retry"
 }

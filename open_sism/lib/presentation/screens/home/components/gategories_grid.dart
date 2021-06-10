@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoriesGrid extends StatelessWidget {
   final String path = 'assets/icons/';
@@ -35,7 +36,7 @@ class CategoriesGrid extends StatelessWidget {
               //borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
-              "Categories",
+              AppLocalizations.of(context).categories,
               style: TextStyle(
                 color: Colors.white70,
                 fontSize: 20,

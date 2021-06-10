@@ -8,6 +8,7 @@ import 'package:open_sism/presentation/screens/game/daily_bonus/dailyBonusScreen
 import 'package:open_sism/presentation/screens/game/game_screen.dart';
 import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:open_sism/presentation/screens/profile/profile_screen.dart';
+import 'package:open_sism/presentation/screens/profile/setting_screen/Setting_screen.dart';
 import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
 import 'package:open_sism/presentation/screens/task/task_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,7 @@ class Categories extends StatelessWidget {
       DailyBonus.routeName,
       ActivityScreen.routeName,
       ProfileScreen.routeName,
-      '/moreScreen',
+      SettingsScreen.routeName,
     ];
 
     return Padding(

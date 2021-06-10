@@ -42,5 +42,17 @@
     "firstName": "الاسم الأول",
     "lastName": "اسم العائلة",
     "confirmPassword": "تأكيد كلمة السر",
-    "pleaseWait": "الرجاء الانتظار"
+    "pleaseWait": "الرجاء الانتظار",
+    "loggingInPleaseWait": "يتم تسجيل الدخول ... يرجى الانتظار",
+    "enterYourPassword": "ادخل كلمة السر",
+    "categories": "الأصناف",
+    "seeMore": "اكتشف اكثر",
+    "points": "نقاط ",
+    "phoneNumber": "رقم الجوال",
+    "success": "تمت العملية بنجاح",
+    "loginSuccess": "تم تسجيل الدخول",
+    "backToHome": "العودة إلى الصفحة الرئيسية",
+    "retry": "إعادة المحاولة",
+    "beSureToConnectToInternetAndTryAgain": "تأكد من اتصالك بالشبكة وحاول من جديد",
+    "noInternetAccess": "لا يوجد انترنت"
 }

@@ -6,6 +6,8 @@ import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/login/components/sign_form.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class Body extends StatelessWidget {
                       height: SizeConfig.screenHeight * 0.04,
                     ),
                     Text(
-                      "Welcome Back",
+                      AppLocalizations.of(context).welcomeBack,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 28,
@@ -44,7 +46,7 @@ class Body extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Sign in with your phone number.",
+                      AppLocalizations.of(context).singInWithYourPhoneNumber,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white70),
                     ),

@@ -12,6 +12,7 @@ import 'package:open_sism/logic/blocs/login/login_bloc.dart';
 import 'package:open_sism/logic/blocs/login/login_state.dart';
 import 'package:open_sism/presentation/configurations/utils.dart';
 import 'package:open_sism/data_layer/Repositories/user_repo.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = "/login";
@@ -42,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: PreferredSize(
         preferredSize: kAppBarHeight,
         child: ReusableAppBar(
-          appBarTitle: "Login",
+          appBarTitle: AppLocalizations.of(context).login,
           leadingIcon: null,
         ),
       ),
@@ -59,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is LoginLoading) {
             showSnackBar(
               context,
-              'يتم تسجيل الدخول ... يرجى الانتظار',
+              AppLocalizations.of(context).loggingInPleaseWait,
               SnackBarType.loading,
             );
           }
@@ -82,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'الرجاء الانتظار...',
+                        AppLocalizations.of(context).pleaseWait,
                       ),
                       CircularProgressIndicator(
                         valueColor:

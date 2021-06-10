@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'dart:async';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Timer timer;
 
@@ -45,7 +46,7 @@ class PointsBanner extends StatelessWidget {
             ),
           ),
           Text(
-            "  points",
+            AppLocalizations.of(context).points,
             style: TextStyle(
               fontSize: 12,
               color: Colors.amber,

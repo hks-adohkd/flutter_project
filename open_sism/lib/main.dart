@@ -166,15 +166,23 @@ class OpenSism extends StatefulWidget {
     this.appRouter,
   }) : super(key: key);
   @override
-  _OpenSismState createState() => _OpenSismState();
+  OpenSismState createState() => OpenSismState();
 }
 
-class _OpenSismState extends State<OpenSism> {
+class OpenSismState extends State<OpenSism> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     context.read<AppBloc>().add(AppStarted());
+  }
+
+  Locale _locale = Locale('en', 'EN');
+
+  void setLocale(Locale value){
+    setState(() {
+      _locale = value;
+    });
   }
 
   @override
@@ -193,6 +201,7 @@ class _OpenSismState extends State<OpenSism> {
         onGenerateRoute: this.widget.appRouter.onGenerateRoute,
         title: 'Open Sism',
         theme: theme(),
+        locale: _locale,
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
