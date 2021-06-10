@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:open_sism/data_layer/model/customer/customer_response_model.dart';
 import 'package:open_sism/data_layer/model/application_user/time_model.dart';
+import 'package:open_sism/data_layer/model/customer/customer_profile_api_response.dart';
 
 class UserRepository {
   static const String key_id = 'id';
@@ -56,6 +57,18 @@ class UserRepository {
     // print(customerMessageModel);
     // print(prizeModel);
     return customerMessageModel;
+  }
+
+  Future<CustomerProfileApiResponse> getCustomerProfile({String token}) async {
+    var response = await api.fetchCustomerProfileJson(token: token);
+    var jsonObj = json.decode(response.body);
+    // print(jsonObj);
+    var customerProfile = CustomerProfileApiResponse.fromJson(jsonObj);
+
+    print("customerProfile : ");
+    // print(customerMessageModel);
+    print(customerProfile);
+    return customerProfile;
   }
 
   Future<PrizeModel> getPrizeAll() async {

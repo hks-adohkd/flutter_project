@@ -22,7 +22,7 @@ class ProfileHeader extends StatelessWidget {
         SizedBox(width: kSpacingUnit.w * 2),
         GestureDetector(
           onTap: () {
-            Navigator.popAndPushNamed(context, ProfileScreenGradient.routeName);
+            // Navigator.popAndPushNamed(context, ProfileScreenGradient.routeName);
           },
           child: Icon(
             LineAwesomeIcons.arrow_left,

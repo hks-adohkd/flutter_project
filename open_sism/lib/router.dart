@@ -49,6 +49,8 @@ import 'package:open_sism/logic/blocs/finished_task_bloc/finishedTask_bloc.dart'
 import 'package:open_sism/logic/blocs/contactUSBloc/contact_us_bloc.dart';
 import 'package:open_sism/data_layer/Repositories/contact_us_repo.dart';
 import 'package:open_sism/logic/blocs/requested_prize_bloc/requestedPrize_bloc.dart';
+import 'package:open_sism/logic/blocs/profile/profile.dart';
+import 'package:open_sism/logic/blocs/account/account.dart';
 
 class AppRouter {
   final AppRepository appRepository = AppRepository();
@@ -70,7 +72,15 @@ class AppRouter {
   WheelPremiumBloc _wheelPremiumBloc;
   BonusBloc bonusBloc;
   BonusPremiumBloc bonusPremiumBloc;
+  ProfileBloc profileBloc;
+  AccountBloc accountBloc;
   AppRouter({@required this.connectivity}) {
+    profileBloc = new ProfileBloc(
+        userRepository: userRepository,
+        internetCubit: new InternetCubit(connectivity: connectivity));
+    accountBloc = new AccountBloc(
+        userRepository: userRepository,
+        internetCubit: new InternetCubit(connectivity: connectivity));
     appBloc = new AppBloc(
         appRepository: appRepository,
         userRepository: userRepository,
@@ -158,12 +168,12 @@ class AppRouter {
       case SettingsScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(
-              providers: [
-                BlocProvider.value(value: loginBloc),
-                BlocProvider.value(value: appBloc),
-              ],
-              child: SettingsScreen(),
-            ));
+                  providers: [
+                    BlocProvider.value(value: loginBloc),
+                    BlocProvider.value(value: appBloc),
+                  ],
+                  child: SettingsScreen(),
+                ));
         break;
       case LoginScreen.routeName:
         return MaterialPageRoute(
@@ -202,11 +212,16 @@ class AppRouter {
             settings: routeSettings);
       case ProfileScreen.routeName:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: appBloc,
-            child: ProfileScreenGradient(),
-          ),
-        );
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: appBloc),
+                    BlocProvider.value(value: profileBloc),
+                    BlocProvider.value(value: accountBloc),
+                  ],
+                  child: ProfileScreenGradient(),
+                ),
+            settings: routeSettings);
+        break;
       case LoginSuccessScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => BlocProvider.value(
@@ -215,7 +230,16 @@ class AppRouter {
           ),
         );
       case AccountScreen.routeName:
-        return MaterialPageRoute(builder: (context) => AccountScreen());
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: appBloc),
+                    BlocProvider.value(value: accountBloc),
+                  ],
+                  child: AccountScreen(),
+                ),
+            settings: routeSettings);
+        break;
       case RedeemScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(

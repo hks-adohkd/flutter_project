@@ -32,6 +32,14 @@ class ProfileListItem extends StatelessWidget {
           horizontal: kSpacingUnit.w * 2,
         ),
         decoration: kBoxDecoration.copyWith(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color(0xffB3E5FC),
+              Color(0xffBBDEFB),
+            ],
+          ),
           borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
         ),
         child: Row(
@@ -44,8 +52,7 @@ class ProfileListItem extends StatelessWidget {
             Text(
               this.text,
               style: kTitleTextStyle.copyWith(
-                fontWeight: FontWeight.w500,
-              ),
+                  fontWeight: FontWeight.w500, color: Colors.black),
             ),
             Spacer(),
             if (this.hasNavigation)
