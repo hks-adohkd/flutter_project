@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
+import 'package:open_sism/presentation/configurations/utils.dart';
 import 'package:open_sism/presentation/screens/profile/components/default_Button.dart';
 import 'package:open_sism/presentation/screens/profile/components/form_error.dart';
 import 'package:open_sism/presentation/components/custom_suffix_svgIcon.dart';
 import 'package:open_sism/data_layer/model/customer/customer_profile_api_response.dart';
 import 'phone.dart';
 import 'package:open_sism/logic/blocs/account/account.dart';
+import 'package:open_sism/presentation/screens/forgot_password/forgot_password_screen_without_verification.dart';
 
 class AccountScreenForm extends StatefulWidget {
   // final CustomerProfileApiResponse profileData;
@@ -75,12 +77,56 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
     return BlocListener<AccountBloc, AccountState>(
         listener: (context, state) {
           print(state.toString());
+          if (state is AccountUpdateProfilestate) {
+            showSnackBar(
+              context,
+              'يتم تحديث البيبانات ... الرجاء الانتظار',
+              SnackBarType.loading,
+            );
+          }
+          if (state is AccountUpdateErrorState) {
+            showSnackBar(
+              context,
+              state.error,
+              SnackBarType.error,
+            );
+          }
+          if (state is AccountUpdateMessageNotSuccess) {
+            showSnackBar(
+              context,
+              state.message,
+              SnackBarType.error,
+            );
+          }
+          if (state is AccountUpdateSuccessState) {
+            showSnackBar(
+              context,
+              "Update Profile successful",
+              SnackBarType.wheel,
+            );
+            ScaffoldMessenger.of(context)..hideCurrentSnackBar();
+            // Scaffold.of(context).
+            // hideCurrentSnackBar();
+            //Phoenix.rebirth(context);
+            context.read<AccountBloc>().add(
+                  AccountPageRequested(),
+                );
+          }
+          if (state is AccountNotValidFormState) {
+            showSnackBar(
+              context,
+              'قم بإدخال كافة المعلومات!',
+              SnackBarType.error,
+            );
+          }
+
           if (state is AccountLoadedSuccess) {
             setState(() {
               emailController.text = state.profileData.content.user.email;
               firstNameController.text = state.profileData.content.firstName;
               lastNameController.text = state.profileData.content.lastName;
               phoneController.text = state.profileData.content.user.phoneNumber;
+              addressController.text = state.profileData.content.address;
             });
 
             //isValidProfile = true;
@@ -114,7 +160,10 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () => {},
+                    onTap: () => {
+                      Navigator.pushNamed(
+                          context, ForgotPasswordScreenDirect.routeName)
+                    },
                     child: Text(
                       "Change Password",
                       style: TextStyle(
@@ -142,10 +191,20 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
                 icon: Icons.save,
                 press: () {
                   if (_formKey.currentState.validate()) {
+                    print(email);
+                    print(lastName);
                     _formKey.currentState.save();
                     // Navigator.pushNamedAndRemoveUntil(
                     //     context, HomeScreen.routeName, (route) => false);
-                    Navigator.pop(context);
+                    //  Navigator.pop(context);
+                    context.read<AccountBloc>().add(
+                          AccountUpdateProfile(
+                            address: address,
+                            email: email,
+                            firstName: firstName,
+                            lastName: lastName,
+                          ),
+                        );
                     // if all are valid then go to success screen
                     // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
                   }
@@ -179,7 +238,11 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
         // }
         return null;
       },
-      onSaved: (newValue) => phone = newValue.phoneNumber,
+      onSaved: (newValue) {
+        setState(() {
+          phone = newValue.phoneNumber;
+        });
+      },
       textStyle: TextStyle(color: Colors.white),
       initialValue:
           PhoneNumber(phoneNumber: phone, isoCode: desiredPhoneInfo['code']),
@@ -206,7 +269,11 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
       controller: addressController,
       // initialValue: address,
       keyboardType: TextInputType.name,
-      onSaved: (newValue) => address = newValue,
+      onSaved: (newValue) {
+        setState(() {
+          address = newValue;
+        });
+      },
       onChanged: (value) {},
       decoration: InputDecoration(
         labelText: title,
@@ -224,7 +291,11 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
     return TextFormField(
       //initialValue: firstName,
       keyboardType: TextInputType.name,
-      onSaved: (newValue) => firstName = newValue,
+      onSaved: (newValue) {
+        setState(() {
+          firstName = newValue;
+        });
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNameNullError);
@@ -255,7 +326,11 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
       controller: phoneController,
       // initialValue: phone, //desiredPhoneInfo['code'] + " :" + phone,
       keyboardType: TextInputType.name,
-      onSaved: (newValue) => phone = newValue,
+      onSaved: (newValue) {
+        setState(() {
+          phone = newValue;
+        });
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNameNullError);
@@ -286,7 +361,11 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
       controller: lastNameController,
       //initialValue: lastName,
       keyboardType: TextInputType.name,
-      onSaved: (newValue) => lastName = newValue,
+      onSaved: (newValue) {
+        setState(() {
+          lastName = newValue;
+        });
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNameNullError);
@@ -363,8 +442,13 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
       controller: emailController,
       // initialValue: email,
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) {
+        setState(() {
+          email = newValue;
+        });
+      },
       onChanged: (value) {
+        print(value);
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
         }
@@ -373,16 +457,18 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
         }
         return null;
       },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kEmailNullError);
-          return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: kInvalidEmailError);
-          return "";
-        }
-        return null;
-      },
+      // validator: (value) {
+      //   print(value);
+      //   if (value.isEmpty) {
+      //     addError(error: kEmailNullError);
+      //     return "";
+      //   }
+      //   if (!emailValidatorRegExp.hasMatch(value)) {
+      //     addError(error: kInvalidEmailError);
+      //     return "";
+      //   }
+      //   return null;
+      // },
       decoration: InputDecoration(
         labelText: "Email",
         hintText: "Enter your email",

@@ -8,12 +8,12 @@ const String UPLOAD_IMAGE = "/api/APIImages/SaveMedia";
 const String LOGIN = "api/Authenticate/login";
 const String FORGET_PASSWORD = "Authenticate/ForgotPassword";
 const String RESET_PASS = "Authenticate/ResetPassword";
-const String CHANGE_PASSWORD = "Authenticate/ChangePassword";
+const String CHANGE_PASSWORD = "api/Authenticate/ChangePassword";
 const String VERIFY = "Authenticate/Verify";
 const String RESEND_CODE = "Authenticate/ResendVerifyCode";
 const String REGISTER = "api/Authenticate/Register";
 const String GET_PROFILE = "api/Authenticate/GetProfile";
-const String UPDATE_PROFILE = "Authenticate/UpdateProfile";
+const String UPDATE_PROFILE = "api/Authenticate/UpdateProfile";
 const String SET_FACEBOOK_DATA = "Authenticate/SetFacebookData";
 const String SET_FCM_TOKEN = "api/Authenticate/SetFCMToken";
 

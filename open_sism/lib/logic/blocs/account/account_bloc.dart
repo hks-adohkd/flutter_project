@@ -1,3 +1,5 @@
+import 'package:open_sism/data_layer/model/customer/customer_response_model.dart';
+
 import 'account.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
@@ -40,6 +42,37 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         yield AccountLoadedSuccess(profileData: profileModel);
       } catch (Exception) {
         yield AccountLoadFailure(profileData: profileModel);
+      }
+    }
+
+    if (event is AccountUpdateProfile) {
+      yield AccountUpdateProfilestate();
+
+      //  String mobile = event.mobile.replaceFirst("+", '');
+      // print('mobile will be ${event.mobile}');
+
+      if (event.address.isEmpty ||
+          event.firstName.isEmpty ||
+          event.lastName.isEmpty ||
+          event.email.isEmpty) {
+        yield AccountNotValidFormState();
+      } else {
+        try {
+          CustomerProfileApiResponse user =
+              await userRepository.updateCustomerProfile(
+                  address: event.address,
+                  firstName: event.firstName,
+                  lastName: event.lastName,
+                  email: event.email,
+                  token: await userRepository.getToken());
+          if (user.message == "success") {
+            yield AccountUpdateSuccessState();
+          } else
+            yield AccountUpdateMessageNotSuccess(user.message);
+        } catch (e) {
+          yield AccountUpdateErrorState(e);
+          print('Error is: $e');
+        }
       }
     }
   }

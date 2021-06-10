@@ -12,7 +12,7 @@ import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/presentation/screens/activity/activity_screen.dart';
 import 'package:open_sism/presentation/screens/activity/notification/notification_screen.dart';
 import 'package:open_sism/presentation/screens/forgot_password/forgot_password_screen.dart';
-import 'package:open_sism/presentation/screens/game/components/game_bundle.dart';
+import 'package:open_sism/presentation/screens/forgot_password/forgot_password_screen_without_verification.dart';
 import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:open_sism/presentation/screens/login/login_screen.dart';
 import 'package:open_sism/presentation/screens/login_success/login_success_screen.dart';
@@ -51,6 +51,7 @@ import 'package:open_sism/data_layer/Repositories/contact_us_repo.dart';
 import 'package:open_sism/logic/blocs/requested_prize_bloc/requestedPrize_bloc.dart';
 import 'package:open_sism/logic/blocs/profile/profile.dart';
 import 'package:open_sism/logic/blocs/account/account.dart';
+import 'package:open_sism/logic/blocs/password/password.dart';
 
 class AppRouter {
   final AppRepository appRepository = AppRepository();
@@ -74,11 +75,16 @@ class AppRouter {
   BonusPremiumBloc bonusPremiumBloc;
   ProfileBloc profileBloc;
   AccountBloc accountBloc;
+  PasswordBloc passwordBloc;
+
   AppRouter({@required this.connectivity}) {
     profileBloc = new ProfileBloc(
         userRepository: userRepository,
         internetCubit: new InternetCubit(connectivity: connectivity));
     accountBloc = new AccountBloc(
+        userRepository: userRepository,
+        internetCubit: new InternetCubit(connectivity: connectivity));
+    passwordBloc = new PasswordBloc(
         userRepository: userRepository,
         internetCubit: new InternetCubit(connectivity: connectivity));
     appBloc = new AppBloc(
@@ -210,6 +216,17 @@ class AppRouter {
                   child: RewardScreen(),
                 ),
             settings: routeSettings);
+      case ForgotPasswordScreenDirect.routeName:
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: appBloc),
+                    BlocProvider.value(value: passwordBloc),
+                  ],
+                  child: ForgotPasswordScreenDirect(),
+                ),
+            settings: routeSettings);
+        break;
       case ProfileScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(
@@ -235,6 +252,7 @@ class AppRouter {
                   providers: [
                     BlocProvider.value(value: appBloc),
                     BlocProvider.value(value: accountBloc),
+                    BlocProvider.value(value: passwordBloc),
                   ],
                   child: AccountScreen(),
                 ),

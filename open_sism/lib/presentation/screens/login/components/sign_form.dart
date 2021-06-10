@@ -22,7 +22,7 @@ class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
 
   String phone;
-  String password = "Yazbek@123";
+  String password = "Yazbek123@";
   bool remember = false;
 
   void addError({String error}) {

@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:open_sism/data_layer/model/customer/customer_response_model.dart';
 import 'package:open_sism/data_layer/model/application_user/time_model.dart';
 import 'package:open_sism/data_layer/model/customer/customer_profile_api_response.dart';
+import 'package:open_sism/data_layer/model/application_user/application_user_api_response.dart';
 
 class UserRepository {
   static const String key_id = 'id';
@@ -69,6 +70,58 @@ class UserRepository {
     // print(customerMessageModel);
     print(customerProfile);
     return customerProfile;
+  }
+
+  Future<CustomerProfileApiResponse> updateCustomerProfile(
+      {String firstName,
+      String lastName,
+      String email,
+      String address,
+      String token}) async {
+    try {
+      var response = await api.fetchCustomerUpdateProfileJson(
+          token: token,
+          address: address,
+          email: email,
+          firstName: firstName,
+          lastName: lastName);
+      var jsonObj = json.decode(response.body);
+      // print(jsonObj);
+      var customerProfile = CustomerProfileApiResponse.fromJson(jsonObj);
+
+      print("customerProfile update : ");
+      // print(customerMessageModel);
+      print(customerProfile);
+      return customerProfile;
+    } catch (e) {
+      print('Error update profile:$e');
+      throw e;
+    }
+  }
+
+  Future<ApplicationUserApiResponse> updateCustomerPassword(
+      {String oldPassword,
+      String newPassword,
+      String confirmPassword,
+      String token}) async {
+    try {
+      var response = await api.fetchCustomerUpdatePasswordJson(
+          token: token,
+          confirmPassword: confirmPassword,
+          newPassword: newPassword,
+          oldPassword: oldPassword);
+      var jsonObj = json.decode(response.body);
+      // print(jsonObj);
+      var customerProfile = ApplicationUserApiResponse.fromJson(jsonObj);
+
+      print("customerProfile update : ");
+      // print(customerMessageModel);
+      print(customerProfile);
+      return customerProfile;
+    } catch (e) {
+      print('Error update password:$e');
+      throw e;
+    }
   }
 
   Future<PrizeModel> getPrizeAll() async {

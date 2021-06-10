@@ -13,6 +13,12 @@ class LoginFailed extends LoginState {
   LoginFailed(this.message);
 }
 
+class LoginMessageNotSuccess extends LoginState {
+  final String message;
+
+  LoginMessageNotSuccess(this.message);
+}
+
 class LoginNotValidated extends LoginState {}
 
 class LoginSuccess extends LoginState {}

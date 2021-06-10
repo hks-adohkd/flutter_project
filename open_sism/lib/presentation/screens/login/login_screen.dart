@@ -64,6 +64,20 @@ class _LoginScreenState extends State<LoginScreen> {
               SnackBarType.loading,
             );
           }
+          if (state is LoginNotValidated) {
+            showSnackBar(
+              context,
+              'قم بإدخال كافة المعلومات!',
+              SnackBarType.error,
+            );
+          }
+          if (state is LoginMessageNotSuccess) {
+            showSnackBar(
+              context,
+              state.message,
+              SnackBarType.error,
+            );
+          }
           if (state is LoginSuccess) {
             print('here is login success');
 

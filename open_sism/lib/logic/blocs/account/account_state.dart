@@ -27,5 +27,27 @@ class AccountLoadFailure extends AccountState {
   final CustomerProfileApiResponse profileData;
   AccountLoadFailure({@required this.profileData});
 }
+
+class AccountUpdateProfilestate extends AccountState {}
+
+class AccountNotValidFormState extends AccountState {}
+
+class AccountUpdateSuccessState extends AccountState {
+  final CustomerProfileApiResponse profileData;
+  AccountUpdateSuccessState({this.profileData});
+}
+
+class AccountUpdateErrorState extends AccountState {
+  final String error;
+
+  AccountUpdateErrorState(this.error);
+}
+
+class AccountUpdateMessageNotSuccess extends AccountState {
+  final String message;
+
+  AccountUpdateMessageNotSuccess(this.message);
+}
+
 //
 // class HomeNoInternet extends HomeState {}

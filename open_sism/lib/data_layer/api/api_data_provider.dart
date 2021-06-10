@@ -144,6 +144,40 @@ class OpenSismApiDataProvider {
   Future<http.Response> fetchCustomerProfileJson({String token}) async =>
       postGeneric(GET_PROFILE, token);
 
+  Future<http.Response> fetchCustomerUpdateProfileJson(
+      {String address,
+      String firstName,
+      String lastName,
+      String email,
+      String token}) async {
+    Map data = {
+      "Address": address,
+      "FirstName": firstName,
+      "LastName": lastName,
+      "email": email,
+    };
+
+    return postGenericWithBody(UPDATE_PROFILE, token, data);
+
+    //return postGenericWithBodyWithOutToken(CITIES + GET_ALL, data);
+  }
+
+  Future<http.Response> fetchCustomerUpdatePasswordJson(
+      {String oldPassword,
+      String newPassword,
+      String confirmPassword,
+      String token}) async {
+    Map data = {
+      "OldPassword": oldPassword,
+      "NewPassword": newPassword,
+      "ConfirmPassword": confirmPassword,
+    };
+
+    return postGenericWithBody(CHANGE_PASSWORD, token, data);
+
+    //return postGenericWithBodyWithOutToken(CITIES + GET_ALL, data);
+  }
+
   Future<http.Response> fetchCustomerFinishedTaskJson(String token) async =>
       postGeneric(TASKS + GET_Finished, token);
   Future<http.Response> fetchGetOrderedCustomerPrize({String token}) async =>
