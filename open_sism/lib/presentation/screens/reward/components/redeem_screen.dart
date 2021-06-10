@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
+import 'package:open_sism/logic/blocs/homeBloc/home_event.dart';
 import 'package:open_sism/logic/blocs/prizeBloc/prize_bloc.dart';
 import 'package:open_sism/logic/blocs/prizeBloc/prize_state.dart';
 import 'package:open_sism/logic/blocs/redeemBloc/redeem_bloc.dart';
@@ -7,12 +9,16 @@ import 'package:open_sism/logic/blocs/redeemBloc/redeem_event.dart';
 import 'package:open_sism/logic/blocs/redeemBloc/redeem_state.dart';
 import 'package:open_sism/presentation/components/appBar.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
+import 'package:open_sism/presentation/screens/activity/activity_screen.dart';
+import 'package:open_sism/presentation/screens/activity/order/order_screen.dart';
+import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:open_sism/presentation/screens/reward/components/prizeBundel.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/components/card_component.dart';
 import 'package:open_sism/presentation/components/alert_widget.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:open_sism/presentation/configurations/utils.dart';
+import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
 
 class RedeemScreen extends StatefulWidget {
   static const String routeName = "/redeemScreen";
@@ -38,28 +44,34 @@ class _RedeemScreenState extends State<RedeemScreen> {
   startTaskResultAweasom(bool result) {
     if (result) {
       return AwesomeDialog(
-              context: context,
-              animType: AnimType.LEFTSLIDE,
-              headerAnimationLoop: false,
-              dialogType: DialogType.SUCCES,
-              title: 'Succes',
-              desc: 'you have requested Prize successfully',
-              btnOkOnPress: () {
-                // debugPrint('OnClcik');
-              },
-              btnOkIcon: Icons.check_circle,
-              onDissmissCallback: () {
-                // debugPrint('Dialog Dissmiss from callback');
-              })
-          .show();
+          context: context,
+          animType: AnimType.LEFTSLIDE,
+          headerAnimationLoop: false,
+          dialogType: DialogType.SUCCES,
+          title: 'Success',
+          desc: 'you have requested Prize successfully',
+          btnOkOnPress: () {
+            // debugPrint('OnClcik');
+
+            int count = 0;
+            Navigator.popUntil(context, (route) {
+              return count++ == 2;
+            });
+          },
+          btnOkIcon: Icons.check_circle,
+          onDissmissCallback: () {
+            // debugPrint('Dialog Dissmiss from callback');
+            // Navigator.pop(context);
+            context.read<HomeBloc>().add(HomePageRequested());
+          }).show();
     } else {
       return AwesomeDialog(
               context: context,
               animType: AnimType.LEFTSLIDE,
               headerAnimationLoop: false,
               dialogType: DialogType.ERROR,
-              title: 'Rejected',
-              desc: 'your redeemption rejected ',
+              title: 'Failed',
+              desc: 'your redemption rejected ',
               btnOkOnPress: () {
                 // debugPrint('OnClcik');
               },
@@ -252,7 +264,8 @@ class _RedeemScreenState extends State<RedeemScreen> {
                                         context.read<RedeemBloc>().add(
                                             RedeemRequestPrize(
                                                 prizeId: prizeBundle.id));
-                                      }
+                                      } else {}
+
                                       print(result);
                                     } else {
                                       showSnackBar(

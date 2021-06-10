@@ -151,6 +151,8 @@ class AppRouter {
   }
 
   Route onGenerateRoute(RouteSettings routeSettings) {
+    print(routeSettings.name);
+
     switch (routeSettings.name) {
       case LoginScreen.routeName:
         return MaterialPageRoute(
@@ -160,7 +162,8 @@ class AppRouter {
                     BlocProvider.value(value: appBloc),
                   ],
                   child: LoginScreen(),
-                ));
+                ),
+            settings: routeSettings);
         break;
       case SmartOnBoardingPage.routeName:
         return MaterialPageRoute(builder: (context) => SmartOnBoardingPage());
@@ -174,7 +177,8 @@ class AppRouter {
             builder: (context) => BlocProvider.value(
                   value: taskBloc,
                   child: TaskScreen(),
-                ));
+                ),
+            settings: routeSettings);
       case RewardScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(
@@ -183,7 +187,8 @@ class AppRouter {
                     BlocProvider.value(value: redeemBloc),
                   ],
                   child: RewardScreen(),
-                ));
+                ),
+            settings: routeSettings);
       case ProfileScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => BlocProvider.value(
@@ -202,8 +207,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => AccountScreen());
       case RedeemScreen.routeName:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider.value(
-                  value: redeemBloc,
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: redeemBloc),
+                    BlocProvider.value(value: homeBloc),
+                  ],
                   child: RedeemScreen(),
                 ),
             settings: routeSettings);
@@ -263,6 +271,7 @@ class AppRouter {
         break;
       case HomeScreen.routeName:
         return MaterialPageRoute(
+          settings: routeSettings,
           builder: (context) => MultiBlocProvider(
             providers: [
               BlocProvider.value(value: homeBloc),

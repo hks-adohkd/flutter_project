@@ -6,6 +6,7 @@ import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/screens/activity/activity_screen.dart';
 import 'package:open_sism/presentation/screens/game/daily_bonus/dailyBonusScreen.dart';
 import 'package:open_sism/presentation/screens/game/game_screen.dart';
+import 'package:open_sism/presentation/screens/home/home_screen.dart';
 import 'package:open_sism/presentation/screens/profile/profile_screen.dart';
 import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
 import 'package:open_sism/presentation/screens/task/task_screen.dart';
@@ -79,6 +80,7 @@ class Categories extends StatelessWidget {
                           }
                           break;
                       }
+
                       Navigator.pushNamed(context, routeList[index]);
                     },
                   ),

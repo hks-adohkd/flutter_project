@@ -115,11 +115,11 @@ class _RewardScreenState extends State<RewardScreen> {
         selectedGender: ScreenType.prize,
         recipeBundle: prizeList[index],
         press: () {
-          print("hi");
           context.read<RedeemBloc>().add(RedeemPageRequested());
-          print("hi1");
+
           Navigator.pushNamed(context, RedeemScreen.routeName,
               arguments: prizeList[index]);
+
           // setState(
           //   () {
           //     //print({"prizeList", prizeList[index].title});
