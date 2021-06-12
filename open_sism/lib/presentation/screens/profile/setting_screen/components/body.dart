@@ -21,24 +21,57 @@ class _SettingsBodyState extends State<SettingsBody> {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.05), // 4%
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20)),
-                  onPressed: () => context
-                      .findAncestorStateOfType<OpenSismState>()
-                      .setLocale(Locale('ar', 'AR')),
-                  child: const Text('عربي'),
+                Center(
+                  child: Text(
+                    "Setting",
+                    style: kHeadingStyle,
+                  ),
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20)),
-                  onPressed: () => context
-                      .findAncestorStateOfType<OpenSismState>()
-                      .setLocale(Locale('en', 'EN')),
-                  child: const Text('English'),
+                SizedBox(height: SizeConfig.screenHeight * 0.04),
+                // 4%
+                Text(
+                  "Language",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                SizedBox(height: SizeConfig.screenHeight * 0.01),
+                Center(
+                  child: SizedBox(
+                    width: 100.0,
+                    height: 35.0,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20)),
+                      onPressed: () => context
+                          .findAncestorStateOfType<OpenSismState>()
+                          .setLocale(Locale('ar', 'AR')),
+                      child: const Text('عربي'),
+                    ),
+                  ),
+                ),
+                SizedBox(height: SizeConfig.screenHeight * 0.01),
+                Center(
+                  child: SizedBox(
+                    width: 100.0,
+                    height: 35.0,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20)),
+                      onPressed: () => context
+                          .findAncestorStateOfType<OpenSismState>()
+                          .setLocale(Locale('en', 'EN')),
+                      child: const Text('English'),
+                    ),
+                  ),
+                ),
+                Divider(color: Colors.black)
               ],
             ),
           ),

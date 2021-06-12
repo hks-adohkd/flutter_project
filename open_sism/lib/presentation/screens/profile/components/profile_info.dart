@@ -86,7 +86,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                     );
                   } else {
                     return Text(
-                      '',
+                      ' ',
                       style: kTitleTextStyle,
                     );
                   }
@@ -167,7 +167,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                             );
                           } else {
                             return Text(
-                              '',
+                              ' ',
                               style: kButtonTextStyle.copyWith(
                                   color: Colors.black),
                             );

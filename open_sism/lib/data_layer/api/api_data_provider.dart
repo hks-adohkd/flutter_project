@@ -87,6 +87,9 @@ class OpenSismApiDataProvider {
   Future<http.Response> fetchHomeJson({String token}) async =>
       postGeneric(HOME_PAGE, token);
 
+  Future<http.Response> fetchAboutJson({String token}) async =>
+      postGeneric(ABOUT_US, token);
+
   Future<http.Response> fetchCitiesJson(String token) async =>
       postGeneric(CITIES + GET_ALL, token);
 
@@ -138,6 +141,28 @@ class OpenSismApiDataProvider {
 
   Future<http.Response> fetchContactUSPageJson(String token) async =>
       postGeneric(CONTACT_US + GET_CUSTOMER_ALL, token);
+
+  Future<http.Response> fetchAddSupportMessageJson(
+      {String token,
+      String email,
+      String subject,
+      String message,
+      String phone,
+      String firstName,
+      String lastName}) async {
+    Map data = {
+      "subject": subject,
+      "message": message,
+      "phoneNumber": phone,
+      "email": email,
+      "firstName": firstName,
+      "lastName": lastName,
+    };
+
+    return postGenericWithBody(CONTACT_US + ADD, token, data);
+
+    //return postGenericWithBodyWithOutToken(CITIES + GET_ALL, data);
+  }
 
   Future<http.Response> fetchCustomerMessageJson({String token}) async =>
       postGeneric(CUSTOMER_MESSAGES + GET_ALL, token);

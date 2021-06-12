@@ -17,6 +17,8 @@ import 'package:open_sism/presentation/configurations/utils.dart';
 import 'package:open_sism/logic/blocs/profile/profile.dart';
 import 'package:open_sism/data_layer/model/customer/customer_profile_api_response.dart';
 import 'package:open_sism/logic/blocs/account/account.dart';
+import 'package:open_sism/presentation/screens/profile/setting_screen/Setting_screen.dart';
+import 'package:open_sism/logic/blocs/aboutBloc/about.dart';
 
 bool isValidProfile = false;
 
@@ -89,12 +91,17 @@ class HomeProfileScreenGrad extends StatelessWidget {
                   ProfileListItem(
                     icon: LineAwesomeIcons.cog,
                     text: 'Settings',
+                    press: () {
+                      Navigator.pushNamed(context, SettingsScreen.routeName);
+                    },
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.question,
                     text: 'About Us',
                     press: () {
                       if (isValidProfile) {
+                        context.read<AboutBloc>().add(AboutPageRequested());
+
                         Navigator.pushNamed(context, AboutUs.routeName);
                       }
                     },

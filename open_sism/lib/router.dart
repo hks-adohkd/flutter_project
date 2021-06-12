@@ -52,13 +52,16 @@ import 'package:open_sism/logic/blocs/requested_prize_bloc/requestedPrize_bloc.d
 import 'package:open_sism/logic/blocs/profile/profile.dart';
 import 'package:open_sism/logic/blocs/account/account.dart';
 import 'package:open_sism/logic/blocs/password/password.dart';
+import 'package:open_sism/logic/blocs/support_message/support.dart';
+import 'package:open_sism/logic/blocs/aboutBloc/about.dart';
 
 class AppRouter {
   final AppRepository appRepository = AppRepository();
   final UserRepository userRepository = UserRepository();
-
+  final ContactUSRepository contactUsRepository = ContactUSRepository();
   Connectivity connectivity;
   HomeBloc homeBloc;
+  AboutBloc aboutBloc;
   PrizeBloc prizeBloc;
   RedeemBloc redeemBloc;
   RequestedPrizeBloc requestedPrizeBloc;
@@ -76,6 +79,7 @@ class AppRouter {
   ProfileBloc profileBloc;
   AccountBloc accountBloc;
   PasswordBloc passwordBloc;
+  SupportBloc supportBloc;
 
   AppRouter({@required this.connectivity}) {
     profileBloc = new ProfileBloc(
@@ -85,6 +89,10 @@ class AppRouter {
         userRepository: userRepository,
         internetCubit: new InternetCubit(connectivity: connectivity));
     passwordBloc = new PasswordBloc(
+        userRepository: userRepository,
+        internetCubit: new InternetCubit(connectivity: connectivity));
+    supportBloc = new SupportBloc(
+        contactUsRepository: contactUsRepository,
         userRepository: userRepository,
         internetCubit: new InternetCubit(connectivity: connectivity));
     appBloc = new AppBloc(
@@ -127,6 +135,11 @@ class AppRouter {
     contactUSBloc = new ContactUsBloc(
       userRepository: userRepository,
       contactUSRepository: new ContactUSRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
+    aboutBloc = new AboutBloc(
+      userRepository: userRepository,
+      appRepository: appRepository,
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
     notificationBloc = new NotificationBloc(
@@ -234,6 +247,8 @@ class AppRouter {
                     BlocProvider.value(value: appBloc),
                     BlocProvider.value(value: profileBloc),
                     BlocProvider.value(value: accountBloc),
+                    BlocProvider.value(value: supportBloc),
+                    BlocProvider.value(value: aboutBloc),
                   ],
                   child: ProfileScreenGradient(),
                 ),
@@ -269,7 +284,16 @@ class AppRouter {
                 ),
             settings: routeSettings);
       case HelpSupportScreen.routeName:
-        return MaterialPageRoute(builder: (context) => HelpSupportScreen());
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: appBloc),
+                    BlocProvider.value(value: supportBloc),
+                  ],
+                  child: HelpSupportScreen(),
+                ),
+            settings: routeSettings);
+        break;
       case ActivityScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(
@@ -311,7 +335,16 @@ class AppRouter {
           ),
         );
       case AboutUs.routeName:
-        return MaterialPageRoute(builder: (context) => AboutUs());
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: appBloc),
+                    BlocProvider.value(value: aboutBloc),
+                  ],
+                  child: AboutUs(),
+                ),
+            settings: routeSettings);
+        break;
       case RegisterScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(
