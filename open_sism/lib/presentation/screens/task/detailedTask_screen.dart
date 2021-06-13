@@ -22,8 +22,8 @@ class DetailsScreen extends StatelessWidget {
           appBarTitle: "Task Details",
         ),
       ),
-      body: Body(product: product),
-      bottomNavigationBar: StartTaskAlertButton(product: product),
+      body: Body(),
+      bottomNavigationBar: StartTaskAlertButton(),
     );
   }
 

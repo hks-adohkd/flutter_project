@@ -7,8 +7,7 @@ import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductTitleWithImage extends StatefulWidget {
-  final TaskBundle product;
-  ProductTitleWithImage({@required this.product});
+  ProductTitleWithImage();
   @override
   _ProductTitleWithImageState createState() => _ProductTitleWithImageState();
 }

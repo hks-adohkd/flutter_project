@@ -8,8 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 TaskTypes tasks;
 
 class Description extends StatefulWidget {
-  final TaskBundle product;
-  Description({@required this.product});
+  Description();
   @override
   _DescriptionState createState() => _DescriptionState();
 }
@@ -20,7 +19,7 @@ class _DescriptionState extends State<Description> {
     return Expanded(
       child: Column(
         children: [
-          CustomButton(product: widget.product),
+          CustomButton(),
           BlocBuilder<SingleTaskBloc, SingleTaskState>(
             builder: (context, state) {
               if (state is SingleTaskLoadedSuccess) {

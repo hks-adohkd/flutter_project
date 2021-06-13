@@ -5,8 +5,7 @@ import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
 import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 
 class TimeAndPerson extends StatefulWidget {
-  final TaskBundle product;
-  TimeAndPerson({@required this.product});
+  TimeAndPerson();
   @override
   _TimeAndPersonState createState() => _TimeAndPersonState();
 }

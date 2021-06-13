@@ -35,6 +35,7 @@ import 'package:open_sism/presentation/screens/profile/aboutus_screen/AboutUS_sc
 import 'package:open_sism/presentation/screens/game/game_screen.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen_bloc.dart';
+import 'package:open_sism/presentation/screens/task/tasks_screen/sport_match/sport_match_screen.dart';
 
 import 'package:open_sism/presentation/screens/game/spin_games/golden_spin/goldspin_screen.dart';
 import 'package:open_sism/presentation/screens/game/daily_bonus/dailyBonusScreen.dart';
@@ -237,6 +238,15 @@ class AppRouter {
                     BlocProvider.value(value: singleTaskBloc),
                   ],
                   child: DetailsScreen(),
+                ),
+            settings: routeSettings);
+      case SportMatchScreen.routeName:
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: singleTaskBloc),
+                  ],
+                  child: SportMatchScreen(),
                 ),
             settings: routeSettings);
       case RewardScreen.routeName:

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
+import 'package:open_sism/presentation/screens/task/tasks_screen/sport_match/sport_match_screen.dart';
 import 'package:open_sism/presentation/components/alert_widget.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
 class StartTaskAlertButton extends StatefulWidget {
-  final TaskBundle product;
   const StartTaskAlertButton({
     Key key,
-    @required this.product,
   }) : super(key: key);
 
   @override
@@ -20,21 +18,22 @@ class _StartTaskAlertButtonState extends State<StartTaskAlertButton> {
   // return success dialog after redeemption accepted
   startTaskResultAweasom(bool result) {
     if (result) {
-      return AwesomeDialog(
-              context: context,
-              animType: AnimType.LEFTSLIDE,
-              headerAnimationLoop: false,
-              dialogType: DialogType.SUCCES,
-              title: 'Succes',
-              desc: 'Task started put your code here ',
-              btnOkOnPress: () {
-                //  debugPrint('OnClcik');
-              },
-              btnOkIcon: Icons.check_circle,
-              onDissmissCallback: () {
-                // debugPrint('Dialog Dissmiss from callback');
-              })
-          .show();
+      Navigator.pushNamed(context, SportMatchScreen.routeName);
+      // return AwesomeDialog(
+      //         context: context,
+      //         animType: AnimType.LEFTSLIDE,
+      //         headerAnimationLoop: false,
+      //         dialogType: DialogType.SUCCES,
+      //         title: 'Succes',
+      //         desc: 'Task started put your code here ',
+      //         btnOkOnPress: () {
+      //           //  debugPrint('OnClcik');
+      //         },
+      //         btnOkIcon: Icons.check_circle,
+      //         onDissmissCallback: () {
+      //           // debugPrint('Dialog Dissmiss from callback');
+      //         })
+      //     .show();
     }
   }
 

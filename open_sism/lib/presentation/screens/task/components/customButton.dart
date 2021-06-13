@@ -6,8 +6,7 @@ import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
 import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 
 class CustomButton extends StatefulWidget {
-  final TaskBundle product;
-  CustomButton({@required this.product});
+  CustomButton();
   @override
   _CustomButtonState createState() => _CustomButtonState();
 }
@@ -19,7 +18,7 @@ class _CustomButtonState extends State<CustomButton> {
       color: Colors.grey.shade200,
       padding: const EdgeInsets.all(16.0),
       onPressed: () async {
-        if (await canLaunch(widget.product.link)) launch(widget.product.link);
+        // if (await canLaunch(widget.product.link)) launch(widget.product.link);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
