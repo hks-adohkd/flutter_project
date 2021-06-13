@@ -139,6 +139,12 @@ class OpenSismApiDataProvider {
   Future<http.Response> fetchTaskPageJson(String token) async =>
       postGeneric(TASKS + GET_ALL, token);
 
+  Future<http.Response> fetchSingleTaskJson(
+      {String token, String taskId}) async {
+    Map data = {"id": taskId};
+    return postGenericWithBody(TASKS + GET_ONE, token, data);
+  }
+
   Future<http.Response> fetchContactUSPageJson(String token) async =>
       postGeneric(CONTACT_US + GET_CUSTOMER_ALL, token);
 

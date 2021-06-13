@@ -15,8 +15,8 @@ class ProfileLoadInProgress extends ProfileState {}
 
 class ProfileLoadedSuccess extends ProfileState {
   final CustomerProfileApiResponse profileData;
-
-  const ProfileLoadedSuccess({@required this.profileData})
+  final bool valid;
+  const ProfileLoadedSuccess({@required this.profileData, @required this.valid})
       : assert(profileData != null);
 
   @override
@@ -29,3 +29,9 @@ class ProfileLoadFailure extends ProfileState {
 }
 //
 // class HomeNoInternet extends HomeState {}
+
+class ProfileMessageNotSuccess extends ProfileState {
+  final String message;
+
+  ProfileMessageNotSuccess(this.message);
+}

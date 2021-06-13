@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
+import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 
 class TimeAndPerson extends StatefulWidget {
   final TaskBundle product;
@@ -34,12 +36,21 @@ class _TimeAndPersonState extends State<TimeAndPerson> {
                         color: Colors.lightGreen,
                         isSelected: true,
                       ),
-                      Text(
-                        widget.product.startDate,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
+                      BlocBuilder<SingleTaskBloc, SingleTaskState>(
+                        builder: (context, state) {
+                          if (state is SingleTaskLoadedSuccess) {
+                            return Text(
+                              state.recipeBundles != null
+                                  ? state.recipeBundles.startDate
+                                  : " ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                              ),
+                            );
+                          } else
+                            return Text(" ");
+                        },
                       ),
                     ],
                   ),
@@ -49,12 +60,21 @@ class _TimeAndPersonState extends State<TimeAndPerson> {
                         color: Colors.red,
                         isSelected: true,
                       ),
-                      Text(
-                        widget.product.endDate,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
+                      BlocBuilder<SingleTaskBloc, SingleTaskState>(
+                        builder: (context, state) {
+                          if (state is SingleTaskLoadedSuccess) {
+                            return Text(
+                              state.recipeBundles != null
+                                  ? state.recipeBundles.endDate
+                                  : " ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                              ),
+                            );
+                          } else
+                            return Text(" ");
+                        },
                       ),
                     ],
                   ),
@@ -64,25 +84,51 @@ class _TimeAndPersonState extends State<TimeAndPerson> {
           ),
         ),
         Expanded(
-          child: RichText(
-            text: TextSpan(
-              style: TextStyle(color: kTextColor),
-              children: [
-                TextSpan(
-                  text: "Person\n",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                TextSpan(
-                  text: widget.product.person.toString(),
-                  style: Theme.of(context).textTheme.headline5.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF512DA8),
+          child: BlocBuilder<SingleTaskBloc, SingleTaskState>(
+            builder: (context, state) {
+              if (state is SingleTaskLoadedSuccess) {
+                return RichText(
+                  text: TextSpan(
+                    style: TextStyle(color: kTextColor),
+                    children: [
+                      TextSpan(
+                        text: "Person\n",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                )
-              ],
-            ),
+                      TextSpan(
+                        text: state.recipeBundles.person.toString(),
+                        style: Theme.of(context).textTheme.headline5.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF512DA8),
+                            ),
+                      )
+                    ],
+                  ),
+                );
+              } else
+                return RichText(
+                  text: TextSpan(
+                    style: TextStyle(color: kTextColor),
+                    children: [
+                      TextSpan(
+                        text: "Person\n",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: " ",
+                        style: Theme.of(context).textTheme.headline5.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF512DA8),
+                            ),
+                      )
+                    ],
+                  ),
+                );
+            },
           ),
         ),
       ],

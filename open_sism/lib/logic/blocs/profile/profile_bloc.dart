@@ -36,8 +36,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       try {
         profileModel = await userRepository.getCustomerProfile(
             token: await userRepository.getToken());
-
-        yield ProfileLoadedSuccess(profileData: profileModel);
+        if (profileModel.message == "success") {
+          yield ProfileLoadedSuccess(profileData: profileModel, valid: true);
+        } else {
+          yield ProfileMessageNotSuccess(profileModel.message);
+        }
       } catch (Exception) {
         yield ProfileLoadFailure(profileData: profileModel);
       }

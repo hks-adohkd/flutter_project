@@ -9,7 +9,7 @@ import 'package:open_sism/presentation/screens/task/components/start_task_with_a
 
 class DetailsScreen extends StatelessWidget {
   final TaskBundle product;
-
+  static const String routeName = "/detailsScreen";
   const DetailsScreen({Key key, this.product}) : super(key: key);
   @override
   Widget build(BuildContext context) {

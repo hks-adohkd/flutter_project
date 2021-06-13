@@ -109,7 +109,9 @@ class BuildContent {
             builder: (context, state) {
               if (state is AboutLoadedSuccess) {
                 return Text(
-                  state.aboutData.content.location.value,
+                  state.aboutData.content.location != null
+                      ? state.aboutData.content.location.value
+                      : " ",
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.85),
                     fontWeight: FontWeight.w500,
@@ -129,7 +131,9 @@ class BuildContent {
             builder: (context, state) {
               if (state is AboutLoadedSuccess) {
                 return Text(
-                  state.aboutData.content.aboutUs.script,
+                  state.aboutData.content.aboutUs != null
+                      ? state.aboutData.content.aboutUs.script
+                      : " ",
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.85),
                     height: 1.4,

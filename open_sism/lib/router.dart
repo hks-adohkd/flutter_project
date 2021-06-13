@@ -26,6 +26,7 @@ import 'package:open_sism/presentation/screens/profile/setting_screen/Setting_sc
 import 'package:open_sism/presentation/screens/register/register_screen.dart';
 import 'package:open_sism/presentation/screens/reward/components/redeem_screen.dart';
 import 'package:open_sism/presentation/screens/reward/rewards_screen.dart';
+import 'package:open_sism/presentation/screens/task/detailedTask_screen.dart';
 import 'package:open_sism/presentation/screens/task/task_screen.dart';
 import 'package:open_sism/presentation/screens/activity/message/message_screen.dart';
 import 'package:open_sism/presentation/screens/activity/order/order_screen.dart';
@@ -54,6 +55,7 @@ import 'package:open_sism/logic/blocs/account/account.dart';
 import 'package:open_sism/logic/blocs/password/password.dart';
 import 'package:open_sism/logic/blocs/support_message/support.dart';
 import 'package:open_sism/logic/blocs/aboutBloc/about.dart';
+import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 
 class AppRouter {
   final AppRepository appRepository = AppRepository();
@@ -66,6 +68,7 @@ class AppRouter {
   RedeemBloc redeemBloc;
   RequestedPrizeBloc requestedPrizeBloc;
   TaskBloc taskBloc;
+  SingleTaskBloc singleTaskBloc;
   ContactUsBloc contactUSBloc;
   NotificationBloc notificationBloc;
   FinishedTaskBloc finishedTaskBloc;
@@ -128,6 +131,11 @@ class AppRouter {
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
     taskBloc = new TaskBloc(
+      userRepository: userRepository,
+      taskRepository: new TaskRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
+    singleTaskBloc = new SingleTaskBloc(
       userRepository: userRepository,
       taskRepository: new TaskRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
@@ -214,9 +222,21 @@ class AppRouter {
         break;
       case TaskScreen.routeName:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider.value(
-                  value: taskBloc,
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: taskBloc),
+                    BlocProvider.value(value: singleTaskBloc),
+                  ],
                   child: TaskScreen(),
+                ),
+            settings: routeSettings);
+      case DetailsScreen.routeName:
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: singleTaskBloc),
+                  ],
+                  child: DetailsScreen(),
                 ),
             settings: routeSettings);
       case RewardScreen.routeName:

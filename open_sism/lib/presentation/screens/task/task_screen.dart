@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_state.dart';
 import 'package:open_sism/logic/blocs/taskBloc/task_bloc.dart';
 import 'package:open_sism/logic/blocs/taskBloc/task_state.dart';
+import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 
 class TaskScreen extends StatefulWidget {
   static const String routeName = "/taskScreen";
@@ -109,16 +110,19 @@ class _TaskScreenState extends State<TaskScreen> {
         selectedGender: ScreenType.task,
         recipeBundle: recipeBundles[index],
         press: () {
-          setState(() {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return DetailsScreen(product: recipeBundles[index]);
-                },
-              ),
-            );
-          });
+          context.read<SingleTaskBloc>().add(SingleTaskDataRequested(
+              taskId: recipeBundles[index].id.toString()));
+          Navigator.pushNamed(context, DetailsScreen.routeName);
+          // setState(() {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) {
+          //         return DetailsScreen(product: recipeBundles[index]);
+          //       },
+          //     ),
+          //   );
+          // });
         },
       ),
     );

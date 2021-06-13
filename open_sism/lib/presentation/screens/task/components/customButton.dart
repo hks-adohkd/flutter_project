@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
+import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 
 class CustomButton extends StatefulWidget {
   final TaskBundle product;
@@ -25,22 +27,53 @@ class _CustomButtonState extends State<CustomButton> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(
-                widget.product.icon,
-                color: Colors.red,
+              BlocBuilder<SingleTaskBloc, SingleTaskState>(
+                builder: (context, state) {
+                  if (state is SingleTaskLoadedSuccess) {
+                    return Icon(
+                      state.recipeBundles.icon,
+                      color: Colors.red,
+                    );
+                  } else
+                    return Icon(Icons.question_answer);
+                },
               ),
               const SizedBox(width: 10.0),
-              Text(
-                widget.product.title,
-                style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold),
+              BlocBuilder<SingleTaskBloc, SingleTaskState>(
+                builder: (context, state) {
+                  if (state is SingleTaskLoadedSuccess) {
+                    return Text(
+                      state.recipeBundles != null
+                          ? state.recipeBundles.title
+                          : " ",
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
+                    );
+                  } else
+                    return Text(" ");
+                },
               ),
             ],
           ),
           const SizedBox(height: 10.0),
-          Text(widget.product.description),
+          BlocBuilder<SingleTaskBloc, SingleTaskState>(
+            builder: (context, state) {
+              if (state is SingleTaskLoadedSuccess) {
+                return Text(
+                  state.recipeBundles != null
+                      ? state.recipeBundles.description
+                      : " ",
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold),
+                );
+              } else
+                return Text(" ");
+            },
+          ),
         ],
       ),
     );

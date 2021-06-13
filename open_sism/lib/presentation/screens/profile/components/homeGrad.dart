@@ -42,6 +42,13 @@ class HomeProfileScreenGrad extends StatelessWidget {
           if (state is ProfileLoadedSuccess) {
             isValidProfile = true;
             profileData = state.profileData;
+          } else if (state is ProfileMessageNotSuccess) {
+            isValidProfile = false;
+            showSnackBar(
+              context,
+              state.message,
+              SnackBarType.error,
+            );
           } else {
             print("no");
             isValidProfile = false;
@@ -59,67 +66,72 @@ class HomeProfileScreenGrad extends StatelessWidget {
             // provide the container header
             SizedBox(height: kSpacingUnit.w * 3),
             Expanded(
-              child: ListView(
-                children: <Widget>[
-                  ProfileListItem(
-                    press: () {
-                      if (isValidProfile) {
-                        context.read<AccountBloc>().add(AccountPageRequested());
-                        Navigator.pushNamed(
-                          context,
-                          AccountScreen.routeName,
-                        );
-                      }
-                    },
-                    icon: LineAwesomeIcons.user_shield,
-                    text: 'Account Settings',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.history,
-                    text: 'Upgrade To Pro',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.question_circle,
-                    text: 'Help & Support',
-                    press: () {
-                      if (isValidProfile) {
-                        Navigator.pushNamed(
-                            context, HelpSupportScreen.routeName);
-                      }
-                    },
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.cog,
-                    text: 'Settings',
-                    press: () {
-                      Navigator.pushNamed(context, SettingsScreen.routeName);
-                    },
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.question,
-                    text: 'About Us',
-                    press: () {
-                      if (isValidProfile) {
-                        context.read<AboutBloc>().add(AboutPageRequested());
+              child: BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                if (state is ProfileLoadedSuccess) {
+                  return ListView(
+                    children: <Widget>[
+                      ProfileListItem(
+                        press: () {
+                          context
+                              .read<AccountBloc>()
+                              .add(AccountPageRequested());
+                          Navigator.pushNamed(
+                            context,
+                            AccountScreen.routeName,
+                          );
+                        },
+                        icon: LineAwesomeIcons.user_shield,
+                        text: 'Account Settings',
+                      ),
+                      ProfileListItem(
+                        icon: LineAwesomeIcons.history,
+                        text: 'Upgrade To Pro',
+                      ),
+                      ProfileListItem(
+                        icon: LineAwesomeIcons.question_circle,
+                        text: 'Help & Support',
+                        press: () {
+                          Navigator.pushNamed(
+                              context, HelpSupportScreen.routeName);
+                        },
+                      ),
+                      ProfileListItem(
+                        icon: LineAwesomeIcons.cog,
+                        text: 'Settings',
+                        press: () {
+                          Navigator.pushNamed(
+                              context, SettingsScreen.routeName);
+                        },
+                      ),
+                      ProfileListItem(
+                        icon: LineAwesomeIcons.question,
+                        text: 'About Us',
+                        press: () {
+                          context.read<AboutBloc>().add(AboutPageRequested());
 
-                        Navigator.pushNamed(context, AboutUs.routeName);
-                      }
-                    },
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.alternate_sign_out,
-                    text: 'Logout',
-                    hasNavigation: false,
-                    press: () {
-                      context.read<AppBloc>().add(LogOut());
-                      Phoenix.rebirth(context);
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          LoginScreen.routeName,
-                          (Route<dynamic> route) => false);
-                    },
-                  ),
-                ],
-              ),
+                          Navigator.pushNamed(context, AboutUs.routeName);
+                        },
+                      ),
+                      ProfileListItem(
+                        icon: LineAwesomeIcons.alternate_sign_out,
+                        text: 'Logout',
+                        hasNavigation: false,
+                        press: () {
+                          context.read<AppBloc>().add(LogOut());
+                          Phoenix.rebirth(context);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              LoginScreen.routeName,
+                              (Route<dynamic> route) => false);
+                        },
+                      ),
+                    ],
+                  );
+                } else if (state is ProfileMessageNotSuccess) {
+                  return Center(child: Text(state.message));
+                } else
+                  return Center(child: Text("No Data Please Refresh"));
+              }),
             )
           ],
         ),
