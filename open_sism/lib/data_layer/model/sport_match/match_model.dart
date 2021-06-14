@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:open_sism/data_layer/model/task/task_model.dart';
-
+import 'package:open_sism/data_layer/model/sport_match/customer_prediction.dart';
 part 'match_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -23,7 +23,7 @@ class MatchModel extends Equatable {
   final int firstTeamScore;
   final int secondTeamScore;
   final TaskModel appTask;
-
+  final CustomerPredictionModel customerPrediction;
   MatchModel(
       {this.id,
       this.created,
@@ -39,7 +39,8 @@ class MatchModel extends Equatable {
       this.firstTeamScore,
       this.league,
       this.matchTime,
-      this.secondTeamScore});
+      this.secondTeamScore,
+      this.customerPrediction});
 
   factory MatchModel.fromJson(Map<String, dynamic> json) =>
       _$MatchModelFromJson(json);
@@ -62,6 +63,7 @@ class MatchModel extends Equatable {
         firstTeamScore,
         league,
         matchTime,
-        secondTeamScore
+        secondTeamScore,
+        customerPrediction
       ];
 }

@@ -57,6 +57,7 @@ import 'package:open_sism/logic/blocs/password/password.dart';
 import 'package:open_sism/logic/blocs/support_message/support.dart';
 import 'package:open_sism/logic/blocs/aboutBloc/about.dart';
 import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
+import 'package:open_sism/logic/blocs/sport_match_bloc/match.dart';
 
 class AppRouter {
   final AppRepository appRepository = AppRepository();
@@ -84,7 +85,7 @@ class AppRouter {
   AccountBloc accountBloc;
   PasswordBloc passwordBloc;
   SupportBloc supportBloc;
-
+  MatchBloc matchBloc;
   AppRouter({@required this.connectivity}) {
     profileBloc = new ProfileBloc(
         userRepository: userRepository,
@@ -137,6 +138,11 @@ class AppRouter {
       internetCubit: new InternetCubit(connectivity: connectivity),
     );
     singleTaskBloc = new SingleTaskBloc(
+      userRepository: userRepository,
+      taskRepository: new TaskRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
+    matchBloc = new MatchBloc(
       userRepository: userRepository,
       taskRepository: new TaskRepository(),
       internetCubit: new InternetCubit(connectivity: connectivity),
@@ -236,6 +242,7 @@ class AppRouter {
             builder: (context) => MultiBlocProvider(
                   providers: [
                     BlocProvider.value(value: singleTaskBloc),
+                    BlocProvider.value(value: matchBloc),
                   ],
                   child: DetailsScreen(),
                 ),
@@ -245,6 +252,7 @@ class AppRouter {
             builder: (context) => MultiBlocProvider(
                   providers: [
                     BlocProvider.value(value: singleTaskBloc),
+                    BlocProvider.value(value: matchBloc),
                   ],
                   child: SportMatchScreen(),
                 ),

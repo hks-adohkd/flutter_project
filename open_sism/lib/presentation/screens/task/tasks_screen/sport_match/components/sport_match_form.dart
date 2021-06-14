@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_sism/logic/blocs/support_message/support.dart';
+import 'package:open_sism/logic/blocs/sport_match_bloc/match.dart';
 import 'package:open_sism/presentation/components/custom_suffix_svgIcon.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/presentation/configurations/utils.dart';
@@ -13,6 +13,8 @@ class SportMatchForm extends StatefulWidget {
 }
 
 class _SportMatchFormState extends State<SportMatchForm> {
+  var firstTeamScoreController = TextEditingController(text: " ");
+  var secondTeamScoreController = TextEditingController(text: " ");
   String firstTeamScore;
   String secondTeamScore;
   final _formKey = GlobalKey<FormState>();
@@ -41,36 +43,54 @@ class _SportMatchFormState extends State<SportMatchForm> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context); // to get the screen size
+    SizeConfig().init(context);
+    // const double avatarPadding = SizeConfig.screenHeight * 0.5;
+    // to get the screen size
     return Form(
         key: _formKey,
-        child: BlocListener<SupportBloc, SupportState>(
+        child: BlocListener<MatchBloc, MatchState>(
           listener: (context, state) {
-            if (state is SupportAddState) {
+            if (state is MatchLoadedSuccess) {
+              if (state.matchData.content.customerPrediction != null) {
+                firstTeamScoreController.text = state
+                    .matchData.content.customerPrediction.firstTeamScore
+                    .toString();
+                secondTeamScoreController.text = state
+                    .matchData.content.customerPrediction.secondTeamScore
+                    .toString();
+              } else {
+                showSnackBar(
+                  context,
+                  "Add your Prediction",
+                  SnackBarType.wheel,
+                );
+              }
+            }
+            if (state is MatchAddEndState) {
               showSnackBar(
                 context,
-                'Sending message , please Wait ...',
+                'Add result , please Wait ...',
                 SnackBarType.loading,
               );
             }
-            if (state is SupportErrorState) {
-              showSnackBar(
-                context,
-                state.error,
-                SnackBarType.error,
-              );
-            }
-            if (state is SupportMessageNotSuccess) {
+            if (state is MatchEndMessageNotSuccess) {
               showSnackBar(
                 context,
                 state.message,
                 SnackBarType.error,
               );
             }
-            if (state is SupportSuccessState) {
+            if (state is MatchMessageNotSuccess) {
               showSnackBar(
                 context,
-                "Sent message successful",
+                state.message,
+                SnackBarType.error,
+              );
+            }
+            if (state is MatchEndSuccess) {
+              showSnackBar(
+                context,
+                "Add Prediction successful",
                 SnackBarType.wheel,
               );
               ScaffoldMessenger.of(context)..hideCurrentSnackBar();
@@ -86,7 +106,7 @@ class _SportMatchFormState extends State<SportMatchForm> {
               //   AccountPageRequested(),
               // );
             }
-            if (state is SupportNotValidFormState) {
+            if (state is MatchNotValidFormState) {
               showSnackBar(
                 context,
                 'Please Add All required information',
@@ -108,47 +128,98 @@ class _SportMatchFormState extends State<SportMatchForm> {
 
   Column buildColumn() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        BlocBuilder<MatchBloc, MatchState>(
+          builder: (context, state) {
+            if (state is MatchLoadedSuccess) {
+              return Text(
+                state.matchData.content.firstTeamName,
+                style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              );
+            } else
+              return Text(" ");
+          },
+        ),
+        SizedBox(height: SizeConfig.screenHeight * 0.03),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 30),
+          child: _buildAvatar(),
+        ),
         buildFirstTeamFormField(),
-        SizedBox(height: SizeConfig.screenHeight * 0.02),
+        // SizedBox(height: SizeConfig.screenHeight * 0.04),
+        Text(
+          "VS",
+          style: TextStyle(
+              fontSize: 24, color: Colors.red, fontWeight: FontWeight.bold),
+        ),
+        // SizedBox(height: SizeConfig.screenHeight * 0.04),
         buildSecondTeamFormField(),
-        SizedBox(height: SizeConfig.screenHeight * 0.02),
-        FloatingActionButton(onPressed: () => {}),
-        // DefaultButton(
-        //   text: "Send",
-        //   icon: Icons.send,
-        //   press: () {
-        //     if (_formKey.currentState.validate()) {
-        //       _formKey.currentState.save();
-        //       print(firstName);
-        //       print(lastName);
-        //       print(email);
-        //       print(phone);
-        //       print(subject);
-        //       print(myController.text);
-        //       context.read<SupportBloc>().add(
-        //             SupportAddMessage(
-        //                 subject: subject,
-        //                 phone: phone,
-        //                 message: myController.text,
-        //                 email: email,
-        //                 firstName: firstName,
-        //                 lastName: lastName),
-        //           );
-        //       // if all are valid then go to success screen
-        //       // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-        //     }
-        //   },
-        // ),
+
+        SizedBox(height: SizeConfig.screenHeight * 0.03),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 45),
+          child: _buildAvatar(),
+        ),
+        BlocBuilder<MatchBloc, MatchState>(
+          builder: (context, state) {
+            if (state is MatchLoadedSuccess) {
+              return Text(
+                state.matchData.content.secondTeamName,
+                style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              );
+            } else
+              return Text(" ");
+          },
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: BlocBuilder<MatchBloc, MatchState>(builder: (context, state) {
+            if (state is MatchLoadedSuccess) {
+              return FloatingActionButton(
+                onPressed: () {
+                  if (state.matchData.content.customerPrediction == null) {
+                    if (_formKey.currentState.validate()) {
+                      _formKey.currentState.save();
+                      print(firstTeamScore);
+                      print(secondTeamScore);
+                      print(state.matchData.content.id.toString());
+                      context.read<MatchBloc>().add(MatchAddEnd(
+                          matchId: state.matchData.content.id.toString(),
+                          secondTeamScore: secondTeamScore,
+                          firstTeamScore: firstTeamScore));
+                    }
+                  } else {
+                    showSnackBar(
+                      context,
+                      "You Added Prediction Previous",
+                      SnackBarType.error,
+                    );
+                  }
+                },
+                child: Icon(Icons.sports_football_rounded),
+              );
+            } else
+              return FloatingActionButton(
+                backgroundColor: Colors.blueGrey.withOpacity(0.5),
+              );
+          }),
+        ),
       ],
     );
   }
 
   Container buildFirstTeamFormField() {
     return Container(
-      width: SizeConfig.screenWidth / 2.5,
+      width: SizeConfig.screenWidth / 4,
       child: TextFormField(
+        controller: firstTeamScoreController,
         onSaved: (newValue) => {
           setState(() {
             firstTeamScore = newValue;
@@ -156,61 +227,77 @@ class _SportMatchFormState extends State<SportMatchForm> {
         },
         onChanged: (value) {
           if (value.isNotEmpty) {
-            removeError(error: "FirstName doesn't exist!");
+            removeError(error: "Add First Team Score");
           }
           return null;
         },
         validator: (value) {
           if (value.isEmpty) {
-            addError(error: "FirstName doesn't exist!");
+            addError(error: "Add First Team Score");
             return "";
           }
           return null;
         },
         keyboardType: TextInputType.number,
-        style: TextStyle(color: Colors.white),
-        // decoration: InputDecoration(
-        //   labelText: "FirstName",
-        //   hintText: "Enter your FirstName",
-        //   floatingLabelBehavior: FloatingLabelBehavior.always,
-        //   suffixIcon: CustomSuffixIcon(
-        //     svgIcon: 'assets/icons/User.svg',
-        //   ),
-        // ),
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        textAlignVertical: TextAlignVertical.center,
+        textAlign: TextAlign.center,
+        decoration: InputDecoration(
+          fillColor: Colors.blueGrey,
+          filled: true,
+        ),
       ),
     );
   }
 
   Container buildSecondTeamFormField() {
     return Container(
-      width: SizeConfig.screenWidth / 2.5,
+      width: SizeConfig.screenWidth / 4,
       child: TextFormField(
         onSaved: (newValue) => {
           setState(() {
             secondTeamScore = newValue;
           })
         },
+        controller: secondTeamScoreController,
         onChanged: (value) {
           if (value.isNotEmpty) {
-            removeError(error: "LastName doesn't exist!");
+            removeError(error: "Add Second Team Score");
           }
           return null;
         },
         validator: (value) {
           if (value.isEmpty) {
-            addError(error: "LastName doesn't exist!");
+            addError(error: "Add Second Team Score");
             return "";
           }
           return null;
         },
+        textAlign: TextAlign.center,
         keyboardType: TextInputType.number,
-        style: TextStyle(color: Colors.white),
-        // decoration: InputDecoration(
-        //   labelText: "LastName",
-        //   hintText: "Enter your LastName",
-        //   floatingLabelBehavior: FloatingLabelBehavior.always,
-        //   suffixIcon: CustomSuffixIcon(svgIcon: 'assets/icons/User.svg'),
-        // ),
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        decoration: InputDecoration(
+          fillColor: Colors.blueGrey,
+          filled: true,
+        ),
+      ),
+    );
+  }
+
+  _buildAvatar() {
+    return Container(
+      width: 120.0,
+      height: 120.0,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.white30),
+      ),
+      // margin: const EdgeInsets.only(top: 32.0, left: 16.0),
+      padding: const EdgeInsets.all(3.0),
+      child: ClipOval(
+        child: Image(
+          image: AssetImage("assets/images/logoBodyCircle.png"),
+        ),
       ),
     );
   }

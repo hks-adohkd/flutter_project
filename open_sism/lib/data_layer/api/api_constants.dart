@@ -47,7 +47,7 @@ const String ADD_LUCKY_Premium = "api/CustomerPrizes/AddLuckyPremium";
 const String ADD_DAILY_BONUS = "api/CustomerPrizes/AddDailyBonus";
 const String ADD_START = "api/AddStart";
 const String REQUEST_PRIZE = "RequestPrize";
-const String ADD_END = "api/AddEnd";
+const String ADD_END = "AddEnd";
 const String ADD_SHARE_APP_END = "api/AddShareAppEnd";
 
 const String HOME_PAGE = "api/Home/GetHome";

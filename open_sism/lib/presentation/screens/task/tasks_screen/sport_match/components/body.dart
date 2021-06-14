@@ -21,12 +21,12 @@ class _BodySportMatchState extends State<BodySportMatch> {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SingleChildScrollView(
             child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //SizedBox(height: SizeConfig.screenHeight * 0.05), // 4%
-
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                //SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SportMatchForm(),
-                SizedBox(height: getProportionateScreenHeight(20)),
+                // SizedBox(height: getProportionateScreenHeight(20)),
               ],
             ),
           ),

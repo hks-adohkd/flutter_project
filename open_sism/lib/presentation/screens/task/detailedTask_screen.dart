@@ -6,6 +6,8 @@ import 'package:open_sism/presentation/screens/task/components/body.dart';
 import 'package:open_sism/presentation/components/appBar.dart';
 
 import 'package:open_sism/presentation/screens/task/components/start_task_with_alert.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/sport_match_bloc/match.dart';
 
 class DetailsScreen extends StatelessWidget {
   final TaskBundle product;

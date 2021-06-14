@@ -55,6 +55,17 @@ class _AccountScreenFormState extends State<AccountScreenForm> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    addressController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // email = widget.profileData.content.user.email;
     // firstName = widget.profileData.content.firstName;

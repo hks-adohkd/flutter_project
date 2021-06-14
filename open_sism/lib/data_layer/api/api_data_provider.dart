@@ -145,6 +145,24 @@ class OpenSismApiDataProvider {
     return postGenericWithBody(TASKS + GET_ONE, token, data);
   }
 
+  Future<http.Response> fetchMatchJson({String token, String taskId}) async {
+    Map data = {"appTaskId": taskId};
+    return postGenericWithBody(SPORT_MATCHES + GET_ONE, token, data);
+  }
+
+  Future<http.Response> fetchAddMatchEndJson(
+      {String token,
+      int matchId,
+      int firstTeamScore,
+      int secondTeamScore}) async {
+    Map data = {
+      "SportMatchId": matchId,
+      "FirstTeamScore": firstTeamScore,
+      "SecondTeamScore": secondTeamScore
+    };
+    return postGenericWithBody(SPORT_MATCHES + ADD_END, token, data);
+  }
+
   Future<http.Response> fetchContactUSPageJson(String token) async =>
       postGeneric(CONTACT_US + GET_CUSTOMER_ALL, token);
 
