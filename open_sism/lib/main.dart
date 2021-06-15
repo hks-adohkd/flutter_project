@@ -27,6 +27,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Define a top-level named handler which background/terminated messages will
 /// call.
@@ -172,23 +173,81 @@ class OpenSism extends StatefulWidget {
 }
 
 class OpenSismState extends State<OpenSism> {
+
+  SharedPreferences prefs;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     context.read<AppBloc>().add(AppStarted());
+    prefsLangInit();
   }
 
-  Locale _locale = Locale('en', 'EN');
+  void prefsLangInit() async {
+    prefs = await SharedPreferences.getInstance();
+    if(prefs.getString('lang').compareTo('ar') == 0){
+      print("arabic");
+      setState(() {
+        _locale = Locale('ar', 'AR');
+      });
 
-  void setLocale(Locale value) {
+    } else{
+      print("NOT ARABIC");
+      setState(() {
+        _locale = Locale('en', 'EN');
+      });
+
+    }
+
+    if(_locale != null){
+      print("_locale: " + _locale.languageCode);
+    }
+
+  }
+
+  Locale _locale;
+
+  void setLocale(Locale value , BuildContext context) async{
+
     setState(() {
       _locale = value;
     });
+    SharedPreferences prefs =
+        await SharedPreferences.getInstance();
+
+    if(_locale.languageCode.compareTo('ar') == 0){
+     await prefs.setString('lang', 'ar');
+      print(prefs.getString('lang'));
+     // WidgetsBinding.instance.addPostFrameCallback((_) {
+     //   _locale = Locale('ar', 'AR');
+     // });
+
+      setState(() {
+        prefs.setString('lang', 'ar');
+        _locale = Locale('ar', 'AR');
+      });
+    }else{
+      await prefs.setString('lang', 'en');
+      print(prefs.getString('lang'));
+      // WidgetsBinding.instance.addPostFrameCallback((_) {
+      //   _locale = Locale('en', 'EN');
+      // });
+      setState(() {
+
+        _locale = Locale('en', 'EN');
+      });
+    }
+
+
+    Phoenix.rebirth(context);
   }
 
   @override
   Widget build(BuildContext context) {
+    if(_locale != null){
+      print("_locale: " + _locale.languageCode);
+    }
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AppRepository>(

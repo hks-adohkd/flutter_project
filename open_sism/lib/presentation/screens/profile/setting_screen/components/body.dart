@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:open_sism/main.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 import 'package:open_sism/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsBody extends StatefulWidget {
   @override
@@ -40,6 +42,26 @@ class _SettingsBodyState extends State<SettingsBody> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20)),
+                  onPressed: () async {
+                    context
+                        .findAncestorStateOfType<OpenSismState>()
+                        .setLocale(Locale('ar', 'AR') , context);
+
+                  },
+                  child: const Text('عربي'),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20)),
+                  onPressed: () async {
+                   await context
+                        .findAncestorStateOfType<OpenSismState>()
+                        .setLocale(Locale('en', 'EN') , context);
+                  },
+                  child: const Text('English'),
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
                 Center(
