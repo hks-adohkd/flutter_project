@@ -22,117 +22,132 @@ class _ProductTitleWithImageState extends State<ProductTitleWithImage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(
-            height: kDefaultPaddin,
+            height: kDefaultPaddin * 2,
           ),
-          BlocBuilder<SingleTaskBloc, SingleTaskState>(
-            builder: (context, state) {
-              if (state is SingleTaskLoadedSuccess) {
-                return Text(
-                  state.recipeBundles != null ? state.recipeBundles.title : " ",
-                  style: Theme.of(context).textTheme.headline4.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                );
-              } else
-                return Text(" ");
-            },
+
+          Container(
+            padding: EdgeInsets.all(getProportionateScreenWidth(1)),
+            alignment: Alignment.center,
+            height: getProportionateScreenWidth(40),
+            width: SizeConfig.screenWidth,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Colors.white38.withOpacity(0.4),
+
+              //borderRadius: BorderRadius.circular(10),
+            ),
+            child: BlocBuilder<SingleTaskBloc, SingleTaskState>(
+              builder: (context, state) {
+                if (state is SingleTaskLoadedSuccess) {
+                  return Text(
+                    state.recipeBundles != null
+                        ? state.recipeBundles.title
+                        : " ",
+                    style: Theme.of(context).textTheme.headline4.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  );
+                } else
+                  return Text(" ");
+              },
+            ),
           ),
           SizedBox(height: kDefaultPaddin),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(getProportionateScreenWidth(1)),
-                alignment: Alignment.center,
-                height: getProportionateScreenWidth(80),
-                width: getProportionateScreenWidth(80),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.yellow.withOpacity(0.4),
-
-                  //borderRadius: BorderRadius.circular(10),
-                ),
-                child: BlocBuilder<SingleTaskBloc, SingleTaskState>(
-                    builder: (context, state) {
-                  if (state is SingleTaskLoadedSuccess) {
-                    return RichText(
-                      text: TextSpan(
-                        //style: TextStyle(color: kTextColor),
-                        children: [
-                          TextSpan(
-                            text: "Points\n",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24),
-                          ),
-                          TextSpan(
-                            text: state.recipeBundles.points.toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24),
-                          )
-                        ],
-                      ),
-                    );
-                  } else
-                    return RichText(
-                      text: TextSpan(
-                        style: TextStyle(color: kTextColor),
-                        children: [
-                          TextSpan(
-                            text: "Points\n",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextSpan(
-                            text: " ",
-                            style:
-                                Theme.of(context).textTheme.headline5.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF512DA8),
-                                    ),
-                          )
-                        ],
-                      ),
-                    );
-                }),
-              ),
-              SizedBox(width: kDefaultPaddin),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  BlocBuilder<SingleTaskBloc, SingleTaskState>(
-                    builder: (context, state) {
-                      if (state is SingleTaskLoadedSuccess) {
-                        return Hero(
-                          tag: '${state.recipeBundles.id}',
-                          child: Image.asset(
-                            state.recipeBundles.imageSrc,
-                            fit: BoxFit.scaleDown,
-                          ),
-                        );
-                      } else
-                        return Hero(
-                          tag: " ",
-                          child: Image.asset(
-                            " ",
-                            fit: BoxFit.scaleDown,
-                          ),
-                        );
-                    },
-                  ),
-                ],
-              )
-            ],
-          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: <Widget>[
+          //     Container(
+          //       padding: EdgeInsets.all(getProportionateScreenWidth(1)),
+          //       alignment: Alignment.center,
+          //       height: getProportionateScreenWidth(80),
+          //       width: getProportionateScreenWidth(80),
+          //       decoration: BoxDecoration(
+          //         shape: BoxShape.circle,
+          //         color: Colors.yellow.withOpacity(0.4),
+          //
+          //         //borderRadius: BorderRadius.circular(10),
+          //       ),
+          //       child: BlocBuilder<SingleTaskBloc, SingleTaskState>(
+          //           builder: (context, state) {
+          //         if (state is SingleTaskLoadedSuccess) {
+          //           return RichText(
+          //             text: TextSpan(
+          //               //style: TextStyle(color: kTextColor),
+          //               children: [
+          //                 TextSpan(
+          //                   text: "Points\n",
+          //                   style: Theme.of(context)
+          //                       .textTheme
+          //                       .headline4
+          //                       .copyWith(
+          //                           color: Colors.black,
+          //                           fontWeight: FontWeight.bold,
+          //                           fontSize: 24),
+          //                 ),
+          //                 TextSpan(
+          //                   text: state.recipeBundles.points.toString(),
+          //                   style: Theme.of(context)
+          //                       .textTheme
+          //                       .headline4
+          //                       .copyWith(
+          //                           color: Colors.black,
+          //                           fontWeight: FontWeight.bold,
+          //                           fontSize: 24),
+          //                 )
+          //               ],
+          //             ),
+          //           );
+          //         } else
+          //           return RichText(
+          //             text: TextSpan(
+          //               style: TextStyle(color: kTextColor),
+          //               children: [
+          //                 TextSpan(
+          //                   text: "Points\n",
+          //                   style: TextStyle(
+          //                     fontWeight: FontWeight.bold,
+          //                   ),
+          //                 ),
+          //                 TextSpan(
+          //                   text: " ",
+          //                   style:
+          //                       Theme.of(context).textTheme.headline5.copyWith(
+          //                             fontWeight: FontWeight.bold,
+          //                             color: Color(0xFF512DA8),
+          //                           ),
+          //                 )
+          //               ],
+          //             ),
+          //           );
+          //       }),
+          //     ),
+          //     SizedBox(width: kDefaultPaddin),
+          //     Column(
+          //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //       children: [
+          //         BlocBuilder<SingleTaskBloc, SingleTaskState>(
+          //           builder: (context, state) {
+          //             if (state is SingleTaskLoadedSuccess) {
+          //               return Hero(
+          //                 tag: '${state.recipeBundles.id}',
+          //                 child: Image.asset(
+          //                   state.recipeBundles.imageSrc,
+          //                   fit: BoxFit.scaleDown,
+          //                 ),
+          //               );
+          //             } else
+          //               return Hero(
+          //                 tag: " ",
+          //                 child: Image.asset(
+          //                   " ",
+          //                   fit: BoxFit.scaleDown,
+          //                 ),
+          //               );
+          //           },
+          //         ),
+          //       ],
+          //     )
+          //   ],
+          // )
         ],
       ),
     );

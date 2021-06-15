@@ -19,7 +19,7 @@ class _DescriptionState extends State<Description> {
     return Expanded(
       child: Column(
         children: [
-          CustomButton(),
+          const SizedBox(height: 10.0),
           BlocBuilder<SingleTaskBloc, SingleTaskState>(
             builder: (context, state) {
               if (state is SingleTaskLoadedSuccess) {
@@ -27,12 +27,29 @@ class _DescriptionState extends State<Description> {
                   state.recipeBundles != null
                       ? state.recipeBundles.description
                       : " ",
-                  style: TextStyle(height: 1.5),
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold),
                 );
               } else
                 return Text(" ");
             },
           ),
+          const SizedBox(height: 30.0),
+          CustomButton(),
+          // BlocBuilder<SingleTaskBloc, SingleTaskState>(
+          //   builder: (context, state) {
+          //     if (state is SingleTaskLoadedSuccess) {
+          //       return Visibility(
+          //         visible:
+          //             state.recipeBundles.tutorailLink != null ? true : false,
+          //         child: CustomButton(),
+          //       );
+          //     } else
+          //       return Text(" ");
+          //   },
+          // ),
         ],
       ),
     );

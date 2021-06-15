@@ -41,11 +41,20 @@ class SingleTaskBloc extends Bloc<SingleTaskEvent, SingleTaskState> {
     });
   }
 
-  int calculateTaskHour(SingleTaskApiResponse taskData) {
+  String calculateTaskHour(SingleTaskApiResponse taskData) {
     DateTime startDate = taskData.content.startDate;
     DateTime endDate = taskData.content.endDate;
-    return endDate.day - startDate.day;
+    int mS = endDate.millisecondsSinceEpoch - startDate.millisecondsSinceEpoch;
+    int days = (mS ~/ (1000 * 60 * 60 * 24));
+    int hour = (mS ~/ (1000 * 60 * 60) % 24);
+    String time = '$days day:$hour h';
+    return time;
   }
+  // int calculateTaskHour(SingleTaskApiResponse taskData) {
+  //   DateTime startDate = taskData.content.startDate;
+  //   DateTime endDate = taskData.content.endDate;
+  //   return endDate.day - startDate.day;
+  // }
 
   Color getTaskColor(SingleTaskApiResponse taskData) {
     String _name = taskData.content.taskType.name;
@@ -92,28 +101,28 @@ class SingleTaskBloc extends Bloc<SingleTaskEvent, SingleTaskState> {
             token: await userRepository.getToken(), taskId: event.taskId);
         if (taskPageModel.message == "success") {
           recipeBundles = TaskBundle(
-            id: taskPageModel.content.id,
-            description: taskPageModel.content.description,
-            imageSrc: taskPageModel.content.imageUrl,
-            person: taskPageModel.content.limit,
-            title: taskPageModel.content.displayName,
-            color: getTaskColor(taskPageModel),
-            icon: getTaskIcon(taskPageModel),
-            points: taskPageModel.content.points,
-            hours: calculateTaskHour(taskPageModel),
-            startDate: getStartDate(taskPageModel),
-            endDate: getEndDate(taskPageModel),
-            isDone: taskPageModel.content.isDone,
-            isForAll: taskPageModel.content.isForAll,
-            isReachLimit: taskPageModel.content.isReachLimit,
-            link: taskPageModel.content.link,
-            packageName: taskPageModel.content.packageName,
-            pageId: taskPageModel.content.pageId,
-            stared: taskPageModel.content.stared,
-            taskType: taskPageModel.content.taskType,
-            videoDuration: taskPageModel.content.videoDuration,
-            videoId: taskPageModel.content.videoId,
-          );
+              id: taskPageModel.content.id,
+              description: taskPageModel.content.description,
+              imageSrc: taskPageModel.content.imageUrl,
+              person: taskPageModel.content.limit,
+              title: taskPageModel.content.displayName,
+              color: getTaskColor(taskPageModel),
+              icon: getTaskIcon(taskPageModel),
+              points: taskPageModel.content.points,
+              hours: calculateTaskHour(taskPageModel),
+              startDate: getStartDate(taskPageModel),
+              endDate: getEndDate(taskPageModel),
+              isDone: taskPageModel.content.isDone,
+              isForAll: taskPageModel.content.isForAll,
+              isReachLimit: taskPageModel.content.isReachLimit,
+              link: taskPageModel.content.link,
+              packageName: taskPageModel.content.packageName,
+              pageId: taskPageModel.content.pageId,
+              stared: taskPageModel.content.stared,
+              taskType: taskPageModel.content.taskType,
+              videoDuration: taskPageModel.content.videoDuration,
+              videoId: taskPageModel.content.videoId,
+              tutorailLink: taskPageModel.content.tutorialLink);
 
           yield SingleTaskLoadedSuccess(
               taskData: taskPageModel, recipeBundles: recipeBundles);

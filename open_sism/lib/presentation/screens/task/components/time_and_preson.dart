@@ -14,6 +14,8 @@ class _TimeAndPersonState extends State<TimeAndPerson> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      textBaseline: TextBaseline.alphabetic,
       children: <Widget>[
         Expanded(
           child: Column(
@@ -82,52 +84,119 @@ class _TimeAndPersonState extends State<TimeAndPerson> {
             ],
           ),
         ),
+        SizedBox(
+          width: 30,
+        ),
         Expanded(
-          child: BlocBuilder<SingleTaskBloc, SingleTaskState>(
-            builder: (context, state) {
-              if (state is SingleTaskLoadedSuccess) {
-                return RichText(
-                  text: TextSpan(
-                    style: TextStyle(color: kTextColor),
-                    children: [
-                      TextSpan(
-                        text: "Person\n",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextSpan(
-                        text: state.recipeBundles.person.toString(),
-                        style: Theme.of(context).textTheme.headline5.copyWith(
+          child: Column(
+            children: [
+              BlocBuilder<SingleTaskBloc, SingleTaskState>(
+                builder: (context, state) {
+                  if (state is SingleTaskLoadedSuccess) {
+                    return RichText(
+                      text: TextSpan(
+                        style: TextStyle(color: kTextColor),
+                        children: [
+                          TextSpan(
+                            text: "Person\n",
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF512DA8),
                             ),
-                      )
-                    ],
-                  ),
-                );
-              } else
-                return RichText(
-                  text: TextSpan(
-                    style: TextStyle(color: kTextColor),
-                    children: [
-                      TextSpan(
-                        text: "Person\n",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                          ),
+                          TextSpan(
+                            text: state.recipeBundles.person.toString(),
+                            style:
+                                Theme.of(context).textTheme.headline5.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF512DA8),
+                                    ),
+                          )
+                        ],
                       ),
-                      TextSpan(
-                        text: " ",
-                        style: Theme.of(context).textTheme.headline5.copyWith(
+                    );
+                  } else
+                    return RichText(
+                      text: TextSpan(
+                        style: TextStyle(color: kTextColor),
+                        children: [
+                          TextSpan(
+                            text: "Person\n",
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF512DA8),
                             ),
-                      )
-                    ],
-                  ),
-                );
-            },
+                          ),
+                          TextSpan(
+                            text: " ",
+                            style:
+                                Theme.of(context).textTheme.headline5.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF512DA8),
+                                    ),
+                          )
+                        ],
+                      ),
+                    );
+                },
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+            textBaseline: TextBaseline.alphabetic,
+            //mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              BlocBuilder<SingleTaskBloc, SingleTaskState>(
+                builder: (context, state) {
+                  if (state is SingleTaskLoadedSuccess) {
+                    return RichText(
+                      text: TextSpan(
+                        style: TextStyle(color: kTextColor),
+                        children: [
+                          TextSpan(
+                            text: "Point\n",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: state.recipeBundles.points.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5
+                                .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red,
+                                    textBaseline: TextBaseline.alphabetic),
+                          )
+                        ],
+                      ),
+                    );
+                  } else
+                    return RichText(
+                      text: TextSpan(
+                        style: TextStyle(color: kTextColor),
+                        children: [
+                          TextSpan(
+                            text: "Point\n",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: " ",
+                            style:
+                                Theme.of(context).textTheme.headline5.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF512DA8),
+                                    ),
+                          )
+                        ],
+                      ),
+                    );
+                },
+              ),
+            ],
           ),
         ),
       ],

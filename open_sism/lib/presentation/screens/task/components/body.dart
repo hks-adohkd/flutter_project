@@ -17,13 +17,13 @@ class Body extends StatelessWidget {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: SizeConfig.screenHeight * 1,
+            height: SizeConfig.screenHeight * 1.2,
             child: Stack(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.4),
+                  margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.3),
                   padding: EdgeInsets.only(
-                    top: SizeConfig.screenHeight * 0.10,
+                    top: SizeConfig.screenHeight * 0.02,
                     left: kDefaultPaddin,
                     right: kDefaultPaddin,
                   ),
@@ -37,7 +37,7 @@ class Body extends StatelessWidget {
                   ),
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: 30),
+                      SizedBox(height: 1),
                       TimeAndPerson(),
                       SizedBox(height: kDefaultPaddin / 2),
                       Description(),
