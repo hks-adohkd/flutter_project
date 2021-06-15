@@ -11,6 +11,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class OtpForm extends StatefulWidget {
   final String phone;
+
   const OtpForm({Key key, @required this.phone}) : super(key: key);
 
   @override
@@ -214,14 +215,14 @@ class _OtpFormState extends State<OtpForm> {
               try {
                 await FirebaseAuth.instance
                     .signInWithCredential(PhoneAuthProvider.credential(
-                    verificationId: verificationCode, smsCode: code))
+                        verificationId: verificationCode, smsCode: code))
                     .then((value) async {
                   if (value.user != null) {
                     print("signIn");
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => HomeScreen()),
-                            (route) => false);
+                        (route) => false);
                   } else {
                     print("user not found ");
                   }
@@ -278,7 +279,7 @@ class _OtpFormState extends State<OtpForm> {
         (FirebaseAuthException authException) {
       setState(() {
         _message =
-        'Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}';
+            'Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}';
       });
     };
 

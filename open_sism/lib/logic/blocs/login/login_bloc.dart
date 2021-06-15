@@ -44,17 +44,25 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else {
         yield LoginLoading();
         try {
-          // PrizeModel prize = await userRepository.getPrizeAll();
-          CustomerApiResponse user = await userRepository.signInWithCredentials(
-            event.mobile,
-            event.password,
-            "",
-          );
+          if (event.password.isEmpty || event.mobile.isEmpty) {
+            yield LoginNotValidated();
+          } else {
+            // PrizeModel prize = await userRepository.getPrizeAll();
+            CustomerApiResponse user =
+                await userRepository.signInWithCredentials(
+              event.mobile,
+              event.password,
+              "",
+            );
 
-          print({"token", user.currentCustomer.token});
-          // appBloc.add(UpdateFirebaseToken(fcmToken: user.))
-          appBloc.add(LogIn(token: user.currentCustomer.token));
-          yield LoginSuccess();
+            //print({"token", user.currentCustomer.token});
+            // appBloc.add(UpdateFirebaseToken(fcmToken: user.))
+            if (user.message == "success") {
+              appBloc.add(LogIn(token: user.currentCustomer.token));
+              yield LoginSuccess();
+            } else
+              yield LoginMessageNotSuccess(user.message);
+          }
         } catch (e) {
           String msg = 'Error';
           if (e['code'] == 1) {

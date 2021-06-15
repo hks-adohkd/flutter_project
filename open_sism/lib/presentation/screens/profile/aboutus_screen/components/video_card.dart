@@ -28,7 +28,7 @@ class VideoCard extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Image(
-            image: AssetImage(video.thumbnail),
+            image: AssetImage("assets/images/logoBody2.png"),
           ),
           Positioned(
             bottom: 12.0,

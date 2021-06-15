@@ -53,6 +53,7 @@ CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) {
     luckyWheelPremiumLastSpinDate: json['luckyWheelPremiumLastSpinDate'] == null
         ? null
         : DateTime.parse(json['luckyWheelPremiumLastSpinDate'] as String),
+    address: json['address'] as String,
   );
 }
 
@@ -92,4 +93,5 @@ Map<String, dynamic> _$CustomerModelToJson(CustomerModel instance) =>
       'user': instance.user?.toJson(),
       'city': instance.city?.toJson(),
       'premium': instance.premium,
+      'address': instance.address,
     };

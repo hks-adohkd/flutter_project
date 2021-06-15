@@ -22,7 +22,7 @@ class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
 
   String phone;
-  String password = "Yazbek@123";
+  String password = "1234567@Aa";
   bool remember = false;
 
   void addError({String error}) {
@@ -183,7 +183,7 @@ class _SignFormState extends State<SignForm> {
       },
       textStyle: TextStyle(color: Colors.white),
       initialValue:
-          PhoneNumber(phoneNumber: "999999999", isoCode: "SY"), //number
+          PhoneNumber(phoneNumber: "999999911", isoCode: "SY"), //number
       selectorConfig: SelectorConfig(
         setSelectorButtonAsPrefixIcon: true,
         trailingSpace: false,

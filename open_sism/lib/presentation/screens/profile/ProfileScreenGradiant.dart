@@ -10,7 +10,16 @@ class ProfileScreenGradient extends StatelessWidget {
     return Scaffold(
       body: Container(
         height: double.infinity,
-        decoration: kBoxDecoration,
+        decoration: kBoxDecoration.copyWith(
+            // gradient: LinearGradient(
+            //   begin: Alignment.topRight,
+            //   end: Alignment.bottomLeft,
+            //   colors: [
+            //     Color(0xff2196F3),
+            //     Color(0xffBBDEFB),
+            //   ],
+            // ),
+            ),
         child: HomeProfileScreenGrad(),
       ),
     );

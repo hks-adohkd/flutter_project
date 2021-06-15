@@ -1,9 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/presentation/screens/profile/aboutus_screen/components/assets.dart';
 import 'package:open_sism/presentation/screens/profile/aboutus_screen/components/video_card.dart';
 import 'package:open_sism/presentation/screens/profile/aboutus_screen/components/about_us_boundle.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:open_sism/logic/blocs/aboutBloc/about.dart';
 
 class BuildContent {
   // final DEV dev;
@@ -87,21 +89,37 @@ class BuildContent {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            dev.firstName + " " + dev.lastName,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 30.0,
-            ),
+          BlocBuilder<AboutBloc, AboutState>(
+            builder: (context, state) {
+              if (state is AboutLoadedSuccess) {
+                return Text(
+                  "Open Simsm",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30.0,
+                  ),
+                );
+              } else
+                return Text("");
+            },
           ),
           Text('\n'),
-          Text(
-            dev.location,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.85),
-              fontWeight: FontWeight.w500,
-            ),
+          BlocBuilder<AboutBloc, AboutState>(
+            builder: (context, state) {
+              if (state is AboutLoadedSuccess) {
+                return Text(
+                  state.aboutData.content.location != null
+                      ? state.aboutData.content.location.value
+                      : " ",
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.85),
+                    fontWeight: FontWeight.w500,
+                  ),
+                );
+              } else
+                return Text("");
+            },
           ),
           Container(
             color: Colors.white.withOpacity(0.85),
@@ -109,12 +127,21 @@ class BuildContent {
             width: 225.0,
             height: 1.0,
           ),
-          Text(
-            dev.biography,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.85),
-              height: 1.4,
-            ),
+          BlocBuilder<AboutBloc, AboutState>(
+            builder: (context, state) {
+              if (state is AboutLoadedSuccess) {
+                return Text(
+                  state.aboutData.content.aboutUs != null
+                      ? state.aboutData.content.aboutUs.script
+                      : " ",
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.85),
+                    height: 1.4,
+                  ),
+                );
+              } else
+                return Text("");
+            },
           ),
         ],
       ),
@@ -126,16 +153,20 @@ class BuildContent {
       padding: const EdgeInsets.only(top: 16.0),
       child: SizedBox.fromSize(
         size: Size.fromHeight(220.0),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          itemCount: dev.videos.length,
-          itemBuilder: (BuildContext context, int index) {
-            var video = dev.videos[index];
-
-            return VideoCard(video);
-          },
-        ),
+        child: BlocBuilder<AboutBloc, AboutState>(builder: (context, state) {
+          if (state is AboutLoadedSuccess) {
+            return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              itemCount: state.videoList.length,
+              itemBuilder: (BuildContext context, int index) {
+                //var video = state.videoList[index];
+                return VideoCard(state.videoList[index]);
+              },
+            );
+          } else
+            return VideoCard(Video(title: "No Data Available", url: " "));
+        }),
       ),
     );
   }
@@ -174,9 +205,16 @@ class BuildContent {
                 color: Colors.black54,
               ),
               SizedBox(width: 10.0),
-              Text(
-                dev.email,
-                style: TextStyle(fontSize: 16.0),
+              BlocBuilder<AboutBloc, AboutState>(
+                builder: (context, state) {
+                  if (state is AboutLoadedSuccess) {
+                    return Text(
+                      state.email,
+                      style: TextStyle(fontSize: 16.0),
+                    );
+                  } else
+                    return Text("");
+                },
               ),
             ],
           ),
@@ -189,9 +227,16 @@ class BuildContent {
                 color: Colors.black54,
               ),
               SizedBox(width: 10.0),
-              Text(
-                dev.phone,
-                style: TextStyle(fontSize: 16.0),
+              BlocBuilder<AboutBloc, AboutState>(
+                builder: (context, state) {
+                  if (state is AboutLoadedSuccess) {
+                    return Text(
+                      state.phone,
+                      style: TextStyle(fontSize: 16.0),
+                    );
+                  } else
+                    return Text("");
+                },
               ),
             ],
           ),
@@ -201,44 +246,109 @@ class BuildContent {
     );
   }
 
+  // 'whatsapp://send?phone=${state.about.whatsup}'
   Widget _buildSocialsRow() {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0),
       child: Row(
         children: <Widget>[
           SizedBox(width: 20.0),
-          IconButton(
-            color: Colors.indigo,
-            icon: Icon(FontAwesomeIcons.facebookF),
-            onPressed: () {
-              _launchURL("https://facebook.com/lohanidamodar");
+          BlocBuilder<AboutBloc, AboutState>(
+            builder: (context, state) {
+              if (state is AboutLoadedSuccess) {
+                if (state.faceBook != " ") {
+                  return IconButton(
+                    //color: Colors.indigo,
+                    icon: Icon(FontAwesomeIcons.facebookSquare),
+                    onPressed: () {
+                      print(state.faceBook);
+                      _launchURL(state.faceBook);
+                    },
+                  );
+                } else
+                  return Text("");
+              } else
+                return Text("");
             },
           ),
           SizedBox(width: 5.0),
-          IconButton(
-            color: Colors.indigo,
-            icon: Icon(FontAwesomeIcons.github),
-            onPressed: () {
-              _launchURL("https://github.com/lohanidamodar");
+          BlocBuilder<AboutBloc, AboutState>(
+            builder: (context, state) {
+              if (state is AboutLoadedSuccess) {
+                if (state.whats != " ") {
+                  return IconButton(
+                    icon: Icon(
+                      FontAwesomeIcons.whatsapp,
+                      color: Colors.green,
+                    ),
+                    onPressed: () {
+                      print(state.whats);
+                      _launchURL('whatsapp://send?phone=${state.whats}');
+                    },
+                  );
+                } else
+                  return Text(" ");
+              } else
+                return Text(" ");
             },
           ),
           SizedBox(width: 5.0),
-          IconButton(
-            color: Colors.red,
-            icon: Icon(FontAwesomeIcons.youtube),
-            onPressed: () {
-              _launchURL("https://youtube.com/c/reactbits");
+          BlocBuilder<AboutBloc, AboutState>(
+            builder: (context, state) {
+              if (state is AboutLoadedSuccess) {
+                if (state.youtube != " ") {
+                  return IconButton(
+                    color: Colors.red,
+                    icon: Icon(FontAwesomeIcons.youtube),
+                    onPressed: () {
+                      print(state.youtube);
+                      _launchURL(state.youtube);
+                    },
+                  );
+                } else
+                  return Text("");
+              } else
+                return Text("");
             },
           ),
           SizedBox(width: 5.0),
-          IconButton(
-            color: Colors.purple,
-            icon: Icon(FontAwesomeIcons.instagram),
-            onPressed: () {
-              _launchURL("https://facebook.com/lohanidamodar");
+          BlocBuilder<AboutBloc, AboutState>(
+            builder: (context, state) {
+              if (state is AboutLoadedSuccess) {
+                if (state.instagram != " ") {
+                  return IconButton(
+                    color: Colors.purple,
+                    icon: Icon(FontAwesomeIcons.instagram),
+                    onPressed: () {
+                      print(state.instagram);
+                      _launchURL(state.instagram);
+                    },
+                  );
+                } else
+                  return Text("");
+              } else
+                return Text("");
             },
           ),
-          SizedBox(width: 10.0),
+          SizedBox(width: 5.0),
+          BlocBuilder<AboutBloc, AboutState>(
+            builder: (context, state) {
+              if (state is AboutLoadedSuccess) {
+                if (state.telegram != " ") {
+                  return IconButton(
+                    // color: Colors.purple,
+                    icon: Icon(FontAwesomeIcons.telegram),
+                    onPressed: () {
+                      print(state.telegram);
+                      _launchURL(state.telegram);
+                    },
+                  );
+                } else
+                  return Text("");
+              } else
+                return Text("");
+            },
+          ),
         ],
       ),
     );

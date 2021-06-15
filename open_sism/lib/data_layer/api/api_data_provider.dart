@@ -87,6 +87,9 @@ class OpenSismApiDataProvider {
   Future<http.Response> fetchHomeJson({String token}) async =>
       postGeneric(HOME_PAGE, token);
 
+  Future<http.Response> fetchAboutJson({String token}) async =>
+      postGeneric(ABOUT_US, token);
+
   Future<http.Response> fetchCitiesJson(String token) async =>
       postGeneric(CITIES + GET_ALL, token);
 
@@ -136,11 +139,93 @@ class OpenSismApiDataProvider {
   Future<http.Response> fetchTaskPageJson(String token) async =>
       postGeneric(TASKS + GET_ALL, token);
 
+  Future<http.Response> fetchSingleTaskJson(
+      {String token, String taskId}) async {
+    Map data = {"id": taskId};
+    return postGenericWithBody(TASKS + GET_ONE, token, data);
+  }
+
+  Future<http.Response> fetchMatchJson({String token, String taskId}) async {
+    Map data = {"appTaskId": taskId};
+    return postGenericWithBody(SPORT_MATCHES + GET_ONE, token, data);
+  }
+
+  Future<http.Response> fetchAddMatchEndJson(
+      {String token,
+      int matchId,
+      int firstTeamScore,
+      int secondTeamScore}) async {
+    Map data = {
+      "SportMatchId": matchId,
+      "FirstTeamScore": firstTeamScore,
+      "SecondTeamScore": secondTeamScore
+    };
+    return postGenericWithBody(SPORT_MATCHES + ADD_END, token, data);
+  }
+
   Future<http.Response> fetchContactUSPageJson(String token) async =>
       postGeneric(CONTACT_US + GET_CUSTOMER_ALL, token);
 
+  Future<http.Response> fetchAddSupportMessageJson(
+      {String token,
+      String email,
+      String subject,
+      String message,
+      String phone,
+      String firstName,
+      String lastName}) async {
+    Map data = {
+      "subject": subject,
+      "message": message,
+      "phoneNumber": phone,
+      "email": email,
+      "firstName": firstName,
+      "lastName": lastName,
+    };
+
+    return postGenericWithBody(CONTACT_US + ADD, token, data);
+
+    //return postGenericWithBodyWithOutToken(CITIES + GET_ALL, data);
+  }
+
   Future<http.Response> fetchCustomerMessageJson({String token}) async =>
       postGeneric(CUSTOMER_MESSAGES + GET_ALL, token);
+  Future<http.Response> fetchCustomerProfileJson({String token}) async =>
+      postGeneric(GET_PROFILE, token);
+
+  Future<http.Response> fetchCustomerUpdateProfileJson(
+      {String address,
+      String firstName,
+      String lastName,
+      String email,
+      String token}) async {
+    Map data = {
+      "Address": address,
+      "FirstName": firstName,
+      "LastName": lastName,
+      "email": email,
+    };
+
+    return postGenericWithBody(UPDATE_PROFILE, token, data);
+
+    //return postGenericWithBodyWithOutToken(CITIES + GET_ALL, data);
+  }
+
+  Future<http.Response> fetchCustomerUpdatePasswordJson(
+      {String oldPassword,
+      String newPassword,
+      String confirmPassword,
+      String token}) async {
+    Map data = {
+      "OldPassword": oldPassword,
+      "NewPassword": newPassword,
+      "ConfirmPassword": confirmPassword,
+    };
+
+    return postGenericWithBody(CHANGE_PASSWORD, token, data);
+
+    //return postGenericWithBodyWithOutToken(CITIES + GET_ALL, data);
+  }
 
   Future<http.Response> fetchCustomerFinishedTaskJson(String token) async =>
       postGeneric(TASKS + GET_Finished, token);

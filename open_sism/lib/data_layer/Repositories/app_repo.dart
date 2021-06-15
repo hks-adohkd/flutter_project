@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:open_sism/data_layer/api/api_data_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:open_sism/data_layer/model/about/about_api_response.dart';
 
 class AppRepository {
   // final http.Client httpClient = http.Client();
@@ -13,7 +14,7 @@ class AppRepository {
   static const String isOpenedBefore = 'is_opened_before';
   static const String key_fbToken = 'firebase_token';
   static const String key_notifications_count = 'notifications_count';
-
+  final OpenSismApiDataProvider dataProvider = new OpenSismApiDataProvider();
   int minPrice;
   String homeTitle;
   String phoneNumber = '';
@@ -81,4 +82,14 @@ class AppRepository {
 //     throw FetchDataException('No Internet connection');
 //   }
 // }
+
+  Future<AboutApiResponse> getAboutData({String token}) async {
+    var response = await dataProvider.fetchAboutJson(token: token);
+    var jsonObj = json.decode(response.body);
+    // print(jsonObj);
+    var aboutModel = AboutApiResponse.fromJson(jsonObj);
+    print("aboutModel");
+    print(aboutModel);
+    return aboutModel;
+  }
 }

@@ -52,7 +52,7 @@ class RecipeBundelCard extends StatelessWidget {
   Container cardTaskDesign(double defaultSize) {
     return Container(
       //alignment: Alignment.centerLeft,
-      height: 200,
+      height: 160,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         //mainAxisAlignment: MainAxisAlignment.start,
@@ -68,18 +68,18 @@ class RecipeBundelCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: defaultSize * 0.5), // 5
-          Text(
-            recipeBundle.description,
-            style: TextStyle(color: Colors.white),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
+          // Text(
+          //   recipeBundle.description,
+          //   style: TextStyle(color: Colors.white),
+          //   maxLines: 2,
+          //   overflow: TextOverflow.ellipsis,
+          // ),
           SizedBox(height: defaultSize * 0.5),
           buildInfoRow(
             defaultSize,
             iconSrc: "assets/icons/pot.svg",
             iconData: Icons.alarm,
-            text: "${recipeBundle.hours} days",
+            text: "${recipeBundle.hours}",
           ),
           SizedBox(height: defaultSize * 0.5), //5
           buildInfoRow(
