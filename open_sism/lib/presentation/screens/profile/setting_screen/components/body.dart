@@ -42,27 +42,27 @@ class _SettingsBodyState extends State<SettingsBody> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20)),
-                  onPressed: () async {
-                    context
-                        .findAncestorStateOfType<OpenSismState>()
-                        .setLocale(Locale('ar', 'AR') , context);
-
-                  },
-                  child: const Text('عربي'),
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20)),
-                  onPressed: () async {
-                   await context
-                        .findAncestorStateOfType<OpenSismState>()
-                        .setLocale(Locale('en', 'EN') , context);
-                  },
-                  child: const Text('English'),
-                ),
+                // ElevatedButton(
+                //   style: ElevatedButton.styleFrom(
+                //       textStyle: const TextStyle(fontSize: 20)),
+                //   onPressed: () async {
+                //     context
+                //         .findAncestorStateOfType<OpenSismState>()
+                //         .setLocale(Locale('ar', 'AR'), context);
+                //   },
+                //   child: const Text('عربي'),
+                // ),
+                // ElevatedButton(
+                //   style: ElevatedButton.styleFrom(
+                //       textStyle: const TextStyle(fontSize: 20)),
+                //   onPressed: () async {
+                //     await context
+                //         .findAncestorStateOfType<OpenSismState>()
+                //         .setLocale(Locale('en', 'EN'), context);
+                //   },
+                //   child: const Text('English'),
+                // ),
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
                 Center(
                   child: SizedBox(
@@ -71,9 +71,11 @@ class _SettingsBodyState extends State<SettingsBody> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           textStyle: const TextStyle(fontSize: 20)),
-                      onPressed: () => context
-                          .findAncestorStateOfType<OpenSismState>()
-                          .setLocale(Locale('ar', 'AR')),
+                      onPressed: () async {
+                        context
+                            .findAncestorStateOfType<OpenSismState>()
+                            .setLocale(Locale('ar', 'AR'), context);
+                      },
                       child: const Text('عربي'),
                     ),
                   ),
@@ -86,9 +88,11 @@ class _SettingsBodyState extends State<SettingsBody> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           textStyle: const TextStyle(fontSize: 20)),
-                      onPressed: () => context
-                          .findAncestorStateOfType<OpenSismState>()
-                          .setLocale(Locale('en', 'EN')),
+                      onPressed: () async {
+                        await context
+                            .findAncestorStateOfType<OpenSismState>()
+                            .setLocale(Locale('en', 'EN'), context);
+                      },
                       child: const Text('English'),
                     ),
                   ),
