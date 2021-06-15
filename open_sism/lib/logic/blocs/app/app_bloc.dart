@@ -99,7 +99,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     if (event is LogOut) {
       await userRepository.deleteToken();
       await userRepository.deleteFCMToken();
-      await appRepository.clear();
+      //await appRepository.clear();
       await appRepository.setIfOpenedBefore(false);
       yield LoggedOut();
     }
