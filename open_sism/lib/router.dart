@@ -36,7 +36,6 @@ import 'package:open_sism/presentation/screens/game/game_screen.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen.dart';
 import 'package:open_sism/presentation/screens/game/spin_games/spin/spin_screen_bloc.dart';
 import 'package:open_sism/presentation/screens/task/tasks_screen/sport_match/sport_match_screen.dart';
-
 import 'package:open_sism/presentation/screens/game/spin_games/golden_spin/goldspin_screen.dart';
 import 'package:open_sism/presentation/screens/game/daily_bonus/dailyBonusScreen.dart';
 import 'package:open_sism/logic/blocs/homeBloc/home_bloc.dart';
@@ -209,6 +208,16 @@ class AppRouter {
                   child: SettingsScreen(),
                 ));
         break;
+      // case WebViewHome.routeName:
+      //   return MaterialPageRoute(
+      //       builder: (context) => MultiBlocProvider(
+      //             providers: [
+      //               BlocProvider.value(value: loginBloc),
+      //               BlocProvider.value(value: appBloc),
+      //             ],
+      //             child: WebViewHome(),
+      //           ));
+      //   break;
       case LoginScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(

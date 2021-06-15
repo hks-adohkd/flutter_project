@@ -30,6 +30,10 @@ class _StartTaskAlertButtonState extends State<StartTaskAlertButton> {
         Navigator.pushNamed(context, SportMatchScreen.routeName);
       }
 
+      if (taskType == "open_link") {
+        //  Navigator.pushNamed(context, WebViewHome.routeName);
+      }
+
       // return AwesomeDialog(
       //         context: context,
       //         animType: AnimType.LEFTSLIDE,
