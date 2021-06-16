@@ -57,6 +57,8 @@ import 'package:open_sism/logic/blocs/support_message/support.dart';
 import 'package:open_sism/logic/blocs/aboutBloc/about.dart';
 import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 import 'package:open_sism/logic/blocs/sport_match_bloc/match.dart';
+import 'package:open_sism/presentation/screens/web_view/web_view_hidden.dart';
+import 'package:open_sism/presentation/screens/web_view/web_view_with_button.dart';
 
 class AppRouter {
   final AppRepository appRepository = AppRepository();
@@ -208,16 +210,22 @@ class AppRouter {
                   child: SettingsScreen(),
                 ));
         break;
-      // case WebViewHome.routeName:
-      //   return MaterialPageRoute(
-      //       builder: (context) => MultiBlocProvider(
-      //             providers: [
-      //               BlocProvider.value(value: loginBloc),
-      //               BlocProvider.value(value: appBloc),
-      //             ],
-      //             child: WebViewHome(),
-      //           ));
-      //   break;
+      case WebViewWithButton.routeName:
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [],
+                  child: WebViewWithButton(),
+                ));
+
+        break;
+      case WebViewHidden.routeName:
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [],
+                  child: WebViewHidden(),
+                ));
+
+        break;
       case LoginScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(

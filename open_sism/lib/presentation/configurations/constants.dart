@@ -23,6 +23,8 @@ const kAppBarTextStyle = TextStyle(
 const kYoutubeCardColor = Colors.black45;
 const kWatchVideoCardColor = Color(0xFF90AF17);
 const kQuestionnaireCardColor = Color(0xFF2DBBD8);
+const kOpenLinkColor = Color(0xFF3F0C4F);
+const kSurveyColor = Color(0xFF742C51);
 
 enum ScreenType {
   task,

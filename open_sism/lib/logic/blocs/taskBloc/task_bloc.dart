@@ -154,20 +154,28 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
 
   Color getTaskColor(TaskApiResponse taskData, int index) {
     String _name = taskData.content.content[index].taskType.name;
-    if (_name == "Subscribe a Youtube Channel") {
+    if (_name == "subscribe_youtube") {
       return kYoutubeCardColor;
     } else if (_name == "watch_ad") {
       return kWatchVideoCardColor;
+    } else if (_name == "open_link") {
+      return kOpenLinkColor;
+    } else if (_name == "survey") {
+      return kOpenLinkColor;
     } else
       return kQuestionnaireCardColor;
   }
 
   IconData getTaskIcon(TaskApiResponse taskData, int index) {
     String _name = taskData.content.content[index].taskType.name;
-    if (_name == "Subscribe a Youtube Channel") {
+    if (_name == "subscribe_youtube") {
       return FontAwesomeIcons.youtube;
     } else if (_name == "watch_ad") {
       return FontAwesomeIcons.video;
+    } else if (_name == "open_link") {
+      return FontAwesomeIcons.link;
+    } else if (_name == "survey") {
+      return FontAwesomeIcons.questionCircle;
     } else
       return FontAwesomeIcons.question;
   }
