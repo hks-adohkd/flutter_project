@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:open_sism/data_layer/model/task/task_api_response.dart';
+import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
 
 abstract class TaskState extends Equatable {
   const TaskState();
@@ -31,8 +32,10 @@ class TaskLoadInProgress extends TaskState {}
 
 class TaskLoadedSuccess extends TaskState {
   final TaskApiResponse taskData;
-
-  const TaskLoadedSuccess({@required this.taskData}) : assert(taskData != null);
+  final List<TaskBundle> recipeBundles;
+  const TaskLoadedSuccess(
+      {@required this.taskData, @required this.recipeBundles})
+      : assert(taskData != null);
 
   @override
   List<Object> get props => [taskData];

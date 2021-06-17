@@ -7,9 +7,7 @@ import 'description.dart';
 import 'product_title_with_image.dart';
 
 class Body extends StatelessWidget {
-  final TaskBundle product;
-
-  const Body({Key key, this.product}) : super(key: key);
+  const Body({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // It provide us total height and width
@@ -19,13 +17,13 @@ class Body extends StatelessWidget {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: SizeConfig.screenHeight * 1.5,
+            height: SizeConfig.screenHeight * 1.2,
             child: Stack(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.4),
+                  margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.3),
                   padding: EdgeInsets.only(
-                    top: SizeConfig.screenHeight * 0.10,
+                    top: SizeConfig.screenHeight * 0.02,
                     left: kDefaultPaddin,
                     right: kDefaultPaddin,
                   ),
@@ -39,16 +37,16 @@ class Body extends StatelessWidget {
                   ),
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: 30),
-                      TimeAndPerson(product: product),
+                      SizedBox(height: 1),
+                      TimeAndPerson(),
                       SizedBox(height: kDefaultPaddin / 2),
-                      Description(product: product),
+                      Description(),
                       SizedBox(height: kDefaultPaddin / 2),
                       // AddToCart(product: product)
                     ],
                   ),
                 ),
-                ProductTitleWithImage(product: product)
+                ProductTitleWithImage()
               ],
             ),
           )

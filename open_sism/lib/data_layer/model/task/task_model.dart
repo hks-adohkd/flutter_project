@@ -6,24 +6,25 @@ part 'task_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class TaskModel extends Equatable {
-  String imageUrl;
-  String displayName;
-  String description;
-  bool isDone;
-  bool isReachLimit;
-  String link;
-  DateTime startDate;
-  DateTime endDate;
-  int points;
-  int limit;
-  bool stared;
-  int taskTypeId;
-  String packageName;
-  String pageId;
-  String videoId;
-  int videoDuration;
-  bool isForAll;
-  TaskTypeModel taskType;
+  final String imageUrl;
+  final String displayName;
+  final String description;
+  final bool isDone;
+  final bool isReachLimit;
+  final String link;
+  final String tutorialLink;
+  final DateTime startDate;
+  final DateTime endDate;
+  final int points;
+  final int limit;
+  final bool stared;
+  final int taskTypeId;
+  final String packageName;
+  final String pageId;
+  final String videoId;
+  final int videoDuration;
+  final bool isForAll;
+  final TaskTypeModel taskType;
 
   final int id;
   final DateTime created;
@@ -52,7 +53,8 @@ class TaskModel extends Equatable {
       this.created,
       this.id,
       this.isDeleted,
-      this.modified});
+      this.modified,
+      this.tutorialLink});
 
   factory TaskModel.fromJson(Map<String, dynamic> json) =>
       _$TaskModelFromJson(json);
@@ -83,5 +85,6 @@ class TaskModel extends Equatable {
         link,
         packageName,
         pageId,
+        tutorialLink
       ];
 }

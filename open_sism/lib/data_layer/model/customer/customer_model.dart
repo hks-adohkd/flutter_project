@@ -39,7 +39,7 @@ class CustomerModel extends Equatable {
   final ApplicationUserModel user;
   final CityModel city;
   final bool premium;
-
+  final String address;
   CustomerModel(
       {this.firstName,
       this.lastName,
@@ -71,7 +71,8 @@ class CustomerModel extends Equatable {
       this.city,
       this.premium,
       this.id,
-      this.luckyWheelPremiumLastSpinDate});
+      this.luckyWheelPremiumLastSpinDate,
+      this.address});
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);

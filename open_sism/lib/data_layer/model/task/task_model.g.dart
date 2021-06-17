@@ -40,6 +40,7 @@ TaskModel _$TaskModelFromJson(Map<String, dynamic> json) {
     modified: json['modified'] == null
         ? null
         : DateTime.parse(json['modified'] as String),
+    tutorialLink: json['tutorialLink'] as String,
   );
 }
 
@@ -50,6 +51,7 @@ Map<String, dynamic> _$TaskModelToJson(TaskModel instance) => <String, dynamic>{
       'isDone': instance.isDone,
       'isReachLimit': instance.isReachLimit,
       'link': instance.link,
+      'tutorialLink': instance.tutorialLink,
       'startDate': instance.startDate?.toIso8601String(),
       'endDate': instance.endDate?.toIso8601String(),
       'points': instance.points,

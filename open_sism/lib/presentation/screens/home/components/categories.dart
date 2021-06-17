@@ -16,6 +16,7 @@ import 'package:open_sism/logic/blocs/bonusBloc/bonus_bloc.dart';
 import 'package:open_sism/logic/blocs/bonusBloc/bonus_event.dart';
 import 'package:open_sism/logic/blocs/taskBloc/task_bloc.dart';
 import 'package:open_sism/logic/blocs/taskBloc/task_event.dart';
+import 'package:open_sism/logic/blocs/profile/profile.dart';
 
 class Categories extends StatelessWidget {
   @override
@@ -27,7 +28,7 @@ class Categories extends StatelessWidget {
       {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
       {"icon": "assets/icons/star1.svg", "text": "activity"},
       {"icon": "assets/icons/profile.svg", "text": "Profile"},
-      {"icon": "assets/icons/more.svg", "text": "More"},
+      {"icon": "assets/icons/more.svg", "text": "Setting"},
     ];
 
     List<String> routeList = [
@@ -73,6 +74,14 @@ class Categories extends StatelessWidget {
                           {
                             //read if user is Premium or not
                             context.read<BonusBloc>().add(BonusPageRequested());
+                          }
+                          break;
+                        case 5:
+                          {
+                            //read if user is Premium or not
+                            context
+                                .read<ProfileBloc>()
+                                .add(ProfilePageRequested());
                           }
                           break;
                         default:

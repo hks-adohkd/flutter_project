@@ -1,10 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:open_sism/data_layer/api/api_data_provider.dart';
+import 'package:open_sism/data_layer/model/customer_task/customer_task_api_response.dart';
+import 'package:open_sism/data_layer/model/sport_match/match_api_response.dart';
 import 'package:open_sism/data_layer/model/task/task_model.dart';
 import 'package:open_sism/data_layer/model/task/taskPage_model.dart';
 import 'package:open_sism/data_layer/model/task/task_api_response.dart';
+import 'package:open_sism/data_layer/model/task/single_task_api_response.dart';
 
 class TaskRepository {
   final OpenSismApiDataProvider dataProvider = new OpenSismApiDataProvider();
@@ -31,6 +35,19 @@ class TaskRepository {
     return taskPageModel;
   }
 
+  Future<SingleTaskApiResponse> getSingleTask(
+      {@required String token, @required String taskId}) async {
+    var response =
+        await dataProvider.fetchSingleTaskJson(token: token, taskId: taskId);
+    var jsonObj = json.decode(response.body);
+    //print(jsonObj);
+    var taskPageModel = SingleTaskApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    print("single task Model : ");
+    print(taskPageModel);
+    return taskPageModel;
+  }
+
   Future<TaskApiResponse> getCustomerFinishedTask({String token}) async {
     var response = await dataProvider.fetchCustomerFinishedTaskJson(token);
     var jsonObj = json.decode(response.body);
@@ -40,6 +57,38 @@ class TaskRepository {
     // print("task Model : ");
     // print(taskPageModel);
     return taskPageModel;
+  }
+
+  Future<MatchApiResponse> getMatch(
+      {@required String token, @required String taskId}) async {
+    var response =
+        await dataProvider.fetchMatchJson(token: token, taskId: taskId);
+    var jsonObj = json.decode(response.body);
+    //print(jsonObj);
+    var matchModel = MatchApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    print("matchModel Model : ");
+    print(matchModel);
+    return matchModel;
+  }
+
+  Future<CustomerTaskApiResponse> addMatchEnd(
+      {@required String token,
+      @required String matchId,
+      @required String firstTeamScore,
+      @required secondTeamScore}) async {
+    var response = await dataProvider.fetchAddMatchEndJson(
+        token: token,
+        firstTeamScore: int.parse(firstTeamScore),
+        matchId: int.parse(matchId),
+        secondTeamScore: int.parse(secondTeamScore));
+    var jsonObj = json.decode(response.body);
+    //print(jsonObj);
+    var customerTaskModel = CustomerTaskApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    print("customerTaskModel : ");
+    print(customerTaskModel);
+    return customerTaskModel;
   }
 
   // Future<WheelApiResponse> getWheelPrizes() async {

@@ -15,6 +15,17 @@ class Video {
   final String url;
 }
 
+class ContactsDetails {
+  ContactsDetails({
+    @required this.name,
+    @required this.value,
+  });
+
+  final String name;
+
+  final String value;
+}
+
 class DEV {
   DEV({
     @required this.firstName,

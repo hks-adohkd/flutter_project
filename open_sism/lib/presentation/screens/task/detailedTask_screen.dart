@@ -6,10 +6,12 @@ import 'package:open_sism/presentation/screens/task/components/body.dart';
 import 'package:open_sism/presentation/components/appBar.dart';
 
 import 'package:open_sism/presentation/screens/task/components/start_task_with_alert.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/sport_match_bloc/match.dart';
 
 class DetailsScreen extends StatelessWidget {
   final TaskBundle product;
-
+  static const String routeName = "/detailsScreen";
   const DetailsScreen({Key key, this.product}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -22,8 +24,8 @@ class DetailsScreen extends StatelessWidget {
           appBarTitle: "Task Details",
         ),
       ),
-      body: Body(product: product),
-      bottomNavigationBar: StartTaskAlertButton(product: product),
+      body: Body(),
+      bottomNavigationBar: StartTaskAlertButton(),
     );
   }
 

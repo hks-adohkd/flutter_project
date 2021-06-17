@@ -150,8 +150,9 @@ class _RegisterFormState extends State<RegisterForm> {
           },
         )
       },
+
       textStyle: TextStyle(color: Colors.white),
-      initialValue: PhoneNumber(isoCode: "SY"), //number
+      // initialValue: PhoneNumber(isoCode: "SY"), //number
       selectorConfig: SelectorConfig(
         leadingPadding: 20,
         setSelectorButtonAsPrefixIcon: true,
