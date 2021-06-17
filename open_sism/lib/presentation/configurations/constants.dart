@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:open_sism/presentation/configurations/size_config.dart';
 
 const String youtubeChannel = "https://youtube.com/c/UCRYieA2e9jaDIb-8mLPrzUA";
+const String API_KEY_YOUTUBE = "AIzaSyDzRY3RTuhEFQITP25qZdVPdzVR-2xFo5A";
 const kPrimaryColor = Color(0xFF84AB5C);
 const kTextColor = Color(0xFF202E2E);
 const kTextLightColor = Color(0xFF7286A5);
