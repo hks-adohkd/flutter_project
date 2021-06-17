@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
+import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
 import 'package:open_sism/presentation/screens/task/tasks_screen/sport_match/sport_match_screen.dart';
 import 'package:open_sism/presentation/components/alert_widget.dart';
@@ -7,6 +10,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/logic/blocs/sport_match_bloc/match.dart';
 import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
+import 'package:http/http.dart' as http;
 
 class StartTaskAlertButton extends StatefulWidget {
   const StartTaskAlertButton({
@@ -21,13 +25,28 @@ class _StartTaskAlertButtonState extends State<StartTaskAlertButton> {
   AlertWidget startTaskAlert = AlertWidget();
   var result;
   // return success dialog after redeemption accepted
-  startTaskResultAweasom(bool result, TaskBundle taskBundle, String taskType) {
+  startTaskResultAweasom(bool result, TaskBundle taskBundle, String taskType) async{
     if (result) {
       if (taskType == "sport_match") {
         context
             .read<MatchBloc>()
             .add(MatchDataRequested(taskId: taskBundle.id.toString()));
         Navigator.pushNamed(context, SportMatchScreen.routeName);
+      }
+      if(taskType == "youtube_subscribe")
+      {
+        Map<String, String> parameters = {
+          'part': 'snippet, contentDetails, subscriberSnippet, id',
+          'key': API_KEY_YOUTUBE,
+          'channelId': 'UCRr4n7-Ye575cDB2Wz4ffGQ'
+        };
+        Uri uri = Uri.https('www.googleapis.com', 'youtube/v3/subscriptions', parameters);
+        Map<String, String> headers = {
+          HttpHeaders.contentTypeHeader: 'application/json',
+        };
+
+        var response = await http.get(uri, headers: headers);
+        print(response.body);
       }
 
       // return AwesomeDialog(
