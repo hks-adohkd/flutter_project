@@ -21,6 +21,7 @@ const String TASKS = "api/AppTasks/";
 const String PRIZES = "api/Prizes/";
 const String PRIZESPage = "api/PrizesPage/GetPrizePage";
 const String QUESTIONS = "api/Questions/";
+const String QUIZ = "api/Quiz/";
 const String SPORT_MATCHES = "api/SportMatches/";
 const String VERSION = "api/MobileVersion/";
 const String CONTACT_US = "api/ContactUs/";
@@ -49,6 +50,7 @@ const String ADD_START = "api/AddStart";
 const String REQUEST_PRIZE = "RequestPrize";
 const String ADD_END = "AddEnd";
 const String ADD_SHARE_APP_END = "api/AddShareAppEnd";
+const String PAUSE = "Pause";
 
 const String HOME_PAGE = "api/Home/GetHome";
 const String CONDITIONS = "api/Conditions/GetAll";

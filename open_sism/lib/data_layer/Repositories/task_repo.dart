@@ -6,7 +6,7 @@ import 'package:open_sism/data_layer/api/api_data_provider.dart';
 import 'package:open_sism/data_layer/model/customer_task/customer_task_api_response.dart';
 import 'package:open_sism/data_layer/model/sport_match/match_api_response.dart';
 import 'package:open_sism/data_layer/model/task/task_model.dart';
-import 'package:open_sism/data_layer/model/task/taskPage_model.dart';
+import 'package:open_sism/data_layer/model/quiz/quiz_api_response.dart';
 import 'package:open_sism/data_layer/model/task/task_api_response.dart';
 import 'package:open_sism/data_layer/model/task/single_task_api_response.dart';
 
@@ -33,6 +33,18 @@ class TaskRepository {
     // print("task Model : ");
     // print(taskPageModel);
     return taskPageModel;
+  }
+
+  Future<QuizApiResponse> getQuizPage({String token, int taskId}) async {
+    var response =
+        await dataProvider.fetchQuizAll(token: token, taskId: taskId);
+    var jsonObj = json.decode(response.body);
+    print(jsonObj);
+    var quizPageModel = QuizApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    print("quizPageModel : ");
+    print(quizPageModel);
+    return quizPageModel;
   }
 
   Future<SingleTaskApiResponse> getSingleTask(
@@ -82,6 +94,38 @@ class TaskRepository {
         firstTeamScore: int.parse(firstTeamScore),
         matchId: int.parse(matchId),
         secondTeamScore: int.parse(secondTeamScore));
+    var jsonObj = json.decode(response.body);
+    //print(jsonObj);
+    var customerTaskModel = CustomerTaskApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    print("customerTaskModel : ");
+    print(customerTaskModel);
+    return customerTaskModel;
+  }
+
+  Future<CustomerTaskApiResponse> addQuizEnd(
+      {@required String token,
+      @required int taskId,
+      String description}) async {
+    var response = await dataProvider.fetchAddEndQuiz(
+        token: token, appTaskId: taskId, description: description);
+    var jsonObj = json.decode(response.body);
+    //print(jsonObj);
+    var customerTaskModel = CustomerTaskApiResponse.fromJson(jsonObj);
+    // //  print(homeModel);
+    print("customerTaskModel : ");
+    print(customerTaskModel);
+    return customerTaskModel;
+  }
+
+  Future<CustomerTaskApiResponse> addQuizPause({
+    @required String token,
+    @required int taskId,
+    @required int index,
+    @required int points,
+  }) async {
+    var response = await dataProvider.fetchAddPauseQuiz(
+        token: token, appTaskId: taskId, points: points, index: index);
     var jsonObj = json.decode(response.body);
     //print(jsonObj);
     var customerTaskModel = CustomerTaskApiResponse.fromJson(jsonObj);

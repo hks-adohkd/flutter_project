@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:open_sism/logic/blocs/quiz/quiz.dart';
 import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
+import 'package:open_sism/presentation/screens/quiz/component/quiz_page.dart';
 import 'package:open_sism/presentation/screens/task/components/taskBundel.dart';
 import 'package:open_sism/presentation/screens/task/tasks_screen/sport_match/sport_match_screen.dart';
 import 'package:open_sism/presentation/components/alert_widget.dart';
@@ -9,6 +11,7 @@ import 'package:open_sism/logic/blocs/sport_match_bloc/match.dart';
 import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 import 'package:open_sism/presentation/screens/web_view/web_view_hidden.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:open_sism/presentation/screens/quiz/quiz_screen.dart';
 
 class StartTaskAlertButton extends StatefulWidget with WidgetsBindingObserver {
   const StartTaskAlertButton({
@@ -45,6 +48,11 @@ class _StartTaskAlertButtonState extends State<StartTaskAlertButton>
       }
       if (taskType == "watch_ad") {
         _launchURL(taskBundle.link);
+      }
+      if (taskType == "quiz") {
+        //  Navigator.pushNamed(context, QuizScreen.routeName);
+        context.read<QuizBloc>().add(QuizDataRequested(taskId: taskBundle.id));
+        Navigator.pushNamed(context, QuizPage.routeName);
       }
     }
   }

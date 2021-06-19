@@ -275,4 +275,30 @@ class OpenSismApiDataProvider {
 
     return postGenericWithBody(SET_FCM_TOKEN, token, data);
   }
+
+  Future<http.Response> fetchQuizAll({
+    String token,
+    int taskId,
+  }) async {
+    Map data = {"page": 1, "limit": 100, "StatusId": taskId};
+    return postGenericWithBody(QUIZ + GET_ALL, token, data);
+  }
+
+  Future<http.Response> fetchAddEndQuiz({
+    String token,
+    int appTaskId,
+    String description,
+  }) async {
+    Map data = {
+      "AppTaskId": appTaskId,
+      "Description": description,
+    };
+    return postGenericWithBody(QUIZ + ADD_END, token, data);
+  }
+
+  Future<http.Response> fetchAddPauseQuiz(
+      {String token, int appTaskId, int index, int points}) async {
+    Map data = {"AppTaskId": appTaskId, "Index": index, "Points": points};
+    return postGenericWithBody(QUIZ + PAUSE, token, data);
+  }
 }

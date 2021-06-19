@@ -59,6 +59,9 @@ import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 import 'package:open_sism/logic/blocs/sport_match_bloc/match.dart';
 import 'package:open_sism/presentation/screens/web_view/web_view_hidden.dart';
 import 'package:open_sism/presentation/screens/web_view/web_view_with_button.dart';
+import 'package:open_sism/presentation/screens/quiz/quiz_screen.dart';
+import 'package:open_sism/presentation/screens/quiz/component/quiz_page.dart';
+import 'package:open_sism/logic/blocs/quiz/quiz.dart';
 
 class AppRouter {
   final AppRepository appRepository = AppRepository();
@@ -87,7 +90,13 @@ class AppRouter {
   PasswordBloc passwordBloc;
   SupportBloc supportBloc;
   MatchBloc matchBloc;
+  QuizBloc quizBloc;
   AppRouter({@required this.connectivity}) {
+    quizBloc = new QuizBloc(
+      userRepository: userRepository,
+      taskRepository: new TaskRepository(),
+      internetCubit: new InternetCubit(connectivity: connectivity),
+    );
     profileBloc = new ProfileBloc(
         userRepository: userRepository,
         internetCubit: new InternetCubit(connectivity: connectivity));
@@ -200,6 +209,20 @@ class AppRouter {
     print(routeSettings.name);
 
     switch (routeSettings.name) {
+      case QuizScreen.routeName:
+        return MaterialPageRoute(builder: (context) => QuizScreen());
+        break;
+      case QuizPage.routeName:
+        return MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: quizBloc),
+                    BlocProvider.value(value: appBloc),
+                  ],
+                  child: QuizPage(),
+                ));
+        break;
+        break;
       case SettingsScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(
@@ -260,6 +283,7 @@ class AppRouter {
                   providers: [
                     BlocProvider.value(value: singleTaskBloc),
                     BlocProvider.value(value: matchBloc),
+                    BlocProvider.value(value: quizBloc),
                   ],
                   child: DetailsScreen(),
                 ),
