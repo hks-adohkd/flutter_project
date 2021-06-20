@@ -265,7 +265,9 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                       }
                       if (state is QuizLoadedSuccess) {
                         return buildPageView(state);
-                      } else if (state is QuizStableState) {
+                      } else if (state is QuizCheckAnswerSuccessful) {
+                        return buildPageView(state);
+                      } else if (state is QuizCheckAnswerFailed) {
                         return buildPageView(state);
                       } else
                         return Text("");
