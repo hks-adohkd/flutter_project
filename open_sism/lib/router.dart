@@ -59,8 +59,8 @@ import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 import 'package:open_sism/logic/blocs/sport_match_bloc/match.dart';
 import 'package:open_sism/presentation/screens/web_view/web_view_hidden.dart';
 import 'package:open_sism/presentation/screens/web_view/web_view_with_button.dart';
-import 'package:open_sism/presentation/screens/quiz/quiz_screen.dart';
-import 'package:open_sism/presentation/screens/quiz/component/quiz_page.dart';
+//import 'package:open_sism/presentation/screens/quiz/quiz_screen.dart';
+import 'package:open_sism/presentation/screens/quiz/component/quiz_main.dart';
 import 'package:open_sism/logic/blocs/quiz/quiz.dart';
 
 class AppRouter {
@@ -209,17 +209,17 @@ class AppRouter {
     print(routeSettings.name);
 
     switch (routeSettings.name) {
+      // case QuizScreen.routeName:
+      //   return MaterialPageRoute(builder: (context) => QuizScreen());
+      //   break;
       case QuizScreen.routeName:
-        return MaterialPageRoute(builder: (context) => QuizScreen());
-        break;
-      case QuizPage.routeName:
         return MaterialPageRoute(
             builder: (context) => MultiBlocProvider(
                   providers: [
                     BlocProvider.value(value: quizBloc),
                     BlocProvider.value(value: appBloc),
                   ],
-                  child: QuizPage(),
+                  child: QuizScreen(),
                 ));
         break;
         break;

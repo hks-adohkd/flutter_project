@@ -26,6 +26,10 @@ class QuizStableEvent extends QuizEvent {
   QuizStableEvent();
 }
 
+class QuizCompleteEvent extends QuizEvent {
+  QuizCompleteEvent();
+}
+
 //
 // class QuizAddEnd extends QuizEvent {
 //   final String ApptaskId;

@@ -11,7 +11,7 @@ import 'package:open_sism/logic/blocs/sport_match_bloc/match.dart';
 import 'package:open_sism/logic/blocs/singleTaskBloc/singleTask.dart';
 import 'package:open_sism/presentation/screens/web_view/web_view_hidden.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:open_sism/presentation/screens/quiz/quiz_screen.dart';
+import 'package:open_sism/presentation/screens/quiz/component/quiz_main.dart';
 
 class StartTaskAlertButton extends StatefulWidget with WidgetsBindingObserver {
   const StartTaskAlertButton({
@@ -52,7 +52,7 @@ class _StartTaskAlertButtonState extends State<StartTaskAlertButton>
       if (taskType == "quiz") {
         //  Navigator.pushNamed(context, QuizScreen.routeName);
         context.read<QuizBloc>().add(QuizDataRequested(taskId: taskBundle.id));
-        Navigator.pushNamed(context, QuizPage.routeName);
+        Navigator.pushNamed(context, QuizScreen.routeName);
       }
     }
   }

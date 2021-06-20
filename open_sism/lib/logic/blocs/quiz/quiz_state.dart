@@ -61,17 +61,32 @@ class QuizCheckAnswerSuccessful extends QuizState {
   final QuizApiResponse quizData;
   final List<Question> questionData;
   final int userQuizIndex;
+  final int userIndexSelection;
   QuizCheckAnswerSuccessful(
       {@required this.quizData,
       @required this.questionData,
-      this.userQuizIndex});
+      this.userQuizIndex,
+      this.userIndexSelection});
 }
 
 class QuizCheckAnswerFailed extends QuizState {
   final QuizApiResponse quizData;
   final List<Question> questionData;
   final int userQuizIndex;
+  final int userIndexSelection;
   QuizCheckAnswerFailed(
+      {@required this.quizData,
+      @required this.questionData,
+      this.userQuizIndex,
+      this.userIndexSelection});
+}
+
+class QuizStableState extends QuizState {
+  final QuizApiResponse quizData;
+  final List<Question> questionData;
+  final int userQuizIndex;
+
+  QuizStableState(
       {@required this.quizData,
       @required this.questionData,
       this.userQuizIndex});

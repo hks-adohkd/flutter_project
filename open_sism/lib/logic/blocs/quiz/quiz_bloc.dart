@@ -113,27 +113,37 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
         yield QuizLoadFailure(quizStoredData: quizPageModel);
       }
     }
-    // if (event is QuizStableEvent) {
-    //   yield QuizStableState(
-    //     quizData: quizPageModel,
-    //     questionData: questionData,
-    //     userQuizIndex: 1, //quizPageModel.quizIndexes.index);
-    //   );
-    // }
+    if (event is QuizStableEvent) {
+      yield QuizStableState(
+        quizData: quizPageModel,
+        questionData: questionData,
+        userQuizIndex: 1, //quizPageModel.quizIndexes.index);
+      );
+    }
     if (event is QuizCheckAnswer) {
       if (event.answerIndex == event.userAnswerIndex) {
         print("answer good");
+        print({"event answerIndex", event.answerIndex});
+        print({"event userAnswerIndex", event.userAnswerIndex});
         yield QuizCheckAnswerSuccessful(
+            userIndexSelection: event.userAnswerIndex,
             questionData: questionData,
             quizData: quizPageModel,
             userQuizIndex: 1);
       } else {
         print("answer false");
+        print({"event answerIndex", event.answerIndex});
+        print({"event userAnswerIndex", event.userAnswerIndex});
         yield QuizCheckAnswerFailed(
+            userIndexSelection: event.userAnswerIndex,
             questionData: questionData,
             quizData: quizPageModel,
             userQuizIndex: 1);
       }
+    }
+    if (event is QuizCompleteEvent) {
+      yield QuizCompleteState(
+          quizData: quizPageModel, questionData: questionData);
     }
   }
 }
