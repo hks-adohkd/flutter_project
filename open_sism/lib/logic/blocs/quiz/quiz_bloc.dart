@@ -99,35 +99,12 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
           print(questionData.first.answer);
           print(questionData.first.options.first.question);
 
-          // recipeBundles = TaskBundle(
-          //     id: taskPageModel.content.id,
-          //     description: taskPageModel.content.description,
-          //     imageSrc: taskPageModel.content.imageUrl,
-          //     person: taskPageModel.content.limit,
-          //     title: taskPageModel.content.displayName,
-          //     color: getTaskColor(taskPageModel),
-          //     icon: getTaskIcon(taskPageModel),
-          //     points: taskPageModel.content.points,
-          //     hours: calculateTaskHour(taskPageModel),
-          //     startDate: getStartDate(taskPageModel),
-          //     endDate: getEndDate(taskPageModel),
-          //     isDone: taskPageModel.content.isDone,
-          //     isForAll: taskPageModel.content.isForAll,
-          //     isReachLimit: taskPageModel.content.isReachLimit,
-          //     link: taskPageModel.content.link,
-          //     packageName: taskPageModel.content.packageName,
-          //     pageId: taskPageModel.content.pageId,
-          //     stared: taskPageModel.content.stared,
-          //     taskType: taskPageModel.content.taskType,
-          //     videoDuration: taskPageModel.content.videoDuration,
-          //     videoId: taskPageModel.content.videoId,
-          //     tutorailLink: taskPageModel.content.tutorialLink);
-
           yield QuizLoadedSuccess(
-            quizData: quizPageModel,
-            questionData: questionData,
-            userQuizIndex: 0, //quizPageModel.quizIndexes.index);
-          );
+              quizData: quizPageModel,
+              questionData: questionData,
+              userQuizIndex: 1,
+              selectedAnswerIndex: null //quizPageModel.quizIndexes.index);
+              );
         } else {
           yield QuizMessageNotSuccess(message: quizPageModel.message);
         }
@@ -136,18 +113,26 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
         yield QuizLoadFailure(quizStoredData: quizPageModel);
       }
     }
-    if (event is QuizStableEvent) {
-      yield QuizStableState(
-        quizData: quizPageModel,
-        questionData: questionData,
-        userQuizIndex: 1, //quizPageModel.quizIndexes.index);
-      );
-    }
+    // if (event is QuizStableEvent) {
+    //   yield QuizStableState(
+    //     quizData: quizPageModel,
+    //     questionData: questionData,
+    //     userQuizIndex: 1, //quizPageModel.quizIndexes.index);
+    //   );
+    // }
     if (event is QuizCheckAnswer) {
       if (event.answerIndex == event.userAnswerIndex) {
-        yield QuizCheckAnswerSuccessful();
+        print("answer good");
+        yield QuizCheckAnswerSuccessful(
+            questionData: questionData,
+            quizData: quizPageModel,
+            userQuizIndex: 1);
       } else {
-        yield QuizCheckAnswerFailed();
+        print("answer false");
+        yield QuizCheckAnswerFailed(
+            questionData: questionData,
+            quizData: quizPageModel,
+            userQuizIndex: 1);
       }
     }
   }

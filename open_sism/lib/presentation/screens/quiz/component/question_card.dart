@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:open_sism/logic/blocs/quiz/quiz.dart';
 import 'package:open_sism/presentation/screens/quiz/controllers/question_controller.dart';
 import 'package:open_sism/presentation/screens/quiz/component/Questions.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
-import 'option.dart';
+import 'quiz_option.dart';
 
 class QuestionCard extends StatelessWidget {
   const QuestionCard({
@@ -17,12 +18,12 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    QuestionController _controller = Get.put(QuestionController());
+    //QuestionController _controller = Get.put(QuestionController());
     return Container(
       margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
       padding: EdgeInsets.all(kDefaultPadding),
       decoration: BoxDecoration(
-        color: Colors.tealAccent,
+        color: Colors.black12,
         borderRadius: BorderRadius.circular(25),
       ),
       child: Column(
@@ -40,7 +41,10 @@ class QuestionCard extends StatelessWidget {
             (index) => Option(
               index: index,
               text: question.options[index].question,
-              press: () => _controller.checkAns(question, index),
+              press: () {
+                context.read<QuizBloc>().add(QuizCheckAnswer(
+                    answerIndex: question.answer, userAnswerIndex: index));
+              },
             ),
           ),
         ],

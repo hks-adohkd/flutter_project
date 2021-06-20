@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:open_sism/presentation/screens/quiz/controllers/question_controller.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_sism/logic/blocs/quiz/quiz.dart';
 
 import 'package:open_sism/presentation/configurations/constants.dart';
 

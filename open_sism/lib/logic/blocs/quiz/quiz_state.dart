@@ -19,23 +19,25 @@ class QuizLoadedSuccess extends QuizState {
   final QuizApiResponse quizData;
   final List<Question> questionData;
   final int userQuizIndex;
+  final int selectedAnswerIndex;
   //final TaskBundle recipeBundles;
   const QuizLoadedSuccess(
       {@required this.quizData,
       @required this.questionData,
-      this.userQuizIndex})
+      this.userQuizIndex,
+      this.selectedAnswerIndex})
       : assert(quizData != null);
 
   @override
   List<Object> get props => [quizData];
 }
 
-class QuizStableState extends QuizState {
+class QuizCompleteState extends QuizState {
   final QuizApiResponse quizData;
   final List<Question> questionData;
   final int userQuizIndex;
   //final TaskBundle recipeBundles;
-  const QuizStableState(
+  const QuizCompleteState(
       {@required this.quizData,
       @required this.questionData,
       this.userQuizIndex})
@@ -56,11 +58,23 @@ class QuizMessageNotSuccess extends QuizState {
 }
 
 class QuizCheckAnswerSuccessful extends QuizState {
-  QuizCheckAnswerSuccessful();
+  final QuizApiResponse quizData;
+  final List<Question> questionData;
+  final int userQuizIndex;
+  QuizCheckAnswerSuccessful(
+      {@required this.quizData,
+      @required this.questionData,
+      this.userQuizIndex});
 }
 
 class QuizCheckAnswerFailed extends QuizState {
-  QuizCheckAnswerFailed();
+  final QuizApiResponse quizData;
+  final List<Question> questionData;
+  final int userQuizIndex;
+  QuizCheckAnswerFailed(
+      {@required this.quizData,
+      @required this.questionData,
+      this.userQuizIndex});
 }
 //
 // class HomeNoInternet extends HomeState {}
