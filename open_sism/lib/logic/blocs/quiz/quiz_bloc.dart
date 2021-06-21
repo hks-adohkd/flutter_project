@@ -8,6 +8,7 @@ import 'package:open_sism/data_layer/Repositories/user_repo.dart';
 import 'package:open_sism/data_layer/model/quiz/option_model.dart';
 import 'package:open_sism/data_layer/model/quiz/quiz_api_response.dart';
 import 'package:open_sism/data_layer/model/customer_task/customer_task_api_response.dart';
+import 'package:open_sism/data_layer/model/task/single_task_api_response.dart';
 
 import 'package:open_sism/logic/cubits/internet_cubit.dart';
 import 'package:open_sism/logic/cubits/internet_state.dart';
@@ -23,6 +24,8 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   final TaskRepository taskRepository;
   final UserRepository userRepository;
   final InternetCubit internetCubit;
+  SingleTaskApiResponse taskPageModel;
+  int points;
   StreamSubscription internetStreamSubscription;
   bool isConnected;
   TaskModel taskModel;
@@ -41,7 +44,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
         isConnected = false;
       } else if (internetState is InternetConnected &&
           !(state is QuizInitial)) {
-        this.add(QuizDataRequested());
+        //this.add(QuizDataRequested());
         isConnected = true;
       } else if (internetState is InternetLoading) {}
     });
@@ -67,6 +70,9 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       try {
         quizPageModel = await taskRepository.getQuizPage(
             token: await userRepository.getToken(), taskId: event.taskId);
+        taskPageModel = await taskRepository.getSingleTask(
+            token: await userRepository.getToken(),
+            taskId: event.taskId.toString());
         if (quizPageModel.message == "success") {
           questionData = quizPageModel.content.content
               .map(
@@ -100,11 +106,14 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
           print(questionData.first.options.first.question);
 
           yield QuizLoadedSuccess(
-              quizData: quizPageModel,
-              questionData: questionData,
-              userQuizIndex: 1,
-              selectedAnswerIndex: null //quizPageModel.quizIndexes.index);
-              );
+            quizData: quizPageModel,
+            questionData: questionData,
+            userQuizIndex: 1,
+            selectedAnswerIndex: null,
+            questionPoint:
+                (taskPageModel.content.points ~/ quizPageModel.totalQuestions),
+            //quizPageModel.quizIndexes.index)
+          );
         } else {
           yield QuizMessageNotSuccess(message: quizPageModel.message);
         }
@@ -117,7 +126,8 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       yield QuizStableState(
         quizData: quizPageModel,
         questionData: questionData,
-        userQuizIndex: 1, //quizPageModel.quizIndexes.index);
+        userQuizIndex: 1,
+        //quizPageModel.quizIndexes.index);
       );
     }
     if (event is QuizCheckAnswer) {
@@ -129,16 +139,21 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
             userIndexSelection: event.userAnswerIndex,
             questionData: questionData,
             quizData: quizPageModel,
+            questionPoint:
+                (taskPageModel.content.points ~/ quizPageModel.totalQuestions),
             userQuizIndex: 1);
       } else {
         print("answer false");
         print({"event answerIndex", event.answerIndex});
         print({"event userAnswerIndex", event.userAnswerIndex});
         yield QuizCheckAnswerFailed(
-            userIndexSelection: event.userAnswerIndex,
-            questionData: questionData,
-            quizData: quizPageModel,
-            userQuizIndex: 1);
+          userIndexSelection: event.userAnswerIndex,
+          questionData: questionData,
+          quizData: quizPageModel,
+          userQuizIndex: 1,
+          questionPoint:
+              (taskPageModel.content.points ~/ quizPageModel.totalQuestions),
+        );
       }
     }
     if (event is QuizCompleteEvent) {

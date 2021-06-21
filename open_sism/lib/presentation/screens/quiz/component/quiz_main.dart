@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -10,20 +10,18 @@ import 'package:open_sism/logic/blocs/quiz/quiz.dart';
 import 'package:open_sism/presentation/configurations/constants.dart';
 import 'package:open_sism/presentation/screens/quiz/component/Questions.dart';
 
+int points;
+
 class QuizScreen extends HookWidget {
   static const String routeName = "/quiz_main";
-  void updateAnimation() {}
+
   @override
   Widget build(BuildContext context) {
     //final quizQuestions = useProvider(quizQuestionsProvider);
     final pageController = usePageController();
-    final animationController = useAnimationController();
-    final animation = useAnimation(
-        Tween<double>(begin: 0, end: 1).animate(animationController)
-          ..addListener(() {
-            // update like setState
-            updateAnimation();
-          }));
+
+    //  Animation animation;
+
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -65,8 +63,7 @@ class QuizScreen extends HookWidget {
             } else if (state is QuizLoadInProgress) {
               return Center(child: CircularProgressIndicator());
             } else
-              return _buildBody(context, pageController, animationController,
-                  animation, updateAnimation);
+              return _buildBody(context, pageController);
           },
         ),
         bottomSheet:
@@ -131,9 +128,6 @@ class QuizScreen extends HookWidget {
   Widget _buildBody(
     BuildContext context,
     PageController pageController,
-    AnimationController animationC,
-    double animation,
-    Function press,
   ) {
     // if (questions.isEmpty) return QuizError(message: 'No questions found.');
 
@@ -144,9 +138,6 @@ class QuizScreen extends HookWidget {
       } else
         return QuizQuestions(
           pageController: pageController,
-          animation: animation,
-          animationController: animationC,
-          press: press,
           questions: state is QuizLoadedSuccess
               ? state.questionData
               : state is QuizStableState
@@ -299,19 +290,14 @@ class QuizQuestions extends StatelessWidget {
   final QuizState state;
   final List<Question> questions;
   final int total;
-  final AnimationController animationController;
-  final double animation;
-  final Function press;
-  const QuizQuestions(
-      {Key key,
-      this.state,
-      @required this.pageController,
-      @required this.questions,
-      this.total,
-      this.animationController,
-      this.animation,
-      this.press})
-      : super(key: key);
+
+  const QuizQuestions({
+    Key key,
+    this.state,
+    @required this.pageController,
+    @required this.questions,
+    this.total,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -324,26 +310,39 @@ class QuizQuestions extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         final question = questions[index];
         return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ProgressBar(
-              pageController: pageController,
-              state: state,
-              total: total,
-              animationController: animationController,
-              animation: animation,
-              press: press,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ProgressBar(
+                  pageController: pageController,
+                  state: state,
+                  total: total,
+                ),
+                Text(
+                  ' ${index + 1} / ${questions.length}',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  points == null ? '0 points' : '$points points',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              'Question ${index + 1} of ${questions.length}',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
+            SizedBox(
+              height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 16.0, 20.0, 12.0),
+              padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
               child: Text(
                 question.question,
                 // HtmlCharacterEntities.decode(question.question),
@@ -493,28 +492,57 @@ class AnswerCard extends StatelessWidget {
   }
 }
 
+class CustomTimerPainter extends CustomPainter {
+  CustomTimerPainter({
+    this.animation,
+    this.backgroundColor,
+    this.color,
+  }) : super(repaint: animation);
+
+  final Animation<double> animation;
+  final Color backgroundColor, color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = backgroundColor
+      ..strokeWidth = 2.0
+      ..strokeCap = StrokeCap.butt
+      ..style = PaintingStyle.stroke;
+
+    canvas.drawCircle(size.center(Offset.zero), size.width / 2, paint);
+    paint.color = color;
+    double progress = (1.0 - animation.value) * 2 * math.pi;
+    canvas.drawArc(Offset.zero & size, math.pi * 1.5, -progress, false, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomTimerPainter old) {
+    return animation.value != old.animation.value ||
+        color != old.color ||
+        backgroundColor != old.backgroundColor;
+  }
+}
+
 class ProgressBar extends StatefulWidget {
   final PageController pageController;
-  final AnimationController animationController;
-  final double animation;
+
   final QuizState state;
   final int total;
-  Function press;
-  ProgressBar(
-      {this.press,
-      this.pageController,
-      this.state,
-      this.total,
-      this.animation,
-      this.animationController});
+
+  ProgressBar({
+    this.pageController,
+    this.state,
+    this.total,
+  });
   @override
   _ProgressBarState createState() => _ProgressBarState();
 }
 
 class _ProgressBarState extends State<ProgressBar>
     with TickerProviderStateMixin {
-  AnimationController animationController;
-  Animation animation;
+  AnimationController controller;
+  //Animation animation;
   void nextQuest() {
     if (widget.pageController.page.toInt() + 1 < widget.total) {
       widget.pageController.nextPage(
@@ -525,85 +553,163 @@ class _ProgressBarState extends State<ProgressBar>
     }
   }
 
-  void initControllerAnimation() {
-    animationController =
-        AnimationController(duration: Duration(seconds: 60), vsync: this);
-    animation = Tween<double>(begin: 0, end: 1).animate(animationController)
-      ..addListener(() {
-        // update like setState
-        widget.press();
-      });
-
-    // start our animation
-    // Once 60s is completed go to the next qn
-    //animationController.forward().whenComplete(nextQuestion);
+  String get timerString {
+    Duration duration = controller.duration * controller.value;
+    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    animationController.dispose();
-
+    controller.dispose();
+    points = 0;
     super.dispose();
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 60),
+    );
+    //controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
+    controller.animateTo(controller.value);
+    controller.forward().whenComplete(nextQuest);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    initControllerAnimation();
+    //initControllerAnimation();
     print(widget.total);
     //final animationMain = useAnimation(animation);
     return BlocListener<QuizBloc, QuizState>(
         listener: (context, state) {
-          if (state is QuizCheckAnswerSuccessful ||
-              state is QuizCheckAnswerFailed) {
-            animationController.stop();
-            widget.press();
+          if (state is QuizCheckAnswerSuccessful) {
+            controller.stop();
+            points = points + state.questionPoint;
+            // points = points +
+            // widget.press();
+          }
+          if (state is QuizCheckAnswerFailed) {
+            controller.stop();
+            points = points + state.questionPoint;
           }
           if (state is QuizStableState) {
-            animationController.reset();
+            controller.reset();
 
             // Then start it again
             // Once timer is finish go to the next qn
-            animationController.forward().whenComplete(nextQuest);
+            // controller.forward().whenComplete(nextQuest);
           }
         },
-        child: Container(
-          width: double.infinity,
-          height: 35,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFF3F4768), width: 3),
-            borderRadius: BorderRadius.circular(50),
-          ),
-          child: Stack(
-            children: [
-              // LayoutBuilder provide us the available space for the conatiner
-              // constraints.maxWidth needed for our animation
-              LayoutBuilder(
-                builder: (context, constraints) => Container(
-                  // from 0 to 1 it takes 60s
-                  width: constraints.maxWidth * animation.value,
-                  decoration: BoxDecoration(
-                    gradient: kPrimaryGradient,
-                    borderRadius: BorderRadius.circular(50),
+        child: AnimatedBuilder(
+            animation: controller,
+            builder: (context, child) {
+              return Stack(children: <Widget>[
+                // Align(
+                //   alignment: Alignment.topCenter,
+                //   child: Container(
+                //     color: Colors.amber,
+                //     width: controller.value *
+                //         MediaQuery.of(context).size.height /
+                //         4,
+                //   ),
+                // ),
+                Container(
+                  height: 100,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Expanded(
+                            child: Align(
+                              alignment: FractionalOffset.topCenter,
+                              child: AspectRatio(
+                                aspectRatio: 1.0,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Positioned.fill(
+                                      child: CustomPaint(
+                                          painter: CustomTimerPainter(
+                                        animation: controller,
+                                        backgroundColor: Colors.white,
+                                        color: Colors.red,
+                                      )),
+                                    ),
+                                    Align(
+                                      alignment: FractionalOffset.topCenter,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          // Text(
+                                          //   " Timer",
+                                          //   style: TextStyle(
+                                          //       fontSize: 12.0,
+                                          //       color: Colors.white),
+                                          // ),
+                                          Text(
+                                            timerString,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ]),
                   ),
                 ),
-              ),
-              Positioned.fill(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: kDefaultPadding / 2),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("${(animation.value * 60).round()} sec"),
-                      SvgPicture.asset("assets/icons/clock.svg"),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ));
+              ]
+                  // child: Container(
+                  //   width: double.infinity,
+                  //   height: 35,
+                  //   decoration: BoxDecoration(
+                  //     border: Border.all(color: Color(0xFF3F4768), width: 3),
+                  //     borderRadius: BorderRadius.circular(50),
+                  //   ),
+                  //   child: Stack(
+                  //     children: [
+                  //       // LayoutBuilder provide us the available space for the conatiner
+                  //       // constraints.maxWidth needed for our animation
+                  //       LayoutBuilder(
+                  //         builder: (context, constraints) => Container(
+                  //           // from 0 to 1 it takes 60s
+                  //           width: constraints.maxWidth * animation.value,
+                  //           decoration: BoxDecoration(
+                  //             gradient: kPrimaryGradient,
+                  //             borderRadius: BorderRadius.circular(50),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       Positioned.fill(
+                  //         child: Padding(
+                  //           padding:
+                  //               const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //             children: [
+                  //               Text("${(animation.value * 60).round()} sec"),
+                  //               SvgPicture.asset("assets/icons/clock.svg"),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  );
+            }));
   }
 }
 

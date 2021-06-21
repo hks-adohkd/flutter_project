@@ -51,7 +51,9 @@ class _StartTaskAlertButtonState extends State<StartTaskAlertButton>
       }
       if (taskType == "quiz") {
         //  Navigator.pushNamed(context, QuizScreen.routeName);
-        context.read<QuizBloc>().add(QuizDataRequested(taskId: taskBundle.id));
+
+        context.read<QuizBloc>().add(QuizDataRequested(
+            taskId: taskBundle.id, questionPoint: taskBundle.points));
         Navigator.pushNamed(context, QuizScreen.routeName);
       }
     }

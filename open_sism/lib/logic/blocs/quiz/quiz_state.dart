@@ -20,12 +20,14 @@ class QuizLoadedSuccess extends QuizState {
   final List<Question> questionData;
   final int userQuizIndex;
   final int selectedAnswerIndex;
+  final int questionPoint;
   //final TaskBundle recipeBundles;
   const QuizLoadedSuccess(
       {@required this.quizData,
       @required this.questionData,
-      this.userQuizIndex,
-      this.selectedAnswerIndex})
+      @required this.userQuizIndex,
+      @required this.selectedAnswerIndex,
+      @required this.questionPoint})
       : assert(quizData != null);
 
   @override
@@ -36,6 +38,7 @@ class QuizCompleteState extends QuizState {
   final QuizApiResponse quizData;
   final List<Question> questionData;
   final int userQuizIndex;
+
   //final TaskBundle recipeBundles;
   const QuizCompleteState(
       {@required this.quizData,
@@ -62,11 +65,13 @@ class QuizCheckAnswerSuccessful extends QuizState {
   final List<Question> questionData;
   final int userQuizIndex;
   final int userIndexSelection;
+  final int questionPoint;
   QuizCheckAnswerSuccessful(
       {@required this.quizData,
       @required this.questionData,
       this.userQuizIndex,
-      this.userIndexSelection});
+      this.userIndexSelection,
+      @required this.questionPoint});
 }
 
 class QuizCheckAnswerFailed extends QuizState {
@@ -74,11 +79,13 @@ class QuizCheckAnswerFailed extends QuizState {
   final List<Question> questionData;
   final int userQuizIndex;
   final int userIndexSelection;
+  final int questionPoint;
   QuizCheckAnswerFailed(
       {@required this.quizData,
       @required this.questionData,
       this.userQuizIndex,
-      this.userIndexSelection});
+      this.userIndexSelection,
+      @required this.questionPoint});
 }
 
 class QuizStableState extends QuizState {

@@ -8,7 +8,8 @@ abstract class QuizEvent {
 
 class QuizDataRequested extends QuizEvent {
   final int taskId;
-  QuizDataRequested({@required this.taskId});
+  final int questionPoint;
+  QuizDataRequested({@required this.taskId, this.questionPoint});
 }
 
 class QuizCheckAnswer extends QuizEvent {
